@@ -14,57 +14,6 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/view/userbasic/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" column="50" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Adminbasic.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/adminmanage/view/adminbasic/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Role.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/adminmanage/view/role/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Power.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
@@ -73,13 +22,64 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/adminmanage/view/power/index.html">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Adminlog.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/view/adminlog/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Selflog.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/view/selflog/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Alllog.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/msgmanage/controller/Msgmodel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/msgmanage/view/msgmodel/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/logmanage/view/alllog/index.html">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -131,6 +131,10 @@
         <option value="$PROJECT_DIR$/application/adminmanage/controller/Adminbasic.php" />
         <option value="$PROJECT_DIR$/application/adminmanage/controller/Role.php" />
         <option value="$PROJECT_DIR$/application/adminmanage/controller/Power.php" />
+        <option value="$PROJECT_DIR$/application/logmanage/controller/Adminlog.php" />
+        <option value="$PROJECT_DIR$/application/logmanage/controller/Selflog.php" />
+        <option value="$PROJECT_DIR$/application/logmanage/controller/Alllog.php" />
+        <option value="$PROJECT_DIR$/application/msgmanage/controller/Msgmodel.php" />
       </list>
     </option>
   </component>
@@ -163,29 +167,35 @@
               <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
               <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="adminmanage" type="462c0819:PsiDirectoryNode" />
+              <item name="manageconfig" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
               <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="adminmanage" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="adminmanage" type="462c0819:PsiDirectoryNode" />
+              <item name="manageconfig" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
               <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
               <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="adminmanage" type="462c0819:PsiDirectoryNode" />
+              <item name="manageconfig" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="adminbasic" type="462c0819:PsiDirectoryNode" />
+              <item name="calendar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="msgmanage" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="msgmanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
@@ -217,11 +227,11 @@
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\index\view\index" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\msgmanage\view\msgmodel" />
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\logmanage\view\alllog" />
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\logmanage\view\selflog" />
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\logmanage\view\adminlog" />
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\power" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\role" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\adminbasic" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\usermanage\view\position" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\usermanage\view\department" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -246,12 +256,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555160940770</updated>
-      <workItem from="1555160942258" duration="7445000" />
+      <workItem from="1555160942258" duration="7814000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7445000" />
+    <option name="totallyTimeSpent" value="7814000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -282,22 +292,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/static/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/static/assets/js/lib/gmap/gmaps.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/database.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -554,6 +548,46 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/adminmanage/view/power/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Adminlog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/view/adminlog/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Selflog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/view/selflog/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/view/alllog/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/logmanage/controller/Alllog.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/msgmanage/controller/Msgmodel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/msgmanage/view/msgmodel/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
