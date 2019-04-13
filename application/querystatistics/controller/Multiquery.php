@@ -11,7 +11,7 @@ namespace app\querystatistics\controller;
 
 use app\common\controller\Common;
 
-class MultiQuery extends Common
+class Multiquery extends Common
 {
     public function index(){
 
