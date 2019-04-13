@@ -14,29 +14,6 @@
   <component name="FileEditorManager">
     <leaf>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/manageconfig/controller/Calendar.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/manageconfig/view/calendar/index.html">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Userbasic.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/view/userbasic/index.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="198">
@@ -68,18 +45,37 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/adminmanage/view/adminbasic/index.html">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
+        <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Role.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="242">
               <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/adminmanage/view/role/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Power.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/adminmanage/view/power/index.html">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -133,6 +129,8 @@
         <option value="$PROJECT_DIR$/application/usermanage/view/userbasic/index.html" />
         <option value="$PROJECT_DIR$/application/usermanage/controller/Position.php" />
         <option value="$PROJECT_DIR$/application/adminmanage/controller/Adminbasic.php" />
+        <option value="$PROJECT_DIR$/application/adminmanage/controller/Role.php" />
+        <option value="$PROJECT_DIR$/application/adminmanage/controller/Power.php" />
       </list>
     </option>
   </component>
@@ -184,6 +182,14 @@
             <path>
               <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
               <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="adminmanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="adminbasic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
               <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -211,11 +217,11 @@
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\index\view\index" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\power" />
+      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\role" />
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\adminmanage\view\adminbasic" />
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\usermanage\view\position" />
       <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\usermanage\view\department" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\usermanage\view\userbasic" />
-      <recent name="C:\Users\84333\Desktop\日程管理_new\ss_calendar_new\application\manageconfig\view\calendar" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -240,12 +246,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555160940770</updated>
-      <workItem from="1555160942258" duration="7193000" />
+      <workItem from="1555160942258" duration="7445000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7193000" />
+    <option name="totallyTimeSpent" value="7445000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -528,6 +534,26 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/adminmanage/view/adminbasic/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Role.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/adminmanage/view/role/index.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/adminmanage/controller/Power.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="16" column="30" selection-start-line="16" selection-start-column="30" selection-end-line="16" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/adminmanage/view/power/index.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
