@@ -14,6 +14,7 @@ use app\common\controller\Common;
 class MultiQuery extends Common
 {
     public function index(){
+
         return $this->fetch();
     }
 }
