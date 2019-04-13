@@ -3,48 +3,36 @@
 <header id="header" class="header">
     <div class="top-left">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{:url('order/searchorder/index')}"><img src="/static/images/logo.png" alt="Logo"></a>
-            <a class="navbar-brand hidden" href="{:url('order/searchorder/index')}"><img src="/static/images/logo2.png" alt="Logo"></a>
+            <a class="navbar-brand" href="#"><img src="__STATIC__/images/logo.png" alt="Logo"></a>
+            <a class="navbar-brand hidden" href="#"><img src="__STATIC__/images/logo2.png" alt="Logo"></a>
             <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
         </div>
     </div>
-
     <div class="top-right">
         <div class="header-menu">
             <div class="header-left">
                 <a href="{:url('login/login/loginout')}">
-                    {$Think.session.user['username']}[退出]
+                    张三[退出]
                 </a>
 
                 <div class="dropdown for-notification">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
-                        <span class="count bg-danger">{$count}</span>
+                        <span class="count bg-danger">2</span>
                     </button>
                     <div class="dropdown-menu" aria-labelledby="message">
-                        <p class="red">有{$count}个工单待派单</p>
-                        {volist name='info' id='list'}
-                        <a class="dropdown-item media" href="{:url('order/orderinformation/index',['id' => $list['work_order_id']])}">
-                            <span class="photo media-left"><i class="menu-icon fa  fa-user"></i></span>
-                            <div class="message media-body">
-                                <span class="name float-left">{$list.customer_name}</span>
-                                <span class="time float-right" id="time">{$list.create_time}</span>
-                                <p>{$list.description}</p>
-                            </div>
-                        </a>
-                        {/volist}
+                        <p class="red">待办事项</p>
                     </div>
                 </div>
-
             </div>
 
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="/static/images/admin.jpg" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" src="__STATIC__/images/admin.jpg" alt="User Avatar">
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="{:url('personal/personal/index')}"><i class="fa fa-user"></i>我的资料</a>
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i>我的资料</a>
                     <a class="nav-link" href="{:url('login/login/loginout')}"><i class="fa fa-power-off"></i>退出</a>
                 </div>
             </div>
