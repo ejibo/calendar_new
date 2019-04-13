@@ -20,7 +20,7 @@ class Common extends Model
             ->where('action',$action)
             ->field('menu_id')
             ->find();
-        return $menu_id;
+        return $menu_id['menu_id'];
     }
     public function get_menu_info(){
         $menu_info = Db::table('menu')->where('is_delete',0)
