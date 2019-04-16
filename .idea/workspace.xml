@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6516e51c-a57f-4df9-b5b4-d3cc715a1cb4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/common/controller/Common.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/common/controller/Common.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/common/view/public/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/common/view/public/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/manageconfig/controller/Whitelist.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/manageconfig/controller/Whitelist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/manageconfig/view/whitelist/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/manageconfig/view/whitelist/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="6516e51c-a57f-4df9-b5b4-d3cc715a1cb4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +34,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/manageconfig/view/whitelist/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3828">
+            <state relative-caret-position="3762">
               <caret line="174" column="66" lean-forward="true" selection-start-line="174" selection-start-column="56" selection-end-line="174" selection-end-column="66" />
             </state>
           </provider>
@@ -342,16 +336,15 @@
       <workItem from="1555211440823" duration="634000" />
       <workItem from="1555252024267" duration="612000" />
       <workItem from="1555318750219" duration="628000" />
-      <workItem from="1555402688157" duration="1755000" />
+      <workItem from="1555402688157" duration="1850000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14132000" />
+    <option name="totallyTimeSpent" value="14227000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23524962" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -660,7 +653,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/manageconfig/view/whitelist/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3828">
+        <state relative-caret-position="3762">
           <caret line="174" column="66" lean-forward="true" selection-start-line="174" selection-start-column="56" selection-end-line="174" selection-end-column="66" />
         </state>
       </provider>
