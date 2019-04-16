@@ -8,6 +8,8 @@
 
 namespace app\login\controller;
 
+use app\logmanage\model\Log as LogModel;
+
 
 class Phonelogin
 {
