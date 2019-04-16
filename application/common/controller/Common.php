@@ -31,11 +31,8 @@ class Common extends Controller
         //得到当前页面对应的menu_id
         $menu_id = $model_common->get_menu_id($module,$controller,$action);
 
-        if($menu_id){
-            $this->assign('menu_id_now',$menu_id);
-        }else{
-            $this->error('不存在此页面');
-        }
+        $this->assign('menu_id_now',$menu_id);
+        
 
     }
 
