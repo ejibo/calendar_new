@@ -10,6 +10,8 @@ namespace app\logmanage\controller;
 
 
 use app\common\controller\Common;
+use app\logmanage\model\Log as LogModel;
+
 
 class Alllog extends Common
 {

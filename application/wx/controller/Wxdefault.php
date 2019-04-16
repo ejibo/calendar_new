@@ -10,6 +10,8 @@ namespace app\wx\controller;
 
 
 use app\wx\common\Common;
+use app\logmanage\model\Log as LogModel;
+
 
 class Wxdefault extends Common
 {

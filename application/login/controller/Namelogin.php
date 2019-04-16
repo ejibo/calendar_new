@@ -10,6 +10,8 @@ namespace app\login\controller;
 
 
 use think\Controller;
+use app\logmanage\model\Log as LogModel;
+
 
 class Namelogin extends Controller
 {
