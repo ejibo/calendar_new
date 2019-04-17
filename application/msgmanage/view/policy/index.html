@@ -41,7 +41,7 @@
             closeOnConfirm: false
         }, function () {
             console.log($('#modify').serializeArray());
-            $.post("{:url('provisions/postProvisionDetail', '', '')}", $('#modify').serializeArray(),
+            $.post("{:url('policy/postProvisionDetail', '', '')}", $('#modify').serializeArray(),
                 function (datas) {
                     var types = 'error'
                     if (datas.code) {
