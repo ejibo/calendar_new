@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>日程信息</title>
+    <link rel="stylesheet" type="text/css" href="querySchedule.css">
+</head>
+<body id="bodyid">
+	<p id="logo">日程信息</p>
+	<br/><br/><br/>
+		<table>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>日期</th>
+					<th>地点</th>
+					<th>事项</th>
+					<th>备注</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name='schedule_info' id='list'}
+				<tr data-id={$list.id}>
+					<td>{$i}</td>
+					<td>{$list.date}</td>
+					<td>{$list.location}</td>
+					<td>{$list.event}</td>
+					<td>{$list.note}</td>
+					<td>
+	                    <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#editwhitelist">
+	                        <i class="fa fa-magic"></i>&nbsp;编辑
+	                    </button>
+	                    <button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#delwhitelist">
+	                        <i class="fa fa-exclamation"></i>&nbsp;删除
+	                    </button>
+	                </td>
+				</tr>
+				{/volist}
+			</tbody>
+		</table>
+</body>
+</html>
