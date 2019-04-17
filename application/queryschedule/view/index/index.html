@@ -28,7 +28,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {foreach name="scheduleInfo" item="vo"}
+                                {foreach name="schedule_info" item="vo"}
                                 <tr>
                                     <td class="serial">{$key+1}</td>
                                     <td><span class="product">{$vo['date']}</span></td>
@@ -52,6 +52,36 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="smallModal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">添加日程</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        {foreach name="fields" item="vo"}
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="{$vo['name']}" class="form-control">
+                                </div>
+                            </div>
+                            </p>
+                        {/foreach}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"  id="add_cancel" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_add" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="modal fade" id="smallModal2" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
@@ -71,50 +101,22 @@
                                     <input type="text" id="itemIdE" name="itemIdE" value="01" class="form-control" disabled="disabled">
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="itemDesE" name="itemDesE" value="开会" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div id="msg2"></div>
-                            </div>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="modify_cancel" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" id="submit_modify" data-dismiss="modal">确认</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="smallModal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">添加日程</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
+                            {foreach name="fields" item="vo"}
                             <p>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-pencil-square-o"></i>
                                     </div>
-                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="日期" class="form-control">
+                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="{$vo['name']}" class="form-control">
                                 </div>
                             </div>
                             </p>
+                            {/foreach}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"  id="add_cancel" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" id="submit_add" data-dismiss="modal">确认</button>
+                            <button type="button" class="btn btn-secondary" id="modify_cancel" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_modify" data-dismiss="modal">确认</button>
                         </div>
                     </div>
                 </div>
@@ -172,4 +174,5 @@
 {/block}
 
 {block name="scripts"}
+
 {/block}

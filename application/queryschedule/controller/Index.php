@@ -7,12 +7,21 @@ use think\Db; //引入数据库
 class Index extends Common
 {
 	protected $user_id = 1;
+
+	protected $field_config = array(
+		array('name'=>'日期', 'field'=>'date'),
+		array('name'=>'时间', 'field'=>'time_id'),
+		array('name'=>'事项', 'field'=>'item_id'),
+		array('name'=>'地点', 'field'=>'place_id'),
+		array('name'=>'备注', 'field'=>'note')
+	);
+
 	public function index()
 	{
-		$this->assign('scheduleInfo', $this->defaultList());
+		$this->assign('schedule_info', $this->defaultList());
+		$this->assign('fields', $this->field_config);
 		return $this->fetch();
 	}
-
 	public function query(Request $request)
 	{
 		$starttime = $request->param('starttime');
