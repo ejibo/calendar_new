@@ -24,7 +24,7 @@ class Policy extends Common
 {
     public function index()
     {
-        $provisionFile = utf8_fopen_read("provisions.txt", "r") or die("Unable to open file!");
+        $provisionFile = fopen("provisions.txt", "r") or die("Unable to open file!");
         $last = fread($provisionFile, filesize("provisions.txt"));
         fclose($provisionFile);
         $this->assign('last', $last);
