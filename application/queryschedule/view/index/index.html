@@ -1,4 +1,3 @@
-
 {extend name="common@public/base" /}
 {block name='main-content'}
 
@@ -10,49 +9,53 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">个人日程查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallModal1" >添加日程</button>
+                            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
+                                data-target=".add-schedule">添加日程</button>
                         </h4>
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
                             <table id="bootstrap-data-table" class="table">
                                 <thead>
-                                <tr>
-                                    <th class="serial">序号</th>
-                                    <th>日期</th>
-                                    <th>时间ID</th>
-                                    <th>地点ID</th>
-                                    <th>事项ID</th>
-                                    <th>备注</th>
-                                    <th>操作</th>
-                                </tr>
+                                    <tr>
+                                        <th class="serial">序号</th>
+                                        <th>日期</th>
+                                        <th>时间ID</th>
+                                        <th>地点ID</th>
+                                        <th>事项ID</th>
+                                        <th>备注</th>
+                                        <th>操作</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {foreach name="schedule_info" item="vo"}
-                                <tr>
-                                    <td class="serial">{$key+1}</td>
-                                    <td><span class="product">{$vo['date']}</span></td>
-                                    <td><span class="product">{$vo['time_id']}</span></td>
-                                    <td><span class="product">{$vo['place_id']}</span></td>
-                                    <td><span class="product">{$vo['item_id']}</span></td>
-                                    <td><span class="product">{$vo['note']}</span></td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$vo.id}" data-toggle="modal" data-target="#smallModal2">
-                                            <i class="fa fa-magic"></i>&nbsp;编辑
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$vo.id}" data-toggle="modal" data-target="#smallModal3">
-                                            <i class="fa fa-exclamation"></i>&nbsp;删除
-                                        </button>
-                                    </td>
-                                </tr>
-                                {/foreach}
+                                    {foreach name="schedule_info" item="vo"}
+                                    <tr>
+                                        <td class="serial">{$key+1}</td>
+                                        <td><span class="product">{$vo['date']}</span></td>
+                                        <td><span class="product">{$vo['time_id']}</span></td>
+                                        <td><span class="product">{$vo['place_id']}</span></td>
+                                        <td><span class="product">{$vo['item_id']}</span></td>
+                                        <td><span class="product">{$vo['note']}</span></td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$vo.id}"
+                                                data-toggle="modal" data-target=".edit-schedule">
+                                                <i class="fa fa-magic"></i>&nbsp;编辑
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm mb-1" data-id="{$vo.id}"
+                                                data-toggle="modal" data-target=".delete-schedule">
+                                                <i class="fa fa-exclamation"></i>&nbsp;删除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {/foreach}
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="smallModal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+            <div class="modal fade add-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -62,27 +65,29 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                        {foreach name="fields" item="vo"}
+                            {foreach name="fields" item="vo"}
                             <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </div>
+                                        <input type="text" id="itemDesA" name="itemDescription"
+                                            placeholder="{$vo['name']}" class="form-control">
                                     </div>
-                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="{$vo['name']}" class="form-control">
                                 </div>
-                            </div>
                             </p>
-                        {/foreach}
+                            {/foreach}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary"  id="add_cancel" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" id="submit_add" data-dismiss="modal">确认</button>
+                            <button type="button" class="btn btn-secondary cancel-add" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success submit-add" data-dismiss="modal">确认</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="smallModal2" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+            <div class="modal fade edit-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -93,35 +98,40 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-check-square-o"></i>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-check-square-o"></i>
+                                        </div>
+                                        <input type="text" id="itemIdE" name="itemIdE" value="01" class="form-control"
+                                            disabled="disabled">
                                     </div>
-                                    <input type="text" id="itemIdE" name="itemIdE" value="01" class="form-control" disabled="disabled">
                                 </div>
-                            </div>
-                            {foreach name="fields" item="vo"}
-                            <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </div>
+                                        <input type="text" id="itemDesE" name="itemDesE" value="开会"
+                                            class="form-control">
                                     </div>
-                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="{$vo['name']}" class="form-control">
                                 </div>
-                            </div>
+                                <div class="form-group">
+                                    <div id="msg2"></div>
+                                </div>
                             </p>
-                            {/foreach}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" id="modify_cancel" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" id="submit_modify" data-dismiss="modal">确认</button>
+                            <button type="button" class="btn btn-secondary" id="modify_cancel"
+                                data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_modify"
+                                data-dismiss="modal">确认</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="smallModal3" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+            <div class="modal fade delete-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -132,27 +142,29 @@
                         </div>
                         <div class="modal-body">
                             <p>
-                            <div class="form-group">
-                                确定删除吗?
-                            </div>
+                                <div class="form-group">
+                                    确定删除吗?
+                                </div>
                             </p>
                             <div class="form-group">
                                 <div id="msg3"></div>
                             </div>
                             <div>
-                                <input id="id"  type="hidden">
+                                <input id="id" type="hidden">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" id="submit_delete" data-dismiss="modal">确认</button>
+                            <button type="button" class="btn btn-success" id="submit_delete"
+                                data-dismiss="modal">确认</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- 模态框（Modal） -->
-            <div class="modal fade" id="smallModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade smallModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -174,5 +186,4 @@
 {/block}
 
 {block name="scripts"}
-
 {/block}
