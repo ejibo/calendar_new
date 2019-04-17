@@ -1,15 +1,15 @@
 <?php
 namespace app\querySchedule\controller;
-use think\Controller;//引入Controller类
+use app\common\controller\Common as Common;
 use think\Request;
 use think\Db; //引入数据库
 
-class Index extends Controller
+class Index extends Common
 {
-    public function index()
-    {
+	public function index()
+	{
 		return $this->fetch();
-    }
+	}
 	public function query(Request $request)
 	{
 		$starttime = $request->param('starttime');
@@ -30,5 +30,9 @@ class Index extends Controller
 
 		$this->assign('schedule_info', $result);
 		return $this->fetch('result');
+	}
+	public function defaultList(){
+		$list = DB::name('schedule_info')->select();
+		return $list;
 	}
 }
