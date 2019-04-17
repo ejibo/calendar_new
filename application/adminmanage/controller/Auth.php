@@ -1,26 +1,30 @@
 <?php
 
 namespace app\admin\controller;
+
 use think\Config;
 use think\Session;
 use think\Db;
 
-class Auth {
+class Auth
+{
     //默认配置
     protected $config = array(
-        'auth_on'           => true,                      // 认证开关
-        'auth_type'         => 2,                         // 认证方式，1为实时认证；2为登录认证。
-        'auth_group'        => 'auth_group',        // 用户组数据表名
+        'auth_on' => true,                      // 认证开关
+        'auth_type' => 2,                         // 认证方式，1为实时认证；2为登录认证。
+        'auth_group' => 'auth_group',        // 用户组数据表名
         'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
-        'auth_rule'         => 'auth_rule',         // 权限规则表
-        'auth_user'         => 'auth_member'             // 用户信息表
+        'auth_rule' => 'auth_rule',         // 权限规则表
+        'auth_user' => 'auth_member'             // 用户信息表
     );
 
-    public function __construct() {
+    public function __construct()
+    {
         if (Config::get('auth_config')) {
             $this->config = array_merge($this->config, Config::get('auth_config')); //可设置配置项 auth_config, 此配置项为数组。
         }
     }
+
     /**
      * 检查权限
      * @param name string|array  需要验证的规则列表,支持逗号分隔的权限规则或索引数组
@@ -29,7 +33,8 @@ class Auth {
      * @param relation string    如果为 'or' 表示满足任一条规则即通过验证;如果为 'and'则表示需满足所有规则才能通过验证
      * return boolean           通过验证返回true;失败返回false
      */
-    public function check($name, $uid, $type = 1, $mode = 'url', $relation = 'or') {
+    public function check($name, $uid, $type = 1, $mode = 'url', $relation = 'or')
+    {
         if (!$this->config['auth_on']) {
             return true;
         }
@@ -60,7 +65,7 @@ class Auth {
                 $list[] = $auth;
             }
         }
-        if ($relation == 'or' and ! empty($list)) {
+        if ($relation == 'or' and !empty($list)) {
             return true;
         }
         $diff = array_diff($name, $list);
@@ -69,31 +74,35 @@ class Auth {
         }
         return false;
     }
+
     /**
      * 根据用户id获取用户组,返回值为数组
-     * @param  uid int     用户id
+     * @param uid int     用户id
      * return array       用户所属的用户组 [
      *     ['uid'=>'用户id','group_id'=>'用户组id','title'=>'用户组名称','rules'=>'用户组拥有的规则id,多个,号隔开'),
      *     ...)
      */
-    public function getGroups($uid) {
+    public function getGroups($uid)
+    {
         static $groups = [];
         if (isset($groups[$uid])) {
             return $groups[$uid];
         }
         $user_groups = Db::view($this->config['auth_group_access'], 'uid,group_id')->view($this->config['auth_group'], 'title,rules', "{$this->config['auth_group_access']}.group_id={$this->config['auth_group']}.id")
-                        ->where(['uid' => $uid, 'status' => 1])->select();
+            ->where(['uid' => $uid, 'status' => 1])->select();
         $groups[$uid] = $user_groups ? $user_groups : [];
         return $groups[$uid];
     }
+
     /**
      * 获得权限列表
-     * @param integer $uid  用户id
+     * @param integer $uid 用户id
      * @param integer $type
      */
-    protected function getAuthList($uid, $type) {
+    protected function getAuthList($uid, $type)
+    {
         static $_authList = []; //保存用户验证通过的权限列表
-        $t = implode(',', (array) $type);
+        $t = implode(',', (array)$type);
         if (isset($_authList[$uid . $t])) {
             return $_authList[$uid . $t];
         }
@@ -136,10 +145,12 @@ class Auth {
         }
         return array_unique($authList);
     }
+
     /**
      * 获得用户资料,根据自己的情况读取数据库
      */
-    protected function getUserInfo($uid) {
+    protected function getUserInfo($uid)
+    {
         static $userinfo = [];
         if (!isset($userinfo[$uid])) {
             $userinfo[$uid] = Db::name($this->config['auth_user'])->where(['uid' => $uid])->find();
