@@ -14,8 +14,8 @@ use \think\Request;
 
 class Adminbasic extends Common
 {
-    // admins list
-  public function index(){  
+    // admins list 
+  public function index(){
     // get all admin
     // show 10 admins per page
     //$admin_list = ManageInfoModel::paginate(100);
