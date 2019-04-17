@@ -1,5 +1,5 @@
 
-{extend name='../application/common/view/public/base.html'}
+{extend name="common@public/base" /}
 {block name='main-content'}
 
 <!-- Content -->
@@ -19,29 +19,33 @@
                                 <thead>
                                 <tr>
                                     <th class="serial">序号</th>
-                                    <!--<th>事项ID</th>-->
-                                    <th>事项描述</th>
+                                    <th>日期</th>
+                                    <th>时间ID</th>
+                                    <th>地点ID</th>
+                                    <th>事项ID</th>
+                                    <th>备注</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {notempty name="scheduleItems"}
-                                {foreach name="scheduleItems" item="scheduleItem"}
+                                {foreach name="scheduleInfo" item="vo"}
                                 <tr>
                                     <td class="serial">{$key+1}</td>
-                                    <!--<td>  <span class="product">{$scheduleItem['id']}</span></td>-->
-                                    <td>  <span class="product">{$scheduleItem['name']}</span></td>
+                                    <td><span class="product">{$vo['date']}</span></td>
+                                    <td><span class="product">{$vo['time_id']}</span></td>
+                                    <td><span class="product">{$vo['place_id']}</span></td>
+                                    <td><span class="product">{$vo['item_id']}</span></td>
+                                    <td><span class="product">{$vo['note']}</span></td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$scheduleItem.id}" data-des="{$scheduleItem.name}" data-toggle="modal" data-target="#smallModal2">
+                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$vo.id}" data-toggle="modal" data-target="#smallModal2">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$scheduleItem.id}" data-toggle="modal" data-target="#smallModal3">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$vo.id}" data-toggle="modal" data-target="#smallModal3">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
                                     </td>
                                 </tr>
                                 {/foreach}
-                                {/notempty}
                                 </tbody>
                             </table>
                         </div>
@@ -103,7 +107,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-pencil-square-o"></i>
                                     </div>
-                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="事项描述" class="form-control">
+                                    <input type="text" id="itemDesA" name="itemDescription" placeholder="日期" class="form-control">
                                 </div>
                             </div>
                             </p>
@@ -167,4 +171,5 @@
 </div>
 {/block}
 
-
+{block name="scripts"}
+{/block}

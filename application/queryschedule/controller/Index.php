@@ -6,10 +6,13 @@ use think\Db; //引入数据库
 
 class Index extends Common
 {
+	protected $user_id = 1;
 	public function index()
 	{
+		$this->assign('scheduleInfo', $this->defaultList());
 		return $this->fetch();
 	}
+
 	public function query(Request $request)
 	{
 		$starttime = $request->param('starttime');
@@ -27,12 +30,13 @@ class Index extends Common
 			$event = Db::table('schedule_item')->where('id', $item_id)->value('name');
 			$result[$x]['event'] = $event;
 		}
-
 		$this->assign('schedule_info', $result);
 		return $this->fetch('result');
 	}
+	
 	public function defaultList(){
-		$list = DB::name('schedule_info')->select();
-		return $list;
+		$sql = "select * from schedule_info where user_id = ".$this->user_id." and is_delete = false";
+		$result = Db::query($sql);
+		return $result;
 	}
 }
