@@ -22,17 +22,13 @@ function utf8_fopen_read($fileName)
 
 class Policy extends Common
 {
-    public function index(){
-        return getProvisionDetail();
-    }
-
-    public function getProvisionDetail()
+    public function index()
     {
         $provisionFile = utf8_fopen_read("provisions.txt", "r") or die("Unable to open file!");
         $last = fread($provisionFile, filesize("provisions.txt"));
         fclose($provisionFile);
         $this->assign('last', $last);
-        return $this->fetch('index');
+        return $this->fetch();
     }
 
     public function postProvisionDetail()
