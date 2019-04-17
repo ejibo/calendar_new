@@ -13,7 +13,7 @@ use app\wx\common\Common;
 use app\logmanage\model\Log as LogModel;
 
 
-class Policy extends Common
+class Wxpolicy extends Common
 {
 
 }
