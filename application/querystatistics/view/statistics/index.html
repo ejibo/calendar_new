@@ -2,19 +2,48 @@
 {block name="main-content"}
 <!-- Content -->
 <div class="content">
-    <div class="animated fadeIn">
+    <div class="animated fadeIn">                
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">统计&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                        </h4>
+                    <div class="card-body--">
+                        <div class="table-stats">
+                            <table id="bootstrap-data-table" class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="serial">序号</th>
+                                        <th>姓名</th>
+                                        <th>所属部门</th>
+                                        <th>职位</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {notempty name="arealist"}
+                                    {foreach name="arealist" item="arealist"}
+                                    <tr>
+                                        <td class="serial">{$arealist['id']}</td> 
+                                        <td><span class="product">{$arealist['name']}</span></td>
+                                        <td><span class="product">{$arealist['depart_name']}</span></td>
+                                        <td><span class="product">{$arealist['user_posname']}</span></td>
+                                        <td>
+                                            <a href="{:url('querystatistics/statistics/statisticsFun')}?id={$arealist.id}">
+                                            <button type="button" class="btn btn-primary btn-sm mb-1"  data-id="{$arealist.id}" data-toggle="modal">
+                                                <i class="fa fa-magic"></i>&nbsp;统计
+                                            </button></a>                                                                            
+                                        </td>                                             
+                                    </tr> 
+                                    {/foreach}
+                                {/notempty}                     
+                                </tbody>                                
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- .animated -->
 </div>
 <!-- /.content -->
 {/block}
