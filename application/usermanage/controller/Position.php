@@ -16,5 +16,14 @@ class Position extends Common
     public function index(){
         return $this->fetch();
     }
+    /*
+    *story:修改职务
+     *负责人：张君兰
+    */
+    public function change($id,$name)
+    {
+        $position = model('Position');
+        $position ->change($id,$name);
 
+    }
 }
