@@ -77,4 +77,17 @@ class Whitelist extends Common
             $this->error('修改失败！');
         }
     }
+
+
+    public function clearwhitelist(){
+        $whitelist = model('Whitelist');
+        $is_clear = $whitelist->clearwhitelist();
+        if ($is_clear){
+            $this->success('修改成功！');
+        }else{
+            $this->error('修改失败！');
+        }
+    }
+
+
 }
