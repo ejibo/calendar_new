@@ -32,7 +32,6 @@ class Smsbinding extends Common
         $verifyCode = rand(100000, 999999);
         $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
         $result = $client->send($_GPC['phone'], "您的验证码为" + $verifyCode + "，有效时间为5分钟");
-        session_start();
         $_SESSION['verifyCode'] = $verifyCode;
         if ($result->code == '0') {
             echo '发送成功';
