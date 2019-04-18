@@ -29,6 +29,17 @@ class Position extends Common
 
     }
 
+    /**
+     *第05组 张君兰
+     * 功能：修改职位
+    */
+    public function change($id,$name)
+    {
+        $position = model('Position');
+        $position ->change($id,$name);
+
+    }
+
  /**
   * 第05组 高裕欣
   * 功能：作废职位

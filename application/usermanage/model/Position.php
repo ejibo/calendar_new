@@ -16,7 +16,17 @@ class Position extends Model{
      return $list;
  }
 
- 
+    /**
+     *第05组 张君兰
+     * 功能：修改职位
+     */
+    public function change($id, $name)
+    {
+        $position = Position::get($id);//获取用户id
+        //更新数据库中的职务名称
+        $position->name = $name;
+        $position->save();//将更新提交至数据库表
+    }
  /**
   * 第05组 高裕欣
   * 功能：作废职位
