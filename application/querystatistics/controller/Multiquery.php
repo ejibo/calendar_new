@@ -77,7 +77,7 @@ class Multiquery extends Common
         #echo "<pre>";print_r($nameids);echo "<pre>";
         #echo "<pre>";print_r($info);echo "<pre>";
         #echo "<pre>";print_r($finalres);echo "<pre>";
-        #return $this->fetch('search');
-        return view('search');
+        return $this->fetch('search');
+        #return view('search');
     }
 }
