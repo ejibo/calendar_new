@@ -14,9 +14,8 @@
 <form action="" method="post">
                                             <div class="form-group">
                                               <label for="phone">手机号码：</label>
-                                              <input type="text" class="form-control" name="phone" placeholder="手机号码" id="tellphone" value="{php echo $_SESSION['tellphone']}" {if $ifnum == 1}disabled="true" value="{$list['phone']}"{/if}>
+                                              <input type="text" class="form-control" name="phone" placeholder="手机号码" id="telephone" value="{php echo $_SESSION['telephone']}" >
                                             </div>
-                                            {if $ifnum == 0}
                                             <div class="form-group">
                                             <input type="button" class="btn btn-warning btn-block" value="获取手机验证码"  id="phonebtn" onclick="sendcode(60)"> 
                                             </div>
@@ -24,7 +23,6 @@
                                               <label class="control-label sr-only"></label>
                                               <input name="phonecode" type="text" class="form-control" placeholder="验证码">
                                             </div>
-                                            {/if}
                                             <input type="hidden" name="token" value="{$_W['token']}" />
                                             <div style="width: 100%;text-align: center;">
                                               <button type="submit" name="submit" value="提交" class="btn btn-info">提交</button>
@@ -39,3 +37,28 @@
 </div>
 <!-- /.content -->
 {/block}
+    <script>
+            if(time()-$_SESSION['time']<60){
+              $("#phonebtn").attr('disabled', 'true');
+              for(i=1;i<={php echo 60-(time()-$_SESSION['time'])};i++) { 
+                    window.setTimeout("update_p(" + i + ","+{php echo 60-(time()-$_SESSION['time'])}+")", i * 1000); 
+                } 
+                }
+            function sendcode(t){
+              /*发送短信验证码*/
+              $("#phonebtn").attr('disabled', 'true');
+                for(i=1;i<=t;i++) { 
+                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000); 
+                }
+            }
+          
+            function update_p(num,t) { 
+                if(num == t) { 
+                    $("#phonebtn").val(" 重新发送 "); 
+                    $("#phonebtn").removeAttr('disabled');
+                }else { 
+                    printnr = t-num; 
+                    $("#phonebtn").val(" (" + printnr +")秒后重新发送"); 
+                } 
+            }
+    </script>
