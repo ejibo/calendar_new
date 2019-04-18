@@ -21,8 +21,8 @@ class Position extends Common
 	public function index() {
         $position = model('Position');
         $list = $position->getUserPositionList();
-        dump($list);
-        exit;
+        //dump($list);
+        //exit;
         $this->assign("list", $list);
         return $this->fetch();
 
