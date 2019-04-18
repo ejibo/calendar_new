@@ -46,4 +46,13 @@ class Department extends Model
         $departs = Db::query('select id,name,is_delete from user_depart order by is_delete');
         return $departs;
     }
+      /*
+     *story:修改部门名称
+     *负责人：张艺璇
+     */
+  public function change($id){
+        $department = Department::get(['id' => $id]);//可以通过此种方式根据别的字段获取记录
+		//更新数据库中的部门名称
+        $department->name= $name;
+        $department->save();//保存，也就是把更新提交到数据库表
 }
