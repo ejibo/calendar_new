@@ -31,7 +31,7 @@ class Position extends Model{
   * 第05组 高裕欣
   * 功能：作废职位
   */
- function invalid($user_id) {
+ function position_invalid($user_id) {
         $data = array();
         $data['is_delete'] = 1;
         $data['delete_time'] =  Db::raw('now()');
