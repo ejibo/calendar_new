@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Ejibo
+ * Date: 2019/4/18
+ * Time: 14:23
+ */
 
 namespace app\querystatistics\controller;
 use app\common\controller\Common;
@@ -7,7 +13,7 @@ use think\Request;
 use think\Db;
 
 
-class Dataexport extends Common
+class DataExport extends Common
 {
     public function index(){
         return $this->fetch('index');
