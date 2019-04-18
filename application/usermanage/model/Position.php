@@ -54,7 +54,7 @@ class Position extends Model
      * 第05组 张楚悦
      * 功能：添加职位
      */
-    public function add($name)
+    /*public function add($name)
     {
         // 接受用户职务信息
         $status = 1;
@@ -76,7 +76,7 @@ class Position extends Model
             $position->save();
             $status = 1;
             $message = '添加成功';
-        }
+        }*/
     }
 }
 
