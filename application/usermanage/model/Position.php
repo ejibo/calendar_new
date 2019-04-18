@@ -37,11 +37,8 @@ class Position extends Model{
         $data['delete_time'] =  Db::raw('now()');
         Db::table('user_position')->where('id', $user_id)->update($data);
     }
-	
-}
 
-
-/**
+  /**
  * 第05组 张楚悦
  * 功能：添加职位
  */
@@ -68,4 +65,8 @@ public function add($name)
         $status = 1;
         $message = '添加成功';
     }
+}
+
+
+
 
