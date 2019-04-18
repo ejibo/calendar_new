@@ -416,7 +416,7 @@
         //先略过不合法输入,只做trim处理
         console.log(id);
         //post方法修改
-        $.post('/usermanage/userbasic/deleteuser', {
+        $.post('deleteuser', {
                 id: id
             },
             function (data) {
