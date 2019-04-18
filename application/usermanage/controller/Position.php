@@ -40,6 +40,13 @@ class Position extends Common
         $this->redirect('usermanage/position/index');
     }
 
+public function restore($user_id)
+    {
+        //调用model中的方法，保证MVC分离
+        $position = model('Position');
+        $position -> restore($user_id);
+        $this->redirect('/usermanage/position/index');
+}
  /**
  * 第05组 张楚悦
  * 功能：添加职位
