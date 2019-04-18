@@ -20,21 +20,32 @@
                                                 <th>姓名</th>
                                               	<th>用户类型</th>
                                                 <th>工号/学号</th>
-                                              	<th>最后日程时间</th>s
+                                              	<th>最后日程时间</th>
+                                              	<th>操作</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {volist name="list" id="vo"}
+                                            
+                                    			{volist name="arealist" id="vo"}
                                             <tr>
                                                 <td class="serial">{$i}</td>            
                                                 <td>  <span class="product">{$vo.name}</span> </td>
                                               	<td>  
-                                                  	<span class="product">{$vo.type_id}</span>
+                                                  	<span class="product">{$user_type[$vo.type_id]}</span>
                                               	</td>
                                                 <td>  <span class="product">{$vo.work_id}</span> </td>
                                              	<td>  <span class="product">{$vo.last_date}</span> </td>
-                                        </tr>
-                                        {/volist}
+                                              	<td>
+                                                   {if condition= "$vo.last_date !=''" }
+                                            		<a href="{:url('querystatistics/statistics/statisticsFun')}?id={$vo.id}">
+                                            		<button type="button" class="btn btn-primary btn-sm mb-1"  data-id="{$vo.id}" data-toggle="modal">
+                                                	<i class="fa fa-magic"></i>&nbsp;统计
+                                            		</button></a>
+                                                  {/if}
+                                        		</td>
+                                       	 	</tr>
+                                        		{/volist}
+                                			
                                     </tbody>                                
                                 </table>
                             </div>

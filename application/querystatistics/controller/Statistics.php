@@ -82,7 +82,7 @@ class Statistics extends Common
 				GROUP BY(user_info.id) 
 				HAVING (last_date IS NULL OR last_date<\"$today\")";
         		$list = Db::query($sql);
-        		$this->assign('list',$list);
+        		$this->assign('arealist',$list);
        			$user_type=array("0"=>"普通用户","1"=>"院领导","2"=>"部门领导","3"=>"系领导");
        			$this->assign('user_type',$user_type);
         		return $this->fetch();
