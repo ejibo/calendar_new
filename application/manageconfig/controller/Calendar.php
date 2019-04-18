@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /**
  * Created by PhpStorm.
  * User: 84333
@@ -14,7 +14,7 @@ use app\common\model\ScheduleDefault;
 use think\Db;
 use think\Request;
 
-class Calendar extends Common
+class Calendar extends Controller
 {
     public function index(){
         $username=session('username');
