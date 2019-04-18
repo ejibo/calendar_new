@@ -13,10 +13,7 @@ use app\common\controller\Common;
 
 class Position extends Common
 {
-    public function index(){
-        return $this->fetch();
-    }
-	
+  
  /**
   * 第05组 高裕欣
   * 功能：显示列表
