@@ -4,6 +4,7 @@ use app\common\controller\Common;
 
 use think\Controller;
 use think\Db;
+use think\Request;
 
 
 class Index extends Common
