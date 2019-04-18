@@ -33,9 +33,9 @@
                                                 <td>
                                                     <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#smallmodal">
                                                         <i class="fa fa-magic"></i>&nbsp;编辑
-                                                    </button> {eq name="vo.is_delete" value="0"}<a href="{:url('/index/index/invalid','user_id='.$vo.id);}"><button type="button" class="btn btn-danger btn-sm mb-1">
+                                                    </button> {eq name="vo.is_delete" value="0"}<a href="{:url('/usermanage/position/index','user_id='.$vo.id);}"><button type="button" class="btn btn-danger btn-sm mb-1">
                                                         <i class="fa fa-exclamation"></i>&nbsp;作废
-                                                    </button></a>{else/}<a href="{:url('/index/index/restore','user_id='.$vo.id);}"><button type="button" class="btn btn-success btn-sm mb-1">
+                                                    </button></a>{else/}<a href="{:url('/usermanage/position/index','user_id='.$vo.id);}"><button type="button" class="btn btn-success btn-sm mb-1">
                                                         <i class="fa fa-exclamation"></i>&nbsp;恢复
                                                     </button></a>{/eq}
 
