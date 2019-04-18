@@ -83,18 +83,13 @@ class Department extends Common
         return ['status'=>$status, 'message'=>$message];
     }
     /*
-     *story:修改部门
-     *负责人：
+     *story:修改部门名称
+     *负责人：张艺璇
      */
     public function change($id,$name)
     {
-        $department = Department::get(['id' => $id]);//可以通过此种方式根据别的字段获取记录
+        $department = model('Department');
+        $department->change($id);
 
-        //通过ID值获取到数据表中的该条记录
-        //$department = Department::get(1);
-        //更新该记录的is_delete字段
-        $department->name= $name;
-        $department->save();//保存，也就是把更新提交到数据库表
-        print_r($department);
     }
 }
