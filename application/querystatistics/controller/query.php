@@ -11,7 +11,7 @@ use think\controller;
 use think\Db;
 use think\Request;
 
-class Query extends controller{
+class Query extends Common{
             
 	// public function index()
 	// {
@@ -35,4 +35,3 @@ class Query extends controller{
         return $this->fetch('info');
     }
 }
-?>
