@@ -12,23 +12,20 @@
      			   	</div>
                     <div class="card-body--">
                       <div class="form-group">
-<form action="" method="post">
                                             <div class="form-group">
-                                              <label for="phone">手机号码：</label>
-                                              <input type="text" class="form-control" name="phone" placeholder="手机号码" id="telephone" value="" >
+                                              <label for="telephone">手机号码：</label>
+                                              <input type="text" class="form-control" placeholder="手机号码" id="telephone" >
                                             </div>
                                             <div class="form-group">
-                                            <input type="button" class="btn btn-warning btn-block" value="获取手机验证码"  id="phonebtn" onclick="sendcode(60)"> 
+                                            <button type="button" class="btn btn-warning btn-block" onclick="get_code();">获取验证码</button>
                                             </div>
                                             <div class="form-group">
                                               <label for="phonecode">验证码：</label>
-                                              <input name="phonecode" type="text" class="form-control" placeholder="验证码">
+                                              <input  type="text" class="btn btn-info" placeholder="验证码" id="phonecode">
                                             </div>
-                                            <input type="hidden" name="token" value="" />
-                                            <div style="width: 100%;text-align: center;">
-                                              <button type="submit" name="submit" value="提交" class="btn btn-info">提交</button>
+                                          <div>
+                                              <button type="button" class="btn btn-success" onclick="verify();">提交</button>
                                             </div>
-                                          </form>
                         </div>
                     </div>
                 </div>
