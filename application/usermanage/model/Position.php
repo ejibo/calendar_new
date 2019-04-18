@@ -40,3 +40,32 @@ class Position extends Model{
 	
 }
 
+
+/**
+ * 第05组 张楚悦
+ * 功能：添加职位
+ */
+public function add($name)
+{
+    // 接受用户职务信息
+    $status = 1;
+    $message = '用户名可用';
+
+    if (Position::get(['name'=> $name])) {
+        //如果在表中查询到该用户名
+        $status = 0;
+        $message = '职务已存在,请重新输入';
+    }
+    return ['status'=>$status, 'message'=>$message];
+
+    $result = $this -> validate($name);
+
+    if ($result === true) {
+        $department = new Department;
+        $department->name = $name;
+        $department->create_time = time();
+        $department->save();
+        $status = 1;
+        $message = '添加成功';
+    }
+
