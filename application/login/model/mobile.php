@@ -1,9 +1,9 @@
 <?php
-
+namespace app\login\model;
 use think\Model;
 use think\Db;
 
-class Log extends Model
+class mobile extends Model
 {
     /**
      * 吴欣雨
@@ -25,7 +25,7 @@ class Log extends Model
      */
     public function hasMobile($id)
     {
-        $data = $user->where('id', $id)->select();//查询对应id管理员的记录
+        $data = Db::name('manage_info')->where('id', $id)->select();//查询对应id管理员的记录
         if ($data['mobilephone'] == null) return null;
         else return $data['mobilephone'];
     }
