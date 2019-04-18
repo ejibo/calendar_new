@@ -26,7 +26,7 @@ class Department extends Common
     }
     /*
      *story:删除部门
-     *负责人：张欣彤
+     *负责人：张欣童
      */
     public function delete($id)
     {
@@ -47,9 +47,9 @@ class Department extends Common
 
     /*
      *story:添加部门
-     *负责人：
+     *负责人：陆韵
      */
-    public function addDepartment($userName)
+    public function add($userName)
     {
         // 接收用户的数据,部门描述
         $status = 1;
