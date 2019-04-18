@@ -51,36 +51,8 @@ class Department extends Common
      */
     public function add($name)
     {
-        // 接收用户的数据,部门描述
-        $status = 1;
-        $message = '用户名可用';
-
-        if (Department::get(['name'=> $name])) {
-            //如果在表中查询到该用户名
-            $status = 0;
-            $message = '部门已存在,请重新输入';
-        }
-        return ['status'=>$status, 'message'=>$message];
-
-        $rule = [
-            'name|部门名称' => "require|min:1|max:30",
-        ];
-
-        $result = $this -> validate($name, $rule);
-
-        //if ($result === true) {
-        $department = new Department;
-        $department->name = $name;
-        $department->create_time = time();
-        $department->save();
-        $status = 1;
-        $message = '添加成功';
-        //}else{
-        //$status = 0;
-        //$message = '部门描述长度须在3-30个字符之间，请重新添加';
-        //}
-
-        return ['status'=>$status, 'message'=>$message];
+        $department = model('Department');
+        $department->add($name);
     }
     /*
      *story:修改部门名称
