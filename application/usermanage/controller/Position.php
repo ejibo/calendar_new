@@ -39,10 +39,8 @@ class Position extends Common
         $position -> invalid($user_id);
         $this->redirect('/usermanage/position/index');
     }
-	
-}
 
-/**
+ /**
  * 第05组 张楚悦
  * 功能：添加职位
  */
@@ -51,3 +49,6 @@ public function add($name)
     $department = model('Position');
     $department->add($name);
 }
+}
+
+
