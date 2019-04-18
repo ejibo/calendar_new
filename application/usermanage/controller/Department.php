@@ -89,7 +89,7 @@ class Department extends Common
     public function change($id,$name)
     {
         $department = model('Department');
-        $department->change($id);
+        $department->change($id,$name);
 
     }
 }
