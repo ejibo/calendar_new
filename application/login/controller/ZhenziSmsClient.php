@@ -1,5 +1,5 @@
 <?php 
-class ZhenziSmsClient{
+class ZhenziSmsClient1{
 	private $appId;
 	private $appSecret;
 	private $apiUrl;
