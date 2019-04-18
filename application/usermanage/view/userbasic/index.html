@@ -472,7 +472,7 @@
         }
         console.log(deleteidsarr);
         $.ajax({
-            url: '/usermanage/userbasic/batchDeleteUser',
+            url: 'batchDeleteUser',
             data: {'list[]': deleteidsarr},
             type: 'POST',
             success: function (response) {
