@@ -63,21 +63,15 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
         }
         return ['status'=>$status, 'message'=>$message];
-		else{
-          $department = new Department;
-        $department->insert($name);
-          $status = 1;
-        $message = '添加成功';
-        }
-        #$rule = [
-            #'name|部门名称' => "require|min:1|max:30",
-       # ];
+        $rule = [
+            'name|部门名称' => "require|min:1|max:30",
+        ];
 
-       # $result = $this -> validate($name, $rule);
+        $result = $this -> validate($name, $rule);
 
         //if ($result === true) {
-       # $department = new Department;
-       # $department->insert($name);
+        $department = new Department;
+        $department->insert($name);
         #$department->name = $name;
         #$department->create_time = time();
         #$department->save();
