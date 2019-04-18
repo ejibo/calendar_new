@@ -147,10 +147,11 @@
     function loadTable() {
         $.ajax({
             type: "POST",
-            url: '/Department/loadDepartment',//url地址，相对路径，已经在department控制器下
+            url: 'loadDepartment',//url地址，相对路径，已经在department控制器下
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
             success: function (data) {
+                console.log(data);
                 var table_html = "";
                 var strs = ["未删除","已删除"];
                 for(var i=0;i<data.length;i++){
@@ -186,14 +187,14 @@
         //console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "/Department/add",
+            url: "add",
             async: false,
             //dataType: 'json',
             data: {
-                "userName":$("#name").val()
+                "name":$("#name").val()
             },
             success: function(data){
-                //console.log(data);
+                console.log(data);
                 if(data.status==1){
                     alert(data.message);
                     $("#smallmodal1").modal("hide");
@@ -223,7 +224,7 @@
                 "name":name
             },//请求需要发送的处理数据
             success: function (msg) {
-                console.log("success!")
+                console.log("success!"+msg);
                 alert("修改成功！");
                 $("#smallmodal").modal("hide");
                 $('.modal-backdrop').remove();//去除遮罩层
