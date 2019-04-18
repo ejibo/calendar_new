@@ -21,22 +21,13 @@ class Position extends Common
   * 第05组 高裕欣
   * 功能：显示列表
   */
-	public function user_position_list() {
+	public function index() {
         $position = model('Position');
-        $departments = $position->getUserPositionList();
+        $list = $position->getUserPositionList();
+        dump($list);
+        exit;
         $this->assign("list", $list);
         return $this->fetch();
-
-    }
-
-    /**
-     *第05组 张君兰
-     * 功能：修改职位
-    */
-    public function change($id,$name)
-    {
-        $position = model('Position');
-        $position ->change($id,$name);
 
     }
 
