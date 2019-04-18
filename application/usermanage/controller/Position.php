@@ -51,11 +51,24 @@ public function restore($user_id)
  * 第05组 张楚悦
  * 功能：添加职位
  */
-public function add($name)
-{
-    $position = model('Position');
-    $position ->add($name);
-}
+    public function  addPosition()
+    {
+        $pos = $_POST['pos'];
+        $model = model('ScheduleItem');
+        $isHasSame = $model->getPosByName($pos);
+        if ($isHasSame == null) {
+            $res = $model->add($pos);
+            if($res ==1){
+                $this->success("新增成功");
+            }
+            else{
+                $this->error("添加失败，请重新尝试");
+            }
+        }
+        else{
+            $this->error("名称重复");
+        }
+    }
 }
 
 
