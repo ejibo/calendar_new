@@ -52,13 +52,21 @@ class Department extends Common
     public function add($name)
     {
         $department = model('Department');
-        return $department->add($name);
+        return $department->addDepartment($name);
     }
     /*
      *story:修改部门名称
      *负责人：张艺璇
      */
-    public function change($id,$name)
+    //public function change($id,$name)
+  //  {
+   //     $department = model('Department');
+  //      $department->change($id,$name);
+   //     error_log(print_r($id));
+   //     error_log(print_r($name));
+//
+   // }
+  	public function change($id,$name)
     {
         $department = model('Department');
         return $department->change($id,$name);

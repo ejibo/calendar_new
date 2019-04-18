@@ -50,4 +50,18 @@ class Whitelist extends Model{
             ->update(['is_delete' => 1]);
         return $is_delete;
     }
+
+    public function clearwhitelist(){
+    	$list = db("user_info")->where("is_delete",0)->select();
+	$is_clear = 0;
+	foreach($list as $data){
+		$postdata = [
+				"user" => "#".$data["user"],
+				"isdelete" => 1,
+	    		    ];
+		$cul = db("whiteList")->where("id",$data["id"])->update($postdata);
+		$is_clear += $cul;
+	}
+	return $is_clear;
+    }
 }

@@ -51,7 +51,7 @@ class Department extends Model
      *story:添加部门
      *负责人：陆韵
      */
-    public function add($name)
+    public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
         $status = 1;
@@ -99,4 +99,5 @@ class Department extends Model
           ],['id' => $id]);
           return $department->name;
     }
+
 }

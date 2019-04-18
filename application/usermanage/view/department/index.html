@@ -90,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button>
+                    <button type="button" class="btn btn-success" onclick="changeDepartmentName()">确认</button>
             </div>
         </div>
     </div>
@@ -211,7 +211,7 @@
         $('#tmp_id').val(id);
         $("#depart_name").val(name);
     }
-    function ChangeDepartmentName(){
+    function changeDepartmentName(){
         var id = $("#tmp_id").val();
         var name = $('#depart_name').val();
         //用AJAX方式访问后台写的方法
