@@ -94,4 +94,4 @@ class Department extends Model
         $department->name= $name;
         $department->save();//保存，也就是把更新提交到数据库表
 }
- 
+}
