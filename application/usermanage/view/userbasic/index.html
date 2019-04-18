@@ -3,300 +3,314 @@
 <!-- Content -->
 <div class="content">
     <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">日程时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addwhitelist">添加人员</button>
-                            <form  action="{:url('whitelist/add/excelInput')}" enctype="multipart/form-data" method="post">
-                                <input type="file" name="excel" /> <br>
-                                <input type="submit" value="上传" />
-                            </form>
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="box-title">日程时间</h4>
+                    <button type="submit" class="btn btn-success btn-sm" data-toggle="modal"
+                            data-target="#addwhitelist">添加人员
+                    </button>
+                    <button id="batchShow" type="submit" class="btn btn-success btn-sm">
+                        批量添加
+                    </button> <br>
+                    <form id="batchAdd" action="batchAddByExcel" enctype="multipart/form-data" method="post" style="display: none">
+                        <label>Excel文件:</label>
+                        <input type="file" name="file"/> <br>
+                        <label>批量添加:</label>
+                        <input class="btn btn-success btn-sm" type="submit" value="上传"/>
+                    </form>
+                </div>
+                <div class="card-body--">
+                    <div class="table-stats">
+                        <table id="bootstrap-data-table" class="table">
+                            <thead>
+                            <tr>
+                                <th class="serial">序号</th>
+                                <th>用户姓名</th>
+                                <th>用户工号/学号</th>
+                                <th>用户类型</th>
+                                <th>所属部门/系(学院)</th>
+                                <th>用户职位</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name='info' id='list'}
+                            <tr data-id={$list.id}>
+                                <td class="serial">{$list.id}.</td>
+                                <td><span class="product">{$list.ui_name}</span></td>
+                                <td><span class="product">{$list.work_id}</span></td>
+                                <td data-id="{$list.type_id}"><span class="product">{$list.type}</span></td>
+                                <td data-id={$list.depart_id}><span class="product">{$list.ud_name}</span></td>
+                                <td data-id={$list.position_id}><span class="product">{$list.up_name}</span></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal"
+                                            data-target="#edituserinfo">
+                                        <i class="fa fa-magic"></i>&nbsp;编辑
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="modal"
+                                            data-target="#delwhitelist">
+                                        <i class="fa fa-exclamation"></i>&nbsp;删除
+                                    </button>
+                                </td>
+                            </tr>
+                            {/volist}
 
-
-                        </h4>
+                            </tbody>
+                        </table>
                     </div>
-                    <div class="card-body--">
-                        <div class="table-stats">
-                            <table id="bootstrap-data-table" class="table">
-                                <thead>
-                                <tr>
-                                    <th class="serial">序号</th>
-                                    <th>用户姓名</th>
-                                    <th>用户工号/学号</th>
-                                    <th>用户类型</th>
-                                    <th>所属部门/系(学院)</th>
-                                    <th>用户职位</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {volist name='info' id='list'}
-                                <tr data-id={$list.id}>
-                                    <td class="serial" >{$i}.</td>
-                                    <td>  <span class="product">{$list.ui_name}</span> </td>
-                                    <td>  <span class="product">{$list.work_id}</span> </td>
-                                    <td data-id="{$list.type_id}">  <span class="product" >{$list.type}</span> </td>
-                                    <td data-id={$list.depart_id}>  <span class="product" >{$list.ud_name}</span> </td>
-                                    <td data-id={$list.position_id}>  <span class="product" >{$list.up_name}</span> </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#edituserinfo">
-                                            <i class="fa fa-magic"></i>&nbsp;编辑
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1" data-toggle="modal" data-target="#delwhitelist">
-                                            <i class="fa fa-exclamation"></i>&nbsp;删除
-                                        </button>
-                                    </td>
-                                </tr>
-                                {/volist}
+                </div>
+            </div>
+        </div>
 
-                                </tbody>
-                            </table>
+        <!--添加白名单人员-->
+        <form action="addUser" method="post">
+            <div class="modal fade" id="addwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addmodalLabel">添加人员</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input type="text" id="name" name="name" placeholder="姓名" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <input type="text" id="work_id" name="work_id" placeholder="工号/学号"
+                                           class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="type_id" id="type_id" class="form-control">
+                                        <option value="0">普通用户</option>
+                                        <option value="1">院领导</option>
+                                        <option value="2">部门领导</option>
+                                        <option value="3">系领导</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="depart_id" id="depart_id" class="form-control">
+                                        {volist name='depart' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="position_id" id="position_id" class="form-control">
+                                        {volist name='position' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-success">确认</button>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
 
-            <!--添加白名单人员-->
-            <form action="addwhitelist" method="post">
-                <div class="modal fade" id="addwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="addmodalLabel">添加人员</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+        <!--编辑人员信息-->
+        <form action="edituserinfo" method="post">
+            <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editmodalLabel">编辑人员信息</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="edit_id" name="edit_id">
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        <input type="text" id="name" name="name" placeholder="姓名" class="form-control">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-credit-card"></i>
                                     </div>
+                                    <input type="text" id="edit_work_id" name="work_id" class="form-control">
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                        <input type="text" id="work_id" name="work_id" placeholder="工号/学号" class="form-control">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="type_id" id="type_id" class="form-control">
-                                            <option value="0">普通用户</option>
-                                            <option value="1">院领导</option>
-                                            <option value="2">部门领导</option>
-                                            <option value="3">系领导</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="depart_id" id="depart_id" class="form-control">
-                                            {volist name='depart' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="position_id" id="position_id" class="form-control">
-                                            {volist name='position' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-                                    </div>
-                                </div>
-                                </p>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+
+                                    <select name="type_id" id="edit_type_id" class="form-control">
+                                        <option value="0">普通用户</option>
+                                        <option value="1">院领导</option>
+                                        <option value="2">部门领导</option>
+                                        <option value="3">系领导</option>
+                                    </select>
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="depart_id" id="edit_depart_id" class="form-control">
+                                        {volist name='depart' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="position_id" id="edit_position_id" class="form-control">
+                                        {volist name='position' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-success">确认</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
+        </form>
 
-            <!--编辑人员信息-->
-            <form action="edituserinfo" method="post">
-                <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editmodalLabel">编辑人员信息</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+        <!--删除人员信息-->
+        <form action="delwhitelist" method="post">
+            <div class="modal fade" id="delwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delmodalLabel">删除人员</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="del_id" name="del_id">
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input type="text" id="del_name" name="name" placeholder="姓名" class="form-control"
+                                           readonly="true">
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <input type="hidden" id="edit_id" name="edit_id">
-                                <p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-credit-card"></i>
                                     </div>
+                                    <input type="text" id="del_work_id" name="work_id" class="form-control"
+                                           readonly="true">
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                        <input type="text" id="edit_work_id" name="work_id"  class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
+                                    <select name="type_id" id="del_type_id" class="form-control" readonly="true">
+                                        <option value="0">普通用户</option>
+                                        <option value="1">院领导</option>
+                                        <option value="2">部门领导</option>
+                                        <option value="3">系领导</option>
+                                    </select>
 
-                                        <select name="type_id" id="edit_type_id" class="form-control">
-                                            <option value="0">普通用户</option>
-                                            <option value="1">院领导</option>
-                                            <option value="2">部门领导</option>
-                                            <option value="3">系领导</option>
-                                        </select>
-                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="depart_id" id="edit_depart_id" class="form-control">
-                                            {volist name='depart' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="position_id" id="edit_position_id" class="form-control">
-                                            {volist name='position' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-                                    </div>
-                                </div>
-                                </p>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="depart_id" id="del_depart_id" class="form-control" readonly="true">
+                                        {volist name='depart' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+
+                                </div>
                             </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-group"></i>
+                                    </div>
+                                    <select name="position_id" id="del_position_id" class="form-control"
+                                            readonly="true">
+                                        {volist name='position' id='list'}
+                                        <option value={$list.id}>{$list.name}</option>
+                                        {/volist}
+                                    </select>
+
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="submit" class="btn btn-success">确认</button>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </form>
-
-            <!--删除人员信息-->
-            <form action="delwhitelist" method="post">
-                <div class="modal fade" id="delwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-sm" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="delmodalLabel">删除人员</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" id="del_id" name="del_id">
-                                <p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-user"></i>
-                                        </div>
-                                        <input type="text" id="del_name" name="name" placeholder="姓名" class="form-control" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-credit-card"></i>
-                                        </div>
-                                        <input type="text" id="del_work_id" name="work_id"  class="form-control" readonly="true">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="type_id" id="del_type_id" class="form-control" readonly="true">
-                                            <option value="0">普通用户</option>
-                                            <option value="1">院领导</option>
-                                            <option value="2">部门领导</option>
-                                            <option value="3">系领导</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="depart_id" id="del_depart_id" class="form-control" readonly="true">
-                                            {volist name='depart' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa fa-group"></i>
-                                        </div>
-                                        <select name="position_id" id="del_position_id" class="form-control" readonly="true">
-                                            {volist name='position' id='list'}
-                                            <option value={$list.id}>{$list.name}</option>
-                                            {/volist}
-                                        </select>
-
-                                    </div>
-                                </div>
-                                </p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            </div>
+        </form>
 
 
-        </div>
     </div>
     <!-- .animated -->
 </div>
@@ -306,7 +320,7 @@
 {block name="scripts"}
 <!--编辑人员信息-->
 <script type="text/javascript">
-    $('#edituserinfo').on('show.bs.modal',function (event) {
+    $('#edituserinfo').on('show.bs.modal', function (event) {
         var btnThis = $(event.relatedTarget); //触发事件的按钮
         var modal = $(this);  //当前模态框
         var modalId = btnThis.data('id');   //解析出data-id的内容
@@ -329,7 +343,7 @@
 
 <!--删除人员-->
 <script type="text/javascript">
-    $('#delwhitelist').on('show.bs.modal',function (event) {
+    $('#delwhitelist').on('show.bs.modal', function (event) {
         var btnThis = $(event.relatedTarget); //触发事件的按钮
         var modal = $(this);  //当前模态框
         var modalId = btnThis.data('id');   //解析出data-id的内容
@@ -347,6 +361,19 @@
         modal.find('#del_position_id').val(position);
         modal.find('#del_id').val(id);
 
+    });
+</script>
+
+<script>
+    $('#batchShow').click(function () {
+        let form = document.getElementById('batchAdd');
+        if (form.style.display === 'none') {
+            $('#batchShow').text('取消上传');
+            form.style.display = 'inline';
+        } else {
+            $('#batchShow').text('批量添加');
+            form.style.display = 'none';
+        }
     });
 </script>
 {/block}

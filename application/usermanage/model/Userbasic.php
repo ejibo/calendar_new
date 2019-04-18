@@ -49,4 +49,17 @@ class Userbasic extends Model{
             ->update(['is_delete' => 1]);
         return $is_delete;
     }
+
+    public function insertUser($data) {
+        $sqlData = ['name' => $data['name'],
+            'work_id' => $data['work_id'],
+            'type_id' => $data['type_id'],
+            'depart_id' => $data['depart_id'],
+            'position_id' => $data['position_id']];
+        return Db::table('user_info')->insert($sqlData);
+    }
+
+    public function insertAllUser($data) {
+        return Db::table('user_info')->insertAll($data);
+    }
 }
