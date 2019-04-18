@@ -7,7 +7,7 @@ use think\Db;
 use think\Request;
 
 
-class multiquery extends Common
+class Multiquery extends Common
 {
     public function index()
     {
