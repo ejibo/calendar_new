@@ -89,7 +89,7 @@ class Department extends Model
      *负责人：张艺璇
      */
   public function change($id,$name){
-        $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
+       $department = Department::get(['id' => $id]);//可以通过此种方式根据别的字段获取记录
 		//更新数据库中的部门名称
         $department->name= $name;
         $department->save();//保存，也就是把更新提交到数据库表
