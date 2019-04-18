@@ -1,17 +1,17 @@
 {extend name="common@public/base" /}
 {block name="main-content"}
 <!-- Content -->
-<div class="content">
-    <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">所有职务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加职务</button>
-                        </h4>
-                    </div>
-					<div class="card-body--">
+        <div class="content">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="box-title">所有职务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加职务</button>
+                                </h4>
+                            </div>
+                            <div class="card-body--">
                                 <div class="table-stats">
                                     <table id="bootstrap-data-table" class="table">
                                         <thead>
@@ -27,7 +27,7 @@
                                             {volist name="list" id="vo"}
 
                                             <tr>
-                                                <td class="serial">{$vo.id}.</td> 
+                                                <td class="serial">{$vo.id}.</td>
                                                 <td> <span class="product">{$vo.name}</span> </td>
                                                 <td> <span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span> </td>
                                                 <td>
@@ -46,11 +46,142 @@
                                         </tbody>
                                     </table>
                                 </div>
-						</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="scrollmodalLabel">编辑用户</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                                <input type="text" id="username" name="username" value="1801210880" class="form-control" disabled="disabled">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                                <input type="text" id="username" name="username" value="孙佳静" class="form-control" disabled="disabled">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <select name="select" id="select" class="form-control">
+                                                    <option value="0">普通用户</option>
+                                                    <option value="1">院领导</option>    
+                                                    <option value="2">系领导</option>
+                                                    <option value="3">部门领导</option>                                                                 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-asterisk"></i>
+                                                </div>
+                                                <input type="password" id="username" name="password" placeholder="请输入新密码" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-asterisk"></i>
+                                                </div>
+                                                <input type="password" id="username" name="password" placeholder="确认密码" class="form-control">
+                                            </div>
+                                        </div>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a href="user_base.html"><button type="button" class="btn btn-success">确认</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade" id="smallmodal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="scrollmodalLabel">添加用户</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                                <input type="text" id="username" name="username" placeholder="学(工)号" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                                <input type="text" id="username" name="username" placeholder="姓名" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-users"></i>
+                                                </div>
+                                                <select name="select" id="select" class="form-control">
+                                                    <option value="0">普通用户</option>
+                                                    <option value="1">院领导</option>    
+                                                    <option value="2">系领导</option>
+                                                    <option value="3">部门领导</option>                                                                 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-asterisk"></i>
+                                                </div>
+                                                <input type="password" id="username" name="password" placeholder="输入密码" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-asterisk"></i>
+                                                </div>
+                                                <input type="password" id="username" name="password" placeholder="确认密码" class="form-control">
+                                            </div>
+                                        </div>
+                                  </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <a href="user_base.html"><button type="button" class="btn btn-success">确认</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- .animated -->
         </div>
-    </div>
-</div>
-<!-- /.content -->
+        <!-- /.content -->
 {/block}
