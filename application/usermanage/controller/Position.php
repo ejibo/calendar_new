@@ -37,7 +37,7 @@ class Position extends Common
         //调用model中的方法，保证MVC分离
         $position = model('Position');
         $position -> invalid($user_id);
-        $this->redirect('/usermanage/position/index');
+        $this->redirect('usermanage/position/index');
     }
 
  /**
