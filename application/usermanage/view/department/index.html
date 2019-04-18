@@ -90,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button></ a>
+                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button>
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
     function loadTable() {
         $.ajax({
             type: "POST",
-            url: 'loadDepartment',//url地址，相对路径，已经在department控制器下
+            url: '/Department/loadDepartment',//url地址，相对路径，已经在department控制器下
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
             success: function (data) {
@@ -186,7 +186,7 @@
         //console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "addDepartment",
+            url: "/Department/add",
             async: false,
             //dataType: 'json',
             data: {

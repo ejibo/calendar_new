@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询日程信息</title>
+    <link rel="stylesheet" type="text/css" href="/ss_calendar_new/public/static/assets/css/querySchedule.css">
+</head>
+<body id="bodyid">
+<p id="logo">查询日程信息</p>
+<br/><br/><br/>
+<div id="logindiv">
+    <form action="{:url('index/query')}" methos="post">
+        <div><p style="font-size: 20px">起始时间 (eg: 2019-01-01)</p><input type="text" name="starttime" class="starttime" placeholder="start time"></div>
+        <br/>
+        <div><p style="font-size: 20px">结束时间 </p><input type="text" name="endtime" class="endtime" placeholder="end time"></div>
+        <br/>
+        <div><input type="submit" class="submit" value="查询"></div>
+    </form>
+</div>
+</body>
+</html>
