@@ -12,7 +12,7 @@ use think\Db;
 use think\Request;
 use app\common\controller\Common;
 
-class Query extends Common{
+class query extends Common{
             
 	// public function index()
 	// {
