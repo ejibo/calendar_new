@@ -30,7 +30,7 @@ class Smsbinding extends Common
         srand($seed);                     // 播下随机数发生器种子
         $verifyCode = rand(100000, 999999);
         require_once('ZhenziSmsClient.php');
-        $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
+        $client = new  ZhenziSmsClient1("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
         $result = $client->send($_GPC['phone'], "您的验证码为" + $verifyCode + "，有效时间为5分钟");
         session_start();
         $_SESSION['verifyCode'] = $verifyCode;
