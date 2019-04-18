@@ -93,5 +93,8 @@ class Department extends Model
 		//更新数据库中的部门名称
         $department->name= $name;
         $department->save();//保存，也就是把更新提交到数据库表
+         error_log(print_r($id));
+        error_log(print_r($name));
+
 }
 }
