@@ -10,6 +10,7 @@ namespace app\usermanage\controller;
 
 
 use app\common\controller\Common;
+//require 'vendor/autoload.php';
 
 class Userbasic extends Common
 {
@@ -46,6 +47,52 @@ class Userbasic extends Common
             $this->success('修改成功！');
         } else {
             $this->error('修改失败！');
+        }
+    }
+
+    public function addUser() {
+        $userbasic = model("Userbasic");
+        $data = input('post.');
+        $addFlag = $userbasic->insertUser($data);
+        if ($addFlag) {
+            $this->success('添加成功');
+        } else {
+            $this->error('添加失败');
+        }
+    }
+
+    public function batchAddByExcel() {
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        try {
+            $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
+            die($e->getMessage());
+        }
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sqlData = array();
+
+        foreach ($sheet->getRowIterator(2) as $row) {
+            $tmp = array();
+            foreach ($row->getCellIterator() as $cell) {
+                $tmp[] = $cell->getFormattedValue();
+            }
+            $tmp = ['name' => $tmp[0],
+                'work_id' => $tmp[1],
+                'type_id' => $tmp[2],
+                'depart_id' => $tmp[3],
+                'position_id' => $tmp[4]];
+            $sqlData[$row->getRowIndex() - 2] = $tmp;
+        }
+
+        $userbasic = model("Userbasic");
+        $addFlag = $userbasic->insertAllUser($sqlData);
+        if ($addFlag) {
+            $this->success('批量添加成功');
+        } else {
+            $this->error('添加失败');
         }
     }
 }
