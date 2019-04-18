@@ -109,7 +109,7 @@
         //用AJAX方式访问后台写的方法
         $.ajax({
             type: "POST",
-            url: '/Department/delete',//你的请求程序页面随便
+            url: 'controller/Department/delete',//你的请求程序页面随便
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             data: {
                 "id":id
@@ -129,7 +129,7 @@
         //用AJAX方式访问后台写的方法
         $.ajax({
             type: "POST",
-            url: 'recover',//你的请求程序页面随便
+            url: 'controller/Department/recover',//你的请求程序页面随便
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             data: {
                 "id":id
@@ -147,7 +147,7 @@
     function loadTable() {
         $.ajax({
             type: "POST",
-            url: 'loadDepartment',//url地址，相对路径，已经在department控制器下
+            url: 'controller/Department/loadDepartment',//url地址，相对路径，已经在department控制器下
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
             success: function (data) {
@@ -186,7 +186,7 @@
         //console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "add",
+            url: "controller/Department/add",
             async: false,
             //dataType: 'json',
             data: {
@@ -216,7 +216,7 @@
         //用AJAX方式访问后台写的方法
         $.ajax({
             type: "POST",
-            url: 'change',//你的请求程序页面随便
+            url: 'controller/Department/change',//你的请求程序页面随便
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             data: {
                 "id":id,
