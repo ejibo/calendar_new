@@ -1,4 +1,5 @@
 <?php 
+namespace app\login\controller;
 class ZhenziSmsClient{
 	private $appId;
 	private $appSecret;
