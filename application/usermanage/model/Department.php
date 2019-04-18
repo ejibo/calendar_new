@@ -74,10 +74,11 @@ class Department extends Model
         $department->insert($name);
         $department->name = $name;
         #$department->create_time = time();
-        $department->save();
-        #$department->save([
-             # 'name'  => $name
-         # ]);
+        #$department->save();
+        $department->save([
+              'name'  => $name
+          ]);
+      	$department->name
         #$department->add();  
        # $status = 1;
        # $message = '添加成功';
