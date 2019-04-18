@@ -78,7 +78,7 @@ class Department extends Model
         $department->save([
               'name'  => $name
           ]);
-      	$department->name
+ 
         #$department->add();  
        # $status = 1;
        # $message = '添加成功';
