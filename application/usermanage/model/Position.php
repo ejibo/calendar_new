@@ -38,6 +38,12 @@ class Position extends Model{
         Db::table('user_position')->where('id', $user_id)->update($data);
     }
 
+function restore($user_id) {
+        $data = array();
+        $data['is_delete'] = 0;
+        $data['delete_time'] =  Db::raw('now()');
+        Db::table('user_position')->where('id', $user_id)->update($data);
+    }
   /**
  * 第05组 张楚悦
  * 功能：添加职位
