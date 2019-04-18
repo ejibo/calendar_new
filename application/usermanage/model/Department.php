@@ -54,6 +54,7 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
+      	$name = Request::instance()->param('name')
         $status = 1;
         $message = '用户名可用';
 
@@ -70,11 +71,11 @@ class Department extends Model
         $result = $this -> validate($name, $rule);
 
         //if ($result === true) {
-        $department = new Department;
+        $department = new Department();
         $department->insert($name);
-        #$department->name = $name;
+        $department->name = $name;
         #$department->create_time = time();
-        #$department->save();
+        $department->save();
         #$department->save([
              # 'name'  => $name
          # ]);
