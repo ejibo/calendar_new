@@ -1,5 +1,5 @@
 <?php
-namespace app\mut_search\controller;
+namespace app\querystatistics\controller;
 use app\common\controller\Common;
 
 use think\Controller;
