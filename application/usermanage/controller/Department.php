@@ -52,7 +52,7 @@ class Department extends Common
     public function add($name)
     {
         $department = model('Department');
-        $department->add($name);
+        $department->addDepartment($name);
     }
     /*
      *story:修改部门名称
