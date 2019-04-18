@@ -15,7 +15,7 @@ class Department extends Model
     //绑定表名
     protected $table = 'user_depart';
     protected $pk = 'id';
-	protected $user = 'user';
+	protected $name = 'name';
     /*
      *story:恢复删除的部门
      *负责人：李梦好
