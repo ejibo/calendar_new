@@ -1,1 +1,49 @@
-1
+{extend name="common@public/base" /}
+{block name="main-content"}
+<!-- Content -->
+            <div class="content">
+                <div class="animated fadeIn">                
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                   <h4 class="box-title">未更新日程用户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <a href="stats.html" class="btn btn-success btn-sm"  >返回</a> 
+                                </h4>
+                            </div>
+                            <div class="card-body--">
+                                <div class="table-stats">
+                                    <table id="bootstrap-data-table" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="serial">序号</th>
+                                                <th>姓名</th>
+                                              	<th>用户类型</th>
+                                                <th>工号/学号</th>
+                                              	<th>最后日程时间</th>s
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {volist name="list" id="vo"}
+                                            <tr>
+                                                <td class="serial">{$i}</td>            
+                                                <td>  <span class="product">{$vo.name}</span> </td>
+                                              	<td>  
+                                                  	<span class="product">{$user_type[$vo.type_id]}</span>
+                                              	</td>
+                                                <td>  <span class="product">{$vo.work_id}</span> </td>
+                                             	<td>  <span class="product">{$vo.last_date}</span> </td>
+                                        </tr>
+                                        {/volist}
+                                    </tbody>                                
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>                             
+            </div>
+        </div>
+        <!-- .animated -->
+    </div>
+<!-- /.content -->
+{/block}
