@@ -54,8 +54,8 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
-        #$status = 1;
-        #$message = '用户名可用';
+        $status = 1;
+        $message = '用户名可用';
 
         if (Department::get(['name'=> $name])) {
             //如果在表中查询到该用户名
@@ -63,16 +63,21 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
         }
         return ['status'=>$status, 'message'=>$message];
+		else{
+          $department = new Department;
+        $department->insert($name);
+          $status = 1;
+        $message = '添加成功';
+        }
+        #$rule = [
+            #'name|部门名称' => "require|min:1|max:30",
+       # ];
 
-        $rule = [
-            'name|部门名称' => "require|min:1|max:30",
-        ];
-
-        $result = $this -> validate($name, $rule);
+       # $result = $this -> validate($name, $rule);
 
         //if ($result === true) {
-        $department = new Department;
-        $department->insert($name);
+       # $department = new Department;
+       # $department->insert($name);
         #$department->name = $name;
         #$department->create_time = time();
         #$department->save();
@@ -80,8 +85,8 @@ class Department extends Model
              # 'name'  => $name
          # ]);
         #$department->add();  
-        $status = 1;
-        $message = '添加成功';
+       # $status = 1;
+       # $message = '添加成功';
         //}else{
         //$status = 0;
         //$message = '部门描述长度须在3-30个字符之间，请重新添加';
