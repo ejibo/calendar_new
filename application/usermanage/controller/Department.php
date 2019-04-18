@@ -62,6 +62,8 @@ class Department extends Common
     {
         $department = model('Department');
         $department->change($id,$name);
+        print_r($id);
+        print_r($name);
 
     }
 }
