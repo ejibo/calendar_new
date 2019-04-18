@@ -45,8 +45,8 @@ class Userbasic extends Model{
     }
     //删除人员
     public function delwhitelist($data){
-        $is_delete = Db::table('user_info')->where('id',$data['del_id'])
-            ->update(['is_delete' => 1]);
+        $is_delete = Db::table('user_info')->where('id', $data)
+            ->update(['is_delete' => 1, 'delete_time' => date("Y-m-d H:i:s")]);
         return $is_delete;
     }
 
