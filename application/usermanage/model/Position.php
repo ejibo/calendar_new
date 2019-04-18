@@ -48,7 +48,7 @@ function restore($user_id) {
  * 第05组 张楚悦
  * 功能：添加职位
  */
-/*public function add($name)
+public function add($name)
 {
     // 接受用户职务信息
     $status = 1;
@@ -64,13 +64,13 @@ function restore($user_id) {
     $result = $this -> validate($name);
 
     if ($result === true) {
-        $department = new Department;
-        $department->name = $name;
-        $department->create_time = time();
-        $department->save();
+        $position = new Position;
+        $position->name = $name;
+        $position->create_time = time();
+        $position->save();
         $status = 1;
         $message = '添加成功';
-    }*/
+    }
 }
 
 
