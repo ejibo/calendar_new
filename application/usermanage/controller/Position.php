@@ -32,7 +32,7 @@ class Position extends Common
   * 第05组 高裕欣
   * 功能：作废职位
   */
- public function position_invalid($user_id)
+ public function invalid($user_id)
     {
         //调用model中的方法，保证MVC分离
         $position = model('Position');
