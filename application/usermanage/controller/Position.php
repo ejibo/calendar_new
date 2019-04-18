@@ -23,7 +23,7 @@ class Position extends Common
         $list = $position->getUserPositionList();
         //dump($list);
         //exit;
-        $this->assign("list", $list);
+        $this->assign("position_list", $list);
         return $this->fetch();
 
     }
