@@ -29,7 +29,7 @@ class Department extends Model
 
     /*
      *story:删除部门
-     *负责人：
+     *负责人：张欣童
      */
     public function setDelete($id){
         $department = Department::get($id);
@@ -56,3 +56,4 @@ class Department extends Model
         $department->name= $name;
         $department->save();//保存，也就是把更新提交到数据库表
 }
+ 
