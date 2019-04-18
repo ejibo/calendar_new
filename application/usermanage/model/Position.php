@@ -71,7 +71,7 @@ public function add($name)
         $status = 1;
         $message = '添加成功';
     }
-}
+
 
 
 
