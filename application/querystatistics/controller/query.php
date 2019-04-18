@@ -10,6 +10,7 @@ namespace app\querystatistics\controller;
 use think\controller;
 use think\Db;
 use think\Request;
+use app\common\controller\Common;
 
 class Query extends Common{
             
