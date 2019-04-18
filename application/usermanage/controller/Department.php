@@ -49,13 +49,13 @@ class Department extends Common
      *story:添加部门
      *负责人：陆韵
      */
-    public function add($userName)
+    public function add($name)
     {
         // 接收用户的数据,部门描述
         $status = 1;
         $message = '用户名可用';
 
-        if (Department::get(['name'=> $userName])) {
+        if (Department::get(['name'=> $name])) {
             //如果在表中查询到该用户名
             $status = 0;
             $message = '部门已存在,请重新输入';
@@ -66,11 +66,11 @@ class Department extends Common
             'name|部门名称' => "require|min:1|max:30",
         ];
 
-        $result = $this -> validate($userName, $rule);
+        $result = $this -> validate($name, $rule);
 
         //if ($result === true) {
         $department = new Department;
-        $department->name = $userName;
+        $department->name = $name;
         $department->create_time = time();
         $department->save();
         $status = 1;
