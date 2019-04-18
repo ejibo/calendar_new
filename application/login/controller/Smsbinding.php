@@ -18,7 +18,7 @@ class Smsbinding extends Common
         $_SESSION['telephone'] = $_GPC['phone'];
         if (isset($_SESSION['time'])) {
             /*未过期*/
-            if ($_SESSION['time' + 60 > time()]) {
+            if ($_SESSION['time']+ 60 > time()) {
                 echo '一分钟内多次操作';
             } else {
                 $_SESSION['time'] = time();
