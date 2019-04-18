@@ -10,31 +10,34 @@ namespace app\usermanage\controller;
 
 
 use app\common\controller\Common;
+use think\Request;
+
 //require 'vendor/autoload.php';
 
 class Userbasic extends Common
 {
-    public function index(){
+    public function index()
+    {
         $userbasic = model('Userbasic');
         $info = $userbasic->getinfo();
-        foreach($info as $key=>$value){
-            if ($info[$key]['type_id'] == 0){
+        foreach ($info as $key => $value) {
+            if ($info[$key]['type_id'] == 0) {
                 $info[$key]['type'] = '普通用户';
-            }elseif ($info[$key]['type_id'] == 1){
+            } elseif ($info[$key]['type_id'] == 1) {
                 $info[$key]['type'] = '院领导';
-            }elseif ($info[$key]['type_id'] == 2){
+            } elseif ($info[$key]['type_id'] == 2) {
                 $info[$key]['type'] = '部门领导';
-            }elseif ($info[$key]['type_id'] == 3){
+            } elseif ($info[$key]['type_id'] == 3) {
                 $info[$key]['type'] = '系领导';
             }
         }
-        $this->assign('info',$info);
+        $this->assign('info', $info);
 
         //添加人员模态框传值
         $depart = $userbasic->getdepart();
-        $this->assign('depart',$depart);
+        $this->assign('depart', $depart);
         $position = $userbasic->getposition();
-        $this->assign('position',$position);
+        $this->assign('position', $position);
         return $this->fetch();
     }
 
@@ -50,7 +53,8 @@ class Userbasic extends Common
         }
     }
 
-    public function addUser() {
+    public function addUser()
+    {
         $userbasic = model("Userbasic");
         $data = input('post.');
         $addFlag = $userbasic->insertUser($data);
@@ -61,7 +65,8 @@ class Userbasic extends Common
         }
     }
 
-    public function batchAddByExcel() {
+    public function batchAddByExcel()
+    {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
 
         try {
@@ -95,4 +100,28 @@ class Userbasic extends Common
             $this->error('添加失败');
         }
     }
+
+
+    //删除单个用户
+    public function deleteUser() {
+        $data = Request::instance()->param('id');
+        $userbasic = model("Userbasic");
+        $deleteFlag = $userbasic->delwhitelist($data);
+        if ($deleteFlag) {
+            $this->success('删除成功');
+        } else {
+            $this->error('删除失败');
+        }
+    }
+
+    public function batchDeleteUser() {
+        $idArray = $_POST['list'];
+        $userbasic = model("Userbasic");
+        foreach ($idArray as $item) {
+            $userbasic->delwhitelist($item);
+        }
+        return 'ok';
+    }
+
+
 }
