@@ -90,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button></ a>
+                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button>
             </div>
         </div>
     </div>
@@ -186,7 +186,7 @@
         //console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "addDepartment",
+            url: "controller/Department/add",
             async: false,
             //dataType: 'json',
             data: {
