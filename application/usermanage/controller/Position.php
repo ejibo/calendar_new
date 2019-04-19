@@ -53,8 +53,8 @@ public function restore($user_id)
  */
     public function addPosition()
     {
-        $model = model('Position');
         $name = $_POST['name'];
+        $model = model('Position');
         $result = $model->insertPosition($name);
         if($result==1){
             //设置成功后跳转页面的地址

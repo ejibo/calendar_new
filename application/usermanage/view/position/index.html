@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <button type="button" class="btn btn-success" onclick="addDepartment()">确认</button></a>
+                                    <button type="button" class="btn btn-success" onclick="addPosition()">确认</button></a>
                                 </div>
                             </div>
                         </div>
@@ -125,7 +125,31 @@
         loadTable();
         //$('#bootstrap-data-table').DataTable();
     });
+    function addPosition()
+    {
+        //console.log($("#name").val());
+        $.ajax({
+            type: "POST",
+            url: "add",
+            async: false,
+            //dataType: 'json',
+            data: {
+                "name":$("#name").val()
+            },
+            success: function(data){
+                console.log(data);
+                if(data.status==1){
+                    alert(data.message);
+                    $("#smallmodal1").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    loadTable();
+                }else {
+                    alert(data.message);
+                }
 
+            }
+        });
+    }
 
 
     function changePositionName(){
