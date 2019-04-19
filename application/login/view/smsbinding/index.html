@@ -60,6 +60,7 @@
             success:function(data) {
 
                 if (data) {
+                  alert(data);
                     var jsonobj=eval("("+data+")");
                     if (jsonobj.code== 1) {
                         alert('验证码发送成功');
@@ -102,23 +103,23 @@
             dataType:"json",
             success:function(data) {
                 if (data) {
-                    var jsonobj1=eval("("+data+")");
-                    if (jsonobj1.code == 1) {
+                    //var jsonobj1=eval("("+data+")");
+                    if (data.code == 1) {
                         alert('绑定成功');
                         window.location.href="http://114.116.99.20/calendar_new/public/index.php"
                     }
-                    else if (jsonobj1.code == 2) {
+                    else if (data.code == 2) {
                         alert('请输入正确的验证码');
                     }
-                    else if (jsonobj1.code == 3) {
+                    else if (data.code == 3) {
                         alert('请稍后再试');
                     }
-                    else if (jsonobj1.code == 4) {
+                    else if (data.code == 4) {
                         alert('验证码已失效');
                     }
                 }
                 else{
-                    alert(jsonobj1);
+                    alert(data);
                 }
             }
         });
