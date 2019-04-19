@@ -69,7 +69,7 @@ class Position extends Model
             ->where('is_delete', 0)
             ->find();
         return $namePos;
-    }
+    }*/
 
 
 
