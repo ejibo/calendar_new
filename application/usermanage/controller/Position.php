@@ -52,20 +52,26 @@ class Position extends Common
      * 第05组 张楚悦
      * 功能：添加职位
      */
-    /*
+
     public function add()
     {
         $name = $_POST['name'];
         $model = model('Position');
-        $result = $model->insertPosition($name);
-        if ($result == 1) {
-            //设置成功后跳转页面的地址
-            $this->success('新增成功', 'usermanage/position/index');
-        } else {
-
-            $this->error('新增失败');
+        $ifsame = $model->getPosition($name);
+        if ($ifsame == null) {
+            $result = $model->insertPosition($name);
+            if ($result == 1) {
+                //设置成功后跳转页面的地址
+                $this->success('新增成功', 'usermanage/position/index');
+            } else {
+                $this->error('新增失败，请重新尝试');
+            }
         }
-    }*/
+        else{
+            $this->error("职位重复，请重新输入");
+        }
+    }
+    /*
    public function add()
     {
         $name = $_POST['name'];
@@ -83,7 +89,7 @@ class Position extends Common
         }else{
             $this->error('添加失败');
         }
-     }
+     }*/
    /*
     public function add($name)
     {
