@@ -24,10 +24,12 @@ class Position extends Model
      */
     public function change($id, $name)
     {
-        $position = Position::get($id);//获取用户id
-        //更新数据库中的职务名称
-        $position->name = $name;
-        $position->save();//将更新提交至数据库表
+        $position = Position::get($id);
+        //更新数据库中的职位名称
+        /*$position->name = $name;
+        $position->save();//将更新提交至数据库表*/
+        $position->save(['name' => $name],['id' => $id]);
+        return $position->name;
     }
 
     /**

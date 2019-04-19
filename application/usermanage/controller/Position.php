@@ -69,6 +69,15 @@ public function restore($user_id)
             $this->error("名称重复");
         }
     }
+    /**
+     * 第05组 张君兰
+     * 功能：修改职位
+     */
+    public function change($id,$name){
+    //调用model里的方法，保证MVC分离
+        $position = model('Position');
+        return $position->change($id,$name);
+    }
 }
 
 
