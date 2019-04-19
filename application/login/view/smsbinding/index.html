@@ -59,17 +59,17 @@
             dataType:"json",
             success:function(data) {
                 if (data) {
-                    if (data.code == 1) {
+                    if (data['code'] == 1) {
                        alert('验证码发送成功');
-                    } else if (data.code == 2) {
+                    } else if (data['code'] == 2) {
                         alert('验证码发送失败');
-                    } else if (data.code == 3) {
+                    } else if (data['code'] == 3) {
                         alert('手机号已注册');
-                    } else if(data.code==4){
+                    } else if(data['code']==4){
                       	alert('	操作过于频繁，请稍后再试');
                     }
                       else {
-                        alert('111');
+                        alert(data);
                     }
                 }
             }
