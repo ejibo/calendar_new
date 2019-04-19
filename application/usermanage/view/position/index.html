@@ -7,7 +7,7 @@
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="box-title">所有职务&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <h4 class="box-title">所有职位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加职务</button>
                                 </h4>
                             </div>
@@ -17,7 +17,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="serial">序号</th>
-                                                <th>职务</th>
+                                                <th>职位</th>
                                                 <th>状况</th>
                                                 <th>操作</th>
                                             </tr>
@@ -50,14 +50,15 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel1" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="scrollmodalLabel">编辑职务</h5>
+                                    <h5 class="modal-title" id="scrollmodalLabel1">编辑职位</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
+                                    <input hidden id="tmp_id">
                                 </div>
                                 <div class="modal-body">
                                     <p>
@@ -68,7 +69,6 @@
                                                 </div>
                                                 <input type="text" class="form-control" disabled="disabled">
                                             </div>-->
-                                </div>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <button type="button" class="btn btn-success" onclick="changeDepartmentName()">确认</button>
+                                    <button type="button" class="btn btn-success" onclick="changePositionName()">确认</button>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                         <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="scrollmodalLabel">添加职务</h5>
+                                    <h5 class="modal-title" id="scrollmodalLabel">添加职位</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -101,7 +101,7 @@
                                             <div class="input-group-addon">
                                                 <i class="fa fa-user"></i>
                                             </div>
-                                            <input type="text" id="user_position" name="user_position" value="请输入职务描述" class="form-control" >
+                                            <input type="text" id="user_position" name="user_position" value="请输入职位描述" class="form-control" >
                                         </div>
                                     </div>
 
