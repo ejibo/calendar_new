@@ -16,7 +16,7 @@ class Smsbinding extends Common
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
         $mobile=new Mobile();
-        $checkres=$mobile->hasMobile();
+        $checkres=$mobile->hasMobile($telephone);
         if($checkres){//手机号已绑定
             $res['code']=3;
         }
@@ -37,13 +37,13 @@ class Smsbinding extends Common
             srand($seed);                     // 播下随机数发生器种子
             $verifyCode = rand(100000, 999999);
             $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
-            $result = $client->send($_GPC['phone'], "您的验证码为" + $verifyCode + "，有效时间为5分钟");
+            $result = $client->send($telephone, "您的验证码为" + $verifyCode + "，有效时间为5分钟");
             var_dump($result);
             if($result['code']=='0'){
                 $res['code']=1;
             }
             else $res['code']=2;
         }
-      	$this->ajaxReturn($res);
+      	return $this->ajaxReturn($res);
     }
 }
