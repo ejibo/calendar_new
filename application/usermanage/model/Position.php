@@ -1,11 +1,16 @@
 <?php
 
 namespace app\usermanage\model;
+
 use think\Model;
 use think\Db;
 
 class Position extends Model
 {
+    //绑定表名
+    protected $table = 'user_positions';
+    protected $pk = 'id';
+    protected $name = 'name';
 
     /**
      * 第05组 高裕欣
@@ -24,12 +29,11 @@ class Position extends Model
      */
     public function change($id, $name)
     {
-        $position = Position::get($id);
-        //更新数据库中的职位名称
-        /*$position->name = $name;
-        $position->save();//将更新提交至数据库表*/
-        $position->save(['name' => $name],['id' => $id]);
-        return $position->name;
+        Db::table('user_position')
+            ->where('id', $id)
+            ->update(['name' => $name]);
+
+        return $name;
     }
 
     /**
@@ -56,7 +60,8 @@ class Position extends Model
      * 第05组 张楚悦
      * 功能：添加职位
      */
-    public function insertPosition($name){
+    public function insertPosition($name)
+    {
         $data = ['name' => $name, 'is_delete' => 0];
         $result = Db::name('user_position')->insert($data);
         return $result;
