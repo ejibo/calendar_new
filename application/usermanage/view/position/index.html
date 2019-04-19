@@ -118,6 +118,7 @@
             </div>
             <!-- .animated -->
         </div>
+        </div>
         <!-- /.content -->
 {/block}
 {block name="scripts"}
@@ -146,7 +147,11 @@
                 $('.modal-backdrop').remove();//去除遮罩层
                 //在这里刷新页面或者局部刷新表格
                 loadTable();
+            },
+            fail:function(msg){
+                console.log(msg)
             }
+
         });
 
     }
