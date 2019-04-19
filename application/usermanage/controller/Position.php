@@ -54,7 +54,7 @@ public function restore($user_id)
     public function  addPosition()
     {
         $pos = $_POST['pos'];
-        $model = model('ScheduleItem');
+        $model = model('Position');
         $isHasSame = $model->getPosByName($pos);
         if ($isHasSame == null) {
             $res = $model->add($pos);
