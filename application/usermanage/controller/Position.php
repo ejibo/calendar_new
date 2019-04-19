@@ -73,6 +73,12 @@ public function restore($user_id)
         $position = model('Position');
         return $position->change($id,$name);
     }
+
+    public function loadPosition()
+    {
+        $position = model('Position');
+        $positions = $position->getAllPositions();
+        return $positions;
 }
 
 
