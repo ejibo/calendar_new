@@ -102,16 +102,17 @@
             dataType:"json",
             success:function(data) {
                 if (data) {
-                    if (data.code == 1) {
+                  var jsonobj=eval("("+data+")");
+                    if (jsonobj.code == 1) {
                         alert('绑定成功');
                         window.location.href="http://114.116.99.20/calendar_new/public/index.php"
                     }
-                    else if (data.code == 2) {
+                    else if (jsonobj.code == 2) {
                         alert('请输入正确的验证码');
                     }
                 }
                 else{
-                    alert('111');
+                    alert('jsonobj');
                 }
             }
         });
