@@ -62,14 +62,6 @@ class Position extends Model
         return $res;
     }
 
-    /**从数据库中查找是否重名*/
-
-    public function getPosByName($pos){
-        $namePos = Db::name('user_position')
-            ->where('name',$pos)
-            ->where('is_delete',0)
-            ->find();
-        return $namePos;
 
 
 

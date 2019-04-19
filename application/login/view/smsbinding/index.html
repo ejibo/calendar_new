@@ -36,28 +36,74 @@
 </div>
 <!-- /.content -->
 {/block}
-    <script>
-            if(time()-$_SESSION['time']<60){
-              $("#phonebtn").attr('disabled', 'true');
-              for(i=1;i<={php echo 60-(time()-$_SESSION['time'])};i++) { 
-                    window.setTimeout("update_p(" + i + ","+{php echo 60-(time()-$_SESSION['time'])}+")", i * 1000); 
-                } 
-                }
-            function sendcode(t){
-              /*发送短信验证码*/
-              $("#phonebtn").attr('disabled', 'true');
-                for(i=1;i<=t;i++) { 
-                    window.setTimeout("update_p(" + i + ","+t+")", i * 1000); 
+ <script type="text/javascript">
+    var telephone=document.getElementById("telephone");
+    var phonecode=document.getElementById("phonecode");
+    function get_code(){
+        if(telephone.value.length==0){
+            alert("手机号不能为空");
+            return;
+        }
+        api.ajax({
+            url: 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/getCode',
+            method: 'post',
+            data: {
+                values: {
+                    telephone: telephone.value,
+                    signature: 'pkusstelephone'
                 }
             }
-          
-            function update_p(num,t) { 
-                if(num == t) { 
-                    $("#phonebtn").val(" 重新发送 "); 
-                    $("#phonebtn").removeAttr('disabled');
-                }else { 
-                    printnr = t-num; 
-                    $("#phonebtn").val(" (" + printnr +")秒后重新发送"); 
-                } 
+        },function(data){
+            if(data) {
+                if (data.code == 1) {
+                    api.toast({
+                        msg: '验证码发送成功'
+                    });
+                } else if (data.code == 2) {
+                    alert('验证码发送失败');
+                } else if (data.code == 3) {
+                        alert('手机号已注册');
+                    } else if (data.code == 4) {
+                        alert('请输入正确的手机号');
+                    }
+                }
+                else{
+                    alert('111');
+                }
+            });
+        }
+    function verify() {
+        //                alert(mobile.value);
+        //                alert();
+        if(phonecode.value.length==0){
+            alert("请输入验证码");
+            return;
+        }
+        if(phonecode.value.length!=6){
+            alert("请输入6位验证码");
+            return;
+        }
+        api.ajax({
+            url : 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/codeVerify',
+            method : 'post',
+            data : {
+                values : {
+                    phonecode : phonecode.value,
+                    signature : 'pkussphonecode'
+                }
             }
-    </script>
+        }, function(data) {
+            //                        alert(data.code);
+            if (data) {
+                if (data.code == 1) {
+                    alert('绑定成功');
+                    window.location.href="http://114.116.99.20/calendar_new/public/index.php"
+                } else if (data.code == 2) {
+                    alert('请输入正确的验证码');
+                }
+            } else {
+                alert('111');
+            }
+        });
+    }
+</script>

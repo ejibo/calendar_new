@@ -54,20 +54,14 @@ public function restore($user_id)
     public function  addPosition()
     {
         $pos = $_POST['pos'];
-        $model = model('ScheduleItem');
-        $isHasSame = $model->getPosByName($pos);
-        if ($isHasSame == null) {
-            $res = $model->add($pos);
+        $model = model('Position');
+        $res = $model->add($pos);
             if($res ==1){
                 $this->success("新增成功");
             }
             else{
                 $this->error("添加失败，请重新尝试");
             }
-        }
-        else{
-            $this->error("名称重复");
-        }
     }
     /**
      * 第05组 张君兰
