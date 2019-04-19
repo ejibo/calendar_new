@@ -15,7 +15,7 @@ class Department extends Model
     //绑定表名
     protected $table = 'user_depart';
     protected $pk = 'id';
-
+	protected $name = 'name';
     /*
      *story:恢复删除的部门
      *负责人：李梦好
@@ -29,7 +29,7 @@ class Department extends Model
 
     /*
      *story:删除部门
-     *负责人：
+     *负责人：张欣童
      */
     public function setDelete($id){
         $department = Department::get($id);
@@ -46,4 +46,47 @@ class Department extends Model
         $departs = Db::query('select id,name,is_delete from user_depart order by is_delete');
         return $departs;
     }
+  
+  /*
+     *story:添加部门
+     *负责人：陆韵
+     */
+    public function addDepartment($name)
+    {
+        // 接收用户的数据,部门描述
+
+        if (Department::get(['name'=> $name])) {
+            //如果在表中查询到该用户名
+            $status = 0;
+            $message = '部门已存在,请重新输入';
+            return ['status'=>$status, 'message'=>$message];
+        }
+     
+      	$user = model('Department');
+        // 模型对象赋值
+        $user->data([
+            'name'  =>  $name,
+            'is_delete' =>  0
+        ]);
+        $user->save();
+		$status = 1;
+        $message = '添加成功';
+        return ['status'=>$status, 'message'=>$message];
+    }
+      /*
+     *story:修改部门名称
+     *负责人：张艺璇
+     */
+      public function change($id,$name){
+          $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
+          //更新数据库中的部门名称
+          /*$department->name= $name;
+          $department->save();//保存，也就是把更新提交到数据库表
+          return $department->name;*/
+          $department->save([
+              'name'  => $name
+          ],['id' => $id]);
+          return $department->name;
+    }
+
 }

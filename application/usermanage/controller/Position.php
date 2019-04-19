@@ -13,8 +13,65 @@ use app\common\controller\Common;
 
 class Position extends Common
 {
-    public function index(){
+  
+ /**
+  * 第05组 高裕欣
+  * 功能：显示列表
+  */
+	public function index() {
+        $position = model('Position');
+        $list = $position->getUserPositionList();
+        //dump($list);
+        //exit;
+        $this->assign("position_list", $list);
         return $this->fetch();
+
     }
 
+ /**
+  * 第05组 高裕欣
+  * 功能：作废职位
+  */
+ public function invalid($user_id)
+    {
+        //调用model中的方法，保证MVC分离
+        $position = model('Position');
+        $position -> invalid($user_id);
+        $this->redirect('usermanage/position/index');
+    }
+
+public function restore($user_id)
+    {
+        //调用model中的方法，保证MVC分离
+        $position = model('Position');
+        $position -> restore($user_id);
+        $this->redirect('usermanage/position/index');
 }
+ /**
+ * 第05组 张楚悦
+ * 功能：添加职位
+ */
+    public function  addPosition()
+    {
+        $pos = $_POST['pos'];
+        $model = model('Position');
+        $res = $model->add($pos);
+            if($res ==1){
+                $this->success("新增成功");
+            }
+            else{
+                $this->error("添加失败，请重新尝试");
+            }
+    }
+    /**
+     * 第05组 张君兰
+     * 功能：修改职位
+     */
+    public function change($id,$name){
+    //调用model里的方法，保证MVC分离
+        $position = model('Position');
+        return $position->change($id,$name);
+    }
+}
+
+

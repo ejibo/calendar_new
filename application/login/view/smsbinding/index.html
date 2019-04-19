@@ -1,0 +1,110 @@
+{extend name="common@public/base" /}
+{block name="main-content"}
+<!-- Content -->
+<div class="content">
+    <div class="animated fadeIn">                
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                  	<div class="card-body">
+                  		<h4 class="box-title">绑定手机号码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     	</h4>
+     			   	</div>
+                    <div class="card-body--">
+                      <div class="form-group">
+                                            <div class="form-group">
+                                              <label for="telephone">手机号码：</label>
+                                              <input type="text" class="form-control" placeholder="手机号码" id="telephone" >
+                                            </div>
+                                            <div class="form-group">
+                                            <button type="button" class="btn btn-info" onclick="get_code();">获取验证码</button>
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="phonecode">验证码：</label>
+                                              <input  type="text" class="form-control" placeholder="验证码" id="phonecode">
+                                            </div>
+                                          <div>
+                                              <button type="button" class="btn btn-success" onclick="verify();">提交</button>
+                                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .animated -->
+</div>
+<!-- /.content -->
+{/block}
+<script type="text/javascript">
+    var telephone=document.getElementById("telephone");
+    var phonecode=document.getElementById("phonecode");
+    function get_code(){
+        if(telephone.value.length==0){
+            alert("手机号不能为空");
+            return;
+        }
+        if(telephone.value.length!=11){
+            alert("请输入正确的手机号");
+            return;
+        }
+        api.ajax({
+            url: 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/getCode',
+            method: 'post',
+            data: {
+                values: {
+                    telephone: telephone.value,
+                    signature: 'pkusstelephone'
+                }
+            }
+        },function(data) {
+            if (data) {
+                if (data.code == 1) {
+                    api.toast({
+                        msg: '验证码发送成功'
+                    });
+                } else if (data.code == 2) {
+                    alert('验证码发送失败');
+                } else if (data.code == 3) {
+                    alert('手机号已注册');
+                } else {
+                    alert('111');
+                }
+            }
+        });
+    }
+    function verify() {
+        //                alert(mobile.value);
+        //                alert();
+        if(phonecode.value.length==0){
+            alert("请输入验证码");
+            return;
+        }
+        if(phonecode.value.length!=6){
+            alert("请输入6位验证码");
+            return;
+        }
+        api.ajax({
+            url : 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/codeVerify',
+            method : 'post',
+            data : {
+                values : {
+                    phonecode : phonecode.value,
+                    signature : 'pkussphonecode'
+                }
+            }
+        }, function(data) {
+            //                        alert(data.code);
+            if (data) {
+                if (data.code == 1) {
+                    alert('绑定成功');
+                    window.location.href="http://114.116.99.20/calendar_new/public/index.php"
+                } else if (data.code == 2) {
+                    alert('请输入正确的验证码');
+                }
+            } else {
+                alert('111');
+            }
+        });
+    }
+</script>
