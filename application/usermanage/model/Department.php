@@ -54,8 +54,6 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
-        $status = 1;
-        $message = '部门名称可用';
 
         if (Department::get(['name'=> $name])) {
             //如果在表中查询到该用户名
@@ -63,6 +61,7 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
             return ['status'=>$status, 'message'=>$message];
         }
+     
       	$user = model('Department');
         // 模型对象赋值
         $user->data([
@@ -70,7 +69,8 @@ class Department extends Model
             'is_delete' =>  0
         ]);
         $user->save();
-
+		$status = 1;
+        $message = '添加成功';
         return ['status'=>$status, 'message'=>$message];
     }
       /*

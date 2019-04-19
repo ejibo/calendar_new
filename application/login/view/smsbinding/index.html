@@ -36,12 +36,16 @@
 </div>
 <!-- /.content -->
 {/block}
- <script type="text/javascript">
+<script type="text/javascript">
     var telephone=document.getElementById("telephone");
     var phonecode=document.getElementById("phonecode");
     function get_code(){
         if(telephone.value.length==0){
             alert("手机号不能为空");
+            return;
+        }
+        if(telephone.value.length!=11){
+            alert("请输入正确的手机号");
             return;
         }
         api.ajax({
@@ -53,8 +57,8 @@
                     signature: 'pkusstelephone'
                 }
             }
-        },function(data){
-            if(data) {
+        },function(data) {
+            if (data) {
                 if (data.code == 1) {
                     api.toast({
                         msg: '验证码发送成功'
@@ -62,16 +66,13 @@
                 } else if (data.code == 2) {
                     alert('验证码发送失败');
                 } else if (data.code == 3) {
-                        alert('手机号已注册');
-                    } else if (data.code == 4) {
-                        alert('请输入正确的手机号');
-                    }
-                }
-                else{
+                    alert('手机号已注册');
+                } else {
                     alert('111');
                 }
-            });
-        }
+            }
+        });
+    }
     function verify() {
         //                alert(mobile.value);
         //                alert();
