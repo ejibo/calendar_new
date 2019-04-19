@@ -26,7 +26,8 @@ class Smsbinding extends Common
             if (isset($_SESSION['time'])) {
                 /*未过期*/
                 if ($_SESSION['time']+ 60 > time()) {
-                    echo '一分钟内多次操作';
+                    $res['code']=4;
+                  return json_encode($res);
                 } else {
                     $_SESSION['time'] = time();
                 }
