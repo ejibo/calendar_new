@@ -88,7 +88,7 @@ class Position extends Common
      }*/
     public function add($name)
     {
-        $position = model('Department');
+        $position = model('Position');
         return $position->addPosition($name);
     }
 
