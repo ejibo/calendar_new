@@ -64,10 +64,25 @@ public function restore($user_id)
             $this->error('新增失败');
         }
     }*/
-    public function add($name)
+    public function add()
     {
+        $name = $_POST['name'];
+        if (empty($name)){
+            $this->error('不能为空');
+        }
         $position = model('Position');
-        return $position->addPosition($name);
+        $isexist = $position->isexist($name);
+        if($isexist){
+            $this->error('ashdash');
+        }
+        $addposition = \app\usermanage\model\Position::addPosition($name);
+        if($addposition){
+            $this->success('chenggong');
+        }else{
+            $this->error('shiabi');
+        }
+
+
     }
     /**
      * 第05组 张君兰

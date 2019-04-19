@@ -61,27 +61,24 @@ class Position extends Model
         $result = Db::name('user_position')->insert($data);
         return $result;
     }*/
-    public function addPosition($name)
+    public function isexist($name){
+        $exist = Db::table('user_position')->where('status',1)->where('name',$name)->find();
+        if ($exist){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public static function addPosition($name)
     {
         // 接收用户的数据,部门描述
-
-        if (Position::get(['name'=> $name])) {
-            //如果在表中查询到该用户名
-            $status = 0;
-            $message = '职位已存在,请重新输入';
-            return ['status'=>$status, 'message'=>$message];
+        $position = ['name'=>$name,'status'=>1];
+        $ok = Db::table('user_position')->insert($position);
+        if ($ok){
+            return true;
+        }else{
+            return false;
         }
-
-        $user = model('Position');
-        // 模型对象赋值
-        $user->data([
-            'name'  =>  $name,
-            'is_delete' =>  0
-        ]);
-        $user->save();
-        $status = 1;
-        $message = '添加成功';
-        return ['status'=>$status, 'message'=>$message];
     }
 
 }
