@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                   	<div class="card-body">
-                  		<h4 class="box-title">绑定手机号码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  		<h4 class="box-title">绑定手机号码
                      	</h4>
      			   	</div>
                     <div class="card-body--">
@@ -49,27 +49,27 @@
             alert("请输入正确的手机号");
             return;
         }
-        api.ajax({
-            url: 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/getCode',
-            method: 'post',
+        $.ajax({
+            url: 'getCode',
+            type: 'post',
             data: {
-                values: {
-                    telephone: telephone.value,
-                    signature: 'pkusstelephone'
-                }
-            }
-        },function(data) {
-            if (data) {
-                if (data.code == 1) {
-                    api.toast({
-                        msg: '验证码发送成功'
-                    });
-                } else if (data.code == 2) {
-                    alert('验证码发送失败');
-                } else if (data.code == 3) {
-                    alert('手机号已注册');
-                } else {
-                    alert('111');
+                telephone: telephone.value,
+                signature: 'pkusstelephone'
+            },
+            dataType:"json",
+            success:function(data) {
+                if (data) {
+                    if (data.code == 1) {
+                        api.toast({
+                            msg: '验证码发送成功'
+                        });
+                    } else if (data.code == 2) {
+                        alert('验证码发送失败');
+                    } else if (data.code == 3) {
+                        alert('手机号已注册');
+                    } else {
+                        alert('111');
+                    }
                 }
             }
         });
@@ -85,26 +85,27 @@
             alert("请输入6位验证码");
             return;
         }
-        api.ajax({
-            url : 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/codeVerify',
-            method : 'post',
+        $.ajax({
+            url : 'codeVerify',
+            type : 'post',
             data : {
-                values : {
                     phonecode : phonecode.value,
                     signature : 'pkussphonecode'
+            },
+            dataType:"json",
+            success:function(data) {
+                if (data) {
+                    if (data.code == 1) {
+                        alert('绑定成功');
+                        window.location.href="http://114.116.99.20/calendar_new/public/index.php"
+                    }
+                    else if (data.code == 2) {
+                        alert('请输入正确的验证码');
+                    }
                 }
-            }
-        }, function(data) {
-            //                        alert(data.code);
-            if (data) {
-                if (data.code == 1) {
-                    alert('绑定成功');
-                    window.location.href="http://114.116.99.20/calendar_new/public/index.php"
-                } else if (data.code == 2) {
-                    alert('请输入正确的验证码');
+                else{
+                    alert('111');
                 }
-            } else {
-                alert('111');
             }
         });
     }
