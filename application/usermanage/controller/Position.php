@@ -51,17 +51,10 @@ public function restore($user_id)
  * 第05组 张楚悦
  * 功能：添加职位
  */
-    public function  add($pos)
+    public function add($name)
     {
-        $model = model('Position');
-        $res = $model->add($pos);
-            if($res ==1){
-                $this->success("新增成功");
-            }
-            else{
-                $this->error("添加失败，请重新尝试");
-            }
-         $this->redirect('usermanage/position/index');
+        $position = model('Position');
+        return $position->addPosition($name);
     }
     /**
      * 第05组 张君兰
