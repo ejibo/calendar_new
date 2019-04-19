@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20679f20-cbb7-4780-a9a8-ebcc051b76f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/usermanage/view/position/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/usermanage/view/position/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
@@ -25,8 +24,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
-              <caret line="57" column="99" selection-start-line="57" selection-start-column="99" selection-end-line="57" selection-end-column="99" />
+            <state relative-caret-position="1911">
+              <caret line="204" column="17" lean-forward="true" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="17" />
+              <folding>
+                <element signature="e#220#226#0" expanded="true" />
+                <element signature="e#244#250#0" expanded="true" />
+                <element signature="e#261#267#0" expanded="true" />
+                <element signature="e#267#273#0" expanded="true" />
+                <element signature="e#273#279#0" expanded="true" />
+                <element signature="e#279#285#0" expanded="true" />
+                <element signature="e#404#410#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,8 +78,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="188" column="42" selection-start-line="188" selection-start-column="42" selection-end-line="188" selection-end-column="42" />
+            <state relative-caret-position="209">
+              <caret line="199" column="45" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
               <folding>
                 <element signature="e#218#224#0" expanded="true" />
                 <element signature="e#244#250#0" expanded="true" />
@@ -88,8 +96,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+            <state relative-caret-position="57">
+              <caret line="55" column="31" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-456">
+              <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -104,6 +121,11 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>addPosition</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -226,6 +248,14 @@
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="usermanage" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="department" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="usermanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
               <item name="position" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -237,6 +267,9 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -262,12 +295,12 @@
       <updated>1555572468080</updated>
       <workItem from="1555572469322" duration="3899000" />
       <workItem from="1555595480424" duration="22164000" />
-      <workItem from="1555681981033" duration="1037000" />
+      <workItem from="1555681981033" duration="1541000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27100000" />
+    <option name="totallyTimeSpent" value="27604000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -371,24 +404,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="52" column="5" lean-forward="true" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/manageconfig/view/item/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="231" column="25" lean-forward="true" selection-start-line="231" selection-start-column="25" selection-end-line="231" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="57" column="99" selection-start-line="57" selection-start-column="99" selection-end-line="57" selection-end-column="99" />
         </state>
       </provider>
     </entry>
@@ -427,17 +446,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1911">
+          <caret line="204" column="17" lean-forward="true" selection-start-line="204" selection-start-column="17" selection-end-line="204" selection-end-column="17" />
+          <folding>
+            <element signature="e#220#226#0" expanded="true" />
+            <element signature="e#244#250#0" expanded="true" />
+            <element signature="e#261#267#0" expanded="true" />
+            <element signature="e#267#273#0" expanded="true" />
+            <element signature="e#273#279#0" expanded="true" />
+            <element signature="e#279#285#0" expanded="true" />
+            <element signature="e#404#410#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="5" lean-forward="true" selection-start-column="5" selection-end-column="5" />
+        <state relative-caret-position="57">
+          <caret line="55" column="31" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-456">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="188" column="42" selection-start-line="188" selection-start-column="42" selection-end-line="188" selection-end-column="42" />
+        <state relative-caret-position="209">
+          <caret line="199" column="45" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
           <folding>
             <element signature="e#218#224#0" expanded="true" />
             <element signature="e#244#250#0" expanded="true" />

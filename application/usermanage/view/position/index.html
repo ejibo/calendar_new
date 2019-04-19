@@ -190,13 +190,14 @@
         console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "add",
+            url: "addPosition",
             async: false,
             //dataType: 'json',
             data: {
                 "name": $("#name").val()
             },
             success: function (data) {
+                console.log("2222222222222222")
                 console.log(data);
                 if (data.status == 1) {
                     alert(data.message);
