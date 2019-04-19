@@ -54,8 +54,6 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
-        $status = 1;
-        $message = '部门名称可用';
 
         if (Department::get(['name'=> $name])) {
             //如果在表中查询到该用户名
