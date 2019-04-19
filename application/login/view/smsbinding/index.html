@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                   	<div class="card-body">
-                  		<h4 class="box-title">绑定手机号码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  		<h4 class="box-title">绑定手机号码
                      	</h4>
      			   	</div>
                     <div class="card-body--">
@@ -50,7 +50,7 @@
             return;
         }
         $.ajax({
-            url: '__CONTROLLER__/getCode',
+            url: 'controller/getCode',
             type: 'post',
             data: {
                 telephone: telephone.value,
@@ -86,7 +86,7 @@
             return;
         }
         $.ajax({
-            url : '__CONTROLLER__/codeVerify',
+            url : 'controller/codeVerify',
             type : 'post',
             data : {
                     phonecode : phonecode.value,
