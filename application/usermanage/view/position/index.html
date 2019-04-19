@@ -172,11 +172,11 @@
         console.log(name);
         $.ajax({
             type: "POST",
-            url: "addPosition",
+            url: "{:url('usermanage/position/addPosition')}",
             async: false,
             //dataType: 'json',
             data: {
-                "name":$("#name").val()
+                "name":name
             },
 
             success: function(data){
