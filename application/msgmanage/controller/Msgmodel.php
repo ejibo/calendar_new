@@ -44,7 +44,7 @@ class Msgmodel extends Common
         $model = model('Template');
         $isHasSame = $model->getItemByTitle($tit);
         if ($isHasSame == null) {
-            $res = $model->insertTemplate($des, $con);
+            $res = $model->insertTemplate($tit, $con);
             if($res ==1){
                 $this->success("新增成功");
             }
