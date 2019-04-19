@@ -53,9 +53,10 @@ public function restore($user_id)
  */
     public function addPosition()
     {
-        $Position = new Position; //添加职位
-        $result = $Position->save($data);
-        if($result){
+        $model = model('Position');
+        $name = $_POST['name'];
+        $result = $model->insertPosition($name);
+        if($result==1){
             //设置成功后跳转页面的地址
             $this->success('新增成功', 'usermanage/position/index');
         } else {

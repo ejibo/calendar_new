@@ -148,30 +148,7 @@
                 loadTable();
             }
         });
-        function addPosition()
-        {
-            $.ajax({
-                type: "POST",
-                url: "add",
-                async: false,
-                //dataType: 'json',
-                data: {
-                    "name":$("#name").val()
-                },
-                success: function(data){
-                    console.log(data);
-                    if(data.status==1){
-                        alert(data.message);
-                        $("#smallmodal1").modal("hide");
-                        $('.modal-backdrop').remove();//去除遮罩层
-                        loadTable();
-                    }else {
-                        alert(data.message);
-                    }
 
-                }
-            });
-        }
     }
 </script>
 {/block}
