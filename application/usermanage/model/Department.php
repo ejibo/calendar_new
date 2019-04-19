@@ -63,6 +63,12 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
             return ['status'=>$status, 'message'=>$message];
         }
+      $rule = [
+            'name|部门名称' => "require|min:1|max:30",
+        ];
+        $result = $this -> validate($name, $rule);
+
+        if ($result === true) {
       	$user = model('Department');
         // 模型对象赋值
         $user->data([
@@ -70,7 +76,13 @@ class Department extends Model
             'is_delete' =>  0
         ]);
         $user->save();
-
+		$status = 1;
+        $message = '添加成功';
+        return ['status'=>$status, 'message'=>$message];
+        }
+      else{
+        $status = 0;
+        $message = '部门描述长度须在3-30个字符之间，请重新添加';
         return ['status'=>$status, 'message'=>$message];
     }
       /*
