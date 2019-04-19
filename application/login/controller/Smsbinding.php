@@ -62,7 +62,7 @@ class Smsbinding extends Common
         }
         else{
             if($phonecode==$_SESSION['verifycode']){
-                if($_SESSION['time']+ 300 > time()){//距离发出验证码已经超过5分钟
+                if($_SESSION['time']+ 300 < time()){//距离发出验证码已经超过5分钟
                     $res1['code']=4;
                 }
                 else {
