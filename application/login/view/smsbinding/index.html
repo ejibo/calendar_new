@@ -49,6 +49,10 @@
             alert("请输入正确的手机号");
             return;
         }
+         if(sessionStorage.getItem('telephone')==$telephone&&sessionStorage.getItem('time')+60<(new Date()).valueOf()){
+            alert("操作过于频繁，请稍后再试");
+            return;
+        }
         $.ajax({
             url: 'getCode',
             type: 'post',
