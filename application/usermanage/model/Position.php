@@ -56,11 +56,10 @@ class Position extends Model
      * 第05组 张楚悦
      * 功能：添加职位
      */
-    public function add($pos)
-    {
-        $data = ['name' => $pos, 'is_delete' => 0];
-        $res = Db::name('user_position')->insert($data);
-        return $res;
+    public function insertPosition($name){
+        $data = ['name' => $name, 'is_delete' => 0];
+        $result = Db::name('user_position')->insert($data);
+        return $result;
     }
 
 }

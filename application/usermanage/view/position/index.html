@@ -49,7 +49,34 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="modal fade" id="smallmodal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="scrollmodalLabel">添加职位</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </div>
+                                            <input type="text" id="name" placeholder="请输入职位描述" class="form-control" value="" >
+                                        </div>
+                                    </div>
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                    <button type="button" class="btn btn-success" onclick="addPosition()">确认</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel1" aria-hidden="true">
                         <div class="modal-dialog modal-sm" role="document">
                             <div class="modal-content">
@@ -61,7 +88,6 @@
                                     <input hidden id="tmp_id">
                                 </div>
                                 <div class="modal-body">
-                                    <p>
                                         <!--<div class="form-group">
                                             <div class="input-group">
                                                 <div class="input-group-addon">
@@ -85,35 +111,7 @@
                         </div>
                     </div>
 
-                    <div class="modal fade" id="smallmodal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-sm" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="scrollmodalLabel">添加职位</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <i class="fa fa-user"></i>
-                                            </div>
-                                            <input type="text" id="user_position" name="user_position" value="请输入职位描述" class="form-control" >
-                                        </div>
-                                    </div>
 
-                                  </p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <a href="user_base.html"><button type="button" class="btn btn-success">确认</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
             <!-- .animated -->
@@ -128,6 +126,33 @@
         loadTable();
         //$('#bootstrap-data-table').DataTable();
     });
+    function addPosition()
+    {
+        //console.log($("#name").val());
+        $.ajax({
+            type: "POST",
+            url: "add",
+            async: false,
+            //dataType: 'json',
+            data: {
+                "name":$("#name").val()
+            },
+            success: function(data){
+                console.log(data);
+                if(data.status==1){
+                    alert(data.message);
+                    $("#smallmodal1").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    loadTable();
+                }else {
+                    alert(data.message);
+                }
+
+            }
+        });
+    }
+
+
     function changePositionName(){
         var id = $("#tmp_id").val();
         var name = $('#position_name').val();
