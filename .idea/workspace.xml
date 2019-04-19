@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20679f20-cbb7-4780-a9a8-ebcc051b76f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/application/usermanage/controller/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/usermanage/controller/Position.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/usermanage/model/Position.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/usermanage/model/Position.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/usermanage/view/position/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/application/usermanage/view/position/index.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/vendor/composer/" />
     <ignored path="$PROJECT_DIR$/vendor/markbaker/complex/" />
@@ -23,12 +22,47 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5">
+              <caret line="184" column="3" selection-start-line="184" selection-start-column="3" selection-end-line="208" selection-end-column="5" />
+              <folding>
+                <element signature="e#220#226#0" expanded="true" />
+                <element signature="e#244#250#0" expanded="true" />
+                <element signature="e#261#267#0" expanded="true" />
+                <element signature="e#267#273#0" expanded="true" />
+                <element signature="e#273#279#0" expanded="true" />
+                <element signature="e#279#285#0" expanded="true" />
+                <element signature="e#404#410#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/model/Position.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="75" column="22" lean-forward="true" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+            <state relative-caret-position="119">
+              <caret line="58" column="37" lean-forward="true" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
               <folding>
                 <element signature="e#39#55#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="156" column="35" lean-forward="true" selection-start-line="156" selection-start-column="35" selection-end-line="156" selection-end-column="35" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+                <element signature="n#div#2;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
               </folding>
             </state>
           </provider>
@@ -37,8 +71,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/model/Department.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="74" column="5" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="74" selection-end-column="5" />
+            <state relative-caret-position="95">
+              <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
               <folding>
                 <element signature="e#117#133#0#PHP" expanded="true" />
               </folding>
@@ -49,17 +83,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="51" column="9" selection-start-line="51" selection-start-column="4" selection-end-line="55" selection-end-column="5" />
+            <state relative-caret-position="304">
+              <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+            <state relative-caret-position="969">
+              <caret line="56" column="18" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -74,10 +108,10 @@
       <list>
         <option value="$PROJECT_DIR$/application/usermanage/view/department/index.html" />
         <option value="$PROJECT_DIR$/application/usermanage/controller/Department.php" />
-        <option value="$PROJECT_DIR$/application/usermanage/view/position/index.html" />
         <option value="$PROJECT_DIR$/application/usermanage/model/Department.php" />
         <option value="$PROJECT_DIR$/application/usermanage/model/Position.php" />
         <option value="$PROJECT_DIR$/application/usermanage/controller/Position.php" />
+        <option value="$PROJECT_DIR$/application/usermanage/view/position/index.html" />
       </list>
     </option>
   </component>
@@ -138,6 +172,29 @@
               <item name="usermanage" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="usermanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="usermanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="department" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ss_calendar_new" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ss_calendar_new" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="usermanage" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="position" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -172,12 +229,12 @@
       <option name="presentableId" value="Default" />
       <updated>1555572468080</updated>
       <workItem from="1555572469322" duration="3899000" />
-      <workItem from="1555595480424" duration="7543000" />
+      <workItem from="1555595480424" duration="8537000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11442000" />
+    <option name="totallyTimeSpent" value="12436000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -228,32 +285,20 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/application/usermanage/view/position/index.html</url>
+          <line>52</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/database.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2508">
-          <caret line="132" column="33" selection-start-line="132" selection-start-column="33" selection-end-line="132" selection-end-column="33" />
-          <folding>
-            <element signature="e#220#226#0" expanded="true" />
-            <element signature="e#244#250#0" expanded="true" />
-            <element signature="e#261#267#0" expanded="true" />
-            <element signature="e#267#273#0" expanded="true" />
-            <element signature="e#273#279#0" expanded="true" />
-            <element signature="e#279#285#0" expanded="true" />
-            <element signature="e#404#410#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="140" column="85" lean-forward="true" selection-start-line="140" selection-start-column="85" selection-end-line="140" selection-end-column="85" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Userbasic.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -306,35 +351,66 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Department.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="51" column="9" selection-start-line="51" selection-start-column="4" selection-end-line="55" selection-end-column="5" />
+        <state relative-caret-position="304">
+          <caret line="55" column="5" lean-forward="true" selection-start-line="55" selection-start-column="5" selection-end-line="55" selection-end-column="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/model/Department.php">
+    <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="74" column="5" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="74" selection-end-column="5" />
+        <state relative-caret-position="969">
+          <caret line="56" column="18" selection-start-line="56" selection-start-column="18" selection-end-line="56" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/usermanage/view/department/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5">
+          <caret line="184" column="3" selection-start-line="184" selection-start-column="3" selection-end-line="208" selection-end-column="5" />
           <folding>
-            <element signature="e#117#133#0#PHP" expanded="true" />
+            <element signature="e#220#226#0" expanded="true" />
+            <element signature="e#244#250#0" expanded="true" />
+            <element signature="e#261#267#0" expanded="true" />
+            <element signature="e#267#273#0" expanded="true" />
+            <element signature="e#273#279#0" expanded="true" />
+            <element signature="e#279#285#0" expanded="true" />
+            <element signature="e#404#410#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/usermanage/model/Position.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="75" column="22" lean-forward="true" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+        <state relative-caret-position="119">
+          <caret line="58" column="37" lean-forward="true" selection-start-line="58" selection-start-column="37" selection-end-line="58" selection-end-column="37" />
           <folding>
             <element signature="e#39#55#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/usermanage/controller/Position.php">
+    <entry file="file://$PROJECT_DIR$/application/usermanage/model/Department.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="56" column="45" selection-start-line="56" selection-start-column="45" selection-end-line="56" selection-end-column="45" />
+        <state relative-caret-position="95">
+          <caret line="54" column="5" lean-forward="true" selection-start-line="54" selection-start-column="5" selection-end-line="54" selection-end-column="5" />
+          <folding>
+            <element signature="e#117#133#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/usermanage/view/position/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="156" column="35" lean-forward="true" selection-start-line="156" selection-start-column="35" selection-end-line="156" selection-end-column="35" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#1;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+            <element signature="n#div#2;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
