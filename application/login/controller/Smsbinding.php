@@ -51,6 +51,7 @@ class Smsbinding extends Common
     }
     public function codeVerify(){
         $phonecode=Request::instance()->post('phonecode');
+                session_start();
       $res1['phonecode']=$phonecode;
       $res1['verifycode']=$_SESSION['verifycode'];
        $res1['time']=$_SESSION['time'];
@@ -60,7 +61,6 @@ class Smsbinding extends Common
             return $res1;
         }
         else{
-          session_start();
             if($phonecode==$_SESSION['verifycode']){
                 if($_SESSION['time']+ 300 > time()){//距离发出验证码已经超过5分钟
                     $res1['code']=4;
