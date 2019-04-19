@@ -15,7 +15,6 @@ class Smsbinding extends Common
     }
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
-        if($telephone.)
         $mobile=new Mobile();
         $checkres=$mobile->hasMobile();
         if($checkres){//手机号已绑定
