@@ -136,9 +136,7 @@
 {block name="scripts"}
 <script type="text/javascript">
     $(document).ready(function () {
-        console.log("hello");
         loadTable();
-        //$('#bootstrap-data-table').DataTable();
     });
     function recordId(item){
         var id = item.id;
@@ -152,7 +150,7 @@
             url: 'loadPosition',//url地址，相对路径，已经在position控制器下
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
-            
+
         });
     }
 
