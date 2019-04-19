@@ -52,7 +52,7 @@ class Smsbinding extends Common
             return $res;
         }
         else{
-            $res['code']=4;
+            $res['code']=5;
             return $res;
         }
     }
@@ -95,7 +95,7 @@ class Smsbinding extends Common
             return $res1;
         }
         else{
-            $res1['code']=3;
+            $res1['code']=5;
             return $res1;
         }
 
