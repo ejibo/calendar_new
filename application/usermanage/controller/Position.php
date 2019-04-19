@@ -79,6 +79,7 @@ public function restore($user_id)
         $position = model('Position');
         $positions = $position->getAllPositions();
         return $positions;
+    }
 }
 
 
