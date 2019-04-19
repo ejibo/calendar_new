@@ -41,6 +41,7 @@ class Smsbinding extends Common
             $info="您的验证码为" + $verifyCode + "，有效时间为5分钟";
             $result = $client->send($telephone, $info);
             //var_dump($result);
+          $res['coderes']=$result;
             if($result['code']=='0'){
                 $res['code']=1;
             }
@@ -50,6 +51,10 @@ class Smsbinding extends Common
     }
     public function codeVerify(){
         $phonecode=Request::instance()->post('phonecode');
+      $res1['phonecode']=$phonecode;
+      $res1['verifycode']=$_SESSION['verifycode'];
+       $res1['time']=$_SESSION['time'];
+       $res1['timenow']=time();
         if(!is_numeric($phonecode)){
             $res1['code']=2;
             return $res1;
@@ -74,7 +79,7 @@ class Smsbinding extends Common
                 }
             }
             else{
-                $res1['code']=4;
+                $res1['code']=2;
             }
 
         }
