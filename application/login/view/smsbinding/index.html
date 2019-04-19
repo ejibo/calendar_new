@@ -60,8 +60,9 @@
             success:function(data) {
 
                 if (data) {
-                  alert(data);
+                 // alert(data);
                     var jsonobj=eval("("+data+")");
+                  alert(jsonobj);
                     if (jsonobj.code== 1) {
                         alert('验证码发送成功');
                     }
@@ -104,6 +105,7 @@
             success:function(data) {
                 if (data) {
                     //var jsonobj1=eval("("+data+")");
+                  alert(data);
                     if (data.code == 1) {
                         alert('绑定成功');
                         window.location.href="http://114.116.99.20/calendar_new/public/index.php"
