@@ -66,7 +66,7 @@ class Position extends Model
         $result = Db::name('user_position')->insert($data);
         return $result;
     }*/
-    /*
+
     public function isexist($name){
         $exist = Db::table('user_position')->where('status',1)->where('name',$name)->find();
         if ($exist){
@@ -85,7 +85,8 @@ class Position extends Model
         }else{
             return false;
         }
-    }*/
+    }
+    /*
     public function addPosition($name)
     {
         // 接收用户的数据,部门描述
@@ -107,7 +108,7 @@ class Position extends Model
         $status = 1;
         $message = '添加成功';
         return ['status' => $status, 'message' => $message];
-    }
+    }*/
 }
 
 
