@@ -70,14 +70,14 @@ class Department extends Model
         #$result = $this -> validate($name, $rule);
 
         //if ($result === true) {
-        $department = new Department();
+        $department = new Department;
         #$department->insert($name);
         $department->name = $name;
         #$department->create_time = time();
         $department->save();
         #$department->save([
              # 'name'  => $name
-          ]);
+          #]);
  
         #$department->add();  
        # $status = 1;
