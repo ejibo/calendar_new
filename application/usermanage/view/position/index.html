@@ -63,17 +63,16 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <div class="input-group-addon">
-                                                <i class="fa fa-user"></i>
+                                                <i class="fa fa-pencil-square-o"></i>
                                             </div>
-                                            <input type="text" id="user_position" name="user_position" value="请输入职位描述" class="form-control" >
+                                            <input type="text" id="name" placeholder="请输入职位描述" class="form-control" value="" >
                                         </div>
                                     </div>
-
                                     </p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <a href="user_base.html"><button type="button" class="btn btn-success">确认</button></a>
+                                    <button type="button" class="btn btn-success" onclick="addDepartment()">确认</button></a>
                                 </div>
                             </div>
                         </div>
@@ -126,6 +125,9 @@
         loadTable();
         //$('#bootstrap-data-table').DataTable();
     });
+
+
+
     function changePositionName(){
         var id = $("#tmp_id").val();
         var name = $('#position_name').val();
