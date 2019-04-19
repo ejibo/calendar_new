@@ -68,9 +68,7 @@ class Position extends Common
     }*/
    public function add()
     {
-        $data= input('post.');
-        dump($data);
-        $name = $data['name'];
+        $name = $_POST['name'];
         if (empty($name)){
             $this->error('不能为空');
         }
