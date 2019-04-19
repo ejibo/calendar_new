@@ -45,6 +45,6 @@ class Smsbinding extends Common
             }
             else $res['code']=2;
         }
-      	return json_encode($res);
+      	return $res;
     }
 }
