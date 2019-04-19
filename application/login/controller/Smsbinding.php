@@ -25,7 +25,7 @@ class Smsbinding extends Common
             $_SESSION['telephone'] = $telephone;
             if (isset($_SESSION['time'])) {
                 /*未过期*/
-                if ($_SESSION['time']+ 60 > time()) {
+                if ($_SESSION['time']+ 60 < time()) {
                     $res['code']=4;
                   return json_encode($res);
                 } else {
