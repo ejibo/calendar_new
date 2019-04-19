@@ -72,7 +72,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                    <button type="button" class="btn btn-success" onclick="addPosition()">确认</button></a>
+                                    <button type="button" class="btn btn-success" onclick="addPosition()">确认</button>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                             'onclick="editModalShow('+data[i].id+','+'\''+data[i].name+'\')">' +
                             '<i class="fa fa-magic"></i>&nbsp;编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                             '<button type="button" class="btn btn-danger btn-sm mb-1" ' +
-                            'onclick="deleteDepartment('+data[i].id+')">' +
+                            'onclick="deletePosition('+data[i].id+')">' +
                             '<i class="fa fa-exclamation">' +
                             '</i>&nbsp;删除</button></td></tr>';
                     }
@@ -168,7 +168,6 @@
 
     function addPosition()
     {
-        //console.log($("#name").val());
         $.ajax({
             type: "POST",
             url: "add",
