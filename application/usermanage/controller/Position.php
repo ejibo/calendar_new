@@ -55,10 +55,13 @@ class Position extends Common
 
     public function add()
     {
-        $name = $_POST['name'];
-        $model = model('Position');
+        $name = $_POST['name'];//获取前端传入的数据
+        if (empty($name)){//判断是否为空
+            $this->error('职位不能为空，请重新输入');
+        }
+        $model = model('Position');//实例化方法
         $ifsame = $model->getPosition($name);
-        if ($ifsame == null) {
+        if ($ifsame == null) {//判断是否重名
             $result = $model->insertPosition($name);
             if ($result == 1) {
                 //设置成功后跳转页面的地址
