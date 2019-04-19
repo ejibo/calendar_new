@@ -18,7 +18,7 @@ class Template extends Model
     //根据模板名称获取模板
     public function getItemByTitle($tit){
         $titleTemp = Db::name('message_template')
-            ->where('name',$tit)
+            ->where('title',$tit)
             ->where('is_delete',0)
             ->find();
         return $titleTemp;
@@ -34,7 +34,7 @@ class Template extends Model
 
     //插入模板
     public function insertTemplate($tit, $cont){
-        $data = ['title' => $des, content=> $cont, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
+        $data = ['title' => $tit, 'content'=> $cont, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
         $res = Db::name('message_template')->insert($data);
         return $res;
     }

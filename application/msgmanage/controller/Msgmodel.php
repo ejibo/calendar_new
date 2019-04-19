@@ -39,6 +39,8 @@ class Msgmodel extends Common
     {
         $des = $_POST['des'];
         $con = $_POST['con'];
+        /* var_dump($des);
+        var_dump($con); */
         $model = model('Template');
         $isHasSame = $model->getItemByTitle($des);
         if ($isHasSame == null) {
