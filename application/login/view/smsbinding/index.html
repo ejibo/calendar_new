@@ -59,7 +59,7 @@
             dataType:"json",
             success:function(data) {
                 if (data) {
-                    if (data['code'] == 1) {
+                 /*   if (data["code'] == 1) {
                        alert('验证码发送成功');
                     } else if (data['code'] == 2) {
                         alert('验证码发送失败');
@@ -70,7 +70,7 @@
                     }
                       else {
                         alert(data);
-                    }
+                */    alert(data.code);}
                 }
             }
         });
