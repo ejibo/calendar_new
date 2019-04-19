@@ -67,6 +67,7 @@ public function restore($user_id)
     public function add()
     {
         $data= input('post.');
+        dump($data);
         $name = $data['name'];
         if (empty($name)){
             $this->error('不能为空');
