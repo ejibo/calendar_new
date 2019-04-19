@@ -8,8 +8,8 @@
 
 namespace app\usermanage\controller;
 
-
 use app\common\controller\Common;
+
 
 class Position extends Common
 {
@@ -51,17 +51,18 @@ public function restore($user_id)
  * 第05组 张楚悦
  * 功能：添加职位
  */
-    public function  addPosition()
+    public function addPosition()
     {
-        $pos = $_POST['pos'];
         $model = model('Position');
-        $res = $model->add($pos);
-            if($res ==1){
-                $this->success("新增成功");
-            }
-            else{
-                $this->error("添加失败，请重新尝试");
-            }
+        $name = $_POST['name'];
+        $result = $model->insertPosition($name);
+        if($result==1){
+            //设置成功后跳转页面的地址
+            $this->success('新增成功', 'usermanage/position/index');
+        } else {
+
+            $this->error('新增失败');
+        }
     }
     /**
      * 第05组 张君兰
