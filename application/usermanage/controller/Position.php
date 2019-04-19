@@ -66,7 +66,7 @@ class Position extends Common
             $this->error('新增失败');
         }
     }*/
-    public function add()
+   /* public function add()
     {
         $data= input('post.');
         dump($data);
@@ -85,9 +85,14 @@ class Position extends Common
         }else{
             $this->error('添加失败');
         }
-
-
+     }*/
+    public function add($name)
+    {
+        $position = model('Department');
+        return $position->addPosition($name);
     }
+
+
 
 
     /**
