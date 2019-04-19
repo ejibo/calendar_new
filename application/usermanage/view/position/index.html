@@ -186,7 +186,6 @@
     }
 
     function addPosition() {
-        console.log("____________________")
         console.log($("#name").val());
         $.ajax({
             type: "POST",
@@ -197,15 +196,14 @@
                 "name": $("#name").val()
             },
             success: function (data) {
-                console.log("2222222222222222")
                 console.log(data);
                 if (data.status == 1) {
-                    alert(data.message);
+                    alert(data.msg);
                     $("#smallmodal1").modal("hide");
                     $('.modal-backdrop').remove();//去除遮罩层
                     loadTable();
                 } else {
-                    alert(data.message);
+                    alert(data.msg);
                 }
 
             }
