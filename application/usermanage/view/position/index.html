@@ -83,7 +83,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-success" onclick="addPosition()">确认</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addPosition()">确认</button>
                             </a>
                         </div>
                     </div>
@@ -199,6 +199,7 @@
                 console.log(data);
                 if (data.status == 1) {
                     alert(data.msg);
+                    window.location.href = "{:url('usermanage/position/index')}"
                     $("#smallmodal1").modal("hide");
                     $('.modal-backdrop').remove();//去除遮罩层
                     loadTable();
