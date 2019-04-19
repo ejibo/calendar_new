@@ -61,8 +61,8 @@ class Department extends Model
             //如果在表中查询到该用户名
             $status = 0;
             $message = '部门已存在,请重新输入';
+            return ['status'=>$status, 'message'=>$message];
         }
-        return ['status'=>$status, 'message'=>$message];
        
         $department = new Department;
         $department->name = $name;
