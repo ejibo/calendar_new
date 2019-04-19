@@ -59,7 +59,7 @@ class Position extends Common
         if (empty($name)){//判断是否为空
             $this->error('职位不能为空，请重新输入');
         }
-        $model = model('Position');//实例化方法
+        $model = model('Position');//实例化模块
         $ifsame = $model->getPosition($name);
         if ($ifsame == null) {//判断是否重名
             $result = $model->insertPosition($name);
