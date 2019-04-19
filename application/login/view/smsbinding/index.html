@@ -50,7 +50,7 @@
             return;
         }
         $.ajax({
-            url: 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/getCode',
+            url: '__CONTROLLER__/getCode',
             type: 'post',
             data: {
                 telephone: telephone.value,
@@ -86,7 +86,7 @@
             return;
         }
         $.ajax({
-            url : 'http://114.116.99.20/calendar_new/public/index.php/login/smsbinding/codeVerify',
+            url : '__CONTROLLER__/codeVerify',
             type : 'post',
             data : {
                     phonecode : phonecode.value,
