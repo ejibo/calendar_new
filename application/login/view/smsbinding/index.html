@@ -50,7 +50,7 @@
             return;
         }
         $.ajax({
-            url: 'controller/getCode',
+            url: 'getCode',
             type: 'post',
             data: {
                 telephone: telephone.value,
@@ -86,7 +86,7 @@
             return;
         }
         $.ajax({
-            url : 'controller/codeVerify',
+            url : 'codeVerify',
             type : 'post',
             data : {
                     phonecode : phonecode.value,
