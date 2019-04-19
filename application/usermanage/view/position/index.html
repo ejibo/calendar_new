@@ -120,3 +120,34 @@
         </div>
         <!-- /.content -->
 {/block}
+{block name="scripts"}
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("hello");
+        loadTable();
+        //$('#bootstrap-data-table').DataTable();
+    });
+    function changeDepartmentName(){
+        var id = $("#tmp_id").val();
+        var name = $('#depart_name').val();
+        //用AJAX方式访问后台写的方法
+        $.ajax({
+            type: "POST",
+            url: 'change',//请求程序页面
+            async: false,//同步：当有返回值以后才会运行后面的js程序。
+            data: {
+                "id":id,
+                "name":name
+            },//请求需要发送的处理数据
+            success: function (msg) {
+                console.log("success!"+msg);
+                alert("修改成功！");
+                $("#smallmodal").modal("hide");
+                $('.modal-backdrop').remove();//去除遮罩层
+                //在这里刷新页面或者局部刷新表格
+                loadTable();
+            }
+        });
+
+    }
+</script>
