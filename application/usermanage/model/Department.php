@@ -55,7 +55,7 @@ class Department extends Model
     {
         // 接收用户的数据,部门描述
         $status = 1;
-        $message = $name;
+        $message = '插入静态字符串';
 
         if (Department::get(['name'=> $name])) {
             //如果在表中查询到该用户名
@@ -65,7 +65,7 @@ class Department extends Model
         }
        
         $department = new Department;
-        $department->name = $name;
+        $department->name = '我只是个字符串';
         $department->is_delete = 0;
         $department->save();
 
