@@ -37,12 +37,12 @@ class Msgmodel extends Common
      */
     public function  addTemplate()
     {
-        $des = $_POST['des'];
+        $tit = $_POST['tit'];
         $con = $_POST['con'];
         /* var_dump($des);
         var_dump($con); */
         $model = model('Template');
-        $isHasSame = $model->getItemByTitle($des);
+        $isHasSame = $model->getItemByTitle($tit);
         if ($isHasSame == null) {
             $res = $model->insertTemplate($des, $con);
             if($res ==1){
