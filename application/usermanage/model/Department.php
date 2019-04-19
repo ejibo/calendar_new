@@ -63,12 +63,19 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
             return ['status'=>$status, 'message'=>$message];
         }
-       
+      	/*
         $department = new Department;
         $department->name = '我只是个字符串';
         $department->is_delete = 0;
         $department->save();
-
+		*/
+      	$user = model('Department');
+        // 模型对象赋值
+        $user->data([
+            'name'  =>  $name,
+            'is_delete' =>  0
+        ]);
+        $user->save();
 
         return ['status'=>$status, 'message'=>$message];
     }
