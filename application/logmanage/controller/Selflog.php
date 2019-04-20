@@ -41,7 +41,7 @@ class Selflog extends Common
     
         $number = "测试======<br /> 学号 姓名 用户类型 部门 职位 注册日期 最后更新";
         $this->assign('number', $number);
-        return $this->fetch();
+        //return $this->fetch();
     }
 
 
