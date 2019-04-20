@@ -2,7 +2,6 @@
 /**
  * Created by 03_group.
  */
-
 namespace app\logmanage\model;
 
 use think\Model;
@@ -71,7 +70,7 @@ class Log extends Model
     public function getAllUserLog(){
         $list = Db::table('log_user')
             ->alias('l')
-            ->join('user_info u', 'l.user_id = u.work_id')
+            ->join('user_info u', 'l.user_id = u.id')
             ->where("u.is_delete=0")
             ->order("l.operate_time desc")
             ->select();
