@@ -51,7 +51,7 @@ class Calendar extends Common
             return json(['code' => 1, 'msg' => '未定义的时间段', 'data' => []]);
         }
         $res = Db::table('schedule_default')->where('user_id', $user_id)->where('time_id', $time_id)->where('is_delete', 0)->find();
-        if (res != null){
+        if ($res != null){
             return json(['code' => 2, 'msg' => '已存在该时间段的默认日程，可点击编辑进行修改', 'data' => []]);//时间必须是之前配置好的时间
         }
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
