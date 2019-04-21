@@ -14,7 +14,7 @@ use app\common\model\ScheduleDefault;
 use think\Db;
 use think\Request;
 
-class Calendar extends Controller
+class Calendar extends Common
 {
     public function index(){
         $username=session('username');
