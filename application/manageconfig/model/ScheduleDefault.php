@@ -2,6 +2,7 @@
 
 
 namespace app\common\model;
+use think\Db;
 use think\model;
 
 class ScheduleDefault extends Model
