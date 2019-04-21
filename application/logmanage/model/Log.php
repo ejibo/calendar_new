@@ -9,6 +9,144 @@ use think\Db;
 
 use think\Request;
 
+class ClientInfo extends Model{
+    public function GetLang() {
+        $Lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
+        //使用substr()截取字符串，从 0 位开始，截取4个字符
+        if (preg_match('/zh-c/i',$Lang)) {
+            //preg_match()正则表达式匹配函数
+            $Lang = '简体中文';
+        }
+        elseif (preg_match('/zh/i',$Lang)) {
+            $Lang = '繁體中文';
+        }
+        else {
+            $Lang = 'English';
+        }
+        return $Lang;
+    }
+
+    public function getBrowser() {
+        $user_OSagent = $_SERVER['HTTP_USER_AGENT'];
+        if (strpos($user_OSagent, "Maxthon") && strpos($user_OSagent, "MSIE")) {
+            $visitor_browser = "Maxthon(Microsoft IE)";
+        } elseif (strpos($user_OSagent, "Maxthon 2.0")) {
+            $visitor_browser = "Maxthon 2.0";
+        } elseif (strpos($user_OSagent, "Maxthon")) {
+            $visitor_browser = "Maxthon";
+        } elseif (strpos($user_OSagent, "Edge")) {
+            $visitor_browser = "Edge";
+        } elseif (strpos($user_OSagent, "Trident")) {
+            $visitor_browser = "IE";
+        } elseif (strpos($user_OSagent, "MSIE")) {
+            $visitor_browser = "IE";
+        } elseif (strpos($user_OSagent, "MSIE")) {
+            $visitor_browser = "MSIE";
+        } elseif (strpos($user_OSagent, "NetCaptor")) {
+            $visitor_browser = "NetCaptor";
+        } elseif (strpos($user_OSagent, "Netscape")) {
+            $visitor_browser = "Netscape";
+        } elseif (strpos($user_OSagent, "Chrome")) {
+            $visitor_browser = "Chrome";
+        } elseif (strpos($user_OSagent, "Lynx")) {
+            $visitor_browser = "Lynx";
+        } elseif (strpos($user_OSagent, "Opera")) {
+            $visitor_browser = "Opera";
+        } elseif (strpos($user_OSagent, "MicroMessenger")) {
+            $visitor_browser = "WeiXinBrowser";
+        } elseif (strpos($user_OSagent, "Konqueror")) {
+            $visitor_browser = "Konqueror";
+        } elseif (strpos($user_OSagent, "Mozilla/5.0")) {
+            $visitor_browser = "Mozilla";
+        } elseif (strpos($user_OSagent, "Firefox")) {
+            $visitor_browser = "Firefox";
+        } elseif (strpos($user_OSagent, "U")) {
+            $visitor_browser = "Firefox";
+        } elseif (strpos($user_OSagent, "Safari/")) {
+            $visitor_browser = "Safari";
+        } else {
+            $visitor_browser = "Other Browser";
+        }
+        return $visitor_browser;
+    }
+
+    public function GetOS() {
+        $OS = $_SERVER['HTTP_USER_AGENT'];
+        if (preg_match('/win/i',$OS)) {
+            $OS = 'Windows';
+        }
+        elseif (preg_match('/mac/i',$OS)) {
+            $OS = 'MAC';
+        }
+        elseif (preg_match('/linux/i',$OS)) {
+            $OS = 'Linux';
+        }
+        elseif (preg_match('/unix/i',$OS)) {
+            $OS = 'Unix';
+        }
+        elseif (preg_match('/bsd/i',$OS)) {
+            $OS = 'BSD';
+        }
+        else {
+            $OS = 'Other';
+        }
+        return $OS;
+    }
+    public function GetIP() {
+        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+            //如果变量是非空或非零的值，则 empty()返回 FALSE。
+            $IP = explode(',',$_SERVER['HTTP_CLIENT_IP']);
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $IP = explode(',',$_SERVER['HTTP_X_FORWARDED_FOR']);
+        }
+        elseif (!empty($_SERVER['REMOTE_ADDR'])) {
+            $IP = explode(',',$_SERVER['REMOTE_ADDR']);
+        }
+        else {
+            $IP[0] = 'None';
+        }
+        return $IP[0];
+    }
+
+    private function GetAddIsp() {
+        $IP = $this->GetIP();
+        $AddIsp = mb_convert_encoding(file_get_contents('http://open.baidu.com/ipsearch/s?tn=ipjson&wd='.$IP),'UTF-8','GBK');
+        //mb_convert_encoding() 转换字符编码。
+        if (preg_match('/noresult/i',$AddIsp)) {
+            $AddIsp = 'None';
+        }
+        else {
+            $Sta = stripos($AddIsp,$IP) + strlen($IP) + strlen('来自');
+            $Len = stripos($AddIsp,'"}')-$Sta;
+            $AddIsp = substr($AddIsp,$Sta,$Len);
+        }
+        $AddIsp = explode(' ',$AddIsp);
+        return $AddIsp;
+    }
+
+    public function findCityByIp($ip){
+        $data = file_get_contents('http://ip.taobao.com/service/getIpInfo.php?ip='.$ip);
+        return json_decode($data,$assoc=true);
+    }
+
+    public function GetAdd() {
+        $Add = $this->GetAddIsp();
+        return $Add[0];
+    }
+
+    public function GetIsp() {
+        $Isp = $this->GetAddIsp();
+        if ($Isp[0] != 'None' && isset($Isp[1])) {
+            $Isp = $Isp[1];
+        }
+        else {
+            $Isp = 'None';
+        }
+        return $Isp;
+    }
+}
+
 class Log extends Model
 {
     /**
@@ -26,23 +164,22 @@ class Log extends Model
      * 4删除：需要传入$uid, $type, $table, $field(该字段传入你删除的所有数据的主键，如 $field = ['11'，'12'])
      */
     public function recordLogApi($uid, $type, $table = '', $field = ''){
-        $agent = Request::instance()->header('user-agent');
-        $ip = Request()->ip();
-        if($type == 2 || $type == 4) {
-            $action = [
-                'table' => $table,
-                'primary_key' => $field,
-            ];
-        }else if($type == 3) {
-            $action = [
-                'table' => $table,
-                'primary_key' => $field,
-            ];
-        }
+        $client = new ClientInfo();
+        $ip = $client->getIp();
+        $agent = [
+            'os' => $client->GetOS(),
+            'brower' => $client->getBrowser(),
+        ];
+
+        $action = [
+            'table' => $table,
+            'id_list' => $field,
+        ];
+
         if($type == 1) {
-            $data = ['user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'user_agent' => $agent, 'ip' => $ip];
+            $data = ['user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'user_agent' => json_encode($agent), 'ip' => $ip];
         }else{
-            $data = ['user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'operate_action' => json_encode($action), 'user_agent' => $agent, 'ip' => $ip];
+            $data = ['user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'operate_action' => json_encode($action), 'user_agent' => json_encode($agent), 'ip' => $ip];
         }
         $res = Db::name('log_user')->insert($data);
         return $res;

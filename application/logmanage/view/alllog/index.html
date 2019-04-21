@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">所有普通用户操作日志</h4>
+                        <h4 class="box-title">个人操作日志</h4>
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
@@ -15,11 +15,13 @@
                                 <thead>
                                 <tr>
                                     <th class="serial">序号</th>
-                                    <th>用户ID</th>
-                                    <th>操作时间</th>
-                                    <th>操作类型</th>
-                                    <th>操作内容</th>
-                                    <th>请求头</th>
+                                    <th>操作人</th>
+                                    <th>时间</th>
+                                    <th>类型</th>
+                                    <th>数据表</th>
+                                    <th>操作对象</th>
+                                    <th>登陆方式</th>
+                                    <th>浏览器</th>
                                     <th>IP</th>
                                 </tr>
                                 </thead>
@@ -30,8 +32,10 @@
                                     <td>  <span class="product">{$list.user_id}</span> </td>
                                     <td>  <span class="product">{$list.operate_time}</span> </td>
                                     <td data-id="{$list.type}">  <span class="product" >{$list.type}</span> </td>
-                                    <td data-id={$list.operate_action}>  <span class="product" >{$list.operate_action}</span> </td>
-                                    <td data-id={$list.user_agent}>  <span class="product" >{$list.user_agent}</span> </td>
+                                    <td data-id={$list.table}>  <span class="product" >{$list.table}</span> </td>
+                                    <td data-id={$list.id_list}>  <span class="product" >{$list.id_list}</span> </td>
+                                    <td data-id={$list.os}>  <span class="product" >{$list.os}</span> </td>
+                                    <td data-id={$list.brower}>  <span class="product" >{$list.brower}</span> </td>
                                     <td data-id={$list.ip}>  <span class="product" >{$list.ip}</span> </td>
                                 </tr>
                                 {/volist}
