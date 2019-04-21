@@ -19,8 +19,9 @@ class Calendar extends Common
     public function index(){
         $username=session('username');
         $this->assign("username",$username);
+        $user_id = Db::table("user")->where(["name" => $username, "is_delete" => 0])->find();
         $defaultSchedule=model('ScheduleDefault');
-        $defaultSchedules=$defaultSchedule->where('username',$username)-> select();
+        $defaultSchedules=$defaultSchedule->where('user_id',$user_id)-> select();
         $this->assign('defaultSchedules',$defaultSchedules);
         return $this->fetch();
     }
