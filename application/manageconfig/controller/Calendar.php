@@ -63,7 +63,7 @@ class Calendar extends Common
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);//如果是之前不存在的事项，则新建一个
         }
         //开始检查之前是否已经有一样的默认日程了
-        $schedule=new ScheduleDefault();
+        $schedule=model('ScheduleDefault');
         $schedule->user_id=$user_id;
         $schedule->time_id=$time_id;
         $schedule->place_id=$place_id;
