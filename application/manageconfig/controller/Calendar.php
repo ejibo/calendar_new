@@ -38,7 +38,7 @@ class Calendar extends Common
         $username = session('username');
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['user_id'];
         if (is_null($user_id)) {
-            return json(["code" => 400, 'msg' => '用户不存在', 'data' => []]);
+            return json(["code" => 400, 'msg' => '用户['+$username+']不存在', 'data' => []]);
         }
         $time_id = Db::table('schedule_time')->where('name', $time)->find();
         if (is_null($time_id)) {
