@@ -19,7 +19,7 @@ class Calendar extends Common
     public function index(){
         $username=session('username');
         $this->assign("username",$username);
-        $defaultSchedule=new ScheduleDefault();
+        $defaultSchedule=model('ScheduleDefault');
         $defaultSchedules=$defaultSchedule->where('username',$username)-> select();
         $this->assign('defaultSchedules',$defaultSchedules);
         return $this->fetch();
