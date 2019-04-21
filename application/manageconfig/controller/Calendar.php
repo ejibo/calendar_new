@@ -58,7 +58,7 @@ class Calendar extends Common
         if(empty($place_id)){
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);//如果是之前不存在的地点，则新建一个
         }
-        $item_id=Db::table('schedule_item')->where('name',$item)['id'];
+        $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
         if(empty($item_id)){
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);//如果是之前不存在的事项，则新建一个
         }
@@ -72,7 +72,7 @@ class Calendar extends Common
         if($schedule->find(getData())!=null){
             return json(['code'=>3,'msg'=>'已存在相同的记录','data'=>[]]);
         }
-        if($schedule->validate(true)->save()){
+        if($schedule->save()){
             return $this->success('操作成功', url('index'));
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
