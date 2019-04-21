@@ -34,7 +34,7 @@ class Calendar extends Common
         $place = $param['place'];
         $item = $param['item'];
         $time = $param['time'];
-        validate($param,'ScheduleDefault');
+        $this->validate($param,'ScheduleDefault');
         $username = session('username');
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['user_id'];
         if (is_null($user_id)) {
