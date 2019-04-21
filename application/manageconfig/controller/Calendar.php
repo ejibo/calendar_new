@@ -19,7 +19,7 @@ class Calendar extends Common
     public function index(){
         $username=session('username');
         $this->assign("username",$username);
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['user_id'];
+        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
         $defaultSchedule=model('ScheduleDefault');
         $defaultSchedules=$defaultSchedule->where('user_id',$user_id)-> select();
         $this->assign('defaultSchedules',$defaultSchedules);
@@ -36,7 +36,7 @@ class Calendar extends Common
         $time = $param['time'];
         $this->validate($param,'ScheduleDefault');
         $username = session('username');
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['user_id'];
+        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
         if (is_null($user_id)) {
             return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
         }
