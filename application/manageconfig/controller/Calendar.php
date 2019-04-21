@@ -10,7 +10,7 @@ namespace app\manageconfig\controller;
 
 
 use app\common\controller\Common;
-use app\common\model\ScheduleDefault;
+use app\manageconfig\model\ScheduleDefault;
 use think\Db;
 use think\Request;
 
@@ -69,7 +69,7 @@ class Calendar extends Common
         $schedule->place_id=$place_id;
         $schedule->item_id=$item_id;
         $schedule->is_delete=0;
-        if($schedule->find(getData())!=null){
+        if($schedule->find($schedule->getData())!=null){
             return json(['code'=>3,'msg'=>'已存在相同的记录','data'=>[]]);
         }
         if($schedule->save()){
