@@ -36,12 +36,15 @@ class Calendar extends Common
         $time = $param['time'];
         $this->validate($param,'ScheduleDefault');
         $username = session('username');
+        if(empty($username)){
+            $username="张三";//测试
+        }
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (is_null($user_id)) {
+        if (empty($user_id)) {
             return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
         }
         $time_id = Db::table('schedule_time')->where('name', $time)->find();
-        if (is_null($time_id)) {
+        if (empty($time_id)) {
             return json(['code' => 1, 'msg' => '未定义的时间段', 'data' => []]);
         }
         $res = Db::table('schedule_default')->where('user_id', $user_id)->where('time_id', $time_id)->where('is_delete', 0)->find();
@@ -49,11 +52,11 @@ class Calendar extends Common
             return json(['code' => 2, 'msg' => '已存在该时间段的默认日程，可点击编辑进行修改', 'data' => []]);//时间必须是之前配置好的时间
         }
         $place_id=Db::table('schedule_place')->where('name',$place)->find();
-        if(is_null($place_id)){
+        if(empty($place_id)){
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);//如果是之前不存在的地点，则新建一个
         }
         $item_id=Db::table('schedule_item')->where('name',$item);
-        if(is_null($item_id)){
+        if(empty($item_id)){
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);//如果是之前不存在的事项，则新建一个
         }
         //开始检查之前是否已经有一样的默认日程了
