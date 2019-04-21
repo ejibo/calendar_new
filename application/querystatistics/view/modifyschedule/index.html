@@ -117,7 +117,7 @@
 
                                         <select id="schedule_time_name" name="schedule_time_name" class="form-control">
                                             {foreach name="user_schedule" item="change_info"}   
-                                            <option value="{$change_info.time_id}">{$change_info.schedule_time_name}</option>
+                                            <option selected value="{$change_info.time_id}">{$change_info.schedule_time_name}</option>
                                             {/foreach}    
                                         </select>
                                         </div>

@@ -37,7 +37,7 @@ class Modifyschedule extends Common
         $this->assign('user_schedule',$list);
         //dump($list); //打印看输出的列数
         //dump($list);
-        return $this->fetch('modifyschedule');
+        return $this->fetch();
     }
     function modifySchedule()
     {   
