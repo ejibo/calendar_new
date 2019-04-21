@@ -10,7 +10,7 @@ namespace app\manageconfig\controller;
 
 
 use app\common\controller\Common;
-use app\common\model\ScheduleDefault;
+use app\manageconfig\model\ScheduleDefault;
 use think\Db;
 use think\Request;
 
