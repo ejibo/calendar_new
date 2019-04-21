@@ -14,7 +14,7 @@ use think\Request;
      * 其次，前端界面修改，提交信息
      * 最后，提交的信息传给数据库，即函数modifySchedule()
 */
-class ModifySchedule extends Common
+class Modifyschedule extends Common
 {
     public function index()
     {
