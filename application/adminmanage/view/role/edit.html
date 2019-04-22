@@ -3,82 +3,78 @@
 <!-- Content -->
 <div class="content">
     <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header">
-                <strong>管理員管理</strong> 編輯用戶組
-            </div>
-            <div class="card-body card-block">
-                <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
-                    <input type="hidden" name="id" value="{$auth_group.id}">
-                    <div class="row form-group">
-                        <div class="col col-md-3"><label class=" form-control-label" for="title">用戶組名稱</label></div>
-                        <div class="col-12 col-md-9"><input name="title" class="form-control" id="title" type="text"
-                                                            placeholder="" value="{$auth_group.title}">
-                            <small class="form-text text-muted">*必填</small>
-                        </div>
-                    </div>
+                  <div class="card">
+                      <div class="card-header">
+                          <strong>管理員管理</strong> 編輯用戶組
+                      </div>
+                      <div class="card-body card-block">
+                          <form class="form-horizontal" action="" enctype="multipart/form-data" method="post">
+                              <input type="hidden" name="id" value="{$auth_group.id}">
+                              <div class="row form-group">
+                                  <div class="col col-md-3"><label class=" form-control-label" for="title">用戶組名稱</label></div>
+                                  <div class="col-12 col-md-9"><input name="title" class="form-control" id="title" type="text" placeholder="" value="{$auth_group.title}"><small class="form-text text-muted">*必填</small></div>
+                              </div>
 
-                    <div class="row form-group">
-                        <div class="col col-md-3"><label class=" form-control-label" for="status">用戶組狀態</label></div>
-                        <label class="switch ml-3">
-                            <input type="checkbox" name="status" {if condition="$auth_group['status'] == 1" }
-                                   checked='checked' {/if} value="1">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
+                              <div class="row form-group">
+                                <div class="col col-md-3"><label class=" form-control-label" for="status">用戶組狀態</label></div>
+                                <label class="switch ml-3">
+                                  <input type="checkbox" name="status" {if condition="$auth_group['status'] == 1"} checked='checked' {/if} value="1">
+                                  <span class="slider round"></span>
+                                </label>
+                              </div>
 
-                    <div class="row form-group">
-                        <div class="card-body">
+                              <div class="row form-group">
+                                    <div class="card-body">
                             <table class="table table-striped">
                                 <thead>
-                                <tr>
-                                    <th scope="col">配置權限</th>
-                                </tr>
+                                    <tr>
+                                        <th scope="col">配置權限</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                {volist name='auth_rule_list' id="auth_rule"}
-                                <tr>
-                                    <td scope="row">
-                                        <label for="">
-                                            <?php if($auth_rule['level'] != 0){echo '|';} echo str_repeat('—', $auth_rule['level']*3)?>
-                                            <input
-                                            <?php $arr = explode(',', $auth_group['rules']); if(in_array($auth_rule['id'], $arr)){echo 'checked="ckecked"';} ?>
-                                            dataid="id-{$auth_rule.dataid}" class="checkbox-parent {if
-                                            condition="$auth_rule['level'] neq 0"} checkbox-child {/if}" type="checkbox"
-                                            name="rules[]" value="{$auth_rule.id}" >
-                                            <span class="{if condition=" $auth_rule['level'] eq 0"} font-weight-bold
-                                            {/if}">{$auth_rule.title}</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                {/volist}
+                                  {volist name='auth_rule_list' id="auth_rule"}
+                                      <tr>
+                                        <td scope="row">
+                                            <label for="">
+                                              <?php if($auth_rule['level'] != 0){echo '|';} echo str_repeat('—', $auth_rule['level']*3)?>
+                                              <input
+                                              <?php $arr = explode(',', $auth_group['rules']); if(in_array($auth_rule['id'], $arr)){echo 'checked="ckecked"';} ?>
+                                              dataid="id-{$auth_rule.dataid}" class="checkbox-parent {if condition="$auth_rule['level'] neq 0"} checkbox-child {/if}" type="checkbox" name="rules[]" value="{$auth_rule.id}" >
+                                              <span class="{if condition="$auth_rule['level'] eq 0"} font-weight-bold {/if}">{$auth_rule.title}</span>
+                                            </label>
+                                        </td>
+                                      </tr>
+                                  {/volist}
 
                                 </tbody>
                             </table>
                         </div>
 
-                    </div>
+                              </div>
 
 
-                    <br>
+                              <br>
 
 
-                    <input type="hidden" name="id" value="{$auth_group.id}">
-
-                    <button class="btn btn-primary btn-sm" type="submit">
-                        <i class="fa fa-dot-circle-o"></i> 確認編輯
-                    </button>
-
-                </form>
-            </div>
-            <div class="card-footer">
 
 
-            </div>
-        </div>
 
-    </div>
-</div>
+                              <input type="hidden" name="id" value="{$auth_group.id}">
+
+                              <button class="btn btn-primary btn-sm" type="submit">
+                                  <i class="fa fa-dot-circle-o"></i> 確認編輯
+                              </button>
+
+                          </form>
+                      </div>
+                      <div class="card-footer">
+
+
+                      </div>
+                  </div>
+
+              </div>
+  </div>
 <!-- /.content -->
 {/block}
 {block name="scripts"}
@@ -119,7 +115,7 @@
             }
         });
     });
-</script>
+        </script>
 {/block}
 {block name="styles"}
 <link rel="stylesheet" href="__STATIC__/admin/css/style.css">

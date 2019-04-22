@@ -12,5 +12,9 @@
 return [
     
     //數據狀態
-    'STATUS' => array(array('status'=> '正常', 'value' => 0),array('status'=> '已刪除', 'value' => 1))
+    'STATUS' => array(array('status'=> '正常', 'value' => 0),array('status'=> '已刪除', 'value' => 1)),
+    
+    
+
+
 ];
