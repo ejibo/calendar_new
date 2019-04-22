@@ -37,7 +37,8 @@ class ManageInfo extends Model
   /**
    * @author 程詠
    * 功能：管理員登入驗證
-   * @param String username, password
+   * @param String username
+   * @param String password
    * @version 1.0
    * @return Number 1:帳號錯誤| 2: 密碼錯誤| 3: 登入成功| 4: 帳戶狀態失效| 5: 其他錯誤
    */ 
@@ -53,11 +54,9 @@ class ManageInfo extends Model
     }
     if ($admin['password'] == md5($password)){
       // 紀錄 session 和 cookie
-      $session_id = Session_id();
       Session::set('admin_id', $admin['id']);
       Session::set('admin_name', $admin['username']);
-      Session::set('PHPSESSID', $session_id);
-      Cookie::set('PHPSESSID', $session_id, 60*60*24);
+      Cookie::set('PHPSESSID', Session_id(), 3600);
       // 寫入日誌
       $model = new LogModel();
       $type = 1;
