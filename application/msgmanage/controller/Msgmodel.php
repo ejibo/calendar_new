@@ -1,40 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 84333
- * Date: 2019/4/14
- * Time: 0:50
- */
 
 namespace app\msgmanage\controller;
-
 
 use app\common\controller\Common;
 
 class Msgmodel extends Common
 {
-    public function index(){
-        $model = model('Template');
-        $templateItems = $model->getAllTemplates();
-        $this->assign('templateItems',$templateItems);
-        return $this->fetch();
-    }
 
-    /*
-     *story:
-     *负责人：
-     */
-    public function loadTemplate()
-    {
-        $template = model('Template');
-        $templates = $template->getAllTemplates();
-        return $templates;
-    }
-
-    /*
-     *story:添加消息模板
-     *负责人：佟起
-     */
+    //添加模板
     public function  addTemplate()
     {
         $tit = $_POST['tit'];
@@ -57,4 +30,51 @@ class Msgmodel extends Common
         }
     }
 
+    //查询模板
+    public function index(){
+        $model = model('Template');
+        $templateItems = $model->getAllTemplates();
+        $this->assign('templateItems',$templateItems);
+        return $this->fetch();
+    }
+
+    public function loadTemplate()
+    {
+        $template = model('Template');
+        $templates = $template->getAllTemplates();
+        return $templates;
+    }
+
+    //删除模板
+    public function deleteTemplates(){
+        $id = $_POST['id'];
+        $model = model('ScheduleItem');
+        $res = $model->deleteTemplates($id);
+        if($res == 1){
+            $this->success("删除成功");
+        }
+        else{
+            $this->error(  "删除失败，请重新操作!");
+        }
+    }
+
+    //编辑模板
+    public function editTemplates(){
+        $id = $_POST['id'];
+        $des = $_POST['des'];
+        $model = model('ScheduleItem');
+        $isSame = $model->getItemByName($des);
+        if($isSame ==null){
+            $res = $model->updateTemplates($id,$des);
+            if($res ==1){
+                $this->success("编辑成功");
+            }
+            else{
+                $this->error(  "编辑失败，请重新操作!");
+            }
+        }
+        else{
+            $this->error(  "修改事项名称与已有重复，请重新修改!");
+        }
+    }
 }
