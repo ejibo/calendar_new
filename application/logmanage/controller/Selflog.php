@@ -16,7 +16,7 @@ class Selflog extends Common
     public function index(){
 
         $model = new LogModel();
-        $uid = 110;
+        $uid = ADMIN_ID;  // app/common/controlier，管理员id：`ADMIN_ID`，管理員username：`ADMIN_NAME`
         $info = $model->getLogByUid($uid);
 
         foreach($info as $key=>$value){
