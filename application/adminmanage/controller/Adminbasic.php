@@ -14,8 +14,11 @@ use \think\Request;
 
 class Adminbasic extends Common
 {
-    // admins list 
+    // admins list
   public function index(){
+    // get admin group
+    $auth = new Auth();
+    
     // get all admin
     // show 10 admins per page
     //$admin_list = ManageInfoModel::paginate(100);
@@ -29,6 +32,16 @@ class Adminbasic extends Common
         $resp['current_status'] = (int)$status;
       }
     }
+    foreach ($admin_list as $k => $v){
+      //var_dump($v['id']);
+      $_group_title = $auth -> getGroups($v['id']);
+      if ($_group_title){
+        $group_title = $_group_title[0]['title'];
+        $v['group_title'] = $group_title;
+      }else{
+        $v['group_title'] = '未設置組權限';
+      }
+    }
     $resp['admin_list'] = $admin_list;
     $resp['status_list'] = Config::get('STATUS');
     $this -> assign('resp', $resp);
@@ -36,7 +49,7 @@ class Adminbasic extends Common
   }
   // add an admin member
   public function add(){
-    date_default_timezone_set("Asia/Shanghai");
+    // date_default_timezone_set("Asia/Shanghai");
     // dump(date_default_timezone_get()); die;
     // check method is Post
     if (request() -> isPost()){
@@ -76,7 +89,7 @@ class Adminbasic extends Common
       return;
 
     }
-    $auth_group_list = db('manage_auth_group') -> select();
+    $auth_group_list = db('manage_auth_group') -> where('status', 1) -> select();
     $this -> assign('auth_group_list', $auth_group_list);
     return $this -> fetch('add');
   }
@@ -130,7 +143,7 @@ class Adminbasic extends Common
     $id = input('id');
     $admin = db('manage_info') -> find($id);
     $this -> assign('admin', $admin);
-    $auth_group_list = db('manage_auth_group') -> select();
+    $auth_group_list = db('manage_auth_group') -> where('status', 1) -> select();
     $this -> assign('auth_group_list', $auth_group_list);
     //query group access
     $auth_grp_access = db('manage_auth_group_access') -> where(array('uid' => $id)) -> find();
