@@ -158,7 +158,6 @@
 <script>
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        $('#addDefaultSchedule').click(function () {
             var time = $('#addNewDay').val() + $('#addNewTime').val();
             var place = $('#addNewPlace').val();
             if (place.trim().length == 0) {
@@ -187,7 +186,6 @@
                     }
                 }
             });
-        })
     }
 </script>
 {/block}
