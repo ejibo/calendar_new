@@ -15,5 +15,13 @@ use app\logmanage\model\Log as LogModel;
 
 class Personal extends Common
 {
+    public function create(){
 
+    }
+    public function update(){
+
+    }
+    public function delete(){
+        
+    }
 }
