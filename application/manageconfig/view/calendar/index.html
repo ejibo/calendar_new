@@ -32,7 +32,7 @@
                                     <td>  <span class="product">{$defaultSchedule->getPlace()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getItem()}</span> </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-sm mb-1 data-id={#defaultSchedule.id}" data-toggle="modal" data-target="#smallmodal">
+                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-id={#defaultSchedule.id} data-toggle="modal" data-target="#smallmodal">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
                                         </button>
                                         <button type="button" class="btn btn-danger btn-sm mb-1">
@@ -86,7 +86,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" id="editDefaultSchedule" class="btn btn-success" onclick="editDefaultSchedule()">确认</button>
+                            <button type="button" id="editDefaultSchedule" class="btn btn-success" onclick="editDefaultSchedule(this)">确认</button>
                         </div>
                     </div>
                 </div>
