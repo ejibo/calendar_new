@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Ejibo
- * Date: 2019/4/18
- * Time: 14:23
- */
 
 namespace app\querystatistics\controller;
 use app\common\controller\Common;
@@ -13,7 +7,7 @@ use think\Request;
 use think\Db;
 
 
-class DataExport extends Common
+class Dataexport extends Common
 {
     public function index(){
         return $this->fetch('index');
@@ -22,6 +16,12 @@ class DataExport extends Common
         //1.从数据库中取出数据
         echo "ddd";
         $list = Db::name('schedule_info')->select();
+        $list_user = Db::name('user_info')->select();
+        $list_depart = Db::name('user_depart')->select();
+        $list_position = Db::name('user_position')->select();
+        $list_time = Db::name('schedule_time')->select();
+        $list_place = Db::name('schedule_place')->select();
+        $list_item = Db::name('schedule_item')->select();
         echo "aaa";
         //2.加载PHPExcle类库
         vendor('PHPExcel.PHPExcel');
@@ -40,7 +40,14 @@ class DataExport extends Common
             ->setCellValue('G1', '事项描述')
             ->setCellValue('H1', '创建时间')
             ->setCellValue('I1', '更新时间')
-            ->setCellValue('J1', '删除时间');
+            ->setCellValue('J1', '删除时间')
+            ->setCellValue('K1', '用户姓名')
+            ->setCellValue('L1', '用户学号')
+            ->setCellValue('M1', '用户部门')
+            ->setCellValue('N1', '用户职位')
+            ->setCellValue('O1', '日程时间')
+            ->setCellValue('P1', '日程地点')
+            ->setCellValue('Q1', '日程事项');
         //设置F列水平居中
         $objPHPExcel->setActiveSheetIndex(0)->getStyle('F')->getAlignment()
             ->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -60,6 +67,23 @@ class DataExport extends Common
             $objPHPExcel->getActiveSheet()->setCellValue('H'.($i+2),$list[$i]['create_time']);
             $objPHPExcel->getActiveSheet()->setCellValue('I'.($i+2),$list[$i]['update_time']);
             $objPHPExcel->getActiveSheet()->setCellValue('J'.($i+2),$list[$i]['delete_time']);
+
+            $user_name = $list_user->where(["id"=>$list[$i]['user_id'],"is_delete"=>0])->value('name');
+            $user_workid = $list_user->where(["id"=>$list[$i]['user_id'],"is_delete"=>0])->value('work_id');
+            $user_departid = $list_user->where(["id"=>$list[$i]['user_id'],"is_delete"=>0])->value('depart_id');
+            $user_positionid = $list_user->where(["id"=>$list[$i]['user_id'],"is_delete"=>0])->value('position_id');
+            $user_depart = $list_depart->where(["id"=>$user_departid,"is_delete"=>0])->value('name');
+            $user_position = $list_position->where(["id"=>$user_positionid,"is_delete"=>0])->value('name');
+            $user_time = $list_time->where(["id"=>$list[$i]['time_id'],"is_delete"=>0])->value('name');
+            $user_place = $list_place->where(["id"=>$list[$i]['place_id'],"is_delete"=>0])->value('name');
+            $user_item = $list_item->where(["id"=>$list[$i]['item_id'],"is_delete"=>0])->value('name');
+            $objPHPExcel->getActiveSheet()->setCellValue('K'.($i+2),$user_name);
+            $objPHPExcel->getActiveSheet()->setCellValue('L'.($i+2),$user_workid);
+            $objPHPExcel->getActiveSheet()->setCellValue('M'.($i+2),$user_depart);
+            $objPHPExcel->getActiveSheet()->setCellValue('N'.($i+2),$user_position);
+            $objPHPExcel->getActiveSheet()->setCellValue('O'.($i+2),$user_time);
+            $objPHPExcel->getActiveSheet()->setCellValue('P'.($i+2),$user_place);
+            $objPHPExcel->getActiveSheet()->setCellValue('Q'.($i+2),$user_item);
         }
         //7.设置保存的Excel表格名称
         $filename = '日程信息'.date('ymd',time()).'.xls';
