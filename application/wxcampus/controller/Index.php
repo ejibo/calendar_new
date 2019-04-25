@@ -19,7 +19,7 @@ class Index extends Controller
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
 
     public function index(){
-        return $this->fetch();
+        //return $this->fetch();
         $code = input('param.wxcode');
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         if(!$accessToken){
