@@ -86,6 +86,7 @@ class Calendar extends Common
       public function editDefaultSchedule()
       {
         $param = Request::instance()->post();
+        dump($param);
         $id = trim($param['id']);
         $place = trim($param['place']);
         $item = trim($param['item']);
@@ -96,7 +97,7 @@ class Calendar extends Common
             $username = "张三";//测试
         }
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (empty($user_id)) {
+        if (empty($user_id)) {du
             return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
         }
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
