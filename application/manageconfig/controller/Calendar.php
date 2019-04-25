@@ -97,7 +97,7 @@ class Calendar extends Common
             $username = "张三";//测试
         }
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (empty($user_id)) {du
+        if (empty($user_id)) {
             return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
         }
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
