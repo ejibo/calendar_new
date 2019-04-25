@@ -4,7 +4,7 @@ use think\Model;
 use think\Db;
 use think\Session;
 use think\Cookie;
-use app\logmanage\Model\Log as LogModel; //引入日誌接口
+use app\logmanage\model\Log as LogModel; //引入日誌接口
 
 class ManageInfo extends Model
 {
