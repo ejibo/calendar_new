@@ -60,7 +60,7 @@ class Smsbinding extends Common
         $phonecode=Request::instance()->post('phonecode');
         $signature=Request::instance()->post('signature');
         if($signature=='pkussphonecode'){
-            session_start();
+            if(!isset($_SESSION)){ session_start(); }
             $res1['phonecode']=$phonecode;
             $res1['verifycode']=$_SESSION['verifycode'];
             $res1['time']=$_SESSION['time'];
