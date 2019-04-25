@@ -23,7 +23,7 @@ class Smsbinding extends Common
                 $res['code']=3;
             }
             else {
-                session_start();
+                if(!isset($_SESSION)){ session_start(); }
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
