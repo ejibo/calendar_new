@@ -85,7 +85,7 @@ class Calendar extends Common
     */
       public function editDefaultSchedule()
       {
-        $param = Request::instance()->param();
+        $param = Request::instance()->post();
         dump($param);
         $id = trim($param['id']);
         $place = trim($param['place']);
