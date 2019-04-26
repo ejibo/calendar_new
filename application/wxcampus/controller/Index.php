@@ -21,7 +21,6 @@ class Index extends Controller
     public function index(){
         //return $this->fetch();
         $code = input('param.wxcode');
-        return $code;
       	$accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
       	//return $accessToken;
         if(!$accessToken){
@@ -38,6 +37,7 @@ class Index extends Controller
             "app_secret" => $secret
         ));
         $accessData = $this->http_request($url, $jdata);
+      	dump($accessData);
         //判断是否拿到数据
         if($accessData['errcode']===0){
             return $accessData['access_token'];
