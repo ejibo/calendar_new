@@ -26,6 +26,7 @@ class Index extends Controller
             $userInfo = $this->getUserInfo($accessToken);
             $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
+          
             return $this->fetch();
         }
         else{
