@@ -22,6 +22,7 @@ class Index extends Controller
         //return $this->fetch();
         $code = input('param.wxcode');
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
+      	return $accessToken;
         if(!$accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             dump($userInfo);
