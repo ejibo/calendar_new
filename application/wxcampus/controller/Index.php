@@ -24,7 +24,9 @@ class Index extends Controller
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
-            dump($userInfo);
+            $this->assign("number",$userInfo['card_number']);
+            $this->assign("name",$userInfo['name']);
+            return $this->fetch();
         }
         else{
             echo "error";
