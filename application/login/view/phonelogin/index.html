@@ -86,22 +86,27 @@
         var obj = $("input[name='tel']");
         phoneNum = obj.val(); //获取输入的电话号码
         window.alert("输入的手机号为" + phoneNum);
-        // $.ajax({
-        //     type: 'POST',
-        //     dataType:'json',
-        //     url: "{:url('phonelogin/sendCode')}",
-        //     data: {phoneNum:phoneNum},
-        //     success: function(data){
-        //         $("#btn").val(data.msg);
-        //         if(data.status == 0){
-        //             $.cookie('total',90);
-        //             timekeeping();
-        //         }else{
-        //             $.cookie('total',30);
-        //             timekeeping();
-        //         }
-        //     }
-        // });
+
+        //判断输入是否为空
+
+
+        //发送短信
+        $.ajax({
+            type: 'POST',
+            dataType:'json',
+            url: "{:url('phonelogin/sendCode')}",
+            data: {phoneNum:phoneNum},
+            success: function(data){
+                $("#btn").val(data.msg);
+                if(data.status == 0){
+                    $.cookie('total',60);
+                    timekeeping();
+                }else{
+                    $.cookie('total',30);
+                    timekeeping();
+                }
+            }
+        });
     }
     function login(){
         window.alert("点击登录");
@@ -109,6 +114,10 @@
         tel = obj.val();
         var obj = $("input[name='code']");
         code = obj.val();
+
+        //判断输入是否为空
+
+        //判断验证码是否正确
         $.ajax({
             type: 'POST',
             dataType:'json',
