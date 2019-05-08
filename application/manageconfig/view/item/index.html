@@ -70,6 +70,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-pencil-square-o"></i>
                                     </div>
+                                    <input type="hidden" id="yuanDes">
                                     <input type="text" id="itemDesE" name="itemDesE" value="开会" class="form-control">
                                 </div>
                             </div>
@@ -142,23 +143,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- 模态框（Modal） -->
-            <div class="modal fade" id="smallModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-                        </div>
-                        <div class="modal-body">点击关闭按钮检查事件功能。</div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="button" class="btn btn-primary">提交更改</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div>
         </div>
     </div>
     <!-- .animated -->
@@ -177,7 +161,12 @@
         $("#itemDesA").val("");
     });
     $("#submit_add").on("click", function(){
-        var des = $("#itemDesA").val();
+        var des = $.trim($("#itemDesA").val());
+        if(des.length === 0)
+        {
+            alert('输入不能为空');
+            return;
+        }
         //$("#smallmodal1").modal(true,true,true,false);
         $.ajax({
             url:"{:url('manageconfig/item/addScheduleItem')}",
@@ -196,6 +185,7 @@
         var id = $(e.relatedTarget).data("id");
         var des = $(e.relatedTarget).data("des");
         $("#itemIdE").val(id);
+        $("#yuanDes").val(des);
         $("#itemDesE").val(des);
         $("#msg2").html("");
     });
@@ -204,24 +194,22 @@
 
     });
     $("#submit_modify").on("click", function(){
-        var id = $("#itemIdE").val();
-        var des = $("#itemDesE").val();
-
+        var id =$.trim($("#itemIdE").val());
+        var des =$.trim($("#itemDesE").val());
+        var yuanDes = $.trim($("#yuanDes").val());
+        console.log(id);
+        if(des.length === 0)
+        {
+            alert('输入不能为空');
+            return;
+        }
         $.ajax({
             url:"{:url('manageconfig/item/editScheduleItem')}",
             type:"POST",
-            data:{"id":id,"des":des},
+            data:{"id":id,"des":des,"yuanDes":yuanDes},
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                // if(data.code == 1){
-                //     $("#msg2").html("<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                //     setTimeout("location.href='"+data.url+"'",1000);
-                // }else{
-                //     $("#msg2").html("<p class='color-red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                // }
                 alert(data.msg);
                 window.location.reload();
             }
@@ -234,7 +222,7 @@
     });
 
     $("#submit_delete").on("click", function(){
-        var id = $("#id").val();
+        var id = $.trim($("#id").val());
         console.log(id);
         $.ajax({
             url:"{:url('manageconfig/item/deleteScheduleItem')}",
@@ -243,14 +231,6 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                // if(data.code == 1){
-                //     $("#msg3").html("<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                //     setTimeout("location.href='"+data.url+"'",1000);
-                // }else{
-                //     $("#msg3").html("<p class='color-red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                // }
                 alert(data.msg);
                 window.location.reload();
             }
