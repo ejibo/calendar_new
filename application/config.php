@@ -240,4 +240,7 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    // 通用頁面
+    'GENERAL' => array('Index/index', 'Adminbasic/index', 'Login/loginout'),
 ];

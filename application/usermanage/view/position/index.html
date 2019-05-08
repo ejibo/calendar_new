@@ -7,14 +7,201 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">Test&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+                        <h4 class="box-title">所有职位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal"
+                                    data-target="#smallmodal1">添加职务
+                            </button>
                         </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats">
+                            <table id="bootstrap-data-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th class="serial">序号</th>
+                                    <th>职位</th>
+                                    <th>状况</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {volist name="position_list" id="vo"}
+
+                                <tr>
+                                    <td class="serial">{$vo.id}</td>
+                                    <td><span class="product {$vo.id}">{$vo.name}</span></td>
+                                    <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal"
+                                                data-target="#smallmodal" id="{$vo.id}" onclick="recordId(this)">
+                                            <i class="fa fa-magic"></i>&nbsp;编辑
+                                        </button>
+                                        {eq name="vo.is_delete" value="0"}<a
+                                            href="{:url('/usermanage/position/invalid','user_id='.$vo.id);}">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1">
+                                            <i class="fa fa-exclamation"></i>&nbsp;作废
+                                        </button>
+                                    </a>{else/}<a href="{:url('/usermanage/position/restore','user_id='.$vo.id);}">
+                                        <button type="button" class="btn btn-success btn-sm mb-1">
+                                            <i class="fa fa-exclamation"></i>&nbsp;恢复
+                                        </button>
+                                    </a>{/eq}
+
+                                    </td>
+                                </tr>
+                                {/volist}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="smallmodal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="scrollmodalLabel">添加职位</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <input type="text" id="name" placeholder="请输入职位描述" class="form-control" value="">
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" data-dismiss="modal" onclick="addPosition()">确认</button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- .animated -->
     </div>
 </div>
+<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scrollmodalLabel1">编辑职位</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <input hidden id="tmp_id">
+            </div>
+            <div class="modal-body">
+                <!--<div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-check-square-o"></i>
+                        </div>
+                        <input type="text" class="form-control" disabled="disabled">
+                    </div>
+                  </div>-->
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-pencil-square-o"></i>
+                        </div>
+                        <input type="text" id="position_name" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-success" onclick="changePositionName()">确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 <!-- /.content -->
+{/block}
+{block name="scripts"}
+<script type="text/javascript">
+    $(document).ready(function () {
+        loadTable();
+    });
+    function recordId(item){
+        var id = item.id;
+        $("#tmp_id").attr('id_memory', id);
+        console.log($("#tmp_id").attr('id_memory'))
+    }
+
+    function loadTable() {
+        $.ajax({
+            type: "POST",
+            url: 'loadPosition',//url地址，相对路径，已经在position控制器下
+            async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+            dataType: 'json',
+
+        });
+    }
+
+    function addPosition() {
+        console.log($("#name").val());
+        $.ajax({
+            type: "POST",
+            url: "add",
+            async: false,
+            //dataType: 'json',
+            data: {
+                "name": $("#name").val()
+            },
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    alert(data.msg);
+                    window.location.href = "{:url('usermanage/position/index')}"
+                    $("#smallmodal1").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    loadTable();
+                } else {
+                    alert(data.msg);
+                }
+
+            }
+        });
+    }
+
+
+    function changePositionName() {
+        var id = $("#tmp_id").attr('id_memory');
+        var name = $('#position_name').val();
+        //用AJAX方式访问后台写的方法
+        $.ajax({
+            type: "POST",
+            url: 'change',//请求程序页面
+            async: false,//同步：当有返回值以后才会运行后面的js程序。
+            data: {
+                "id": id,
+                "name": name
+            },//请求需要发送的处理数据
+            success: function (msg) {
+                window.location.reload()
+            },
+            fail: function (msg) {
+                console.log(msg);
+            }
+
+        });
+
+    }
+</script>
 {/block}

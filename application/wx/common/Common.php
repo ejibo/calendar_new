@@ -13,5 +13,9 @@ use think\Controller;
 
 class Common extends Controller
 {
+    //检测用户信息，是否登录
 
+    //权限管理
+
+    //access token初始化
 }
