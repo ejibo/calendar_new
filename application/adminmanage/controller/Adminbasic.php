@@ -11,6 +11,8 @@ use app\common\controller\Common;
 use app\adminmanage\model\ManageInfo as ManageInfoModel;
 use think\Config;
 use \think\Request;
+use think\Db;
+use app\logmanage\Model\Log as LogModel; //引入日志 model
 
 class Adminbasic extends Common
 {
@@ -39,7 +41,7 @@ class Adminbasic extends Common
         $group_title = $_group_title[0]['title'];
         $v['group_title'] = $group_title;
       }else{
-        $v['group_title'] = '未設置組權限';
+        $v['group_title'] = '未设置组权限';
       }
     }
     $resp['admin_list'] = $admin_list;
@@ -66,7 +68,7 @@ class Adminbasic extends Common
         $this -> error($validate -> getError());
         die;
       }else{
-        // 加密管理員帳號
+        // 加密管理员帐号
         $data['password'] = md5($data['password']);
       }
 
@@ -75,17 +77,21 @@ class Adminbasic extends Common
         $current_user = db('manage_info') -> where('username',input('admin_name')) -> find();
         $add_grp_acc = db('manage_auth_group_access') -> insert(['uid' => $current_user['id'], 'group_id' => input('group_id')]);
         if($add_grp_acc){
-          return $this->success('添加管理員成功', 'index');
+          // 写入日志
+          $model = new LogModel();
+          $res_add_admin = $model->recordLogApi (ADMIN_ID, 2, 'manage_info', [$current_user['id']]); //需要判断调用是否成功
+          $res_add_grp = $model->recordLogApi (ADMIN_ID, 2, 'manage_auth_group_access', [Db::name('manage_auth_group_access')->getLastInsID()]); //需要判断调用是否成功
+          if ($res_add_admin && $res_add_grp){
+            return $this->success('添加管理员成功', 'index');
+          }else{
+            return $this->error('OOPS！有东西出错了，稍后再试');
+          }
         }else{
-          return $this->error('添加管理員失敗');
+          return $this->error('添加管理员失败');
         }
       }else{
-        return $this->error('添加管理員失敗');
+        return $this->error('添加管理员失败');
       }
-
-
-
-
       return;
 
     }
@@ -96,23 +102,34 @@ class Adminbasic extends Common
 
   // edit admin info
   public function edit(){
+    $model = new LogModel();
     if (request() -> isPost()){
       $id = input('id');
       $admin = db('manage_info') -> find($id);
+      $log = array();
 
       $data = [
         'id' => input('id'),
         'username' => input('admin_name'),
         'update_time' => date('Y-m-d H:i:s')
       ];
+
+      if (input('admin_name') != $admin['username']){
+        //记录日志
+        $log['username'] = [$admin['username'], input('admin_name')];
+      }
       if(input('admin_password')){
           $data['password'] = md5(input('admin_password'));
+          //记录日志
+          $log['password'] = [$admin['password'], md5(input('admin_password'))];
       }else{
           $data['password'] = $admin['password'];
       }
 
-      if(input('admin_phone')){
+      if(input('admin_phone') != $admin['telephone']){
           $data['telephone'] = input('admin_phone');
+          //记录日志
+          $log['telephone'] = [$admin['telephone'], input('admin_phone')];
       }else{
           $data['telephone'] = $admin['telephone'];
       }
@@ -124,17 +141,40 @@ class Adminbasic extends Common
 
       $save = db('manage_info') -> update($data);
         if($save !== false){
+          $old_grp_acc = db('manage_auth_group_access') -> where('uid',input('id')) -> find();
           //insert into group access
-          //dump(['uid' => input('id'), 'group_id' => input('group_id')]); die;
           $add_grp_acc = db('manage_auth_group_access') -> where(array('uid' => input('id'))) -> update(['group_id' => input('group_id')]);
-          if($add_grp_acc !== false){
-            return $this->success('編輯管理員成功', 'index');
-          }else{
-            return $this->error('編輯管理員失敗');
+
+          if ($old_grp_acc['group_id'] != input('group_id')){
+            // insert into log
+            $grp_log = array();
+            $grp_log['group_id'] = [strval($old_grp_acc['group_id']), input('group_id')];
+            $grp_field = array();
+            $grp_field[strval($admin['id'])] = $grp_log;
+            $res = $model->recordLogApi (ADMIN_ID, 3, 'manage_auth_group_access', $grp_field);
+            if(!$res){
+              //插入日志失败
+              return $this->error('OOPS！有东西出错了，稍后再试');
+            }
           }
-          $this->success('修改成功', 'index');
+
+          if($add_grp_acc !== false){
+            if(!empty($log)){
+              $field = array();
+              $field[strval($admin['id'])] = $log;
+              $res = $model->recordLogApi (ADMIN_ID, 3, 'manage_info', $field);
+              if (!$res){
+                //插入日志失败
+                return $this->error('OOPS！有东西出错了，稍后再试');
+              }
+            }
+            return $this->success('编辑管理员成功', 'index');
+          }else{
+            return $this->error('编辑管理员失败');
+          }
+          // $this->success('修改成功', 'index');
         }else{
-          $this->error('修改失敗');
+          $this->error('修改失败');
         }
 
       return;
@@ -159,13 +199,20 @@ class Adminbasic extends Common
     if($admin['is_delete'] == 0){
       // 更新数据表中的数据
       if (db('manage_info')->where('id',$id)->update(['is_delete' => 1, 'delete_time' => date('Y-m-d H:i:s')])){
-        $this -> success('刪除成功', 'index');
+        // 写入日志
+        $model = new LogModel();
+        $res = $model->recordLogApi (ADMIN_ID, 4, 'manage_info', strval($id)); //需要判断调用是否成功
+        if (!$res){
+          //插入日志失败
+          return $this->error('OOPS！有东西出错了，稍后再试');
+        }
+        $this -> success('删除成功', 'index');
       }else{
-        $this -> error('刪除失敗', 'index');
+        $this -> error('删除失败', 'index');
       }
 
     }else{
-      $this -> error('刪除失敗', 'index');
+      $this -> error('删除失败', 'index');
     }
   }
 
@@ -175,13 +222,12 @@ class Adminbasic extends Common
     if($admin['is_delete'] == 1){
       // 更新数据表中的数据
       if (db('manage_info')->where('id',$id)->update(['is_delete' => 0])){
-        $this -> success('恢復成功', 'index');
+        $this -> success('恢复成功', 'index');
       }else{
-        $this -> error('恢復失敗', 'index');
+        $this -> error('恢复失败', 'index');
       }
-
     }else{
-      $this -> error('恢復失敗', 'index');
+      $this -> error('恢复失败', 'index');
     }
   }
 }

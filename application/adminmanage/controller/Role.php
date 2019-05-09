@@ -25,9 +25,9 @@ class Role extends Common
       if (request() -> isPost()){
         $data = input('post.');
         //dump(array_key_exists("rules", $data)); die;
-        //驗證沒有選擇rule
+        //验证没有选择rule
         if (!array_key_exists("rules", $data)){
-          $this -> error("權限不得為空", null, null, 1);
+          $this -> error("权限不得为空", null, null, 1);
         }
 
         if(!empty($data['rules'])){
@@ -45,9 +45,9 @@ class Role extends Common
 
         $save = db('manage_auth_group') -> update($data);
         if($save !== false){
-          $this -> success('修改用戶組成功', 'index');
+          $this -> success('修改用户组成功', 'index');
         }else{
-          $this -> error('修改用戶組失敗');
+          $this -> error('修改用户组失败');
         }
       }
       //query the group needed edit
@@ -64,9 +64,9 @@ class Role extends Common
       if(request() -> isPost()){
         $data = input('post.');
 
-        //驗證沒有選擇rule
+        //验证没有选择rule
         if (!array_key_exists("rules", $data)){
-          $this -> error("權限不得為空", null, null, 1);
+          $this -> error("权限不得为空", null, null, 1);
         }
 
         if($data['rules']){
@@ -83,9 +83,9 @@ class Role extends Common
 
         $add = db('manage_auth_group') -> insert($data);
         if($add){
-          $this -> success('添加用戶組成功', 'index');
+          $this -> success('添加用户组成功', 'index');
         }else{
-          $this -> error('添加用戶組失敗');
+          $this -> error('添加用户组失败');
         }
         return;
       }
@@ -103,9 +103,9 @@ class Role extends Common
     public function del(){
       $del = db('manage_auth_group') -> delete(input('id'));
       if($del){
-        $this -> success('刪除用戶組成功', 'index');
+        $this -> success('删除用户组成功', 'index');
       }else{
-        $this -> error('刪除用戶組失敗');
+        $this -> error('删除用户组失败');
       }
     }
 }

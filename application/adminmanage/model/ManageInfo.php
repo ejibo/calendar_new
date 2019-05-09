@@ -4,7 +4,7 @@ use think\Model;
 use think\Db;
 use think\Session;
 use think\Cookie;
-use app\logmanage\Model\Log as LogModel; //引入日誌接口
+use app\logmanage\Model\Log as LogModel; //引入日志接口
 
 class ManageInfo extends Model
 {
@@ -35,29 +35,29 @@ class ManageInfo extends Model
 }
 
   /**
-   * @author 程詠
-   * 功能：管理員登入驗證
+   * @author 程咏
+   * 功能：管理员登入验证
    * @param String username
    * @param String password
    * @version 1.0
-   * @return Number 1:帳號錯誤| 2: 密碼錯誤| 3: 登入成功| 4: 帳戶狀態失效| 5: 其他錯誤
+   * @return Number 1:帐号错误| 2: 密码错误| 3: 登入成功| 4: 帐户状态失效| 5: 其他错误
    */ 
   public function checkLogin($username, $password){
     Session::set(null);
     cookie('PHPSESSID', null);
     $admin = Db::table('manage_info')->where('username',$username)->find();
     if (!$admin){
-      return 1; // 帳號錯誤
+      return 1; // 帐号错误
     }
     if($admin['is_delete'] == 1){
-      return 4; // 帳戶狀態失效
+      return 4; // 帐户状态失效
     }
     if ($admin['password'] == md5($password)){
-      // 紀錄 session 和 cookie
+      // 纪录 session 和 cookie
       Session::set('admin_id', $admin['id']);
       Session::set('admin_name', $admin['username']);
-      Cookie::set('PHPSESSID', Session_id(), 3600);
-      // 寫入日誌
+      Cookie::set('PHPSESSID', Session_id(), 60*29);
+      // 写入日志
       $model = new LogModel();
       $type = 1;
       if(Session::get('admin_id')){
@@ -67,8 +67,8 @@ class ManageInfo extends Model
         }
       }
     }else{
-      return 2; //密碼錯誤
+      return 2; //密码错误
     }
-    return 5; //其他錯誤
+    return 5; //其他错误
   }
 }
