@@ -35,7 +35,7 @@
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$defaultSchedule.id}" onclick='editId(this)' data-toggle="modal" data-target="#smallmodal">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1" data-id="{$defaultSchedule.id}"  onclick='deleteId(this,"{$defaultSchedule->getPlace()}","{$defaultSchedule->getItem()}")' data-toggle="modal" data-target="#smamodal">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
                                     </td>
@@ -47,6 +47,53 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="smamodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h5 class="modal-title">是否要删除？</h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-check-square-o"></i>
+                                    </div>
+                                    <input id="deleteNewId" type="text" name="username" value="edit" class="form-control" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <input type="text" id="deleteNewPlace" name="deleteNewPlace" placeholder="修改地点" class="form-control"  disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <input type="text" id="deleteNewItem" name="deleteNewItem" placeholder="修改事项" class="form-control"  disabled="disabled">
+                                </div>
+                            </div>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" id="deleteIdBtn" class="btn btn-success" onclick="deleteDefaultSchedule(this)">确认</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
             <div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
                     <div class="modal-content">
@@ -166,43 +213,72 @@
 <script>
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-            var time = $('#addNewDay').val() + $('#addNewTime').val();
-            var place = $('#addNewPlace').val();
-            if (place.trim().length == 0) {
-                alert('请输入地点');
-                return 1;
-            }
-            var item = $('#addNewItem').val();
-            if (item.trim().length == 0) {
-                alert('请输入事项');
-                return 1;
-            }
-            $.ajax({
-                type: "POST",
-                async: false,
-                url: "{:url('Calendar/addDefaultSchedule')}",
-                data: {"time":time,"place": place,"item":item },
-                dataType: "json",
-                success: function (data) {
-                    if (data.code == 1) {
-                        alert('添加成功');
-                        //document.getElementById('smallmodal1').style.display = 'none';
-                        window.location.reload();
-                    }
-                    else{
-                        alert('添加失败：' + data.msg);
-                    }
+        var time = $('#addNewDay').val() + $('#addNewTime').val();
+        var place = $('#addNewPlace').val();
+        if (place.trim().length == 0) {
+            alert('请输入地点');
+            return 1;
+        }
+        var item = $('#addNewItem').val();
+        if (item.trim().length == 0) {
+            alert('请输入事项');
+            return 1;
+        }
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "{:url('Calendar/addDefaultSchedule')}",
+            data: {"time":time,"place": place,"item":item },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    alert('添加成功');
+                    //document.getElementById('smallmodal1').style.display = 'none';
+                    window.location.reload();
                 }
-            });
+                else{
+                    alert('添加失败：' + data.msg);
+                }
+            }
+        });
     }
-  
-  
-  function editId(data){
-    var id = $(data).attr('data-id');
-    $('#editIdBtn').attr('data-id', id);
-  }
-  
-     function editDefaultSchedule(data){
+    function deleteId(data,place,item) {
+
+        var id = $(data).attr('data-id');
+        $('#deleteNewId').attr('value', id)
+        $('#deleteNewPlace').attr('value', place)
+        $('#deleteNewItem').attr('value', item)
+
+    }
+    function deleteDefaultSchedule(data){
+        var id = $(data).attr('data-id');
+        var place = $('#deleteNewPlace').val();
+        var item = $('#deleteNewItem').val();
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: "{:url('Calendar/deleteDefaultSchedule')}",
+            data: {"id": id,"place": place,"item":item },
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    alert('修改成功');
+                    window.location.reload();
+                }
+                else{
+                    alert('修改失败：' + data.msg);
+                }
+            }
+        });
+    }
+
+
+    function editId(data){
+        var id = $(data).attr('data-id');
+        $('#editIdBtn').attr('data-id', id);
+    }
+
+    function editDefaultSchedule(data){
         var id = $(data).attr('data-id');
         var place = $('#editNewPlace').val();
         if (place.trim().length == 0) {
