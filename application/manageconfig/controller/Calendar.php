@@ -134,11 +134,8 @@ class Calendar extends Common
         if (empty($user_id)) {
             return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
         }
-        $place_id=Db::table('schedule_place')->where('name',$place)->update(['is_delete'=>1])->find()['id'];
-
-        $item_id=Db::table('schedule_item')->where('name',$item)->update(['is_delete'=>1])->find()['id'];
-
-
+        Db::table('schedule_place')->where('name',$place)->update(['is_delete'=>1]);
+        Db::table('schedule_item')->where('name',$item)->update(['is_delete'=>1]);
         $info = Db::name('schedule_default')->where('id', $id)->update(['is_delete'=>1]);
         if($info){
             return $this->success('操作成功', url('index'));
