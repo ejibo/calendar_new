@@ -5,6 +5,9 @@
       <webServer id="c4326dea-e603-4de6-becc-33c7b18a90fa" name="Apache on XAMPP" url="http://localhost">
         <fileTransfer port="0" mountedRoot="D:\xampp\htdocs" accessType="MOUNT" />
       </webServer>
+      <webServer id="311db89f-6d21-49fc-a9ce-0185521317bf" name="Server" url="http://localhost">
+        <fileTransfer port="0" mountedRoot="D:\Server\Apache24\htdocs" accessType="MOUNT" />
+      </webServer>
     </option>
   </component>
 </project>
