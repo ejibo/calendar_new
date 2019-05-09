@@ -35,7 +35,7 @@ class Power extends Common
         if (request() -> isPost()){
           $data = input('post.');
 
-          // 驗證「控/方」「權限名」是否重複
+          // 验证「控/方」「权限名」是否重复
           $validate = \think\Loader::validate('ManageAuthRule');
           if(!$validate -> check($data)){
             $this -> error($validate -> getError(), null, null, 1);
@@ -49,9 +49,9 @@ class Power extends Common
   
           $add = db('manage_auth_rule') -> insert($data);
           if($add){
-            $this -> success("添加權限成功",'index');
+            $this -> success("添加权限成功",'index');
           }else{
-            $this -> error("添加權限失敗");
+            $this -> error("添加权限失败");
           }
   
           return;
@@ -65,7 +65,7 @@ class Power extends Common
       public function edit(){
         if(request() -> isPost()){
           $data = input('post.');
-          // 驗證「控/方」「權限名」是否重複
+          // 验证「控/方」「权限名」是否重复
           $validate = \think\Loader::validate('ManageAuthRule');
           if(!$validate -> check($data)){
             $this -> error($validate -> getError(), null, null, 1);
@@ -79,9 +79,9 @@ class Power extends Common
           }
           $save = db('manage_auth_rule') -> update($data);
           if($save!==false){
-            $this -> success('修改權限成功', 'index');
+            $this -> success('修改权限成功', 'index');
           }else{
-            $this -> error('修改權限失敗');
+            $this -> error('修改权限失败');
           }
           return;
         }
@@ -105,9 +105,9 @@ class Power extends Common
         $authRuleIds[] = input('id');
         $del = ManageAuthRuleModel::destroy($authRuleIds);
         if($del){
-          $this -> success('刪除權限成功');
+          $this -> success('删除权限成功');
         }else{
-          $this -> error('刪除權限失敗');
+          $this -> error('删除权限失败');
         }
       }
 
