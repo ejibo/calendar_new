@@ -35,9 +35,9 @@ class ScheduleDefault extends Model
      * 并检查之前是否已经有一样的默认日程了
      */
     public function setTime($time){
-        $time_id = Db::table('schedule_time')->where(['name'=> $time, "is_delete" => 0])->find('id');
+        $time_id = Db::table('schedule_time')->where(['name'=> $time, "is_delete" => 0])->find()['id'];
         if (empty($time_id)) {//时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的
-            throw new \InvalidArgumentException('未定义的时间段',404);
+            throw new \InvalidArgumentException($time.'是未定义的时间段',404);
         }
         $this->getData()['time_id']=$time_id;
         $this->checkSameTimeDefaultSchedule();
@@ -53,14 +53,14 @@ class ScheduleDefault extends Model
         }
     }
     public function setPlace($place){
-        $place_id=Db::table('schedule_place')->where(['name'=>$place,'is_delete'=> 0])->find('id');
+        $place_id=Db::table('schedule_place')->where(['name'=>$place,'is_delete'=> 0])->find()['id'];
         if(empty($place_id)){//如果是之前不存在的地点，则新建一个
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);
         }
         $this->getData()['place_id']=$place_id;
     }
     public function setItem($item){
-        $item_id=Db::table('schedule_item')->where(['name'=>$item,'is_delete'=> 0])->find('id');
+        $item_id=Db::table('schedule_item')->where(['name'=>$item,'is_delete'=> 0])->find()['id'];
         if(empty($item_id)){//如果是之前不存在的事项，则新建一个
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);
         }
