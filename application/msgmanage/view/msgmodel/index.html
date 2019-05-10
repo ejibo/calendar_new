@@ -229,7 +229,7 @@
         var des = $("#itemDesE").val();
 
         $.ajax({
-            url:"{:url('')}",
+            url:"{:url('msgmanage/Msgmodel/modifyTemplate')}",
             type:"POST",
             data:{"id":id,"des":des},
             dataType: "json",
@@ -258,7 +258,7 @@
         var id = $("#id").val();
         console.log(id);
         $.ajax({
-            url:"{:url('')}",
+            url:"{:url('msgmanage/Msgmodel/deleteTemplate')}",
             type:"POST",
             data:{"id":id},
             dataType: "json",
@@ -295,4 +295,4 @@
     }
 </script>
 <!-- /.content -->
-{/block}
+{/bloc}k

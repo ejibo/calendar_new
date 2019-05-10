@@ -77,4 +77,32 @@ class Msgmodel extends Common
             $this->error(  "修改事项名称与已有重复，请重新修改!");
         }
     }
+
+    /*
+    *story:修改消息模板
+    *负责人：张骁雄
+    */
+    public function modifyTemplate(){
+        $id = $_POST['id'];
+        $des = $_POST['des'];
+        $model = model('Template');
+        $res = $model->updateTemplate($id,$des);
+        if($res==1)
+            $this->success("修改成功");
+        else
+            $this->success("修改失败");
+    }
+    /*
+     *story:删除消息模板
+     *负责人：张骁雄
+     */
+    public function  deleteTemplate(){
+        $id = $_POST['id'];
+        $model = model('Template');
+        $res = $model->clearTemplate($id);
+        if($res == 1)
+            $this->success("删除成功");
+        else
+            $this->success("删除失败");
+    }
 }
