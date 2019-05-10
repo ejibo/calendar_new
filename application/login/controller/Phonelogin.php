@@ -17,22 +17,30 @@ use app\login\model\Mobile as Suibian;
 class Phonelogin extends Controller
 {
     /**
-     * @Purpose:
-     * 判断是否登录成功
-     * @Method Name:index()
-     *
-     * @Author: Wang Wanrong
-     *
-     * @return mixed 渲染页面
+     * 王婉蓉
+     * 功能：刷新页面，更新登录按钮状态，判断验证码跳转到新的页面
+     * @return view
      */
     public function index()
     {
         if (request()->isAjax()){
             $tel = trim(input('tel'));
             $code = trim(input('code'));
+            //验证码输入正确
             if ( !empty($tel) && !empty($code) && $tel == cookie('tel') && $code == cookie('Code')){
-                $msg=['status'=>0,'msg'=>'登陆成功'];
-                return json($msg);
+
+                //添加登录日志
+                $model = new LogModel();
+                $uid = 110; // 操作人主键id，非学号
+                $type = 1;
+                $model->recordLogApi ($uid, $type); //需要判断调用是否成功
+
+
+                //跳转到新页面
+                $this -> success('登入成功', 'index/index/index', null, 1);
+                return $this->fetch();
+                //$msg=['status'=>0,'msg'=>'登陆成功'];
+                //return json($msg);
             }else{
                 $msg=['status'=>1,'msg'=>'登陆失败'];
                 return json($msg);
@@ -45,14 +53,10 @@ class Phonelogin extends Controller
     }
 
     /**
-     * @Purpose:
-     * 判断是否为管理员并发送短信
-     * @Method Name:sendCode()
-     *
-     * @Author: Wang Wanrong
-     *
-     * @return mixed 返回的信息
+     * 王婉蓉
+     * 功能：判断是否为管理员并发送短信
      */
+    //注意：目前测试次数用完了所以会发送失败= =
     public function sendCode(){
         //dump("sendCOde");
         //dump('sendCone');
@@ -89,13 +93,9 @@ class Phonelogin extends Controller
     }
 
     /**
-     * @Purpose:
-     * 请求第三方 API 发送短信
-     * @Method Name:aip()
-     *
-     * @Author: Wang Wanrong
-     *
-     * @return mixed 第三方平台返回的结果
+     * 王婉蓉
+     * 功能：请求第三方 API （短信宝）发送短信
+     * @return  第三方平台返回的结果
      */
     public function aip($tel,$code,$time=1){
 
