@@ -50,4 +50,20 @@ class Template extends Model
             ->update($data);
            return $res;
        }
+
+     /**
+     * Created by 张骁雄.
+     * User:
+     * Date: 2019/4/21
+     */
+    //删除模板
+    public function clearTemplate($id){
+        $res = Db::name("message_template")->where('id',$id)->update(['is_delete'=>1,'delete_time'=> date('Y-m-d H:i:s',time()),'update_time'=> date('Y-m-d H:i:s',time())]);
+        return $res;
+    }
+    //更新模板
+    public function updateTemplate($id,$des){
+        $res = Db::name("message_template")->where('id',$id)->update(['title'=>$des,'update_time'=> date('Y-m-d H:i:s',time()),'delete_time'=> date('Y-m-d H:i:s',time())]);
+        return $res;
+    }  
 }
