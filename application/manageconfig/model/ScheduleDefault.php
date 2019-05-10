@@ -28,7 +28,7 @@ class ScheduleDefault extends Model
         if(empty($user)){
             throw new \InvalidArgumentException('用户['.$username.']不存在',400);
         }
-        $this->getData()['user_id']=$user['id'];
+        $this->data('user_id',$user['id']);
     }
     /**
      * 时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的。<br>
@@ -39,7 +39,7 @@ class ScheduleDefault extends Model
         if (empty($time_id)) {//时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的
             throw new \InvalidArgumentException($time.'是未定义的时间段',404);
         }
-        $this->getData()['time_id']=$time_id;
+        $this->data('time_id',$time_id);
         $this->checkSameTimeDefaultSchedule();
     }
     /**
@@ -57,13 +57,13 @@ class ScheduleDefault extends Model
         if(empty($place_id)){//如果是之前不存在的地点，则新建一个
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);
         }
-        $this->getData()['place_id']=$place_id;
+        $this->data('place_id',$place_id);
     }
     public function setItem($item){
         $item_id=Db::table('schedule_item')->where(['name'=>$item,'is_delete'=> 0])->find()['id'];
         if(empty($item_id)){//如果是之前不存在的事项，则新建一个
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);
         }
-        $this->getData()['item_id']=$item_id;
+        $this->data('item_id',$item_id);
     }
 }
