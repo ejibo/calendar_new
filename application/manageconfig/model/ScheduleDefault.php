@@ -1,7 +1,7 @@
 <?php
 
 
-namespace app\common\model;
+namespace app\manageconfig\model;
 use think\Db;
 use think\model;
 
