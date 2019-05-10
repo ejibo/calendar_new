@@ -1,4 +1,4 @@
-<!-- namespace app\logmanage\controller;
+namespace app\logmanage\controller;
 
 use app\common\controller\Common;
 use app\logmanage\model\Log as LogModel;
@@ -36,4 +36,4 @@ class Log extends Common
         $this->assign('info',$info);
         return $this->fetch();
     }
-} -->
+}

@@ -45,38 +45,38 @@ class Msgmodel extends Common
         return $templates;
     }
 
-    //删除模板
-    public function deleteTemplates(){
-        $id = $_POST['id'];
-        $model = model('ScheduleItem');
-        $res = $model->deleteTemplates($id);
-        if($res == 1){
-            $this->success("删除成功");
-        }
-        else{
-            $this->error(  "删除失败，请重新操作!");
-        }
-    }
+    // //删除模板
+    // public function deleteTemplates(){
+    //     $id = $_POST['id'];
+    //     $model = model('ScheduleItem');
+    //     $res = $model->deleteTemplates($id);
+    //     if($res == 1){
+    //         $this->success("删除成功");
+    //     }
+    //     else{
+    //         $this->error(  "删除失败，请重新操作!");
+    //     }
+    // }
 
-    //编辑模板
-    public function editTemplates(){
-        $id = $_POST['id'];
-        $des = $_POST['des'];
-        $model = model('ScheduleItem');
-        $isSame = $model->getItemByName($des);
-        if($isSame ==null){
-            $res = $model->updateTemplates($id,$des);
-            if($res ==1){
-                $this->success("编辑成功");
-            }
-            else{
-                $this->error(  "编辑失败，请重新操作!");
-            }
-        }
-        else{
-            $this->error(  "修改事项名称与已有重复，请重新修改!");
-        }
-    }
+    // //编辑模板
+    // public function editTemplates(){
+    //     $id = $_POST['id'];
+    //     $des = $_POST['des'];
+    //     $model = model('ScheduleItem');
+    //     $isSame = $model->getItemByName($des);
+    //     if($isSame ==null){
+    //         $res = $model->updateTemplates($id,$des);
+    //         if($res ==1){
+    //             $this->success("编辑成功");
+    //         }
+    //         else{
+    //             $this->error(  "编辑失败，请重新操作!");
+    //         }
+    //     }
+    //     else{
+    //         $this->error(  "修改事项名称与已有重复，请重新修改!");
+    //     }
+    // }
 
     /*
     *story:修改消息模板
