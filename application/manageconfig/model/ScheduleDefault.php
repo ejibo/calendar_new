@@ -49,7 +49,7 @@ class ScheduleDefault extends Model
         $res = Db::table('schedule_default')->where('user_id',$this->getData('user_id'))->
         where('time_id', $this->getData('time_id'))->where('is_delete', 0)->find();
         if ($res != null){
-            throw new InvalidArgumentException('已存在该时间段的默认日程，可点击编辑进行修改,创建时间：'.$res['create_time']);
+            throw new \InvalidArgumentException('已存在该时间段的默认日程，可点击编辑进行修改,创建时间：'.$res['create_time']);
         }
     }
     public function setPlace($place){
