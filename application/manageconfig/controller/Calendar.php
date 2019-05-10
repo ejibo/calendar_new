@@ -11,7 +11,6 @@ namespace app\manageconfig\controller;
 
 use app\common\controller\Common;
 use app\manageconfig\model\ScheduleDefault;
-use http\Exception\InvalidArgumentException;
 use think\Db;
 use think\Request;
 
@@ -41,7 +40,7 @@ class Calendar extends Common
         try{
             $schedule->setUser($username);
             $schedule->setTime($param['time']);
-        }catch(Exception $e) {
+        }catch(\InvalidArgumentException $e) {
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }
         $schedule->setPlace($param['place']);

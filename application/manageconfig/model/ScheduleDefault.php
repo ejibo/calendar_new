@@ -26,9 +26,9 @@ class ScheduleDefault extends Model
     public function setUser($username){
         $user = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find();
         if(empty($user)){
-            throw new InvalidArgumentException('用户['.$username.']不存在',400);
+            throw new \InvalidArgumentException('用户['.$username.']不存在',400);
         }else if ($user['type']==0) {
-            throw new InvalidArgumentException('普通用户没有创建默认日程的权限哦~',-403);
+            throw new \InvalidArgumentException('普通用户没有创建默认日程的权限哦~',-403);
         }
         $this->getData()['user_id']=$user['user_id'];
     }
@@ -39,7 +39,7 @@ class ScheduleDefault extends Model
     public function setTime($time){
         $time_id = Db::table('schedule_time')->where(['name'=> $time, "is_delete" => 0])->find('id');
         if (empty($time_id)) {//时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的
-            throw new InvalidArgumentException('未定义的时间段',404);
+            throw new \InvalidArgumentException('未定义的时间段',404);
         }
         $this->getData()['time_id']=$time_id;
         $this->checkSameTimeDefaultSchedule();
