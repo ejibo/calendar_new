@@ -37,11 +37,11 @@ class Calendar extends Common
         if(empty($username)){
             $username="张三";//测试
         }
-        $schedule=model('ScheduleDefault');
+        $schedule=new ScheduleDefault();
         try{
             $schedule->setUser($username);
             $schedule->setTime($param['time']);
-        }catch(InvalidArgumentException $e) {
+        }catch(Exception $e) {
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }
         $schedule->setPlace($param['place']);
