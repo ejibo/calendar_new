@@ -3,3 +3,5 @@ public/.htaccess.bak
 public/.htaccess
 application/.htaccess
 .idea/workspace.xml
+.DS_Store
+.vscode/
