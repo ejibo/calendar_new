@@ -148,11 +148,11 @@
                                 <div id="msg3"></div>
                             </div>
                             <div>
-                                <input id="id"  type="hidden">
+                                <input id="id" type="hidden"/>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-secondary" id="delete_cancel" data-dismiss="modal">取消</button>
                             <button type="button" class="btn btn-success" id="submit_delete" data-dismiss="modal">确认</button>
                         </div>
                     </div>
@@ -253,7 +253,10 @@
         $("#id").val(id);
         $("#msg3").html("");
     });
+    $("#delete_cancel").on("click", function(){
+        $("#id").val("");
 
+    });
     $("#submit_delete").on("click", function(){
         var id = $("#id").val();
         console.log(id);
@@ -295,4 +298,4 @@
     }
 </script>
 <!-- /.content -->
-{/bloc}k
+{/block}
