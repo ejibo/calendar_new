@@ -1,3 +1,5 @@
+<?php
+// 日志记录
 namespace app\logmanage\controller;
 
 use app\common\controller\Common;
