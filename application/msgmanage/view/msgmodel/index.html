@@ -36,6 +36,17 @@
                                         <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal3">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
+                                        
+                                        {eq name="templateItem.is_remind" value="0"}<a
+                                            href="{:url('/msgmanage/msgmodel/remind','user_id='.$templateItem.id);}">
+                                        <button type="button" class="btn btn-success btn-sm mb-1">
+                                            <i class="fa fa-star"></i>&nbsp;发送提醒
+                                        </button>
+                                    </a>{else/}<a href="{:url('/msgmanage/msgmodel/cancelremind','user_id='.$templateItem.id);}">
+                                        <button type="button" class="btn  btn-sm mb-1">
+                                            <i class="fa fa-star"></i>&nbsp;取消发送
+                                        </button>
+                                    </a>{/eq}
                                     </td>
                                 </tr>
                                 {/foreach}
