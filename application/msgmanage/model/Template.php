@@ -53,4 +53,34 @@ class Template extends Model
        $res = Db::name("message_template")->where('id',$id)->update(['title'=>$des,'update_time'=> date('Y-m-d H:i:s',time()),'delete_time'=> date('Y-m-d H:i:s',time())]);
        return $res;
     }
+      
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：发送消息提醒
+    *负责人：刘玄
+    */
+    function remind($user_id)
+    {
+        $data = ['is_remind' => 1,'update_time'=> date('Y-m-d H:i:s',time()),'remind_time'=> date('Y-m-d H:i:s',time())];
+         $res = Db::name('message_template')
+            ->where('id',$user_id)
+            ->update($data);
+    }
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：取消发送消息提醒
+    *负责人：刘玄
+    */
+
+    function cancelremind($user_id)
+    {
+         $data = ['is_remind' => 0,'update_time'=> date('Y-m-d H:i:s',time()),'cancelremind_time'=> date('Y-m-d H:i:s',time())];
+         $res = Db::name('message_template')
+            ->where('id',$user_id)
+            ->update($data);
+    }
+      
+
+
+
 }

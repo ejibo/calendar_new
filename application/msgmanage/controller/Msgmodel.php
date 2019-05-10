@@ -83,4 +83,30 @@ class Msgmodel extends Common
         else
             $this->success("修改失败");
     }
+
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：发送消息提醒
+    *负责人：刘玄
+    */
+    public function remind($user_id)
+    {
+        
+        $position = model('Template');
+        $position->remind($user_id);
+        $this->redirect('msgmanage/msgmodel/index');
+    }
+     /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：取消发送消息提醒
+    *负责人：刘玄
+    */
+
+    public function cancelremind($user_id)
+    {
+        
+        $position = model('Template');
+        $position->cancelremind($user_id);
+        $this->redirect('msgmanage/msgmodel/index');
+    }
 }
