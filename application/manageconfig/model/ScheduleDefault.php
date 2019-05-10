@@ -27,10 +27,8 @@ class ScheduleDefault extends Model
         $user = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find();
         if(empty($user)){
             throw new \InvalidArgumentException('用户['.$username.']不存在',400);
-        }else if ($user['type_id']==0) {
-            throw new \InvalidArgumentException('普通用户没有创建默认日程的权限哦~',-403);
         }
-        $this->getData()['user_id']=$user['user_id'];
+        $this->getData()['user_id']=$user['id'];
     }
     /**
      * 时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的。<br>
