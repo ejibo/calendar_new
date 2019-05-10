@@ -34,22 +34,22 @@ class Template extends Model
         return $res;
     }
 
-    //删除模板
-    public function deleteTemplates($id){
-        $data = ['is_delete' => 1,'update_time'=> date('Y-m-d H:i:s',time()),'delete_time'=> date('Y-m-d H:i:s',time())];
-         $res = Db::name('message_template')
-            ->where('id',$id)
-            ->update($data);
-        return $res;
-    }
-    //更新模板
-    public function updateTemplates($id,$des){
-        $data = ['name' => $des,'update_time'=> date('Y-m-d H:i:s',time())];
-        $res = Db::name('schedule_item')
-            ->where('id',$id)
-            ->update($data);
-           return $res;
-       }
+    // //删除模板
+    // public function deleteTemplates($id){
+    //     $data = ['is_delete' => 1,'update_time'=> date('Y-m-d H:i:s',time()),'delete_time'=> date('Y-m-d H:i:s',time())];
+    //      $res = Db::name('message_template')
+    //         ->where('id',$id)
+    //         ->update($data);
+    //     return $res;
+    // }
+    // //更新模板
+    // public function updateTemplates($id,$des){
+    //     $data = ['name' => $des,'update_time'=> date('Y-m-d H:i:s',time())];
+    //     $res = Db::name('schedule_item')
+    //         ->where('id',$id)
+    //         ->update($data);
+    //        return $res;
+    //    }
 
      /**
      * Created by 张骁雄.
