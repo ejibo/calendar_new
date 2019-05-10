@@ -7,9 +7,48 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">TEST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
+                        <h4 class="box-title">可维护日程范围&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal"
+                                data-target="#scope">修改日程范围</button>
                         </h4>
+                        <div class="modal fade" id="scope" tabindex="-1" role="dialog" aria-labelledby="scopeLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-sm" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="display: inline" id="scopeLabel">修改时间范围</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">
+                                                        <i class="fa fa-pencil-square-o"></i>
+                                                    </div>
+                                                    <input type="number" id="scopenum" name="scope_modify" value=""
+                                                        class="form-control" placeholder="单位：日">
+                                                </div>
+                                            </div>
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                                        <button type="button" class="btn btn-success" id="confirm_modify">确认</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats">
+                            <span>&nbsp;&nbsp;&nbsp;&nbsp;目前用户可维护“未来&nbsp;&nbsp;<em><strong>{$last_scope}</strong></em>&nbsp;&nbsp;日内”的日程
+                                <br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -17,4 +56,38 @@
     </div>
 </div>
 <!-- /.content -->
+{/block}
+{block name="scripts"}
+<script type="text/javascript">
+    // 确认新增ajax
+    $("#confirm_modify").click(function () {
+        //先略过不合法输入,只做trim处理
+        var scope_num = $.trim($('#scopenum').val());
+        //var timeorder = $.trim($('#time_order_add').val());
+        console.log(scope_num);
+        //console.log(timeorder);
+        if (scope_num.length === 0) {
+            alert('输入不能为空');
+            return;
+        }
+        if (!(scope_num + "").match(/^\d+$/)) {
+            alert('日程范围必须为整数');
+            return;
+        }
+        //post方法修改
+        $.post("{:url('scope/scopeModify')}", {
+                scope: scope_num
+            },
+            function (data, status) {
+                if (data == 0) {
+                    console.log(data);
+                    console.log(status);
+                    location.reload();
+                }
+                else{
+                    alert(data);
+                }
+            });
+    });
+</script>
 {/block}
