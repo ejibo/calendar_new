@@ -53,10 +53,22 @@ class Userbasic extends Common
         }
     }
 
+    /**
+     * 添加用户
+     * 获取到前端传递的用户数据(可缺省为空属性待讨论)
+     * 通过学号或工号(work_id)判断待添加用户是否存在
+     * 查询到work_id且is_delete为0(未被删除)认为用户存在，提示信息
+     * 否则用户不存在，添加用户(对于被删除用户，不选择恢复数据，而是重新创建)
+     */
     public function addUser()
     {
         $userbasic = model("Userbasic");
         $data = input('post.');
+        $workId = $data['work_id'];
+        $user = $userbasic->findUserByWorkId($workId);
+        if ($user != null) {
+            $this->error("该用户已被添加，不可重复添加");
+        }
         $addFlag = $userbasic->insertUser($data);
         if ($addFlag) {
             $this->success('添加成功');
@@ -65,6 +77,13 @@ class Userbasic extends Common
         }
     }
 
+    /**
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
+     * Excel批量添加用户
+     * 获取到前端传递的包含用户信息的Excel文件(文件格式将会在前端提示，内部数据合法性暂不处理)
+     * 对于每一行获取的用户信息进行用户存在性判断
+     * 不存在的用户会被记录，最后批量添加
+     */
     public function batchAddByExcel()
     {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -79,23 +98,29 @@ class Userbasic extends Common
 
         $sqlData = array();
 
+        $i = 0;
+
+        $userbasic = model("Userbasic");
+
         foreach ($sheet->getRowIterator(2) as $row) {
             $tmp = array();
             foreach ($row->getCellIterator() as $cell) {
                 $tmp[] = $cell->getFormattedValue();
             }
-            $tmp = ['name' => $tmp[0],
-                'work_id' => $tmp[1],
-                'type_id' => $tmp[2],
-                'depart_id' => $tmp[3],
-                'position_id' => $tmp[4]];
-            $sqlData[$row->getRowIndex() - 2] = $tmp;
+            // 未被添加的用户信息才会被记录到数组里，最后批量添加
+            if ($userbasic->findUserByWorkId($tmp[1]) == null) {
+                $tmp = ['name' => $tmp[0],
+                    'work_id' => $tmp[1],
+                    'type_id' => $tmp[2],
+                    'depart_id' => $tmp[3],
+                    'position_id' => $tmp[4]];
+                $sqlData[$i++] = $tmp;
+            }
         }
 
-        $userbasic = model("Userbasic");
         $addFlag = $userbasic->insertAllUser($sqlData);
         if ($addFlag) {
-            $this->success('批量添加成功');
+            $this->success('批量添加成功，重复用户信息已自动过滤未添加');
         } else {
             $this->error('添加失败');
         }
