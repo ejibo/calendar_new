@@ -117,42 +117,12 @@ class Calendar extends Common
         }
     }
 
+
+
     /**
      *删除默认的缺省日程
      */
-    public function deleteDefaultSchedule()
-    {
-
-        $param = Request::instance()->post();
-        $id = trim($param['id']);
-        $place = trim($param['place']);
-        $item = trim($param['item']);
-       /* $username = session('username');
-        $this->validate($param,'ScheduleDefault');
-
-        if(empty($username)) {
-            $username = "张三";//测试
-        }
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (empty($user_id)) {
-            return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
-        }*/
-
-        $place_id=Db::table("schedule_default")->where(["id" => $id,])->find()['place_id'];
-        $item_id=Db::table("schedule_default")->where(["id" => $id,])->find()['item_id'];
-        $time_id=Db::table("schedule_default")->where(["id" => $id,])->find()['time_id'];
-        Db::table('schedule_place')->where('id',$place_id)->update(['is_delete'=>1]);
-        Db::table('schedule_item')->where('id',$item_id)->update(['is_delete'=>1]);
-        Db::table('schedule_item')->where('id',$time_id)->update(['is_delete'=>1]);
-        $info = Db::name('schedule_default')->where('id', $id)->update(['is_delete'=>1]);
-        if($info){
-            return $this->success('操作成功', url('index'));
-        }else{
-            return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
-        }
-    }
-
-    public function hello(){
+    public function deleteDefaultSchedule(){
         $param = Request::instance()->post();
         $id = trim($param['id']);
          $username = session('username');

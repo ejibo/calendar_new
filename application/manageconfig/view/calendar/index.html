@@ -257,7 +257,7 @@ function deleteId(id,place,item) {
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('Calendar/hello')}",
+            url: "{:url('Calendar/deleteDefaultSchedule')}",
             data: {"id": id },
             dataType: "json",
             success: function(data){
