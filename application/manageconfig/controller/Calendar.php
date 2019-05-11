@@ -120,7 +120,7 @@ class Calendar extends Common
         if($info){
             return $this->success('操作成功', url('index'));
         }else{
-            return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
+            return json(['code'=>-1,'msg'=>'删除失败，发生未知错误','data'=>[]]);
         }
 
     }
