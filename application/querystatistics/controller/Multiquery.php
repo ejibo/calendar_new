@@ -19,7 +19,7 @@ class Multiquery extends Common
             ->join('schedule_time','a.time_id = d.id')
             ->join('schedule_place','a.place_id = e.id')
             ->join('schedule_item','a.item_id = f.id')
-            ->field('a.id, b.name as name, c.name as position, d.name as time, e.name as place, f.name as item, b.id as userid')
+            ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
 
         #foreach($info as $key=>$value){
@@ -42,7 +42,7 @@ class Multiquery extends Common
     public function searchnames(){
         $mydata = input('post.');
         if (empty($mydata['names'])){
-            return $this->error('输入不可为空');
+            $this->index();
         }
 
         $names = explode(" ",$mydata['names']);
@@ -61,7 +61,7 @@ class Multiquery extends Common
             ->join('schedule_time','a.time_id = d.id')
             ->join('schedule_place','a.place_id = e.id')
             ->join('schedule_item','a.item_id = f.id')
-            ->field('a.id, b.name as name, c.name as position, d.name as time, e.name as place, f.name as item, b.id as userid')
+            ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
         $finalres = array();
         foreach ($nameids as $nameid) {

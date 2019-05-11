@@ -82,31 +82,35 @@
         },1000);
     }
     function sendChangePhone(){
-        window.alert("点击获取验证码");
+        //window.alert("点击获取验证码");
         var obj = $("input[name='tel']");
         phoneNum = obj.val(); //获取输入的电话号码
         window.alert("输入的手机号为" + phoneNum);
 
-        //判断输入是否为空
-
-
-        //发送短信
-        $.ajax({
-            type: 'POST',
-            dataType:'json',
-            url: "{:url('phonelogin/sendCode')}",
-            data: {phoneNum:phoneNum},
-            success: function(data){
-                $("#btn").val(data.msg);
-                if(data.status == 0){
-                    $.cookie('total',60);
-                    timekeeping();
-                }else{
-                    $.cookie('total',30);
-                    timekeeping();
+        //判断手机号是否为空
+        if(phoneNum == null){
+            window.alert("输入的手机号为空" + phoneNum);
+        }
+        else{
+            //发送短信
+            $.ajax({
+                type: 'POST',
+                dataType:'json',
+                url: "{:url('phonelogin/sendCode')}",
+                data: {phoneNum:phoneNum},
+                success: function(data){
+                    $("#btn").val(data.msg);
+                    if(data.status == 0){
+                        $.cookie('total',60);
+                        timekeeping();
+                    }else{
+                        $.cookie('total',30);
+                        timekeeping();
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
     function login(){
         window.alert("点击登录");
@@ -115,22 +119,32 @@
         var obj = $("input[name='code']");
         code = obj.val();
 
-        //判断输入是否为空
-
+        //判断手机号是否为空
+        if(phoneNum == null){
+            window.alert("输入的手机号为空" + phoneNum);
+        }
+        //判断验证码是否为空
+        else if(code == null){
+            window.alert("输入的验证码为空" + code);
+        }
         //判断验证码是否正确
-        $.ajax({
-            type: 'POST',
-            dataType:'json',
-            url: "{:url('phonelogin/index')}",
-            data: {tel:tel,code:code},
-            success: function(data){
-                if(data.status == 0){
-                    $("#go").val(data.msg);
-                }else {
-                    $("#go").val(data.msg);
+        else {
+            $.ajax({
+                type: 'POST',
+                dataType:'json',
+                url: "{:url('phonelogin/index')}",
+                data: {tel:tel,code:code},
+                success: function(data){
+                    if(data.status == 0){
+                        $("#go").val(data.msg);
+                    }else {
+                        $("#go").val(data.msg);
+                    }
                 }
-            }
-        });
+            });
+        }
+
+
     }
 </script>
 

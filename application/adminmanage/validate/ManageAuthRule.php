@@ -11,9 +11,9 @@ class ManageAuthRule extends Validate
     
 
     protected $message = [
-      'name.unique' => '權限 [控制器/方法] 不得重複',
-      'title.unique' => '權限名稱不得重複',
-      'name.require' => '請輸入 [控制器/方法]'
+      'name.unique' => '权限 [控制器/方法] 不得重复',
+      'title.unique' => '权限名称不得重复',
+      'name.require' => '请输入 [控制器/方法]'
     ];
 
 }
