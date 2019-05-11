@@ -35,7 +35,7 @@
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$defaultSchedule.id}" onclick='editId(this)' data-toggle="modal" data-target="#smallmodal">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
                                         </button>
-                                        <button type="button" class="btn btn-danger btn-sm mb-1" data-id="{$defaultSchedule.id}"  onclick='deleteId(this,"{$defaultSchedule->getPlace()}","{$defaultSchedule->getItem()}")' data-toggle="modal" data-target="#smamodal">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1" data-id="{$defaultSchedule.id}"  onclick='deleteId("{$defaultSchedule.id}","{$defaultSchedule->getPlace()}","{$defaultSchedule->getItem()}")' data-toggle="modal" data-target="#smamodal">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
                                     </td>
@@ -86,7 +86,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" id="deleteIdBtn" class="btn btn-success" onclick="deleteDefaultSchedule(this)">确认</button>
+                            <button type="button" id="deleteIdBtn" class="btn btn-success"  onclick="deleteDefaultSchedule()">确认</button>
                         </div>
                     </div>
                 </div>
@@ -242,36 +242,39 @@
                 }
             });
     }
-function deleteId(data,place,item) {
+function deleteId(id,place,item) {
 
-    var id = $(data).attr('data-id');
     $('#deleteNewId').attr('value', id)
     $('#deleteNewPlace').attr('value', place)
     $('#deleteNewItem').attr('value', item)
 
 }
     function deleteDefaultSchedule(data){
-        var id = $(data).attr('data-id');
+        var id = $('#deleteNewId').val();
         var place = $('#deleteNewPlace').val();
         var item = $('#deleteNewItem').val();
+
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('Calendar/deleteDefaultSchedule')}",
-            data: {"id": id,"place": place,"item":item },
+            url: "{:url('Calendar/hello')}",
+            data: {"id": id },
             dataType: "json",
-            success: function (data) {
+            success: function(data){
                 if (data.code == 1) {
-                    alert('修改成功');
+                    alert('添加成功');
+                    //document.getElementById('smallmodal1').style.display = 'none';
                     window.location.reload();
                 }
                 else{
-                    alert('修改失败：' + data.msg);
+                    alert('添加失败：' + data.msg);
                 }
             }
         });
+
     }
-  
+
+
   
   function editId(data){
     var id = $(data).attr('data-id');
