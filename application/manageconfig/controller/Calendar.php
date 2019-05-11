@@ -116,7 +116,9 @@ class Calendar extends Common
         }
     }
 
-
+    /**
+     *删除默认的缺省日程
+     */
     public function deleteDefaultSchedule()
     {
 
