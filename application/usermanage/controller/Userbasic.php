@@ -10,6 +10,9 @@ namespace app\usermanage\controller;
 
 
 use app\common\controller\Common;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use think\Request;
 
 //require 'vendor/autoload.php';
@@ -146,6 +149,63 @@ class Userbasic extends Common
             $userbasic->delwhitelist($item);
         }
         return 'ok';
+    }
+
+    //导出用户信息的excel
+    public function exportexcel()
+    {
+        $info = model("Userbasic")->getinfo();
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'ID')
+            ->setCellValue('B1', '用户姓名')
+            ->setCellValue('C1', '工号/学号')
+            ->setCellValue('D1', '用户类型：')
+            ->setCellValue('E1', '所属部门')
+            ->setCellValue('F1', '职位');
+        $departdict = array(0 => "普通用户", 1 => "院领导", 2 => "部门领导", 3 => "系领导");
+        $spreadsheet->getActiveSheet()->setTitle('用户信息');
+        //dump($info);
+        $i = 2; //从第二行开始
+        foreach ($info as $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue('A' . $i, $data['id'])
+                ->setCellValue('B' . $i, $data['ui_name'])
+                ->setCellValue('C' . $i, $data['work_id'])
+                ->setCellValue('D' . $i, $departdict[$data['type_id']])
+                ->setCellValue('E' . $i, $data['ud_name'])
+                ->setCellValue('F' . $i, $data['up_name']);
+
+            $i++;
+        }
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(10);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(15);
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:F' . $i)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="用户信息.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
     }
 
 

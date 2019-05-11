@@ -13,8 +13,7 @@
                     <button id="batchShow" type="submit" class="btn btn-success btn-sm">
                         批量添加
                     </button>
-                  	<button type="submit" class="btn btn-success btn-sm" onclick="method5('bootstrap-data-table')" >批量导出
-                    </button>
+                    <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                     <button id="deletebutton" type="submit" class="btn btn-success btn-sm"
                             onclick=' displayAllCheckbox(),
                                                document.getElementById("button2").style.display="inline" ,
@@ -525,36 +524,6 @@
         //Safari  
         else if (explorer.indexOf("Safari") >= 0) {
             return 'Safari';
-        }
-    }
-    function method5(tableid) {
-        if (getExplorer() == 'ie') {
-            var curTbl = document.getElementById(tableid);
-            var oXL = new ActiveXObject("Excel.Application");
-            var oWB = oXL.Workbooks.Add();
-            var xlsheet = oWB.Worksheets(1);
-            var sel = document.body.createTextRange();
-            sel.moveToElementText(curTbl);
-            sel.select();
-            sel.execCommand("Copy");
-            xlsheet.Paste();
-            oXL.Visible = true;
-    
-            try {
-                var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
-                        "Excel Spreadsheets (*.xls), *.xls");
-            } catch (e) {
-                print("Nested catch caught " + e);
-            } finally {
-                oWB.SaveAs(fname);
-                oWB.Close(savechanges = false);
-                oXL.Quit();
-                oXL = null;
-                idTmr = window.setInterval("Cleanup();", 1);
-            }
-    
-        } else {
-            tableToExcel(tableid)
         }
     }
     function Cleanup() {
