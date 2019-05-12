@@ -52,12 +52,6 @@ class Department extends Common
     public function add($name)
     {
        $name = D('name')
-       if ($name ->create()){
-       echo '保存成功！'；
-       } 
-      else{
-       		var_dump($name->getError());
-       }
         $department = model('Department');
         return $department->addDepartment($name);
     }
