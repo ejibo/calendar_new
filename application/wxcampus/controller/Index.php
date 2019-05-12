@@ -36,6 +36,15 @@ class Index extends Controller
     public function wx_search(){
         return $this->fetch();
     }
+    public function wx_agenda(){
+        return $this->fetch();
+    }
+    public function wx_attention(){
+        return $this->fetch();
+    }
+    public function wx_me(){
+        return $this->fetch();
+    }
 
 
     private function getAccessToken($key,$secret,$wxcode){
