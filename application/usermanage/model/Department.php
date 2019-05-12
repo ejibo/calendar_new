@@ -73,6 +73,11 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
+      if(preg_match([\s\p{P}\n\r=+$￥<>^`~|],$name)){
+      //如果输入的部门名称中包含标点符号
+         $message = '部门名称不能包含标点符号';
+    	return ['message' => $message];
+      }
         $user = model('Department');
         // 模型对象赋值
         $user->data([
