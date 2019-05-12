@@ -68,7 +68,9 @@ class Department extends Model
             $message = '部门已存在,请重新输入';
             return ['status' => $status, 'message' => $message];
         }
-
+		if(empty($name)){
+    	return ['部门名称不能为空'];
+		}
         $user = model('Department');
         // 模型对象赋值
         $user->data([
