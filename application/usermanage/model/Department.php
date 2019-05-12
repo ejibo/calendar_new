@@ -70,7 +70,7 @@ class Department extends Model
         }
 		if(empty($name)){
           //如果输入的部门名称为空值
-          $message = '部门名称不能为空'
+          $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
         $user = model('Department');
