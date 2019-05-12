@@ -85,17 +85,19 @@ class Department extends Model
    *story:修改部门名称
    *负责人：张艺璇
    */
-    public function change($id, $name)
+    public function change($id, $myname)
+      
     {
         $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
-        //更新数据库中的部门名称
-        /*$department->name= $name;
-        $department->save();//保存，也就是把更新提交到数据库表
-        return $department->name;*/
+      //判断用户名是否重复
+        $pre = Department::where('name', $myname)->find();
+        if (empty($pre)==false){
+            return -1;
+        }
         $department->save([
-            'name' => $name
+            'name' => $myname
         ], ['id' => $id]);
-        return $department->name;
+        return 1;
     }
 
 }
