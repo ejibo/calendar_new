@@ -59,9 +59,9 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
-		protected $_validate = array(
-          array('name','require','部门名称不能为空'，0,'regex',3),
-        );
+		#protected $_validate = array(
+        #array('name','require','部门名称不能为空'，0,'regex',3),
+        #);
         if (Department::get(['name' => $name])) {
             //如果在表中查询到该用户名
             $status = 0;
