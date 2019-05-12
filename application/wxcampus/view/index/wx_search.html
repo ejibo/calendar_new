@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%;">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./css/weui.css">
+    <title>查询</title>
+    <style>
+        a {
+            color: #204d74;
+            font-size: 17px;
+        }
+
+        .weui-flex {
+            margin-left: 20px;
+        }
+
+        .weui-flex__item a {
+            width: 80px;
+        }
+    </style>
+</head>
+<body ontouchstart style="height: 100%; background-color: #ededed">
+<div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">部门</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option value="1">学工部</option>
+                        <option value="2">教务处</option>
+                        <option value="3">后勤</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">职务</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option value="1">主任</option>
+                        <option value="2">教师</option>
+                        <option value="3">其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">姓名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入姓名">
+                </div>
+            </div>
+
+        </div>
+        <div class="weui-cells__title">历史搜索</div>
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">张老师</a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">王老师</a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">李老师</a>
+            </div>
+
+        </div>
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">搜索</a>
+        </div>
+    </div>
+
+    <div class="weui-tabbar">
+        <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+                    <span style="display: inline-block;position: relative;">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+                    </span>
+            <p class="weui-tabbar__label">查询</p>
+        </a>
+        <a href="javascript:;" class="weui-tabbar__item ">
+            <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">日程</p>
+        </a>
+        <a href="javascript:;" class="weui-tabbar__item">
+                    <span style="display: inline-block;position: relative;">
+                        <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+        <p class="weui-tabbar__label">关注</p>
+                    </span>
+        </a>
+        <a href="javascript:;" class="weui-tabbar__item">
+            <img src="./images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我的</p>
+        </a>
+    </div>
+</div>
+</body>
+</html>
