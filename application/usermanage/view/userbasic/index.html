@@ -180,6 +180,7 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            <input hidden id="tmp_id">
                         </div>
                         <div class="modal-body">
                             <input type="hidden" id="edit_id" name="edit_id">
@@ -369,15 +370,40 @@
 
 <!--编辑人员信息特殊字符校验-->
 <script>
-	function checks(newName){
-		var regEn = /[`!@#$%^&*()_+<>?:"{},.\/;'[\]]/im,
-		    regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
-		if(regEn.test(newName) || regCn.test(newName)) {
-		   alert('您输入了非法字符，请重新输入');
-		    return true;
-		}
-		return false;
-	}
+    function editUserName(){
+        var id = $("#tmp_id").val();
+        var name = $('#edit_name').val();
+        var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
+        if(name.search(pattern)){
+            alert("输入名称不符合规范，请重新输入");
+        }
+        else{
+            //用AJAX方式访问后台写的方法
+            $.ajax({
+                type: "POST",
+                url: 'change',//你的请求程序页面随便
+                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+                data: {
+                    "id":id,
+                    "name":name
+                },//请求需要发送的处理数据
+                success: function (msg) {
+                    console.log("success!"+msg);
+                    if(msg==1){
+                        alert("修改成功！");
+                    }
+                    else if(msg=-1){
+                        alert("用户名重复，请重新输入！");
+                    }
+                    $("#edituserinfo").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    //在这里刷新页面或者局部刷新表格
+                    loadTable();
+                }
+            });
+        }
+
+    }
 </script>
 
 <!--删除人员-->
