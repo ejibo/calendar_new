@@ -370,6 +370,10 @@
 
 <!--编辑人员信息特殊字符校验-->
 <script>
+    function editModalShow(id,name) {
+        $('#tmp_id').val(id);
+        $("#edit_name").val(name);
+    }
     function editUserName(){
         var id = $("#tmp_id").val();
         var name = $('#edit_name').val();
