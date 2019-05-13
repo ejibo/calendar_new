@@ -180,7 +180,6 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                            <input hidden id="tmp_id">
                         </div>
                         <div class="modal-body">
                             <input type="hidden" id="edit_id" name="edit_id">
@@ -371,11 +370,11 @@
 <!--编辑人员信息特殊字符校验-->
 <script>
     function editModalShow(id,name) {
-        $('#tmp_id').val(id);
+        $('#edit_id').val(id);
         $("#edit_name").val(name);
     }
     function editUserName(){
-        var id = $("#tmp_id").val();
+        var id = $("#edit_id").val();
         var name = $('#edit_name').val();
         var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
         if(name.search(pattern)){
