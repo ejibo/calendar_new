@@ -12,6 +12,15 @@ use think\Db;
 use app\common\controller\Common;
 use app\logmanage\model\Log as LogModel;
 
+
+use think\Loader;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Cell;
+use PHPExcel_Writer_Excel5;
+use PHPExcel_Writer_Excel2007;
+
+
 class Whitelist extends Common
 {
     public function index(){
