@@ -14,7 +14,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="">
+                    <input class="weui-input" type="date" value="" id="date">
                 </div>
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
@@ -22,10 +22,10 @@
                     <label class="weui-label">时间</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
-                        <option value="1">上午</option>
-                        <option value="2">下午</option>
-                        <option value="3">晚上</option>
+                    <select class="weui-select" name="select2" id="scheduletime">
+                        {volist name='times' id='vo'}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
                     </select>
                 </div>
             </div>
@@ -34,10 +34,10 @@
                     <label class="weui-label">地点</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
-                        <option value="1">校本部</option>
-                        <option value="2">大兴</option>
-                        <option value="3">其他</option>
+                    <select class="weui-select" name="select2" id="scheduleplace">
+                            {volist name='places' id='vo'}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
                     </select>
                 </div>
             </div>
@@ -46,10 +46,10 @@
                     <label class="weui-label">事项</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
-                        <option value="1">上课</option>
-                        <option value="2">开会</option>
-                        <option value="3">其他</option>
+                    <select class="weui-select" name="select2" id="scheduleitem">
+                            {volist name='items' id='vo'}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
                     </select>
                 </div>
             </div>
@@ -58,7 +58,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note"></textarea>
                     <div class="weui-textarea-counter"><span>0</span>/200</div>
                 </div>
             </div>
@@ -74,10 +74,26 @@
 {literal}
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
 <script>
+$('#create-btn').click(
+    function (){
+        $.post(
+            '/wxcampus/wxCalendar/postTest',
+            {
+                "method": "post",
+                "date": $('#date').val(),
+                "time_id": $('#scheduletime option:selected').val(),
+                "place_id": $("#scheduleplace option:selected").val(),
+                "item_id": $("#scheduleitem option:selected").val(),
+                "note": $("#note").val() 
+            },
+            function () {/*callback*/}
+        );
+    }
+);
 $('#update-btn').click(
     function (){
         $.post(
-            'postTest',
+            '/wxcampus/wxCalendar/postTest',
             {
                 "method": "post",
                 "date": $(".add-schedule-field.date").val(),
@@ -90,9 +106,6 @@ $('#update-btn').click(
         );
     }
 );
-$('#create-btn').click( function(){
-    $.post('')
-});
 </script>
 {/literal}
 </html>

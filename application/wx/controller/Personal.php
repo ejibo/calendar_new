@@ -80,17 +80,33 @@ class Personal extends Common
             ->select();
         return $page;
     }
-    public function getScheduleItems(){
+    //返回所有相关字段, 保证当一个项被删除后, 依然可以显示.
+    protected function getAllScheduleItems(){
         return Db::name('schedule_item')
             ->select();
     }
-    public function getSchedulePlaces(){
+    protected function getAllSchedulePlaces(){
         return Db::name('schedule_place')
             ->select();
     }
-    public function getScheduleTimes(){
+    protected function getAllScheduleTimes(){
         return Db::name('schedule_time')
             ->select();
+    }
+    protected function getScheduleItems(){
+        return Db::name('schedule_item')
+        ->where('is_delete', 0)
+        ->select();
+    }
+    protected function getSchedulePlaces(){
+        return Db::name('schedule_place')
+        ->where('is_delete', 0)
+        ->select();
+    }
+    protected function getScheduleTimes(){
+        return Db::name('schedule_time')
+        ->where('is_delete', 0)
+        ->select();
     }
     public function create(){
         $data = [
