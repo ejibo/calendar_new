@@ -15,6 +15,7 @@ use think\Db;
 
 class Index extends Controller
 {
+    public $stu_number;
 //微校相关信息
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
@@ -45,7 +46,7 @@ class Index extends Controller
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
-
+            $this->stu_number = $userInfo['card_number'];
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
@@ -69,13 +70,9 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
-        $code = input('param.wxcode');
-        $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
-        if($accessToken){
-            $userInfo = $this->getUserInfo($accessToken);
-            $number = $userInfo['card_number'];
 
-            $user_id = $this->getUserId($number);
+
+            $user_id = $this->getUserId($this->stu_number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
@@ -87,10 +84,7 @@ class Index extends Controller
             $this->assign('list_time_table',$list);
 
             return $this->fetch('wx_attention');
-        }
-        else{
-            echo "error";
-        }
+
     }
     public function wx_me(){
         return $this->fetch();
