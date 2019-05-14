@@ -37,13 +37,15 @@ class WxCalendar extends Personal
     }
     public function detail($scheduleId){
         $this->assign('title', '修改日程');
+        $this->assign('confirmid', 'update-btn');
         return $this->fetch("index/wx_detail");
     }
     public function add(){
         $this->assign('title', '新增日程');
+        $this->assign('confirmid', 'create-btn');
         return $this->fetch("index/wx_detail");
     }
-    public function goback(){
-        return $this->Index();
+    public function postTest(){
+        print("test");
     }
 }

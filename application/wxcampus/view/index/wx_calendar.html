@@ -150,7 +150,7 @@
                         <p class="weui-media-box__desc">今天上午在3303上课。</p>
 =======
                 {volist name="cells", id="vo"}
-                <a href="detail?{$vo.id}">
+                <a href="/wxcampus/WxCalendar/detail?{$vo.id}">
                     <div class="weui-media-box weui-media-box_appmsg">
                         <div class="weui-media-box__hd" style="height: 46px;">
                             <h4 class="weui-media-box__title">{$vo.time}</h4>
@@ -166,7 +166,7 @@
         </div>
 
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="add" id="showTooltips">添加日程</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar/add" id="showTooltips">添加日程</a>
         </div>
     </div>
     {include file="../application/wxcampus/view/index/nav.html"}

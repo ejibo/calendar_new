@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./css/weui.css">
+    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
     <title>{$title}</title>
 </head>
 <body style="height: 100%; background-color: #ededed">
@@ -65,10 +65,34 @@
         </div>
 
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="index" id="showTooltips">返回</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
         </div>
     </div>
 </div>
 </body>
+{literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+$('#update-btn').click(
+    function (){
+        $.post(
+            'postTest',
+            {
+                "method": "post",
+                "date": $(".add-schedule-field.date").val(),
+                "time_id": $(".add-schedule-field.time_id").val(),
+                "place_id": $(".add-schedule-field.place_id").val(),
+                "item_id": $(".add-schedule-field.item_id").val(),
+                "note": $(".add-schedule-field.note").val() 
+            },
+            function () {/*callback*/}
+        );
+    }
+);
+$('#create-btn').click( function(){
+    $.post('')
+});
+</script>
+{/literal}
 </html>
