@@ -27,11 +27,11 @@ class Index extends Controller
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
-            $CheckUser = new CheckUser();
-            $res = $CheckUser->checkUser($userInfo['card_number']);
+            $check = new CheckUser();
+            $res = $check->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                 $CheckUser->addUser($userInfo['name'],$userInfo['card_number']);
+                 $check->addUser($userInfo['name'],$userInfo['card_number']);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -54,8 +54,8 @@ class Index extends Controller
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             $number = $userInfo['card_number'];
-            $CheckUser = new CheckUser();
-            $user_id =$CheckUser->getUserId($number);
+            $check = new CheckUser();
+            $user_id =$check->getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
