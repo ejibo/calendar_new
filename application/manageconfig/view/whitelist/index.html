@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h4 class="box-title">日程时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addwhitelist">添加人员</button>
-			    <button type="submit" onclick="javascrtpt:window.location.href='/manageconfig/whitelist/clearwhitelist'" class="btn btn-success btn-sm" data-toggle="modal">清空所有</button>
+			    <button type="submit" onclick="javascrtpt:window.location.href='/manageconfig/whitelist/clearwhitelist'" class="btn btn-success btn-sm">清空所有</button>
                             <form  action="{:url('whitelist/add/excelInput')}" enctype="multipart/form-data" method="post">
                                 <input type="file" name="excel" /> <br>
                                 <input type="submit" value="上传" />
