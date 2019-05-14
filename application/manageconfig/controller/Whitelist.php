@@ -92,7 +92,7 @@ class Whitelist extends Common
         $type = 4;                                     //操作类型：删除（清空）
         $table = 'user_info';
         $field = ['All whitelist items'];              // 删除的主键列表, 不是学号
-        $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+        $logmodel->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
         if ($is_clear >= 0){
             $this->success('修改成功！');
         }else{
