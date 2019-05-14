@@ -26,7 +26,7 @@ class Department extends Common
     }
     /*
      *story:删除部门
-     *负责人：张欣彤
+     *负责人：张欣童
      */
     public function delete($id)
     {
@@ -47,54 +47,29 @@ class Department extends Common
 
     /*
      *story:添加部门
-     *负责人：
+     *负责人：陆韵
      */
-    public function addDepartment($userName)
+    public function add($name)
     {
-        // 接收用户的数据,部门描述
-        $status = 1;
-        $message = '用户名可用';
-
-        if (Department::get(['name'=> $userName])) {
-            //如果在表中查询到该用户名
-            $status = 0;
-            $message = '部门已存在,请重新输入';
-        }
-        return ['status'=>$status, 'message'=>$message];
-
-        $rule = [
-            'name|部门名称' => "require|min:1|max:30",
-        ];
-
-        $result = $this -> validate($userName, $rule);
-
-        //if ($result === true) {
-        $department = new Department;
-        $department->name = $userName;
-        $department->create_time = time();
-        $department->save();
-        $status = 1;
-        $message = '添加成功';
-        //}else{
-        //$status = 0;
-        //$message = '部门描述长度须在3-30个字符之间，请重新添加';
-        //}
-
-        return ['status'=>$status, 'message'=>$message];
+        #$name = D('name')
+        $department = model('Department');
+        return $department->addDepartment($name);
     }
     /*
-     *story:修改部门
-     *负责人：
+     *story:修改部门名称
+     *负责人：张艺璇
      */
-    public function change($id,$name)
+    //public function change($id,$name)
+  //  {
+   //     $department = model('Department');
+  //      $department->change($id,$name);
+   //     error_log(print_r($id));
+   //     error_log(print_r($name));
+//
+   // }
+  	public function change($id,$name)
     {
-        $department = Department::get(['id' => $id]);//可以通过此种方式根据别的字段获取记录
-
-        //通过ID值获取到数据表中的该条记录
-        //$department = Department::get(1);
-        //更新该记录的is_delete字段
-        $department->name= $name;
-        $department->save();//保存，也就是把更新提交到数据库表
-        print_r($department);
+        $department = model('Department');
+        return $department->change($id,$name);
     }
 }

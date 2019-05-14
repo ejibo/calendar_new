@@ -90,7 +90,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-success" onclick="ChangeDepartmentName()">确认</button></ a>
+                    <button type="button" class="btn btn-success" onclick="changeDepartmentName()">确认</button>
             </div>
         </div>
     </div>
@@ -151,6 +151,7 @@
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
             success: function (data) {
+                console.log(data);
                 var table_html = "";
                 var strs = ["未删除","已删除"];
                 for(var i=0;i<data.length;i++){
@@ -186,14 +187,14 @@
         //console.log($("#name").val());
         $.ajax({
             type: "POST",
-            url: "addDepartment",
+            url: "add",
             async: false,
             //dataType: 'json',
             data: {
-                "userName":$("#name").val()
+                "name":$("#name").val()
             },
             success: function(data){
-                //console.log(data);
+                console.log(data);
                 if(data.status==1){
                     alert(data.message);
                     $("#smallmodal1").modal("hide");
@@ -210,28 +211,38 @@
         $('#tmp_id').val(id);
         $("#depart_name").val(name);
     }
-    function ChangeDepartmentName(){
+    function changeDepartmentName(){
         var id = $("#tmp_id").val();
         var name = $('#depart_name').val();
-        //用AJAX方式访问后台写的方法
-        $.ajax({
-            type: "POST",
-            url: 'change',//你的请求程序页面随便
-            async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
-            data: {
-                "id":id,
-                "name":name
-            },//请求需要发送的处理数据
-            success: function (msg) {
-                console.log("success!")
-                alert("修改成功！");
-                $("#smallmodal").modal("hide");
-                $('.modal-backdrop').remove();//去除遮罩层
-                //在这里刷新页面或者局部刷新表格
-                loadTable();
-            }
-        });
-
+       	var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
+        if(name.search(pattern)){
+            alert("输入名称不符合规范，请重新输入");
+        }
+        else{
+            //用AJAX方式访问后台写的方法
+            $.ajax({
+                type: "POST",
+                url: 'change',//你的请求程序页面随便
+                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+                data: {
+                    "id":id,
+                    "name":name
+                },//请求需要发送的处理数据
+                success: function (msg) {
+                    console.log("success!"+msg);
+                	if(msg==1){
+                    	alert("修改成功！");
+               	 	}
+                	else if(msg=-1){
+                    	alert("用户名重复，请重新输入！");
+                	}
+                    $("#smallmodal").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    //在这里刷新页面或者局部刷新表格
+                    loadTable();
+                }
+            });
+        }
 
     }
 </script>

@@ -8,7 +8,7 @@
 
 namespace app\manageconfig\controller;
 
-
+use think\Db;
 use app\common\controller\Common;
 
 class Whitelist extends Common
@@ -52,7 +52,7 @@ class Whitelist extends Common
         if ($is_add){
             $this->success('添加成功');
         }else{
-            $this->error('添加'+$data['name']+'失败');
+            $this->error('添加失败');
         }
     }
 

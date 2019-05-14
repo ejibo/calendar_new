@@ -6,25 +6,26 @@
 <div class="content">
     <div class="col-lg-6 mb-3 d-inline-flex">
         <button class="btn btn-primary" type="button"><a href="{:url('adminbasic/add')}" style="color:#fff;"><i
-                    class="fa fa-plus"></i>&nbsp; 添加管理員</a></button>
+                    class="fa fa-plus"></i>&nbsp; 添加管理员</a></button>
         <form action="" class="wrap-filter">
             <select name="status" class="form-control ml-2" id='status'>
-                <option value="-1">請選擇狀態</option>
+                <option value="-1">请选择状态</option>
                 {volist name="$resp.status_list" id='status'}
                 <option value="{$status.value}" {if condition="$resp['current_status'] eq $status['value']" }
                     selected {/if}>{$status.status} </option> {/volist} </select> </form> </div> <div
                     class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">管理員列表</strong>
+                            <strong class="card-title">管理员列表</strong>
                         </div>
                         <div class="card-body">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">序號</th>
-                                        <th scope="col">名稱</th>
-                                        <th scope="col">狀態</th>
+                                        <th scope="col">序号</th>
+                                        <th scope="col">名称</th>
+                                        <th scope="col">所属用户组</th>
+                                        <th scope="col">状态</th>
                                         <th scope="col">操作</th>
                                     </tr>
                                 </thead>
@@ -35,34 +36,35 @@
                                     <tr>
                                         <th scope="row">{$admin_list.id}</th>
                                         <td>{$admin_list.username}</td>
+                                        <td>{$admin_list.group_title}</td>
                                         {if condition="$admin_list['is_delete'] eq 0"}
                                         <td><span class="badge badge-success">正常</span></td>
                                         {else /}
-                                        <td><span class="badge badge-warning">已刪除</span></td>
+                                        <td><span class="badge badge-warning">已删除</span></td>
                                         {/if}
 
                                         <td>
                                             <button class="btn btn-primary btn-sm" type="button"><a
                                                     href="{:url('adminbasic/edit', array('id' => $admin_list['id']))}"
                                                     style="color:#fff;"><i class="fa fa-pencil"></i>&nbsp;
-                                                    編輯</a></button>
+                                                    编辑</a></button>
                                             {if condition="$admin_list.is_delete == 0"}
                                             <button class="btn btn-danger btn-sm" type="button"><a href="#"
                                                     onclick="warning('确实要删除吗', '{:url('adminbasic/del', array('id' => $admin_list['id']))}')"
                                                     style="color:#fff;"><i class="fa fa-trash-o"></i>&nbsp;
-                                                    刪除</a></button>
+                                                    删除</a></button>
                                             {else /}
                                             <button class="btn btn-warning btn-sm" type="button"><a href="#"
-                                                    onclick="warning('确实要復原吗', '{:url('adminbasic/recover', array('id' => $admin_list['id']))}')"
+                                                    onclick="warning('确实要复原吗', '{:url('adminbasic/recover', array('id' => $admin_list['id']))}')"
                                                     style="color:#000;"><i class="fa fa-undo"></i>&nbsp;
-                                                    復原</a></button>
+                                                    复原</a></button>
                                             {/if}
                                         </td>
                                     </tr>
                                     {/volist}
                                     {else /}
                                     <tr>
-                                        <td colspan="4">暫無數據</td>
+                                        <td colspan="4">暂无数据</td>
                                     </tr>
                                     {/if}
 

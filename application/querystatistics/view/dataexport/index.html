@@ -1,0 +1,29 @@
+{extend name="common@public/base" /}
+{block name="main-content"}
+<!-- Content -->
+<div class="content">
+    <style>
+        .btn-ex{
+            border: none;
+            color: black;
+            font-family:Arial;
+            padding: 10px 24px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+    <input type="button" class ="btn-ex" onclick="window.location.href='{:url(\'Dataexport/export\')}'" value="导出全部用户历史日程">
+    <div></div>
+    <form method="post" action="{:url('Dataexport/exportuser')}" >
+        <label>姓名/工号</label>
+        <input type="text" name="username" class ="" id = "inputname"  placeholder="请输入用户姓名或工号">
+        <div></div>
+        <button  class ="btn-ex"> 导出用户历史日程</button>
+    </form>
+</div>
+<!-- /.content -->
+{/block}

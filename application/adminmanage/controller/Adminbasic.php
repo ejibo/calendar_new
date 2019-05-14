@@ -15,7 +15,10 @@ use \think\Request;
 class Adminbasic extends Common
 {
     // admins list
-  public function index(){  
+  public function index(){
+    // get admin group
+    $auth = new Auth();
+    
     // get all admin
     // show 10 admins per page
     //$admin_list = ManageInfoModel::paginate(100);
@@ -29,6 +32,16 @@ class Adminbasic extends Common
         $resp['current_status'] = (int)$status;
       }
     }
+    foreach ($admin_list as $k => $v){
+      //var_dump($v['id']);
+      $_group_title = $auth -> getGroups($v['id']);
+      if ($_group_title){
+        $group_title = $_group_title[0]['title'];
+        $v['group_title'] = $group_title;
+      }else{
+        $v['group_title'] = '未设置组权限';
+      }
+    }
     $resp['admin_list'] = $admin_list;
     $resp['status_list'] = Config::get('STATUS');
     $this -> assign('resp', $resp);
@@ -36,7 +49,7 @@ class Adminbasic extends Common
   }
   // add an admin member
   public function add(){
-    date_default_timezone_set("Asia/Shanghai");
+    // date_default_timezone_set("Asia/Shanghai");
     // dump(date_default_timezone_get()); die;
     // check method is Post
     if (request() -> isPost()){
@@ -53,7 +66,7 @@ class Adminbasic extends Common
         $this -> error($validate -> getError());
         die;
       }else{
-        // 加密管理員帳號
+        // 加密管理员帐号
         $data['password'] = md5($data['password']);
       }
 
@@ -62,12 +75,12 @@ class Adminbasic extends Common
         $current_user = db('manage_info') -> where('username',input('admin_name')) -> find();
         $add_grp_acc = db('manage_auth_group_access') -> insert(['uid' => $current_user['id'], 'group_id' => input('group_id')]);
         if($add_grp_acc){
-          return $this->success('添加管理員成功', 'index');
+          return $this->success('添加管理员成功', 'index');
         }else{
-          return $this->error('添加管理員失敗');
+          return $this->error('添加管理员失败');
         }
       }else{
-        return $this->error('添加管理員失敗');
+        return $this->error('添加管理员失败');
       }
 
 
@@ -76,7 +89,7 @@ class Adminbasic extends Common
       return;
 
     }
-    $auth_group_list = db('manage_auth_group') -> select();
+    $auth_group_list = db('manage_auth_group') -> where('status', 1) -> select();
     $this -> assign('auth_group_list', $auth_group_list);
     return $this -> fetch('add');
   }
@@ -115,13 +128,13 @@ class Adminbasic extends Common
           //dump(['uid' => input('id'), 'group_id' => input('group_id')]); die;
           $add_grp_acc = db('manage_auth_group_access') -> where(array('uid' => input('id'))) -> update(['group_id' => input('group_id')]);
           if($add_grp_acc !== false){
-            return $this->success('編輯管理員成功', 'index');
+            return $this->success('编辑管理员成功', 'index');
           }else{
-            return $this->error('編輯管理員失敗');
+            return $this->error('编辑管理员失败');
           }
           $this->success('修改成功', 'index');
         }else{
-          $this->error('修改失敗');
+          $this->error('修改失败');
         }
 
       return;
@@ -130,7 +143,7 @@ class Adminbasic extends Common
     $id = input('id');
     $admin = db('manage_info') -> find($id);
     $this -> assign('admin', $admin);
-    $auth_group_list = db('manage_auth_group') -> select();
+    $auth_group_list = db('manage_auth_group') -> where('status', 1) -> select();
     $this -> assign('auth_group_list', $auth_group_list);
     //query group access
     $auth_grp_access = db('manage_auth_group_access') -> where(array('uid' => $id)) -> find();
@@ -146,13 +159,13 @@ class Adminbasic extends Common
     if($admin['is_delete'] == 0){
       // 更新数据表中的数据
       if (db('manage_info')->where('id',$id)->update(['is_delete' => 1, 'delete_time' => date('Y-m-d H:i:s')])){
-        $this -> success('刪除成功', 'index');
+        $this -> success('删除成功', 'index');
       }else{
-        $this -> error('刪除失敗', 'index');
+        $this -> error('删除失败', 'index');
       }
 
     }else{
-      $this -> error('刪除失敗', 'index');
+      $this -> error('删除失败', 'index');
     }
   }
 
@@ -162,13 +175,13 @@ class Adminbasic extends Common
     if($admin['is_delete'] == 1){
       // 更新数据表中的数据
       if (db('manage_info')->where('id',$id)->update(['is_delete' => 0])){
-        $this -> success('恢復成功', 'index');
+        $this -> success('恢复成功', 'index');
       }else{
-        $this -> error('恢復失敗', 'index');
+        $this -> error('恢复失败', 'index');
       }
 
     }else{
-      $this -> error('恢復失敗', 'index');
+      $this -> error('恢复失败', 'index');
     }
   }
 }
