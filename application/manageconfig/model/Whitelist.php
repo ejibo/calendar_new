@@ -59,7 +59,7 @@ class Whitelist extends Model{
                     "name" => "#".$data["name"],
                     "is_delete" => 1,
                         ];
-            $cul = db("whiteList")->where("id",$data["id"])->update($postdata);
+            $cul = db("user_info")->where("id",$data["id"])->update($postdata);
             $is_clear += $cul;
         }
         return $is_clear;
