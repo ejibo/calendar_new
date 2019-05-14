@@ -36,7 +36,12 @@ class Index extends Controller
     //获取对应学号的user_id;
     public function getUserId($number){
         $res = Db::table('user_info')->where('work_id',$number)->column('id');
-        return $res[0];
+        if($res){
+            return $res[0];
+        }else{
+            return "没有该用户";
+        }
+
     }
 
     public function index(){
