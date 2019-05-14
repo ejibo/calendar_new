@@ -70,13 +70,11 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
-
-
             $user_id = $this->getUserId($this->stu_number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
-                ->where('a.user_id',$user_id)
+                ->where('a.user_id = '.$user_id)
                 ->join('user_info','a.follow_id = b.id')
                 ->join('user_position','b.position_id = c.id')
                 ->field('a.id as id, a.follow_id as userid, b.name as name, c.name as position')
