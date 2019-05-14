@@ -32,10 +32,12 @@ class Scope extends Common
         $scope_model = new ScopeModel();
 
         $data = array();
-        $data['Scope'] = $scope * 86400; //转化为以秒为单位
+        $data['Scope'] = $scope * day_to_second; //转化为以秒为单位
 
-        $scope_model->editScope($data['Scope']);
-
+        $success_edit = $scope_model->editScope($data['Scope']);
+        if($success_edit == 1)
         return 0;
+        else
+        return 1;
     }
 }

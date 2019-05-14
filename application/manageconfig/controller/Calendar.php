@@ -54,23 +54,18 @@ class Calendar extends Common
   	public function editDefaultSchedule()
     {
         $param = Request::instance()->post();
-        $id = trim($param['id']);
+        $user_id = Session::get('admin_id');
         $place = trim($param['place']);
         $item = trim($param['item']);
-        $username = session('username');
-        $this->validate($param,'ScheduleDefault');
+        $id = trim($param['id']);
 
-        if(empty($username)) {
-            $username = "张三";//测试
-        }
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (empty($user_id)) {
-            return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
-        }
+        //修改默认地点。如果是之前不存在的地点，则新建
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
         if(empty($place_id)){
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>1]);//如果是之前不存在的地点，则新建一个
         }
+
+        //修改默认事项。如果是之前不存在的事项，则新建
         $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
         if(empty($item_id)){
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>1]);//如果是之前不存在的事项，则新建一个
@@ -82,7 +77,8 @@ class Calendar extends Common
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
         }
-    }
+
+    }	
 
 
 

@@ -11,47 +11,17 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
+            {volist name="list_time_table" id="vo"}
             <a class="weui-cell weui-cell_access weui-cell_example" href="wx_agenda.html">
                 <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
                 <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">张老师</h4>
-                    <p class="weui-media-box__desc">学工办 主任</p>
+                    <h4 class="weui-media-box__title">{$vo.name}}</h4>
+                    <p class="weui-media-box__desc">{$vo.position}</p>
                 </div>
             </a>
-            <a class="weui-cell weui-cell_access weui-cell_example" href="wx_agenda.html">
-                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
-                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
-                <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">李老师</h4>
-                    <p class="weui-media-box__desc">学工办 主任</p>
-                </div>
-            </a> <a class="weui-cell weui-cell_access weui-cell_example" href="wx_agenda.html">
-            <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt="" style="width:50px;margin-right:16px;display:block;border-radius: 5px">
-            </div>
-            <div class="weui-cell__bd">
-                <h4 class="weui-media-box__title">王老师</h4>
-                <p class="weui-media-box__desc">学工办 主任</p>
-            </div>
+            {/volist}
 
-        </a>
-            <a class="weui-cell weui-cell_access weui-cell_example" href="wx_agenda.html">
-                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
-                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
-                <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">赵老师</h4>
-                    <p class="weui-media-box__desc">学工办 主任</p>
-                </div>
-
-            </a>
-            <a class="weui-cell weui-cell_access weui-cell_example" href="wx_agenda.html">
-                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
-                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
-                <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">赵老师</h4>
-                    <p class="weui-media-box__desc">学工办 主任</p>
-                </div>
-            </a>
         </div>
     </div>
 
@@ -66,7 +36,7 @@
             <img src="__STATIC__/wx/img/richeng.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">日程</p>
         </a>
-        <a href="wx_attention.html" class="weui-tabbar__item weui-bar__item_on">
+        <a href="Index/" class="weui-tabbar__item weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
                         <img src="__STATIC__/wx/img/guanzhu-black_on.png" alt="" class="weui-tabbar__icon">
         <p class="weui-tabbar__label">关注</p>
