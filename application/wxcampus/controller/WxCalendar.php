@@ -28,7 +28,8 @@ class WxCalendar extends Personal
                 'note' => $sched['note'],
                 'item' => $this->items[$sched['item_id']]['name'],
                 'place' => $this->places[$sched['place_id']]['name'],
-                'time' => $this->times[$sched['time_id']]['name']
+                'time' => $this->times[$sched['time_id']]['name'],
+                'id' => $sched['id']
             ];
             array_push($cells, $cell);
         }
