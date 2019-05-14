@@ -14,16 +14,13 @@ use app\manageconfig\model\ScheduleDefault;
 use app\manageconfig\model\ScheduleTime as ScheduleTime;
 use think\Db;
 use think\Request;
+use think\Session;
 
 class Calendar extends Common
 {
     public function index(){
-        $username=session('username');
-        if(empty($username)){
-            $username="张三";//测试
-        }
-        $this->assign("username",$username);
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules($username));
+        $user_id=Session::get('admin_id');
+        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules($user_id));
         return $this->fetch();
     }
     /**
@@ -33,19 +30,16 @@ class Calendar extends Common
     {
         $param = Request::instance()->post();
         $this->validate($param,'ScheduleDefault');
-        $username = session('username');
-        if(empty($username)){
-            $username="张三";//测试
-        }
+        $user_id = Session::get('admin_id');
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUser($username);
+            $schedule->setUserId($user_id);
             $schedule->setTime($param['time']);
+            $schedule->setPlace($param['place']);
+            $schedule->setItem($param['item']);
         }catch(\InvalidArgumentException $e) {
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }
-        $schedule->setPlace($param['place']);
-        $schedule->setItem($param['item']);
         $schedule->is_delete=0;
         if($schedule->save()){
             return json(['code'=>1,'msg'=>'success','data'=>[]]);
