@@ -2,6 +2,7 @@
 
 
 namespace app\wxcampus\model;
+use think\Db;
 use think\Model;
 
 class CheckUser extends Model
@@ -16,27 +17,22 @@ class CheckUser extends Model
     protected $table = 'user_info';
     //检查user_info表内有没有该用户
     public function checkUser($number){
-        $CheckUser = new CheckUser();
-        $res = $CheckUser->where('work_id ='.$number)->select();
+        $res = Db::table("user_info")->where('work_id ='.$number)->select();
         return $res;
     }
 
     public function addUser($name,$number){
-        $CheckUser = new CheckUser();
-        $CheckUser->name = $name;
-        $CheckUser->word_id = $number;
-        $CheckUser->type_id = 0;
-        $CheckUser->depart_id = 0;
-        $CheckUser->position_id = 50;
-        $CheckUser->is_delete = 0;
-        $CheckUser->save();
+        Db::table('user_info')
+            ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,
+            'position_id'=>50,'is_delete'=>0])->insert();
+
 
     }
 
     //获取对应学号的user_id;
     public function getUserId($number){
-        $CheckUser = new CheckUser();
-        $res = $CheckUser->where('work_id ='.$number)->column('id');
+
+        $res = Db::table('user_info')->where('work_id ='.$number)->column('id');
         return $res[0];
     }
 }
