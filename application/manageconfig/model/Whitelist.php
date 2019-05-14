@@ -51,17 +51,26 @@ class Whitelist extends Model{
         return $is_delete;
     }
 
+    /*
+    创建： 翁嘉进
+    功能： 清空白名单操作
+    实现： 1.连接表——白名单 
+           2.查询带清空的数据
+           3.软清空白名单
+           4.记录清空个数 
+           5.返回结果
+    */
     public function clearwhitelist(){
-    	$list = db("user_info")->where("is_delete",0)->select();
-	$is_clear = 0;
-	foreach($list as $data){
-		$postdata = [
-				"user" => "#".$data["user"],
-				"isdelete" => 1,
-	    		    ];
-		$cul = db("whiteList")->where("id",$data["id"])->update($postdata);
-		$is_clear += $cul;
-	}
-	return $is_clear;
+    	$list = db("user_info")->where('type_id','>=',0)->where("is_delete",0)->select();
+        $is_clear = 0;
+        foreach($list as $data){
+            $postdata = [
+                    "name" => "#".$data["name"],
+                    "is_delete" => 1,
+                        ];
+            $cul = db("user_info")->where("id",$data["id"])->update($postdata);
+            $is_clear += $cul;
+        }
+        return $is_clear;
     }
 }

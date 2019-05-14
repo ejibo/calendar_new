@@ -13,8 +13,7 @@
                     <button id="batchShow" type="submit" class="btn btn-success btn-sm">
                         批量添加
                     </button>
-                  	<button type="submit" class="btn btn-success btn-sm" onclick="method5('bootstrap-data-table')" >批量导出
-                    </button>
+                    <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                     <button id="deletebutton" type="submit" class="btn btn-success btn-sm"
                             onclick=' displayAllCheckbox(),
                                                document.getElementById("button2").style.display="inline" ,
@@ -368,6 +367,48 @@
     });
 </script>
 
+<!--编辑人员信息特殊字符校验-->
+<script>
+    function editModalShow(id,name) {
+        $('#edit_id').val(id);
+        $("#edit_name").val(name);
+    }
+    function editUserName(){
+        var id = $("#edit_id").val();
+        var name = $('#edit_name').val();
+        var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
+        if(name.search(pattern)){
+            alert("输入名称不符合规范，请重新输入");
+        }
+        else{
+            //用AJAX方式访问后台写的方法
+            $.ajax({
+                type: "POST",
+                url: 'change',//你的请求程序页面随便
+                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+                data: {
+                    "id":id,
+                    "name":name
+                },//请求需要发送的处理数据
+                success: function (msg) {
+                    console.log("success!"+msg);
+                    if(msg==1){
+                        alert("修改成功！");
+                    }
+                    else if(msg=-1){
+                        alert("用户名重复，请重新输入！");
+                    }
+                    $("#edituserinfo").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
+                    //在这里刷新页面或者局部刷新表格
+                    loadTable();
+                }
+            });
+        }
+
+    }
+</script>
+
 <!--删除人员-->
 <script type="text/javascript">
     let id;
@@ -525,36 +566,6 @@
         //Safari  
         else if (explorer.indexOf("Safari") >= 0) {
             return 'Safari';
-        }
-    }
-    function method5(tableid) {
-        if (getExplorer() == 'ie') {
-            var curTbl = document.getElementById(tableid);
-            var oXL = new ActiveXObject("Excel.Application");
-            var oWB = oXL.Workbooks.Add();
-            var xlsheet = oWB.Worksheets(1);
-            var sel = document.body.createTextRange();
-            sel.moveToElementText(curTbl);
-            sel.select();
-            sel.execCommand("Copy");
-            xlsheet.Paste();
-            oXL.Visible = true;
-    
-            try {
-                var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
-                        "Excel Spreadsheets (*.xls), *.xls");
-            } catch (e) {
-                print("Nested catch caught " + e);
-            } finally {
-                oWB.SaveAs(fname);
-                oWB.Close(savechanges = false);
-                oXL.Quit();
-                oXL = null;
-                idTmr = window.setInterval("Cleanup();", 1);
-            }
-    
-        } else {
-            tableToExcel(tableid)
         }
     }
     function Cleanup() {

@@ -11,6 +11,7 @@ namespace app\manageconfig\controller;
 
 use app\common\controller\Common;
 use app\manageconfig\model\ScheduleDefault;
+use app\manageconfig\model\ScheduleTime as ScheduleTime;
 use think\Db;
 use think\Request;
 use think\Session;
@@ -50,8 +51,8 @@ class Calendar extends Common
   	/**
       *修改默认地点、事项表
     */
-      public function editDefaultSchedule()
-      {
+  	public function editDefaultSchedule()
+    {
         $param = Request::instance()->post();
         $id = trim($param['id']);
         $place = trim($param['place']);
@@ -68,11 +69,11 @@ class Calendar extends Common
         }
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
         if(empty($place_id)){
-            $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);//如果是之前不存在的地点，则新建一个
+            $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>1]);//如果是之前不存在的地点，则新建一个
         }
         $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
         if(empty($item_id)){
-            $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);//如果是之前不存在的事项，则新建一个
+            $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>1]);//如果是之前不存在的事项，则新建一个
         }
 
         $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$user_id, 'place_id'=>$place_id, 'item_id'=>$item_id]);
@@ -83,33 +84,38 @@ class Calendar extends Common
         }
     }
 
+
+
+
     /**
      *删除默认的缺省日程
      */
     public function deleteDefaultSchedule()
     {
-
         $param = Request::instance()->post();
         $id = trim($param['id']);
-        $place = trim($param['place']);
-        $item = trim($param['item']);
         $username = session('username');
-        $this->validate($param,'ScheduleDefault');
+        $this->validate($param, 'ScheduleDefault');
 
-        if(empty($username)) {
+        if (empty($username)) {
             $username = "张三";//测试
         }
         $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
         if (empty($user_id)) {
-            return json(["code" => 400, 'msg' => '用户['.$username.']不存在', 'data' => []]);
+            return json(["code" => 400, 'msg' => '用户[' . $username . ']不存在', 'data' => []]);
         }
-        Db::table('schedule_place')->where('name',$place)->update(['is_delete'=>1]);
-        Db::table('schedule_item')->where('name',$item)->update(['is_delete'=>1]);
-        $info = Db::name('schedule_default')->where('id', $id)->update(['is_delete'=>1]);
+        $place_id = Db::table("schedule_default")->where(["id" => $id,])->find()['place_id'];
+        $item_id = Db::table("schedule_default")->where(["id" => $id,])->find()['item_id'];
+        $time_id = Db::table("schedule_default")->where(["id" => $id,])->find()['time_id'];
+        Db::table('schedule_place')->where('id', $place_id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
+        Db::table('schedule_item')->where('id', $item_id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
+        Db::table('schedule_time')->where('id', $time_id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
+        $info = Db::name('schedule_default')->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
         if($info){
             return $this->success('操作成功', url('index'));
         }else{
-            return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
+            return json(['code'=>-1,'msg'=>'删除失败，发生未知错误','data'=>[]]);
         }
+
     }
 }

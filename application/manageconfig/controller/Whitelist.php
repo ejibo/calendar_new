@@ -10,6 +10,7 @@ namespace app\manageconfig\controller;
 
 use think\Db;
 use app\common\controller\Common;
+use app\logmanage\model\Log as LogModel;
 
 class Whitelist extends Common
 {
@@ -78,11 +79,26 @@ class Whitelist extends Common
         }
     }
 
-
+    /*
+    创建： 翁嘉进
+    功能： 实现清空白名单操作
+    实现： 1.判断管理员是否登录 
+           2.若无登录，则跳转至登录界面（通过继承Common类实现） 
+           3.清空白名单 
+           4.记录操作日志 
+           5.返回结果
+    */
     public function clearwhitelist(){
-        $whitelist = model('Whitelist');
-        $is_clear = $whitelist->clearwhitelist();
-        if ($is_clear){
+        $whitelist = model('Whitelist');                            // 调用白名单数据模型
+        $is_clear = $whitelist->clearwhitelist();                   // 通过模型进行清空操作
+        $logmodel = new LogModel();                                 // 调用操作日志数据模型
+        $uid = ADMIN_ID;                                            // 管理员ID
+        $type = 4;                                                  // 操作类型：删除（清空）
+        $table = 'user_info';                                       // 操作数据表
+        $field = ['All whitelist items, total:'.$is_clear];                           // 删除的主键列表, 不是学号
+        $logmodel->recordLogApi ($uid, $type, $table, $field);      // 需要判断调用是否成功
+
+        if ($is_clear >= 0){
             $this->success('修改成功！');
         }else{
             $this->error('修改失败！');

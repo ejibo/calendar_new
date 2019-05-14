@@ -33,6 +33,22 @@ class Index extends Controller
             echo "error";
         }
     }
+    public function wx_search(){
+        return $this->fetch();
+    }
+    public function wx_agenda(){
+        return $this->fetch();
+    }
+    public function wx_attention(){
+        return $this->fetch();
+    }
+    public function wx_me(){
+        return $this->fetch();
+    }
+    public function wx_calendar(){
+        return $this->fetch();
+    }
+
 
     private function getAccessToken($key,$secret,$wxcode){
         $url = "https://weixiao.qq.com/apps/school-auth/access-token";

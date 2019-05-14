@@ -51,6 +51,7 @@ class Department extends Common
      */
     public function add($name)
     {
+        #$name = D('name')
         $department = model('Department');
         return $department->addDepartment($name);
     }
