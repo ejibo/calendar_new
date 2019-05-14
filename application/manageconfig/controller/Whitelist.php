@@ -87,14 +87,12 @@ class Whitelist extends Common
     public function clearwhitelist(){
         $whitelist = model('Whitelist');               //调用白名单数据模型
         $is_clear = $whitelist->clearwhitelist();      //通过模型进行清空操作
-        $logmodel = new LogModel();                    //调用操作日志数据模型
-        /*
-        $uid = 110;                                    //管理员ID
+        $logmodel = new LogModel();           
+        $uid = ADMIN_ID;                                    //管理员ID
         $type = 4;                                     //操作类型：删除（清空）
         $table = 'user_info';
         $field = ['All whitelist items'];              // 删除的主键列表, 不是学号
         $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
-        */
         if ($is_clear){
             $this->success('修改成功！');
         }else{
