@@ -19,29 +19,6 @@ class Index extends Controller
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
-
-    public function index(){
-      //  return $this->fetch();
-        $code = input('param.wxcode');
-        $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
-        if($accessToken){
-            $userInfo = $this->getUserInfo($accessToken);
-            //检查user_info表里面有没有改用户，用学号来确认。
-
-            $res = checkUser($userInfo['card_number']);
-            //如果不存在该用户，则新增该用户
-            if(!$res){
-                 addUser($userInfo['name'],$userInfo['card_number']);
-            }
-           // $this->assign("number",$userInfo['card_number']);
-            $this->assign("name",$userInfo['name']);
-          
-            return $this->fetch();
-        }
-        else{
-            echo "error";
-        }
-    }
     public function checkUser($number){
         $res = Db::table("user_info")->where('work_id ='.$number)->select();
         return $res;
@@ -62,6 +39,30 @@ class Index extends Controller
         return $res[0];
     }
 
+    public function index(){
+      //  return $this->fetch();
+        $code = input('param.wxcode');
+        $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
+        if($accessToken){
+            $userInfo = $this->getUserInfo($accessToken);
+            //检查user_info表里面有没有改用户，用学号来确认。
+
+            $res = $this->checkUser($userInfo['card_number']);
+            //如果不存在该用户，则新增该用户
+            if(!$res){
+                $this-> addUser($userInfo['name'],$userInfo['card_number']);
+            }
+           // $this->assign("number",$userInfo['card_number']);
+            $this->assign("name",$userInfo['name']);
+          
+            return $this->fetch();
+        }
+        else{
+            echo "error";
+        }
+    }
+
+
     public function wx_search(){
         return $this->fetch();
     }
@@ -75,7 +76,7 @@ class Index extends Controller
             $userInfo = $this->getUserInfo($accessToken);
             $number = $userInfo['card_number'];
 
-            $user_id =getUserId($number);
+            $user_id = $this->getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
