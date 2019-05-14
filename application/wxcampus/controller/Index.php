@@ -9,7 +9,9 @@
 namespace app\wxcampus\controller;
 
 
+use app\wxcampus\model\CheckUser;
 use think\Controller;
+use think\Db;
 
 class Index extends Controller
 {
@@ -19,12 +21,19 @@ class Index extends Controller
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
 
     public function index(){
-        return $this->fetch();
+      //  return $this->fetch();
         $code = input('param.wxcode');
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
-            $this->assign("number",$userInfo['card_number']);
+            //检查user_info表里面有没有改用户，用学号来确认。
+            $CheckUser = new CheckUser();
+            $res = $CheckUser->checkUser($userInfo['card_number']);
+            //如果不存在该用户，则新增该用户
+            if(!$res){
+                 $CheckUser->addUser($userInfo['name'],$userInfo['card_number']);
+            }
+           // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
           
             return $this->fetch();
@@ -40,7 +49,28 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
-        return $this->fetch();
+        $code = input('param.wxcode');
+        $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
+        if($accessToken){
+            $userInfo = $this->getUserInfo($accessToken);
+            $number = $userInfo['card_number'];
+            $CheckUser = new CheckUser();
+            $user_id =$CheckUser->getUserId($number);
+            $list = Db::table('user_follow')
+                ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
+                ->where('a.is_delete',0)
+                ->where('a.user_id',$user_id)
+                ->join('user_info','a.follow_id = b.id')
+                ->join('user_position','b.position_id = c.id')
+                ->field('a.id as id, a.follow_id as userid, b.name as name, c.name as position')
+                ->select();
+            $this->assign('list_time_table',$list);
+
+            return $this->fetch('wx_attention');
+        }
+        else{
+            echo "error";
+        }
     }
     public function wx_me(){
         return $this->fetch();
