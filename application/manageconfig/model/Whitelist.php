@@ -52,16 +52,16 @@ class Whitelist extends Model{
     }
 
     public function clearwhitelist(){
-    	$list = db("user_info")->where("is_delete",0)->select();
-	$is_clear = 0;
-	foreach($list as $data){
-		$postdata = [
-				"user" => "#".$data["user"],
-				"isdelete" => 1,
-	    		    ];
-		$cul = db("whiteList")->where("id",$data["id"])->update($postdata);
-		$is_clear += $cul;
-	}
-	return $is_clear;
+    	$list = db("user_info")->where('type_id','gt',0)->where("is_delete",0)->select();
+        $is_clear = 0;
+        foreach($list as $data){
+            $postdata = [
+                    "name" => "#".$data["name"],
+                    "is_delete" => 1,
+                        ];
+            $cul = db("whiteList")->where("id",$data["id"])->update($postdata);
+            $is_clear += $cul;
+        }
+        return $is_clear;
     }
 }
