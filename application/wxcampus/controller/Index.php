@@ -9,7 +9,7 @@
 namespace app\wxcampus\controller;
 
 
-use app\wxcampus\model\CheckUser;
+use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
 
