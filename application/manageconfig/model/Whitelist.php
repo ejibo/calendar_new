@@ -61,7 +61,7 @@ class Whitelist extends Model{
            5.返回结果
     */
     public function clearwhitelist(){
-    	$list = db("user_info")->where('type_id','>',0)->where("is_delete",0)->select();
+    	$list = db("user_info")->where('type_id','>=',0)->where("is_delete",0)->select();
         $is_clear = 0;
         foreach($list as $data){
             $postdata = [
