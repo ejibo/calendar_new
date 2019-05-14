@@ -12,6 +12,7 @@ namespace app\wxcampus\controller;
 use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
+use think\Request;
 
 class Index extends Controller
 {
@@ -59,7 +60,7 @@ class Index extends Controller
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
-          
+            $this->assign("number",$userInfo['card_number']);
             return $this->fetch();
         }
         else{
@@ -75,7 +76,8 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
-            $user_id = $this->getUserId($this->stu_number);
+            $number = Request::instance()->param('number');
+            $user_id = $this->getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
