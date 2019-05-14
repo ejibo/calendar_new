@@ -35,7 +35,15 @@ class WxCalendar extends Personal
         }
         return $cells;
     }
+    public function detail($scheduleId){
+        $this->assign('title', '修改日程');
+        return $this->fetch("index/wx_detail");
+    }
     public function add(){
-        return $this->fetch("index/wx_add");
+        $this->assign('title', '新增日程');
+        return $this->fetch("index/wx_detail");
+    }
+    public function goback(){
+        return $this->Index();
     }
 }
