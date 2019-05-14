@@ -27,11 +27,11 @@ class Index extends Controller
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
-            $check = new CheckUser();
-            $res = $check->checkUser($userInfo['card_number']);
+
+            $res = checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                 $check->addUser($userInfo['name'],$userInfo['card_number']);
+                 addUser($userInfo['name'],$userInfo['card_number']);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -42,6 +42,26 @@ class Index extends Controller
             echo "error";
         }
     }
+    public function checkUser($number){
+        $res = Db::table("user_info")->where('work_id ='.$number)->select();
+        return $res;
+    }
+
+    public function addUser($name,$number){
+        Db::table('user_info')
+            ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,
+                'position_id'=>50,'is_delete'=>0])->insert();
+
+
+    }
+
+    //获取对应学号的user_id;
+    public function getUserId($number){
+
+        $res = Db::table('user_info')->where('work_id ='.$number)->column('id');
+        return $res[0];
+    }
+
     public function wx_search(){
         return $this->fetch();
     }
@@ -54,8 +74,8 @@ class Index extends Controller
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
             $number = $userInfo['card_number'];
-            $check = new CheckUser();
-            $user_id =$check->getUserId($number);
+
+            $user_id =getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
