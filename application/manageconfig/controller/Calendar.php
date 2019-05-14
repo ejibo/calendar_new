@@ -18,7 +18,7 @@ use think\Request;
 class Calendar extends Common
 {
     public function index(){
-        $username=session('username');
+        $username=session('ADMIN_NAME');
         if(empty($username)){
             $username="张三";//测试
         }
