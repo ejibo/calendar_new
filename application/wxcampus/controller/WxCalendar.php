@@ -32,7 +32,6 @@ class WxCalendar extends Personal
             ];
             array_push($cells, $cell);
         }
-        var_dump($cells);
         return $cells;
     }
     public function add(){
