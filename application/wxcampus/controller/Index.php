@@ -35,7 +35,7 @@ class Index extends Controller
 
     //获取对应学号的user_id;
     public function getUserId($number){
-        $res = Db::table('user_info')->where('work_id ='.$number)->column('id');
+        $res = Db::table('user_info')->where('work_id',$number)->column('id');
         return $res[0];
     }
 
@@ -50,7 +50,7 @@ class Index extends Controller
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                $this-> addUser($userInfo['name'],$userInfo['card_number']);
+                $this->addUser($userInfo['name'],$userInfo['card_number']);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
