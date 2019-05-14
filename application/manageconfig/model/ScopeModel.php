@@ -4,6 +4,7 @@ namespace app\manageconfig\model;
 
 use think\Model;
 use think\Db;
+use app\logmanage\model\Log as LogModel;
 
 class ScopeModel extends Model
 {
@@ -12,12 +13,20 @@ class ScopeModel extends Model
     public function initScope()
     {
         # code...
+        $model = new LogModel();
+        $uid = ADMIN_ID;
+        $type = 2;
+        $table = 'global_config';
+        
         $default = ['config_item' => 'scope', 'parameter' => 2592000];
         $exi = DB::table('global_config')->where('config_item', 'scope')->count();
         if ($exi > 0) {
             $init_success = 1;
         } else {
             $init_success = DB::table('global_config')->insert($default);
+            $id = DB::table('global_config')->getLastInsID();
+            $field = [$id];
+            $model->recordLogApi($uid,$type,$table,$field);
          }
 
         return $init_success; //成功返回1
