@@ -33,7 +33,7 @@ class Calendar extends Common
     {
         $param = Request::instance()->post();
         $this->validate($param,'ScheduleDefault');
-        $username = session('username');
+        $username = session('admin_name');
         if(empty($username)){
             $username="张三";//测试
         }
