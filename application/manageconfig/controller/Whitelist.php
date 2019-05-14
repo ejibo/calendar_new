@@ -116,18 +116,16 @@ class Whitelist extends Common
     }
 
     function excelInput(){
-
         if(request()->isPost()) {
-
+            echo '上传成功';
+            return ;
             Loader::import('PHPExcel.PHPExcel');
             Loader::import('PHPExcel.PHPExcel.PHPExcel_IOFactory');
             Loader::import('PHPExcel.PHPExcel.PHPExcel_Cell');
             //实例化PHPExcel
             $objPHPExcel = new \PHPExcel();
             $file = request()->file('excel');
-
             if ($file) {
-
                 $file_types = explode(".", $_FILES ['excel'] ['name']); // ["name"] => string(25) "excel文件名.xls"
                 $file_type = $file_types [count($file_types) - 1];//xls后缀
                 $file_name = $file_types [count($file_types) - 2];//xls去后缀的文件名
@@ -165,7 +163,6 @@ class Whitelist extends Common
                     Db::table('user_info')->insert($re[$i]);
 
                 }
-
             }
         }
 
