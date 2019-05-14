@@ -95,7 +95,7 @@ class Whitelist extends Common
         $uid = ADMIN_ID;                                            // 管理员ID
         $type = 4;                                                  // 操作类型：删除（清空）
         $table = 'user_info';                                       // 操作数据表
-        $field = ['All whitelist items，total:'.$is_clear];                           // 删除的主键列表, 不是学号
+        $field = ['All whitelist items, total:'.$is_clear];                           // 删除的主键列表, 不是学号
         $logmodel->recordLogApi ($uid, $type, $table, $field);      // 需要判断调用是否成功
 
         if ($is_clear >= 0){
