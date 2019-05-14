@@ -82,17 +82,14 @@ class Personal extends Common
     }
     public function getScheduleItems(){
         return Db::name('schedule_item')
-            ->where('is_delete', 0)
             ->select();
     }
     public function getSchedulePlaces(){
         return Db::name('schedule_place')
-            ->where('is_delete', 0)
             ->select();
     }
-    public function getScheduleTime(){
+    public function getScheduleTimes(){
         return Db::name('schedule_time')
-            ->where('is_delete', 0)
             ->select();
     }
     public function create(){
