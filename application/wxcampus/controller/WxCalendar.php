@@ -9,15 +9,16 @@ class WxCalendar extends Personal
     protected $items;
     protected $places;
     protected $times;
-    public function Index(){
+    public function Index($date = NULL){
+        if($date == NULL)$date = date('Y-m-d');
         if($this->items == NULL)$this->items = $this->getAllScheduleItems();
         if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
         if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
         $this->assign('date', date('Y-m-d'));
-        $this->assign('cells', $this->getScheduleDisplayArray(strtotime('2019-04-09')));
+        $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         return $this->fetch("index/wx_calendar");
     }
-    protected function getScheduleDisplayArray($timestamp){
+    public function getScheduleDisplayArray($timestamp){
         assert($this->items != NULL);
         assert($this->places!= NULL);
         assert($this->times != NULL);
@@ -54,12 +55,12 @@ class WxCalendar extends Personal
     public function postTest(){
         $data = [
             'user_id'       => $this->getUserId(),
+            'method'        => input('post.method'),
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
             'place_id'      => input('post.place_id'),
             'item_id'       => input('post.item_id'),
             'note'          => input('post.note'),
-            'is_delete'     => false,
             'create_time'   => time()
         ];
         var_dump($data);

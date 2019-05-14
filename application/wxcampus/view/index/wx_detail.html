@@ -79,7 +79,7 @@ $('#create-btn').click(
         $.post(
             '/wxcampus/wxCalendar/postTest',
             {
-                "method": "post",
+                "method": "create",
                 "date": $('#date').val(),
                 "time_id": $('#scheduletime option:selected').val(),
                 "place_id": $("#scheduleplace option:selected").val(),
@@ -95,12 +95,12 @@ $('#update-btn').click(
         $.post(
             '/wxcampus/wxCalendar/postTest',
             {
-                "method": "post",
-                "date": $(".add-schedule-field.date").val(),
-                "time_id": $(".add-schedule-field.time_id").val(),
-                "place_id": $(".add-schedule-field.place_id").val(),
-                "item_id": $(".add-schedule-field.item_id").val(),
-                "note": $(".add-schedule-field.note").val() 
+                "method": "update",
+                "date": $('#date').val(),
+                "time_id": $('#scheduletime option:selected').val(),
+                "place_id": $("#scheduleplace option:selected").val(),
+                "item_id": $("#scheduleitem option:selected").val(),
+                "note": $("#note").val() 
             },
             function () {/*callback*/}
         );
