@@ -77,6 +77,7 @@ class Index extends Controller
     }
     public function wx_attention(){
             $number = Request::instance()->param('number');
+
             $user_id = $this->getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
@@ -96,6 +97,21 @@ class Index extends Controller
     }
     public function wx_calendar(){
         return $this->fetch();
+    }
+
+    //返回未关注的领导可以用来新添关注人
+    public function leaderList(){
+        $number = Request::instance()->param('number');
+        $user_id = $this->getUserId($number);
+        $condition = Db::table('user_follow')->where('is_delete = 0 AND user_id ='.$user_id)->column('follow_id');
+        $list = Db::table('user_info')
+            ->alias(['user_info' => 'a', 'user_position' => 'b'])
+            ->where("a.id","not in",$condition)
+            ->join('user_position','a.position_id = b.id')
+            ->field('a.id as id, a.name as name, b.name as position')
+            ->select();
+        $this->assign('list_time_table',$list);
+        return $this->fetch('leaderList');
     }
 
 
