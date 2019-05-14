@@ -117,8 +117,6 @@ class Whitelist extends Common
 
     function excelInput(){
         if(request()->isPost()) {
-            echo '上传成功';
-            return ;
             Loader::import('PHPExcel.PHPExcel');
             Loader::import('PHPExcel.PHPExcel.PHPExcel_IOFactory');
             Loader::import('PHPExcel.PHPExcel.PHPExcel_Cell');
