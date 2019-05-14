@@ -2,7 +2,7 @@
 
 
 namespace app\wxcampus\model;
-
+use think\Model;
 
 class CheckUser extends Model
 {
