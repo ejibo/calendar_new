@@ -9,21 +9,21 @@
         .weui-flex {
             background-color: #FFFFFF;
             text-align: center;
-            padding-top: 10px;
             padding-bottom: 10px;
+
         }
 
         .today {
             margin-left: auto;
             margin-right: auto;
             padding-top: auto;
-            padding-bottom: auto;
+            margin-bottom: auto;
             background-color: #0bb20c;
             color: #FFFFFF;
-            width: 35px;
-            height: 35px;
-            border-radius: 5px;
-            text-align: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+
         }
 
         a {
@@ -33,6 +33,13 @@
 
         .week {
             color: #9b9b9b;
+            font-size: 15px;
+            font-weight: bolder;
+            padding-top: 10px;
+        }
+        .days{
+            font-weight: 700;
+
         }
 
         .margintop30 {
@@ -40,16 +47,10 @@
         }
     </style>
 
-
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <div class="weui-flex">
-            <div><</div>
-            <div class="weui-flex__item"><h4 class="weui-media-box__title">本周</h4></div>
-            <div>></div>
-        </div>
         <div class="weui-flex week">
             <div class="weui-flex__item">
                 <div class="placeholder" style="color:#9C2E23">日</div>
@@ -73,7 +74,7 @@
                 <div class="placeholder" style="color:#9C2E23">六</div>
             </div>
         </div>
-        <div class="weui-flex">
+        <div class="weui-flex days">
             <div class="weui-flex__item">
                 <div class="placeholder"><a href="#">5</a></div>
             </div>
@@ -98,11 +99,12 @@
                 <div class="placeholder"><a href="#">11</a></div>
             </div>
         </div>
-        <div class="weui-cells__title">日程信息</div>
+
         <div class="weui-cells">
+
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd">
+                    <div class="weui-media-box__hd" style="height: 46px;">
                         <h4 class="weui-media-box__title">上午</h4>
                     </div>
                     <div class="weui-media-box__bd">
@@ -111,18 +113,28 @@
                     </div>
                 </div>
                 <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd">
+                    <div class="weui-media-box__hd" style="height: 46px;">
                         <h4 class="weui-media-box__title">下午</h4>
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">大兴上课</h4>
-                        <p class="weui-media-box__desc">今天下午在大兴授课</p>
+                        <h4 class="weui-media-box__title">大兴开会</h4>
+                        <p class="weui-media-box__desc">今天上午在大兴校区开会。</p>
+                    </div>
+                </div>
+                <div class="weui-media-box weui-media-box_appmsg">
+                    <div class="weui-media-box__hd" style="height: 46px;">
+                        <h4 class="weui-media-box__title">晚上</h4>
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">大兴开会</h4>
+                        <p class="weui-media-box__desc">今天上午在大兴校区开会。</p>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">确定</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">添加日程</a>
         </div>
     </div>
     <div class="weui-tabbar">
