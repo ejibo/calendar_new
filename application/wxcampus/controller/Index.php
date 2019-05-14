@@ -19,6 +19,8 @@ class Index extends Controller
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
+
+    //检查用户是否存在
     public function checkUser($number){
         $res = Db::table("user_info")->where('work_id ='.$number)->select();
         return $res;
@@ -26,15 +28,12 @@ class Index extends Controller
 
     public function addUser($name,$number){
         Db::table('user_info')
-            ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,
-                'position_id'=>50,'is_delete'=>0])->insert();
-
+            ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,'position_id'=>50,'is_delete'=>0])->insert();
 
     }
 
     //获取对应学号的user_id;
     public function getUserId($number){
-
         $res = Db::table('user_info')->where('work_id ='.$number)->column('id');
         return $res[0];
     }
