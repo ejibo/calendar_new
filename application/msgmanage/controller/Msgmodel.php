@@ -43,7 +43,7 @@ class Msgmodel extends Common
             $this->error("搜索项不存在，请重新尝试");
         }
         else{
-            var_dump($isHasTitle);
+            //var_dump($isHasTitle);
             // $this->success();
             // echo $templateItems['title'];
             // $templateItems = $model->getAllTemplates();
@@ -53,7 +53,7 @@ class Msgmodel extends Common
             // echo $isHasTitle;
             // console.log($templateItems);
             // var_dump($templateItems);
-            return $this->fetch('index');
+            return $this->fetch('msgmodel/index');
         }
     }
 

@@ -14,7 +14,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="" id="date">
+                    <input class="weui-input" type="date" value="{$date}" id="date">
                 </div>
                 <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
             </div>
@@ -59,17 +59,18 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}"></textarea>
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}">{$note}</textarea>
                     <div class="weui-textarea-counter"><span><span id='wordcounter'>0</span></span>/{$maxlength}</div>
                 </div>
             </div>
         </div>
 
         <div class="weui-btn-area">
-            <span id='callbackstatus'>test</span>
+            <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
         </div>
+        <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
 </div>
 </body>
@@ -106,11 +107,13 @@ $(document).ready(function(){
                         "note": $("#note").val() 
                     },
                     function (data) {
-                        console.log(data);
                         if(data.success == true){
-
+                            $('#callbackstatus').text("新增成功!");
+                            setTimeout(function(){
+                                location.href = '/wxcampus/WxCalendar';
+                            }, 1000);
                         }else{
-                            $('#callbackstatus').text("插入失败!");
+                            $('#callbackstatus').text("新增失败!" + data.message);
                         }
                     }
                 );
@@ -125,12 +128,22 @@ $(document).ready(function(){
                     {
                         "method": "update",
                         "date": $('#date').val(),
+                        "id": $('#scheduleid').val(),
                         "time_id": $('#scheduletime option:selected').val(),
                         "place_id": $("#scheduleplace option:selected").val(),
                         "item_id": $("#scheduleitem option:selected").val(),
                         "note": $("#note").val() 
                     },
-                    function () {/*callback*/}
+                    function (data) {
+                        if(data.success == true){
+                            $('#callbackstatus').text("修改成功!");
+                            setTimeout(function(){
+                                location.href = '/wxcampus/WxCalendar';
+                            }, 1000);
+                        }else{
+                            $('#callbackstatus').text("修改失败!" + data.message);
+                        }
+                    }
                 );
             }
         }

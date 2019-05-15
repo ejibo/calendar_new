@@ -56,26 +56,13 @@ class QueryMySchedule extends Controller
 		}
 		$this->assign('schedule_info', $result);
 		$this->assign('fields', $this->field_config);
-		return $this->fetch('index');
+		return $this->fetch('result');
 	}
 
 	public function getMyScheduleInfo()
 	{
-		$model = new SIndex(); //同一个controller下的控制器可以直接调用
-		$user_number = $model->getUserNumber();
 
-		$res = Db::table('user_info')->where('work_id', $user_number)->find();
-		if($res){
-			if($res['type_id'] == '0'){
-				echo "Sorry, 没有你的日程信息";
-			}
-			else{
-				echo $res['type_id'];
-			}
-		}
-		else{
-			echo "没有你的信息";
-		}
+		
 	}
 }
 

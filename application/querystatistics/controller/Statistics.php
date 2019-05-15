@@ -33,7 +33,9 @@ class Statistics extends Common
 													user_info.is_delete=0 and 
 													schedule_info.is_delete=0 and 
 													user_info.depart_id=user_depart.id and 
-													user_info.position_id=user_position.id");
+													user_info.position_id=user_position.id and 
+                                                    user_depart.is_delete=0 and 
+                                                    user_position.is_delete=0");
 				$this->assign('arealist', $list);
 				return $this->fetch('index');
     }

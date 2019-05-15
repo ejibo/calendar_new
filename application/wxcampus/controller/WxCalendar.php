@@ -67,13 +67,19 @@ class WxCalendar extends Controller
         //TODO
         return date('Y-m-d', time() + 24*60*60);
     }
-    public function getOneDaySchedule($timestamp){
+    protected function getOneDaySchedule($timestamp){
         $page = Db::name('schedule_info')
             ->where('user_id', $this->getUserId())
             ->where('date', date('Y-m-d', $timestamp))
             ->where('is_delete', 0)
             ->select();
         return $page;
+    }
+    protected function getSchedule($scheduleId){
+        return Db::name('schedule_info')
+            ->where('user_id', $this->getUserId())
+            ->where('id', $scheduleId)
+            ->find();
     }
     //返回所有相关字段, 保证当一个项被删除后, 依然可以显示.
     protected function getAllScheduleItems(){
@@ -103,18 +109,14 @@ class WxCalendar extends Controller
         ->where('is_delete', 0)
         ->select();
     }
-    protected function successJson($method){
-        return json_encode([
+    protected function json($method, $success, $message){
+        return json([
             'method' => $method,
-            'success'=> true
+            'success'=> $success,
+            'message'=> $message
         ]);
     }
-    protected function failedJson($method){
-        return json_encode([
-            'method' => $method,
-            'success'=> false
-        ]);
-    }
+
     public function create(){
         $data = [
             'user_id'       => $this->getUserId(),
@@ -129,15 +131,14 @@ class WxCalendar extends Controller
         //检查输入是否有效
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.create');
         if($valid !== true){//验证失败
-            dump($valid);
-            return $this->failedJson('create');
+            return $this->json('create', false, dump($valid, false));
         }
         //插入
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 2, 'schedule_info', $id);
-        return $this->successJson('create');
+        $logRec->recordLogApi($this->getUserId(), 2, 'schedule_info', $id);
+        return $this->json('create', true, 'success');
     }
     public function update(){
         $data = [
@@ -153,8 +154,7 @@ class WxCalendar extends Controller
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.update');
 
         if($valid !== true){//验证失败
-            dump($valid);
-            return $this->failedJson('update');
+            return $this->json('update', false, dump($valid,false));;
         }
         //找到修改了的参数
         $origin = Db::name('schedule_info')
@@ -162,7 +162,7 @@ class WxCalendar extends Controller
             ->where('user_id', $data['user_id'])
             ->find();
         if($origin == NULL){
-            return $this->failedJson('update');
+            return $this->json('update', false, '找不到要修改的参数');;
         }
         $diff = [];
         foreach($data as $key=>$val){
@@ -176,12 +176,12 @@ class WxCalendar extends Controller
             ->where('user_id', $data['user_id'])
             ->update($data);
         if($success !== 1){//更新失败
-            return $this->failedJson('update');
+            return $this->json('update', false, '数据库插入失败!');
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 3, 'schedule_info', [$id => $diff]);
-        return $this->successJson('update');
+        $logRec->recordLogApi($this->getUserId(), 3, 'schedule_info', [$data['id'] => $diff]);
+        return $this->json('update', true, 'success');
     }
 
     public function delete($id){
@@ -189,7 +189,7 @@ class WxCalendar extends Controller
         //检查是否有效
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.delete');
         if($valid !== true){
-            return $this->failedJson('delete');
+            return $this->json('delete', false, dump($valid, false));
         }
         //删除
         $success = Db::name('schedule_info')
@@ -200,12 +200,12 @@ class WxCalendar extends Controller
                 'delete_time'   => time()
             ]);
         if($success != 1){//删除失败
-            return $this->failedJson('delete');
+            return $this->json('delete', false, '数据库删除失败!');
         }
         //记录日志
         $logRec = new LogModel;
         $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
-        return $this->successJson('delete');
+        return $this->json('delete', true, 'success');;
     }
     //Views
     protected $items;
@@ -252,12 +252,19 @@ class WxCalendar extends Controller
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($scheduleId){
+    public function updatePage($id){
+        $sched = $this->getSchedule($id);
+        $this->assign('scheduleid', $id);
+        $this->assign('date', $sched['date']);
+        $this->assign('note', $sched['note']);
         $this->assign('title', '修改日程');
         $this->assign('confirmid', 'update-btn');
         return $this->detail();
     }
     public function createPage(){
+        $this->assign('scheduleid', -1);
+        $this->assign('date', '');
+        $this->assign('note', '');
         $this->assign('title', '添加日程');
         $this->assign('confirmid', 'create-btn');
         return $this->detail();
