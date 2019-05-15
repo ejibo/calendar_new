@@ -43,8 +43,8 @@ table.gridtable td {
         </h4>
     </div>
     <div class="card-body--">
-        <div class="table-stats">
-            <table id="bootstrap-data-table">
+        <div>
+            <table class="gridtable">
                 <thead>
                     <tr>
                         <th class="serial">序号</th>
@@ -58,7 +58,6 @@ table.gridtable td {
                 <tbody>
                     {foreach name="schedule_info" item="vo"}
                     <tr>
-                        <td class="serial">{$key+1}</td>
                         <td>{$vo['date']}</span></td>
                         <td>{$vo['time']}</span></td>
                         <td>{$vo['place']}</span></td>
