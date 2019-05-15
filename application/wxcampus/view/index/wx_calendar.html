@@ -56,20 +56,71 @@
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
-    <div class="weui-tab__panel">
-        <div class="weui-flex" style="padding-top: 10px">
-            <div class="weui-flex__item">
-                <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160"><img
-                        src="__STATIC__/wx/img/before.png" style="height: 17px" id='left'></div>
+        <div style="position: fixed;top: 0px;z-index:9999;width: 100%">
+                <div class="weui-flex" style="padding-top: 10px">
+                    <div class="weui-flex__item">
+                        <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160"><img
+                                src="__STATIC__/wx/img/before.png" style="height: 17px"></div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder" style="font-size: 17px">{$date}</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160"><img
+                                src="__STATIC__/wx/img/after.png" style="height: 17px"></div>
+                    </div>
+                </div>
+                <div class="weui-flex week">
+                    <div class="weui-flex__item">
+                        <div class="placeholder">日</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">一</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">二</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">三</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">四</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">五</div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder">六</div>
+                    </div>
+                </div>
+                <div class="weui-flex days">
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">5</a></div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">6</a>
+                            <div style="height: 5px;width: 5px;text-align:center;border-radius: 50%; background-color:  #07C160;display: block;margin-left: auto;margin-right: auto"></div>
+                        </div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">7</a></div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">8</a></div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">9</a></div>
+                    </div>
+                    <div class="weui-flex__item">
+                        <a href="#" class="placeholder">
+                            <div class="today">10</div>
+                        </a>
+                    </div>
+                    <div class="weui-flex__item">
+                        <div class="placeholder"><a href="#">11</a></div>
+                    </div>
+                </div>
             </div>
-            <div class="weui-flex__item">
-                <div class="placeholder" style="font-size: 17px" id='date'>{$date}</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160"><img
-                        src="__STATIC__/wx/img/after.png" style="height: 17px" id='right'></div>
-            </div>
-        </div>
 
         <div class="weui-cells" style="margin-top: 130px">
             <div class="weui-panel__hd" style="padding: 10px 16px 10px;color:#9b9b9b;">
