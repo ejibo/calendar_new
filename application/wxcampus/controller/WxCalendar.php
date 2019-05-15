@@ -154,7 +154,7 @@ class WxCalendar extends Controller
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.update');
 
         if($valid !== true){//验证失败
-            return $this->json('update', false, dump($valid));;
+            return $this->json('update', false, dump($valid,false));;
         }
         //找到修改了的参数
         $origin = Db::name('schedule_info')
@@ -180,7 +180,7 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 3, 'schedule_info', [$id => $diff]);
+        $logRec->recordLogApi($this->getUserId(), 3, 'schedule_info', [$id => $diff]);
         return $this->json('update', true, 'success');
     }
 
@@ -254,6 +254,7 @@ class WxCalendar extends Controller
     }
     public function updatePage($id){
         $sched = $this->getSchedule($id);
+        $this->assign('scheduleid', $id);
         $this->assign('date', $sched['date']);
         $this->assign('note', $sched['note']);
         $this->assign('title', '修改日程');
