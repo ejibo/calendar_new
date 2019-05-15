@@ -263,7 +263,7 @@ class WxCalendar extends Controller
     }
     public function createPage(){
         $this->assign('scheduleid', -1);
-        $this->assign('date', '');
+        $this->assign('date', date('Y-m-d'));
         $this->assign('note', '');
         $this->assign('title', '添加日程');
         $this->assign('confirmid', 'create-btn');

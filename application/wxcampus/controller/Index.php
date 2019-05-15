@@ -98,7 +98,7 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        return $this->redirect('WxCalendar');
+        return $this->redirect('WxCalendar/Index');
     }
 
     //返回未关注的领导可以用来新添关注人
@@ -121,8 +121,8 @@ class Index extends Controller
     public function addFollow()
     {
         $followid = Request::instance()->param('followid');//被关注人
-        $id = Request::instance()->param('id');//关注人
-        $add = ['user_id'=> $id,'follow_id'=>$followid,'is_delete'=>0];
+        $userid = Request::instance()->param('userid');//关注人
+        $add = ['user_id'=> $userid,'follow_id'=>$followid,'is_delete'=>0];
 
         $res = Db::table("user_follow")->insert($add);
         if($res)

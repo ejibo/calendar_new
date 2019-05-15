@@ -68,7 +68,7 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="index?date={$date}" id="cancel-btn">返回</a>
         </div>
         <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
@@ -97,7 +97,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    '/wxcampus/wxCalendar/create',
+                    'create',
                     {
                         "method": "create",
                         "date": $('#date').val(),
@@ -124,7 +124,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    '/wxcampus/wxCalendar/update',
+                    'update',
                     {
                         "method": "update",
                         "date": $('#date').val(),
