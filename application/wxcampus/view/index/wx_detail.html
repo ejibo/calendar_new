@@ -66,7 +66,7 @@
         </div>
 
         <div class="weui-btn-area">
-            <span id='callbackstatus'>test</span>
+            <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
         </div>
@@ -106,11 +106,13 @@ $(document).ready(function(){
                         "note": $("#note").val() 
                     },
                     function (data) {
-                        console.log(data);
                         if(data.success == true){
-
+                            $('#callbackstatus').text("新增成功!");
+                            setTimeout(function(){
+                                location.href = '/wxcampus/WxCalendar';
+                            }, 1000);
                         }else{
-                            $('#callbackstatus').text("插入失败!");
+                            $('#callbackstatus').text("新增失败!" + data.message);
                         }
                     }
                 );
@@ -130,7 +132,16 @@ $(document).ready(function(){
                         "item_id": $("#scheduleitem option:selected").val(),
                         "note": $("#note").val() 
                     },
-                    function () {/*callback*/}
+                    function (data) {
+                        if(data.success == true){
+                            $('#callbackstatus').text("修改成功!");
+                            setTimeout(function(){
+                                location.href = '/wxcampus/WxCalendar';
+                            }, 1000);
+                        }else{
+                            $('#callbackstatus').text("修改失败!" + data.message);
+                        }
+                    }
                 );
             }
         }
