@@ -118,7 +118,11 @@ class Whitelist extends Common
     /*
     responser: 陈国强
     Created：2019/05/15
+    在../model/Whitelist下添加了
+    insertAllUser($data) ： 向 user_info 数据表插入信息
+    findUserByWorkId($workId)： 通过工号查找该用户是否存在
     excelInput() ： 向 user_info 数据表插入信息
+    修改了前端，添加了隐藏的按钮
     */
 
     public function excelInput(){
@@ -155,7 +159,7 @@ class Whitelist extends Common
             }
         }
         $addFlag = false ;
-        //如果从Excel获取的数组不为空
+        //如果从Excel获取的数组为空，即用户提交的Excel表格与已有数据库全部重复
         if (empty($sqlData)){
             $addFlag = $excelData->insertAllUser($sqlData);
             $this->success('添加成功,但没有插入数据，请检查Excel表格数据是否与已有数据重复,自动跳转');
