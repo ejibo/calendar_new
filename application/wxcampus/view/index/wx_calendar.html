@@ -198,7 +198,7 @@
             </div>
             {volist name="cell['data']" id="vo"}
             <div class="weui-panel__bd">
-                <a href="WxCalendar/updatePage?id={$vo.id}" class="weui-media-box weui-media-box_appmsg"
+                <a href="updatePage?id={$vo.id}" class="weui-media-box weui-media-box_appmsg"
                    style="padding: 10px;margin-left: 15px">
                     <div>
                         <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
@@ -216,7 +216,7 @@
         </div>
         {/volist}
         <div class="weui-btn-area" style="position: fixed;bottom:70px ;right:5px;z-index:9999;">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="WxCalendar/createPage" id="showTooltips" style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="createPage" id="showTooltips" style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
         </div>
     </div>
     {include file="../application/wxcampus/view/index/nav.html"}
@@ -232,14 +232,14 @@ $(document).ready(function(){
         var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
         timestamp -= 1000 * 60 * 60 * 24;
         var yesterday =new Date(timestamp);
-        location.href = 'WxCalendar?date=' + yesterday.getFullYear() + '-' + (yesterday.getMonth()+1) + '-' + yesterday.getDate();
+        location.href = 'Index?date=' + yesterday.getFullYear() + '-' + (yesterday.getMonth()+1) + '-' + yesterday.getDate();
    });
    $('#right').click(function(){
         var datestr = $('#date').text();
         var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
         timestamp += 1000 * 60 * 60 * 24;;
         var tomorrow =new Date(timestamp);
-        location.href = 'WxCalendar?date=' + tomorrow.getFullYear() + '-' + (tomorrow.getMonth()+1) + '-' + tomorrow.getDate();
+        location.href = 'Index?date=' + tomorrow.getFullYear() + '-' + (tomorrow.getMonth()+1) + '-' + tomorrow.getDate();
    });
 });
 </script>
