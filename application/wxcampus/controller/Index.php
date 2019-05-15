@@ -182,19 +182,4 @@ class Index extends Controller
         curl_close($ch);
         return $result;
     }
-
-    public function getStuNumber(){
-        //dump($this->stu_number);
-        // $code = input('param.wxcode');
-        // $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
-        // if($accessToken){
-        //     $userInfo = $this->getUserInfo($accessToken);
-        // }else{
-        //     echo "There's some error";
-        // }
-        // $user_name = $user_info['name'];
-        // $user_number = $user_info['card_number'];
-        // echo $user_name."<br />".$user_number;
-        //return $this->stu_number;
-    }
 }
