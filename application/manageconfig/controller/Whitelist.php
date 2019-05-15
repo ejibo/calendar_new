@@ -118,16 +118,34 @@ class Whitelist extends Common
         $reader = new Xlsx();
         try {
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-            echo  $spreadsheet;
+            if (empty($spreadsheet)){
+                echo "spreadsheet为空";
+            }
+            else{
+
+            }
         } catch (Exception $e) {
             die($e->getMessage());
         }
         $sheet = $spreadsheet->getActiveSheet();
+        if (empty($sheet)){
+            echo "sheet为空";
+        }
+        else{
+
+        }
         $sqlData = array();
 
         $i = 0;
 
         $excelData = model("Whitelist");
+
+        if (empty($excelData )){
+            echo "excelData ";
+        }
+        else{
+
+        }
 
         foreach ($sheet->getRowIterator(2) as $row) {
             $tmp = array();
