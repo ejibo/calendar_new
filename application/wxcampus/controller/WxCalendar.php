@@ -202,7 +202,7 @@ class WxCalendar extends Controller
         if($this->items == NULL)$this->items = $this->getAllScheduleItems();
         if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
         if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
-        $this->assign('date', date('Y-m-d'));
+        $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         return $this->fetch("index/wx_calendar");
     }
@@ -228,6 +228,7 @@ class WxCalendar extends Controller
         $this->assign('items', $this->getScheduleItems());
         $this->assign('times', $this->getScheduleTimes());
         $this->assign('places', $this->getSchedulePlaces());
+        $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
     public function updatePage($scheduleId){
