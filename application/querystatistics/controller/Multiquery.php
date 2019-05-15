@@ -42,8 +42,7 @@ class Multiquery extends Common
     public function searchnames(){
         $mydata = input('post.');
         if (empty($mydata['names'])){
-            $this->index();
-            return;
+            return $this->index();
         }
 
         $names = explode(" ",$mydata['names']);
