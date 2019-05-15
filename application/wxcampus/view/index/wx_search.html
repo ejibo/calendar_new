@@ -54,7 +54,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入姓名">
+                    <input class="weui-input" id="qname" placeholder="请输入姓名">
                 </div>
             </div>
 
@@ -74,11 +74,64 @@
         </div>
 
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">搜索</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="query">搜索</a>
         </div>
+      
+      <div class="res">
+            <volist name="list" id="list" empty="暂时没有数据" >
+                <table id="bootstrap-data-table" class="table">
+                    <thead>
+                    <tr>
+                        <th class="serial">序号</th>
+                        <th>姓名</th>
+                        <th>时间</th>
+                        <th>地点</th>
+                        <th>事项</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td class="serial">{$i}</td>
+                        <td>  <span class="product">{$list.name}</span> </td>
+                        <td>  <span class="product">{$list.time}</span> </td>
+                        <td>  <span class="product">{$list.place}</span> </td>
+                        <td> <span class="product">{$list.item}</span> </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </volist>
+        </div>
+      
     </div>
 
     {include file="../application/wxcampus/view/index/nav.html"}
 </div>
 </body>
+  
+  {literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+    $('#query').click(
+        function (){
+            qname=$('#qname').val();
+            $.ajax({
+                dataType : 'json',
+                type : 'POST',
+                url : 'public/wxcampus/wxquery',
+                async : true,
+                data : {
+                    "qname" : qname//测试数据
+                },
+                success : function(data){
+                    alert(data);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest.status + "," + textStatus);
+                }
+            });
+        }
+    );
+</script>
+{literal}
+  
 </html>
