@@ -52,7 +52,7 @@ class Multiquery extends Common
             $buffer = Db::table('user_info')
             ->where('user_info.name',$name)
             ->field('id')
-            ->select()
+            ->select();
             if (!empty($buffer)){
                 array_push($nameids,$buffer[0]['id']);
             }
