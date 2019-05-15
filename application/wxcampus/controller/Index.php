@@ -118,8 +118,8 @@ class Index extends Controller
     public function addFollow()
     {
         $followid = Request::instance()->param('followid');//被关注人
-        $id = Request::instance()->param('id');//关注人
-        $add = ['user_id'=> $id,'follow_id'=>$followid,'is_delete'=>0];
+        $userid = Request::instance()->param('userid');//关注人
+        $add = ['user_id'=> $userid,'follow_id'=>$followid,'is_delete'=>0];
 
         $res = Db::table("user_follow")->insert($add);
         if($res)
