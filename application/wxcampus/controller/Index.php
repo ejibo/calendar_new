@@ -87,7 +87,7 @@ class Index extends Controller
                 ->where('a.user_id = '.$user_id)
                 ->join('user_info','a.follow_id = b.id')
                 ->join('user_position','b.position_id = c.id')
-                ->field('a.id as id, a.follow_id as userid, b.name as name, c.name as position')
+                ->field('a.id as userid, a.follow_id as followid, b.name as name, c.name as position')
                 ->select();
             $this->assign('list_time_table',$list);
 
@@ -130,6 +130,22 @@ class Index extends Controller
             return "添加成功";
         }
         return "添加失败";
+    }
+
+    //不再关注
+    public function noFollow()
+    {
+        $userid = Request::instance()->param('userid');
+        $followid = Request::instance()->param('followid');
+
+        $res = Db::table('user_follow')->where('user_id',$userid)->where('follow_id',$followid)
+               ->setField('is_delete',1);
+
+        if($res!=0)
+        {
+            return "更新成功";
+        }
+        return "更新失败";
     }
 
 
