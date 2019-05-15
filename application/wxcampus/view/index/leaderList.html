@@ -18,10 +18,14 @@
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-                    <input type = "hidden" value="{$vo['id']}" id="userid">
+                   
                 </div>
-                <div class=" weui-cell__ft"> <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px"
-                                                  onclick="add()"></div>
+
+                <div class=" weui-cell__ft">
+                    <a href="{:url('addFollow',['followid'=> $vo.id])}">
+                        <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px">
+                    </a>
+                </div>
             </a>
             {/volist}
 
@@ -35,7 +39,7 @@
      //   console.log(followid);
         $.post("{:url('addFollow')}",
             {
-                followid:1,
+                followid:1
             },
             function(data,status){
                 if(data == "添加成功")
@@ -43,7 +47,10 @@
                 else
                     alert(data);
             });
+
     };
+
+
 
 </script>
 

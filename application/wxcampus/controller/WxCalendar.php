@@ -58,6 +58,7 @@ class CalendarValidator extends Validate
 
 class WxCalendar extends Controller
 {
+    //apis
     protected function getUserId(){
         //TODO
         return 1;
@@ -101,6 +102,18 @@ class WxCalendar extends Controller
         return Db::name('schedule_time')
         ->where('is_delete', 0)
         ->select();
+    }
+    protected function successJson($method){
+        return json_encode([
+            'method' => $method,
+            'success'=> true
+        ]);
+    }
+    protected function failedJson($method){
+        return json_encode([
+            'method' => $method,
+            'success'=> false
+        ]);
     }
     public function create(){
         $data = [
@@ -193,7 +206,7 @@ class WxCalendar extends Controller
         $logRec = new LogModel;
         $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
     }
-
+    //Views
     protected $items;
     protected $places;
     protected $times;
@@ -202,7 +215,7 @@ class WxCalendar extends Controller
         if($this->items == NULL)$this->items = $this->getAllScheduleItems();
         if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
         if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
-        $this->assign('date', date('Y-m-d'));
+        $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         return $this->fetch("index/wx_calendar");
     }
@@ -213,14 +226,21 @@ class WxCalendar extends Controller
         $cells = [];
         $schedules = $this->getOneDaySchedule($timestamp);
         foreach ($schedules as $sched){
-            $cell = [
-                'note' => $sched['note'],
+            $time = $this->times[$sched['time_id']]['name'];
+            if(!array_key_exists($time, $cells)){
+                $cell = [
+                    'time' => $time,
+                    'data' => []
+                ];
+                $cells[$time] = $cell;
+            }
+            $dataItem = [
                 'item' => $this->items[$sched['item_id']]['name'],
-                'place' => $this->places[$sched['place_id']]['name'],
-                'time' => $this->times[$sched['time_id']]['name'],
-                'id' => $sched['id']
+                'note' => $sched['note'],
+                'place'=> $this->places[$sched['place_id']]['name'],
+                'id'   => $sched['id']
             ];
-            array_push($cells, $cell);
+            array_push($cells[$time]['data'], $dataItem);
         }
         return $cells;
     }
@@ -228,6 +248,7 @@ class WxCalendar extends Controller
         $this->assign('items', $this->getScheduleItems());
         $this->assign('times', $this->getScheduleTimes());
         $this->assign('places', $this->getSchedulePlaces());
+        $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
     public function updatePage($scheduleId){
