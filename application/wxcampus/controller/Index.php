@@ -110,6 +110,7 @@ class Index extends Controller
             ->field('a.id as id, a.name as name, b.name as position')
             ->select();
         $this->assign('list_time_table',$list);
+        $this->assign("userid",$user_id);
         return $this->fetch('leaderList');
     }
 
