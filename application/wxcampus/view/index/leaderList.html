@@ -31,11 +31,11 @@
 
 <script type="text/javascript">
     function add(){
-        var followid = document.getElementById("userid").value;
-        console.log(followid);
+     //   var followid = document.getElementById("userid").value;
+     //   console.log(followid);
         $.post("{:url('addFollow')}",
             {
-                followid:followid,
+                followid:1,
             },
             function(data,status){
                 if(data == "添加成功")
