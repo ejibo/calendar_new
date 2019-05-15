@@ -24,14 +24,12 @@
                                     <th>操作</th>
                                 </tr>
                                 </thead>
-                                <tbody>
-                                {notempty name="templateItems"}
-                                {foreach name="templateItems" item="templateItem"}
+                                <tbody id="templateBody">
+                                {volist name='templateItems' id='templateItem'}
                                 <tr>
-                                    <td class="serial">{$key+1}</td>
-                                    <!--<td>  <span class="product">{$templateItem['id']}</span></td>-->
-                                    <td>  <span class="product">{$templateItem['title']}</span></td>
-                                    <td>  <span class="product">{$templateItem['content']}</span></td>
+                                    <td class="serial"><span id="span1">{$templateItem.id}</span></td>
+                                    <td>  <span class="product" id="span2">{$templateItem.title}</span></td>
+                                    <td>  <span class="product" id="span3">{$templateItem.content}</span></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$templateItem.id}" data-des="{$templateItem.title}" data-toggle="modal" data-target="#smallModal2">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
@@ -52,8 +50,7 @@
                                     </a>{/eq}
                                     </td>
                                 </tr>
-                                {/foreach}
-                                {/notempty}
+                                {/volist}
                                 </tbody>
                             </table>
                         </div>
@@ -74,25 +71,7 @@
                         <div class="modal-body">
                             <input id="itemTit" name="itemTitle" placeholder="模板名称" class="form-control" style="margin-bottom: 15px;"/>
                             <textarea id="itemCont" name="itemContent" placeholder="模板内容" class="form-control" style='height:180px;'></textarea>
-                            <!-- <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon" >
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="itemTit" name="itemTitle" placeholder="模板名称" class="form-control">
-                                </div>
-                                
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon" >
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="itemCont" name="itemContent" placeholder="模板内容" class="form-control">
-                                </div>
-                            </div>
-                            </p> -->
+
 
                         </div>
                         <div class="modal-footer">
@@ -203,16 +182,16 @@
                                 <form action="" class="wrap-filter">
                                 <select id="itemStatus" name="status" class="form-control">
                                     <option value="-1">请选择查询状态</option>
-                                    <option value="0">全部</option>>
-                                    <option value="1">已删除</option>
+                                    <!-- <option value="0">全部</option> -->
                                     <option value ="2">正常</option>
+                                    <option value="1">已删除</option>
                                 </select>
                                 </form>
                             </br>
                                 <form action="" class="wrap-filter">
                                     <select id="itemRange" name="range" class="form-control">
                                         <option value="-1">请选择查询范围</option>
-                                        <option value="0">全部</option>>
+                                        <!-- <option value="0">全部</option> -->
                                         <option value="1">标题</option>
                                         <option value ="2">内容</option>
                                     </select>
@@ -359,6 +338,9 @@
         var status = $("#itemStatus").val();
         var search = $("#itemSearch").val();
         var range = $("#itemRange").val();
+        // var list = document.getElementsByName("templateItems");
+        // console.log(list);
+
         $.ajax({
             url:"{:url('msgmanage/Msgmodel/searchTemplate')}",
             type:"POST",
@@ -366,9 +348,27 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                // alert(data.msg);
-                // window.location.href();
-            }
+                console.log(data.length);
+                // console.log(data[0]);
+                // console.log(data[1]);
+                console.log(data[0]);
+                var tb = document.getElementById('bootstrap-data-table');
+                console.log(tb.rows.length);
+                tb.rows[0].cells[3]='';
+                console.log(tb);
+                for(i=1;i<tb.rows.length;i++){
+                    for(j=0;j<4;j++){
+                        var td = tb.rows[i].cells[j];
+                        td.innerHTML = '';
+                        }
+                }
+                console.log(data[0]);
+                for(i=1;i<data.length+1;i++){
+                    tb.rows[i].cells[0].innerHTML=data[i-1]['id'];
+                    tb.rows[i].cells[1].innerHTML=data[i-1]['title'];
+                    tb.rows[i].cells[2].innerHTML=data[i-1]['content'];
+                }
+        }
         })
     });
 

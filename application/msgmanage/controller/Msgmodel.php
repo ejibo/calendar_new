@@ -36,24 +36,29 @@ class Msgmodel extends Common
     {
         $status = $_POST['status'];
         $search = $_POST['search'];
+        $range = $_POST['range'];
         $model = model('Template');
         $isHasTitle = $model->getItemByTitle($search);
-        $isHasContent = $model->getItemByContent($search);
+        if($status==1 && $range==1){
+            $isHasTitle = $model->getItemByTitleDelete($search);
+        }
+        else if($status==1 && $range==2){
+            $isHasTitle = $model->getItemByContentDelete($search);
+        }
+        else if($status==2 && $range==1){
+            $isHasTitle = $model->getItemByTitle($search);
+        }
+        else if($status==2 && $range==2){
+            $isHasTitle = $model->getItemByContent($search);
+        }
+        
+        // $isHasContent = $model->getItemByContent($search);
         if ($isHasTitle == null) {
             $this->error("搜索项不存在，请重新尝试");
         }
         else{
-            var_dump($isHasTitle);
-            // $this->success();
-            // echo $templateItems['title'];
-            // $templateItems = $model->getAllTemplates();
             $this->assign('templateItems',$isHasTitle);
-            // var_dump($templateItems);
-            // $this->assign('templateItems',$isHasTitle);
-            // echo $isHasTitle;
-            // console.log($templateItems);
-            // var_dump($templateItems);
-            return $this->fetch('index');
+            return $isHasTitle;
         }
     }
 
@@ -68,7 +73,7 @@ class Msgmodel extends Common
         /* var_dump($des);
         var_dump($con); */
         $model = model('Template');
-        $isHasSame = $model->getItemByTitle($tit);
+        $isHasSame = $model->getItemByTitle('');
         if ($isHasSame == null) {
             $res = $model->insertTemplate($tit, $con);
             if($res ==1){
