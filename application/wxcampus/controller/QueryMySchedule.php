@@ -50,7 +50,6 @@ class QueryMySchedule extends Controller
 		if($res){
 			if($res['type_id'] == 0){
 				echo "Sorry, 没有你的日程信息";
-				return;
 			}
 			else{
 				$name = $res[]
