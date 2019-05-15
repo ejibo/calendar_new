@@ -11,7 +11,7 @@ class QueryMySchedule extends Controller
 	public $stu_number;
 	public $user_id;
 
-	protected getUserId($stu_number){
+	protected function getUserId($stu_number){
 		$result = Db::table("user_info")->where('work_id', $stu_number)->find();
 		return $result['id'];
 	}
