@@ -133,5 +133,24 @@ class Msgmodel extends Common
         $position->cancelremind($user_id);
         $this->redirect('msgmanage/msgmodel/index');
     }
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：向客户端发送消息内容
+    *负责人：刘玄
+    */
+
+    public function remindToApp()
+    {
+     
+
+        $res= model('Template');
+        $dateres = $res->remindToApp();
+        $res_success = json_encode($dateres);
+    
+        header('Content-Type:application/json');//这个类型声明非常关键
+        return $res_success;
+    
+
+    }
 
 }

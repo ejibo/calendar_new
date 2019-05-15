@@ -91,6 +91,19 @@ class Template extends Model
             ->where('id',$user_id)
             ->update($data);
     }
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：向客户端发送消息内容
+    *负责人：刘玄
+    */
+  public  function remindToApp()
+    {
+        
+        $data = Db::name('message_template')
+            ->where('is_delete',0) ->where('is_remind',1)
+            ->select();
+        return $data;
+    }
       
 
 
