@@ -118,12 +118,11 @@ class Whitelist extends Common
         $reader = new Xlsx();
         try {
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+            echo  $spreadsheet;
         } catch (Exception $e) {
             die($e->getMessage());
         }
-
         $sheet = $spreadsheet->getActiveSheet();
-
         $sqlData = array();
 
         $i = 0;
@@ -147,7 +146,7 @@ class Whitelist extends Common
         }
 
         $addFlag = $excelData->insertAllUser($sqlData);
-        echo  $sqlData[0];
+        //echo  $sqlData[0];
 //        if ($addFlag) {
 //            $this->success('添加成功,自动跳转');
 //        } else {
