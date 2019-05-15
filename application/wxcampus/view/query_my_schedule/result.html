@@ -1,39 +1,46 @@
-{extend name="common@public/base" /}
-{block name='main-content'}
-<table id="bootstrap-data-table" class="table">
-    <thead>
-        <tr>
-            <th class="serial">序号</th>
-            <th>日期</th>
-            <th>时间ID</th>
-            <th>地点ID</th>
-            <th>事项ID</th>
-            <th>备注</th>
-            <th>操作</th>
-        </tr>
-    </thead>
-    <tbody>
-        {foreach name="schedule_info" item="vo"}
-        <tr>
-            <td class="serial">{$key+1}</td>
-            <td><span class="product">{$vo['date']}</span></td>
-            <td><span class="product">{$vo['time_id']}</span></td>
-            <td><span class="product">{$vo['place_id']}</span></td>
-            <td><span class="product">{$vo['item_id']}</span></td>
-            <td><span class="product">{$vo['note']}</span></td>
-            <td>
-                <button type="button" class="btn btn-primary btn-sm mb-1 edit" data-id="{$vo.id}"
-                    data-toggle="modal" data-target=".edit-schedule">
-                    <i class="fa fa-magic"></i>&nbsp;编辑
-                </button>
-                <button type="button" class="btn btn-danger btn-sm mb-1 delete" data-id="{$vo.id}"
-                    data-toggle="modal" data-target=".delete-schedule">
-                    <i class="fa fa-exclamation"></i>&nbsp;删除
-                </button>
-            </td>
-        </tr>
-        {/foreach}
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询我的日程信息</title>
+</head>
 
-{/block}
+<body>
+	<table id="bootstrap-data-table" class="table">
+	    <thead>
+	        <tr>
+	            <th class="serial">序号</th>
+	            <th>日期</th>
+	            <th>时间ID</th>
+	            <th>地点ID</th>
+	            <th>事项ID</th>
+	            <th>备注</th>
+	            <th>操作</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        {foreach name="schedule_info" item="vo"}
+	        <tr>
+	            <td class="serial">{$key+1}</td>
+	            <td><span class="product">{$vo['date']}</span></td>
+	            <td><span class="product">{$vo['time_id']}</span></td>
+	            <td><span class="product">{$vo['place_id']}</span></td>
+	            <td><span class="product">{$vo['item_id']}</span></td>
+	            <td><span class="product">{$vo['note']}</span></td>
+	            <td>
+	                <button type="button" class="btn btn-primary btn-sm mb-1 edit" data-id="{$vo.id}"
+	                    data-toggle="modal" data-target=".edit-schedule">
+	                    <i class="fa fa-magic"></i>&nbsp;编辑
+	                </button>
+	                <button type="button" class="btn btn-danger btn-sm mb-1 delete" data-id="{$vo.id}"
+	                    data-toggle="modal" data-target=".delete-schedule">
+	                    <i class="fa fa-exclamation"></i>&nbsp;删除
+	                </button>
+	            </td>
+	        </tr>
+	        {/foreach}
+	    </tbody>
+	</table>
+</body>
+
+</html>
