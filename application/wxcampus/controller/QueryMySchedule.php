@@ -24,8 +24,8 @@ class QueryMySchedule extends Controller
 		array('name'=>'备注', 'field'=>'note', 'icon'=>'fa-pencil-square-o')
 	);
 
-	public function defaultList(){
-		$this->user_id = $this->getUserId($this->stu_number);
+	public function defaultList($number){
+		$this->user_id = $this->getUserId($number);
 		echo $this->user_id;
 		// $sql = "select * from schedule_info where user_id = ".$this->user_id;
 		// $result = Db::query($sql);
@@ -35,7 +35,8 @@ class QueryMySchedule extends Controller
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		$this->assign('schedule_info', $this->defaultList());
+		$this->defaultList($number);
+		//$this->assign('schedule_info', $this->defaultList());
 		//$this->assign('fields', $this->field_config);
 		//return $this->fetch('index');
 	}
