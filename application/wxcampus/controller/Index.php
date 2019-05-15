@@ -114,6 +114,23 @@ class Index extends Controller
         return $this->fetch('leaderList');
     }
 
+    //增加关注人
+    public function addFollow()
+    {
+        $followid = Request::instance()->param('followid');
+
+        $add = [];
+        $add['user_id'] = 1;
+        $add['follow_id'] = $followid;
+        $add['is_delete'] = 0;
+        $res = Db::table("user_follow")->data($add)->save();
+        if($res)
+        {
+            return "添加成功";
+        }
+        return "添加失败";
+    }
+
 
     private function getAccessToken($key,$secret,$wxcode){
         $url = "https://weixiao.qq.com/apps/school-auth/access-token";
