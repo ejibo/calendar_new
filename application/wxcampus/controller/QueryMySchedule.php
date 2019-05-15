@@ -29,7 +29,7 @@ class QueryMySchedule extends Controller
 		$this->stu_number = $model->getStuNumber();
 		echo "".$this->stu_number;
 		$this->user_id = $this->getUserId($this->stu_number);
-		$sql = "select * from schedule_info where user_id = ".$this->user_id.";
+		$sql = "select * from schedule_info where user_id = ".$this->user_id;
 		$result = Db::query($sql);
 		return $result;
 	}
@@ -48,7 +48,7 @@ class QueryMySchedule extends Controller
 
 		$res = Db::table('user_info')->where('work_id', $user_number)->find();
 		if($res){
-			if($res['type_id'] == 0){
+			if($res['type_id'] == '0'){
 				echo "Sorry, 没有你的日程信息";
 			}
 			else{
