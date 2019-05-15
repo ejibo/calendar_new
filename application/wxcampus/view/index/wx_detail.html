@@ -16,7 +16,7 @@
                 <div class="weui-cell__bd">
                     <input class="weui-input" type="date" value="" id="date">
                 </div>
-                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择一个日期</div>
+                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
             </div>
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd">
@@ -66,6 +66,7 @@
         </div>
 
         <div class="weui-btn-area">
+            <span id='callbackstatus'>test</span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
         </div>
@@ -95,9 +96,34 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    '/wxcampus/wxCalendar/postTest',
+                    '/wxcampus/wxCalendar/create',
                     {
                         "method": "create",
+                        "date": $('#date').val(),
+                        "time_id": $('#scheduletime option:selected').val(),
+                        "place_id": $("#scheduleplace option:selected").val(),
+                        "item_id": $("#scheduleitem option:selected").val(),
+                        "note": $("#note").val() 
+                    },
+                    function (data) {
+                        console.log(data);
+                        if(data.success == true){
+
+                        }else{
+                            $('#callbackstatus').text("插入失败!");
+                        }
+                    }
+                );
+            }
+        }
+    );
+    $('#update-btn').click(
+        function (){
+            if(checkInput()){
+                $.post(
+                    '/wxcampus/wxCalendar/update',
+                    {
+                        "method": "update",
                         "date": $('#date').val(),
                         "time_id": $('#scheduletime option:selected').val(),
                         "place_id": $("#scheduleplace option:selected").val(),
@@ -107,22 +133,6 @@ $(document).ready(function(){
                     function () {/*callback*/}
                 );
             }
-        }
-    );
-    $('#update-btn').click(
-        function (){
-            $.post(
-                '/wxcampus/wxCalendar/postTest',
-                {
-                    "method": "update",
-                    "date": $('#date').val(),
-                    "time_id": $('#scheduletime option:selected').val(),
-                    "place_id": $("#scheduleplace option:selected").val(),
-                    "item_id": $("#scheduleitem option:selected").val(),
-                    "note": $("#note").val() 
-                },
-                function () {/*callback*/}
-            );
         }
     );
 });
