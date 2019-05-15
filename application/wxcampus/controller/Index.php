@@ -45,7 +45,7 @@ class Index extends Controller
     }
 
     public function index(){
-      //  return $this->fetch();
+    //  return $this->fetch();
         $code = input('param.wxcode');
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         if($accessToken){
@@ -95,7 +95,7 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        return $this->fetch('WxCalendar/index');
+        return $this->redirect('WxCalendar/Index');
     }
 
     //返回未关注的领导可以用来新添关注人
