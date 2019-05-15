@@ -134,7 +134,7 @@ class Whitelist extends Common
 
         $i = 0;
 
-        $excelData = model("Userbasic");
+        $excelData = model("Whitelist");
 
         foreach ($sheet->getRowIterator(2) as $row) {
             $tmp = array();
