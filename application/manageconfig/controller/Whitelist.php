@@ -8,6 +8,8 @@
 
 namespace app\manageconfig\controller;
 
+use PhpOffice\PhpSpreadsheet\Reader\Exception;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 use think\Db;
 use app\common\controller\Common;
 use app\logmanage\model\Log as LogModel;
@@ -113,18 +115,10 @@ class Whitelist extends Common
     }
 
     public function excelInput(){
-        /**
-         * @throws \PhpOffice\PhpSpreadsheet\Exception
-         * Excel批量添加用户
-         * 获取到前端传递的包含用户信息的Excel文件(文件格式将会在前端提示，内部数据合法性暂不处理)
-         * 对于每一行获取的用户信息进行用户存在性判断
-         * 不存在的用户会被记录，最后批量添加
-         */
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-        $model = new LogModel();
+        $reader = new Xlsx();
         try {
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
+        } catch (Exception $e) {
             die($e->getMessage());
         }
 
@@ -153,7 +147,7 @@ class Whitelist extends Common
         }
 
         $addFlag = $excelData->insertAllUser($sqlData);
-        echo  $excelData;
+        echo  $sqlData[0];
 //        if ($addFlag) {
 //            $this->success('添加成功,自动跳转');
 //        } else {

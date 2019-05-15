@@ -18,6 +18,7 @@ class Wxquery extends controller
     {
         // qname 前端传输回来的查询词--用户名
         $name = Request::instance()->param('qname');
+        $i = 0;
         $list = Db::table('schedule_info')
             ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
             ->where('a.is_delete', 0)
