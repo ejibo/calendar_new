@@ -7,6 +7,14 @@ use think\Db;
 
 class QueryMySchedule extends Controller
 {
+	$Index = controller('Index');
+	public $stu_number = $Index->getStuNumber();;
+	public $user_id = getUserId();
+
+	protected getUserId(){
+		$result = Db::table("user_info")->where('work_id', $this->stu_number)->find();
+		return $result['id'];
+	}
 
 	protected $field_config = array(
 		array('name'=>'日期', 'field'=>'date', 'icon'=>'fa-pencil-square-o'),
