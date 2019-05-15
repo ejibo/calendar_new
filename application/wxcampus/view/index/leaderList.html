@@ -20,7 +20,7 @@
                     <p class="weui-media-box__desc">{$vo.position}</p>
                     <input type="hidden" value="{$vo.id}" id="id">
                 </div>
-                <div class=" weui-cell__ft" ><img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="ajaxPost()"></div>
+                <div class=" weui-cell__ft" ><img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="add()"></div>
             </a>
             {/volist}
 
@@ -29,10 +29,10 @@
 </div>
 
 <script type="text/javascript">
-    function ajaxPost(){
-        var followid =document.getElementById('id').value;
+    function add(){
+        var followid = document.getElementById('id').value;
         console.log(followid);
-        $.post("{:url('addFollow')}",
+        $.post("{:url('Index/addFollow')}",
             {
                 followid:followid,
             },
