@@ -157,9 +157,11 @@ class Whitelist extends Common
         $addFlag = false ;
         //如果从Excel获取的数组不为空
         if (empty($sqlData)){
-            $addFlag = $excelData->insertAllUser($sqlData);}
-        else{
+            $addFlag = $excelData->insertAllUser($sqlData);
             $this->success('添加成功,但没有插入数据，请检查Excel表格数据是否与已有数据重复,自动跳转');
+        }
+        else{
+            $addFlag = $excelData->insertAllUser($sqlData);
         }
         //echo  $sqlData[0];
         if ($addFlag) {
