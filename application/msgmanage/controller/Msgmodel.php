@@ -53,7 +53,7 @@ class Msgmodel extends Common
             // echo $isHasTitle;
             // console.log($templateItems);
             // var_dump($templateItems);
-            return $this->fetch('index');
+            return $this->fetch('msgmodel/index');
         }
     }
 
