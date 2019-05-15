@@ -12,6 +12,7 @@ namespace app\wxcampus\controller;
 use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
+use think\Request;
 
 class Index extends Controller
 {
@@ -35,8 +36,13 @@ class Index extends Controller
 
     //获取对应学号的user_id;
     public function getUserId($number){
-        $res = Db::table('user_info')->where('work_id ='.$number)->column('id');
-        return $res[0];
+        $res = Db::table('user_info')->where('work_id',$number)->column('id');
+        if($res){
+            return $res[0];
+        }else{
+            return "没有该用户";
+        }
+
     }
 
     public function index(){
@@ -50,11 +56,11 @@ class Index extends Controller
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                $this-> addUser($userInfo['name'],$userInfo['card_number']);
+                $this->addUser($userInfo['name'],$userInfo['card_number']);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
-          
+            $this->assign("number",$userInfo['card_number']);
             return $this->fetch();
         }
         else{
@@ -70,13 +76,13 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
+            $number = Request::instance()->param('number');
 
-
-            $user_id = $this->getUserId($this->stu_number);
+            $user_id = $this->getUserId($number);
             $list = Db::table('user_follow')
                 ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
                 ->where('a.is_delete',0)
-                ->where('a.user_id',$user_id)
+                ->where('a.user_id = '.$user_id)
                 ->join('user_info','a.follow_id = b.id')
                 ->join('user_position','b.position_id = c.id')
                 ->field('a.id as id, a.follow_id as userid, b.name as name, c.name as position')
@@ -91,6 +97,21 @@ class Index extends Controller
     }
     public function wx_calendar(){
         return $this->fetch();
+    }
+
+    //返回未关注的领导可以用来新添关注人
+    public function leaderList(){
+        $number = Request::instance()->param('number');
+        $user_id = $this->getUserId($number);
+        $condition = Db::table('user_follow')->where('is_delete = 0 AND user_id ='.$user_id)->column('follow_id');
+        $list = Db::table('user_info')
+            ->alias(['user_info' => 'a', 'user_position' => 'b'])
+            ->where("a.id","not in",$condition)
+            ->join('user_position','a.position_id = b.id')
+            ->field('a.id as id, a.name as name, b.name as position')
+            ->select();
+        $this->assign('list_time_table',$list);
+        return $this->fetch('leaderList');
     }
 
 
@@ -147,5 +168,8 @@ class Index extends Controller
         return $result;
     }
 
+    public function getStuNumber(){
+        return $this->stu_number;
+    }
 
 }

@@ -59,20 +59,22 @@ class Position extends Common
         if (empty($name)){//判断是否为空
             $this->error('职位不能为空，请重新输入');
         }
-        $model = model('Position');//实例化模块
-        $ifsame = $model->getPosition($name);
-        if ($ifsame == null) {//判断是否重名
-            $result = $model->insertPosition($name);
-            if ($result == 1) {
-                //设置成功后跳转页面的地址
-                $this->success('新增成功', 'usermanage/position/index');
-            } else {
-                $this->error('新增失败，请重新尝试');
+        if (strlen($name) < 30){//判断长度是否合适
+            $model = model('Position');//实例化模块
+            $ifsame = $model->getPosition($name);
+            if ($ifsame == null) {//判断是否重名
+                $result = $model->insertPosition($name);
+                if ($result == 1) {
+                    $this->success('新增成功'); //, 'usermanage/position/index'
+                } else {
+                    $this->error('新增失败，请重新尝试');
+                }
+            }
+            else{
+                $this->error("职位重复，请重新输入");
             }
         }
-        else{
-            $this->error("职位重复，请重新输入");
-        }
+
     }
     /*
    public function add()

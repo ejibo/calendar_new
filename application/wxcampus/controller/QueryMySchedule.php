@@ -1,0 +1,66 @@
+<?php
+namespace app\wxcampus\controller;
+
+use think\Controller;
+use think\Db;
+use \app\wxcampus\controller\Index as SIndex;
+
+
+class QueryMySchedule extends Controller
+{
+	public $stu_number;
+	public $user_id;
+
+	protected function getUserId($stu_number){
+		$result = Db::table("user_info")->where('work_id', $stu_number)->find();
+		return $result['id'];
+	}
+
+	protected $field_config = array(
+		array('name'=>'日期', 'field'=>'date', 'icon'=>'fa-pencil-square-o'),
+		array('name'=>'时间', 'field'=>'time_id', 'icon'=>'fa-check-square-o'),
+		array('name'=>'事项', 'field'=>'item_id', 'icon'=>'fa-check-square-o'),
+		array('name'=>'地点', 'field'=>'place_id', 'icon'=>'fa-check-square-o'),
+		array('name'=>'备注', 'field'=>'note', 'icon'=>'fa-pencil-square-o')
+	);
+
+	public function defaultList(){
+		$model = new SIndex();
+		$this->stu_number = $model->getStuNumber();
+		echo "".$this->stu_number;
+		$this->user_id = $this->getUserId($this->stu_number);
+		$sql = "select * from schedule_info where user_id = ".$this->user_id.";
+		$result = Db::query($sql);
+		return $result;
+	}
+
+	public function index()
+	{
+		$this->assign('schedule_info', $this->defaultList());
+		$this->assign('fields', $this->field_config);
+		return $this->fetch('index');
+	}
+
+	public function getMyScheduleInfo()
+	{
+		$model = new SIndex(); //同一个controller下的控制器可以直接调用
+		$user_number = $model->getUserNumber();
+
+		$res = Db::table('user_info')->where('work_id', $user_number)->find();
+		if($res){
+			if($res['type_id'] == 0){
+				echo "Sorry, 没有你的日程信息";
+			}
+			else{
+				echo $res['type_id'];
+			}
+		}
+		else{
+			echo "没有你的信息";
+		}
+	}
+}
+
+
+
+?>
