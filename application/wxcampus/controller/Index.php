@@ -52,6 +52,7 @@ class Index extends Controller
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
             $this->stu_number = $userInfo['card_number'];
+            dump($this->stu_number);
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
