@@ -370,7 +370,16 @@
 
 <!--Excel添加-->
 <script>
-
+    $('#batchShow').click(function () {
+        let form = document.getElementById('batchAdd');
+        if (form.style.display === 'none') {
+            $('#batchShow').text('取消上传');
+            form.style.display = 'inline';
+        } else {
+            $('#batchShow').text('批量添加');
+            form.style.display = 'none';
+        }
+    });
     function hideAllCheckbox() {
         let allCheckboxs = document.getElementsByClassName("checkbox");
         for (let i = 0; i < allCheckboxs.length; i++) {
