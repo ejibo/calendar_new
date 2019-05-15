@@ -34,14 +34,14 @@ table.gridtable td {
     <div>
         <div>
             <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-            <font size="40px">开始时间</font><input type="date" name="starttime" placeholder="start time">
-            <font size="40px">截止时间</font><input type="date" name="endtime" placeholder="end time">
+            <font size="40px">开始时间</font><input type="date" name="starttime" placeholder="start time" height="40px">
+            <font size="40px">截止时间</font><input type="date" name="endtime" placeholder="end time" height="40px">
             <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
                 data-target=".add-schedule"><font size="40px">查询</font></button>
             </form>
         </div>
         <div>
-            <table class="gridtable" width="100%" height="80%">
+            <table class="gridtable" width="100%">
                 <thead>
                     <tr>
                         <th>日期</th>
