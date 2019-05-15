@@ -11,10 +11,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">个人日程查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
-                                data-target=".add-schedule">添加日程</button>
-                        </h4>
+                        <h4 class="box-title">个人日程查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
@@ -42,6 +39,56 @@
                                     {/foreach}
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade add-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            {foreach name="fields" item="vo"}
+                            <p>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa {$vo['icon']}"></i>
+                                        </div>
+                                        <input type="text" name="itemDescription"
+                                            placeholder="{$vo['name']}" class="form-control add-schedule-field {$vo['field']}">
+                                    </div>
+                                </div>
+                            </p>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade edit-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            {foreach name="fields" item="vo"}
+                            <p>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa {$vo['icon']}"></i>
+                                        </div>
+                                        <input type="text" id="itemDesA" name="itemDescription"
+                                            placeholder="{$vo['name']}" class="form-control edit-schedule-field {$vo['field']}">
+                                    </div>
+                                </div>
+                            </p>
+                            {/foreach}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary cancel-edit"
+                                data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success submit-edit"
+                                data-dismiss="modal">确认</button>
                         </div>
                     </div>
                 </div>
