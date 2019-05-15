@@ -29,17 +29,15 @@ class QueryMySchedule extends Controller
 		//echo $this->user_id;
 		$sql = "select * from schedule_info where user_id = ".$this->user_id;
 		$result = Db::query($sql);
-		dump($result);
-		//return $result;
+		return $result;
 	}
 
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		$this->defaultList($number);
-		//$this->assign('schedule_info', $this->defaultList());
-		//$this->assign('fields', $this->field_config);
-		//return $this->fetch('index');
+		$this->assign('schedule_info', $this->defaultList($number));
+		$this->assign('fields', $this->field_config);
+		return $this->fetch('index');
 	}
 
 	public function getMyScheduleInfo()
