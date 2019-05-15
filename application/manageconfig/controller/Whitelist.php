@@ -147,7 +147,7 @@ class Whitelist extends Common
         }
 
         $addFlag = $excelData->insertAllUser($sqlData);
-        echo  $sqlData;
+        echo  $sqlData[0];
 //        if ($addFlag) {
 //            $this->success('添加成功,自动跳转');
 //        } else {
