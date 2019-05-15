@@ -65,8 +65,7 @@ class Position extends Common
             if ($ifsame == null) {//判断是否重名
                 $result = $model->insertPosition($name);
                 if ($result == 1) {
-                    //设置成功后跳转页面的地址
-                    $this->success('新增成功', 'usermanage/position/index');
+                    $this->success('新增成功'); //, 'usermanage/position/index'
                 } else {
                     $this->error('新增失败，请重新尝试');
                 }
