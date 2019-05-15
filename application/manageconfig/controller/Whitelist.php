@@ -114,61 +114,55 @@ class Whitelist extends Common
         }
     }
 
+    //---------------------------------------------------------------
+    /*
+    responser: 陈国强
+    Created：2019/05/15
+    excelInput() ： 向 user_info 数据表插入信息
+    */
+
     public function excelInput(){
+        // 初始化reader类
         $reader = new Xlsx();
         try {
+            // 检测是否有Excel文件
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-            if (empty($spreadsheet)){
-                echo "spreadsheet为空";
-            }
-            else{
-                echo "spreadsheet不为空";
-            }
         } catch (Exception $e) {
             die($e->getMessage());
         }
         $sheet = $spreadsheet->getActiveSheet();
-        if (empty($sheet)){
-            echo "sheet为空";
-        }
-        else{
-            echo "sheet不为空";
-        }
         $sqlData = array();
-
-        $i = 0;
-
+        $count = 0;
+        // 使用model
         $excelData = model("Whitelist");
-
-        if (empty($excelData )){
-            echo "excelData为空";
-        }
-        else{
-            echo "excelData不为空";
-        }
-
+        // 遍历Excel表格，将数据存入sqlData
         foreach ($sheet->getRowIterator(2) as $row) {
             $tmp = array();
             foreach ($row->getCellIterator() as $cell) {
                 $tmp[] = $cell->getFormattedValue();
             }
-            // 未被添加的用户信息才会被记录到数组里，最后批量添加
+            // 重复的不添加
             if ($excelData->findUserByWorkId($tmp[1]) == null) {
                 $tmp = ['name' => $tmp[0],
                     'work_id' => $tmp[1],
                     'type_id' => $tmp[2],
                     'depart_id' => $tmp[3],
                     'position_id' => $tmp[4]];
-                $sqlData[$i++] = $tmp;
+                $sqlData[$count++] = $tmp;
+            }
+            else{
+                continue;
             }
         }
-
         $addFlag = $excelData->insertAllUser($sqlData);
         //echo  $sqlData[0];
-//        if ($addFlag) {
-//            $this->success('添加成功,自动跳转');
-//        } else {
-//            $this->error('添加失败');
-//        }
+        if ($addFlag) {
+            $this->success('添加成功,自动跳转');
+        } else {
+            $this->error('添加失败');
+        }
     }
+
+    //---------------------------------------------------------------
+
 }

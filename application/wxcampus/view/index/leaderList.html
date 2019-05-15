@@ -18,10 +18,10 @@
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-
+                    <input type = "hidden" value="{$vo['id']}" id="userid">
                 </div>
                 <div class=" weui-cell__ft"> <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px"
-                                                  onclick="add()" value="{$vo.id}" id="userid"></div>
+                                                  onclick="add()"></div>
             </a>
             {/volist}
 
@@ -33,7 +33,7 @@
     function add(){
         var followid = document.getElementById("userid").value;
         console.log(followid);
-        $.post("{:url('Index/addFollow')}",
+        $.post("{:url('addFollow')}",
             {
                 followid:followid,
             },
