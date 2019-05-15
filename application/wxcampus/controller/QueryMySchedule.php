@@ -49,7 +49,12 @@ class QueryMySchedule extends Controller
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		$this->assign('schedule_info', $this->defaultList($number));
+		$result = $this->defaultList($number);
+		if($result == NULL){
+			echo "没有您的日程信息";
+			return;
+		}
+		$this->assign('schedule_info', $result);
 		$this->assign('fields', $this->field_config);
 		return $this->fetch('result');
 	}
