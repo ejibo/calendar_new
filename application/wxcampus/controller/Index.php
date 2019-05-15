@@ -117,12 +117,11 @@ class Index extends Controller
     //增加关注人
     public function addFollow()
     {
-        $followid = Request::instance()->param('followid');
-        $add = [];
-        $add['user_id'] = 1;
-        $add['follow_id'] = $followid;
-        $add['is_delete'] = 0;
-        $res = Db::table("user_follow")->data($add)->save();
+        $followid = Request::instance()->param('followid');//被关注人
+        $id = Request::instance()->param('id');//关注人
+        $add = ['user_id'=> $id,'follow_id'=>$followid,'is_delete'=>0];
+
+        $res = Db::table("user_follow")->insert($add);
         if($res)
         {
             return "添加成功";

@@ -18,11 +18,11 @@
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-                   
+
                 </div>
 
                 <div class=" weui-cell__ft">
-                    <a href="{:url('addFollow',['followid'=> $vo.id])}">
+                    <a href="{:url('addFollow',['followid'=> $vo.id,'id' => $number])}">
                         <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px">
                     </a>
                 </div>
