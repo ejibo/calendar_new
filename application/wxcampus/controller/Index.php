@@ -168,7 +168,7 @@ class Index extends Controller
         return $result;
     }
 
-    public getStuNumber(){
+    public function getStuNumber(){
         return $this->stu_number;
     }
 
