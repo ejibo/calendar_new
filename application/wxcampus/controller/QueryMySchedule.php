@@ -54,6 +54,7 @@ class QueryMySchedule extends Controller
 			echo "没有您的日程信息";
 			return;
 		}
+		$this->assign('user_id', $this->user_id);
 		$this->assign('schedule_info', $result);
 		$this->assign('fields', $this->field_config);
 		return $this->fetch('index');
