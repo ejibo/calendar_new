@@ -43,7 +43,7 @@ class Multiquery extends Common
         $mydata = input('post.');
         if (empty($mydata['names'])){
             $this->index();
-            return
+            return;
         }
 
         $names = explode(" ",$mydata['names']);
