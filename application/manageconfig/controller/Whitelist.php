@@ -122,7 +122,7 @@ class Whitelist extends Common
                 echo "spreadsheet为空";
             }
             else{
-
+                echo "spreadsheet不为空";
             }
         } catch (Exception $e) {
             die($e->getMessage());
@@ -132,7 +132,7 @@ class Whitelist extends Common
             echo "sheet为空";
         }
         else{
-
+            echo "sheet不为空";
         }
         $sqlData = array();
 
@@ -141,10 +141,10 @@ class Whitelist extends Common
         $excelData = model("Whitelist");
 
         if (empty($excelData )){
-            echo "excelData ";
+            echo "excelData为空";
         }
         else{
-
+            echo "excelData不为空";
         }
 
         foreach ($sheet->getRowIterator(2) as $row) {
