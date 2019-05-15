@@ -29,8 +29,8 @@ class QueryMySchedule extends Controller
 		//echo $this->user_id;
 		$sql = "select * from schedule_info where user_id = ".$this->user_id;
 		$result = Db::query($sql);
-		dump($result);
-		//return $result;
+		//dump($result);
+		return $result;
 	}
 
 	public function index()
