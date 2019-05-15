@@ -41,6 +41,22 @@ class Template extends Model
             ->select();
         return $allItems;
     }
+    //根据模板名称获取模板
+    public function getItemByTitleDelete($tit){
+        $titleTemp = Db::name('message_template')
+            ->where('title',$tit)
+            ->where('is_delete',1)
+            ->select();
+        return $titleTemp;
+    }
+    //根据模板内容获取模板
+    public function getItemByContentDelete($content){
+        $contentTemp = Db::name('message_template')
+            ->where('content',$content)
+            ->where('is_delete',1)
+            ->select();
+        return $contentTemp;
+    }
 
     /*story:增加消息模板
     负责人：佟起
