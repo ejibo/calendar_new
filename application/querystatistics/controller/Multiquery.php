@@ -43,15 +43,19 @@ class Multiquery extends Common
         $mydata = input('post.');
         if (empty($mydata['names'])){
             $this->index();
+            return
         }
 
         $names = explode(" ",$mydata['names']);
         $nameids = array();
         foreach ($names as $name) {
-            array_push($nameids,Db::table('user_info')
+            $buffer = Db::table('user_info')
             ->where('user_info.name',$name)
             ->field('id')
-            ->select()[0]['id']);
+            ->select()
+            if (!empty($buffer)){
+                array_push($nameids,$buffer[0]['id']);
+            }
         }
         $info = Db::table('schedule_info')
             ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
