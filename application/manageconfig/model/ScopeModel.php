@@ -11,14 +11,13 @@ use app\logmanage\model\Log as LogModel;
 class ScopeModel extends Model
 {   
     public static $scope_table = 'global_config';
+    public static $uid = ADMIN_ID;
     //初始化日程范围配置
     public function initScope()
     {
         # code...
         $model = new LogModel();
-        $uid = ADMIN_ID;
         $type = 2;
-        // $table = 'global_config';
         
         $default = ['config_item' => 'scope', 'parameter' => 2592000];
         $exi = DB::table('global_config')->where('config_item', 'scope')->count();
@@ -28,7 +27,7 @@ class ScopeModel extends Model
             $init_success = DB::table('global_config')->insert($default);
             $id = DB::table('global_config')->getLastInsID();
             $field = [$id];
-            $model->recordLogApi($uid,$type,SELF::$scope_table,$field);
+            $model->recordLogApi(SELF::$uid,$type,SELF::$scope_table,$field);
          }
 
         return $init_success; //成功返回1
@@ -45,7 +44,6 @@ class ScopeModel extends Model
     {
         # code...
         $model = new LogModel();
-        $uid = ADMIN_ID;
         $type = 3;
         $id = DB::table('global_config')->getLastInsID();
         $before_update =  DB::table('global_config')->where('config_item', 'scope')->find();
@@ -55,7 +53,7 @@ class ScopeModel extends Model
         $field = [
             $id=>[$before_update_para_day,$after_update_para_day]
         ];
-        $model->recordLogApi($uid,$type,SELF::$scope_table,$field);
+        $model->recordLogApi(SELF::$uid,$type,SELF::$scope_table,$field);
         return $edit_success; //成功返回影响的条数（设定应该成功为1）
     }
 }
