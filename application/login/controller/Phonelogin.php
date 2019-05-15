@@ -35,12 +35,11 @@ class Phonelogin extends Controller
                 $type = 1;
                 $model->recordLogApi ($uid, $type); //需要判断调用是否成功
 
-
                 //跳转到新页面
                 $this -> success('登入成功', 'index/index/index', null, 1);
                 return $this->fetch();
-                //$msg=['status'=>0,'msg'=>'登陆成功'];
-                //return json($msg);
+                $msg=['status'=>0,'msg'=>'登陆成功'];
+                return json($msg);
             }else{
                 $msg=['status'=>1,'msg'=>'登陆失败'];
                 return json($msg);
