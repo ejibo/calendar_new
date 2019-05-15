@@ -82,7 +82,7 @@ class QueryMySchedule extends Controller
 			$event = Db::table('schedule_item')->where('id', $item_id)->value('name');
 			$result[$x]['event'] = $event;
 		}
-		$this->assign('schedule_info', $result);
+		//$this->assign('schedule_info', $result);
 		dump($result);
 		//return $this->fetch('result');
 	}
