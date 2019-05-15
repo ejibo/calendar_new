@@ -8,11 +8,11 @@ use think\Db;
 class QueryMySchedule extends Controller
 {
 	$Index = controller('Index');
-	public $stu_number = $Index->getStuNumber();;
-	public $user_id = getUserId();
+	public $stu_number;
+	public $user_id;
 
-	protected getUserId(){
-		$result = Db::table("user_info")->where('work_id', $this->stu_number)->find();
+	protected getUserId($stu_number){
+		$result = Db::table("user_info")->where('work_id', $stu_number)->find();
 		return $result['id'];
 	}
 
@@ -25,6 +25,9 @@ class QueryMySchedule extends Controller
 	);
 
 	public function defaultList(){
+		$this->stu_number = getStuNumber();
+		echo "".$this->stu_number;
+		$this->user_id = getUserId($this->stu_number);
 		$sql = "select * from schedule_info where user_id = ".$this->user_id." and is_delete = false";
 		$result = Db::query($sql);
 		return $result;
