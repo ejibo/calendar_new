@@ -66,6 +66,9 @@ class Index extends Controller
             echo "error";
         }
     }
+    public function index0(){
+        return $this->fetch();
+    }
 
 
     public function wx_search(){
@@ -95,7 +98,7 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        return $this->redirect('WxCalendar/Index');
+        return $this->redirect('WxCalendar');
     }
 
     //返回未关注的领导可以用来新添关注人
