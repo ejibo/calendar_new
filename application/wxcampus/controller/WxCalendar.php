@@ -58,6 +58,7 @@ class CalendarValidator extends Validate
 
 class WxCalendar extends Controller
 {
+    //apis
     protected function getUserId(){
         //TODO
         return 1;
@@ -101,6 +102,18 @@ class WxCalendar extends Controller
         return Db::name('schedule_time')
         ->where('is_delete', 0)
         ->select();
+    }
+    protected function successJson($method){
+        return json_encode([
+            'method' => $method,
+            'success'=> true
+        ]);
+    }
+    protected function failedJson($method){
+        return json_encode([
+            'method' => $method,
+            'success'=> false
+        ]);
     }
     public function create(){
         $data = [
@@ -193,7 +206,7 @@ class WxCalendar extends Controller
         $logRec = new LogModel;
         $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
     }
-
+    //Views
     protected $items;
     protected $places;
     protected $times;

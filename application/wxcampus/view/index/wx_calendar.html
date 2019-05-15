@@ -13,7 +13,7 @@
 
         }
 
-        .today {
+        .selected-day {
             margin-left: auto;
             margin-right: auto;
             padding-top: auto;
@@ -40,75 +40,34 @@
         .margintop30 {
             margin-top: 30px;
         }
+
+        .today-subscript {
+            height: 5px;
+            width: 5px;
+            text-align:center;
+            border-radius: 50%;
+             background-color:  #07C160;
+             display: block;
+             margin-left: auto;
+             margin-right: auto;
+        }
     </style>
 
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <div style="position: fixed;top: 0px;z-index:9999;width: 100%">
-            <div class="weui-flex" style="padding-top: 10px">
-                <div class="weui-flex__item">
-                    <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160"><img
-                            src="__STATIC__/wx/img/before.png" style="height: 17px"></div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder" style="font-size: 17px">2019年5月10日</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160"><img
-                            src="__STATIC__/wx/img/after.png" style="height: 17px"></div>
-                </div>
+        <div class="weui-flex" style="padding-top: 10px">
+            <div class="weui-flex__item">
+                <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160"><img
+                        src="__STATIC__/wx/img/before.png" style="height: 17px" id='left'></div>
             </div>
-            <div class="weui-flex week">
-                <div class="weui-flex__item">
-                    <div class="placeholder">日</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">一</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">二</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">三</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">四</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">五</div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder">六</div>
-                </div>
+            <div class="weui-flex__item">
+                <div class="placeholder" style="font-size: 17px" id='date'>{$date}</div>
             </div>
-            <div class="weui-flex days">
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">5</a></div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">6</a>
-                        <div style="height: 5px;width: 5px;text-align:center;border-radius: 50%; background-color:  #07C160;display: block;margin-left: auto;margin-right: auto"></div>
-                    </div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">7</a></div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">8</a></div>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">9</a></div>
-                </div>
-                <div class="weui-flex__item">
-                    <a href="#" class="placeholder">
-                        <div class="today">10</div>
-                    </a>
-                </div>
-                <div class="weui-flex__item">
-                    <div class="placeholder"><a href="#">11</a></div>
-                </div>
+            <div class="weui-flex__item">
+                <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160"><img
+                        src="__STATIC__/wx/img/after.png" style="height: 17px" id='right'></div>
             </div>
         </div>
 
@@ -221,5 +180,19 @@
     {include file="../application/wxcampus/view/index/nav.html"}
 </div>
 </body>
+{literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+
+$(document).ready(function(){
+   $('left').click(function(){
+
+   });
+   $('right').click(function(){
+
+   });
+});
+</script>
+{/literal}
 </html>
 
