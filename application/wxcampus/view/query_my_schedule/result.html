@@ -23,20 +23,10 @@
 	        <tr>
 	            <td class="serial">{$key+1}</td>
 	            <td><span class="product">{$vo['date']}</span></td>
-	            <td><span class="product">{$vo['time_id']}</span></td>
-	            <td><span class="product">{$vo['place_id']}</span></td>
-	            <td><span class="product">{$vo['item_id']}</span></td>
+	            <td><span class="product">{$vo['time']}</span></td>
+	            <td><span class="product">{$vo['place']}</span></td>
+	            <td><span class="product">{$vo['item']}</span></td>
 	            <td><span class="product">{$vo['note']}</span></td>
-	            <td>
-	                <button type="button" class="btn btn-primary btn-sm mb-1 edit" data-id="{$vo.id}"
-	                    data-toggle="modal" data-target=".edit-schedule">
-	                    <i class="fa fa-magic"></i>&nbsp;编辑
-	                </button>
-	                <button type="button" class="btn btn-danger btn-sm mb-1 delete" data-id="{$vo.id}"
-	                    data-toggle="modal" data-target=".delete-schedule">
-	                    <i class="fa fa-exclamation"></i>&nbsp;删除
-	                </button>
-	            </td>
 	        </tr>
 	        {/foreach}
 	    </tbody>

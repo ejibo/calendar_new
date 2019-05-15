@@ -29,7 +29,20 @@ class QueryMySchedule extends Controller
 		//echo $this->user_id;
 		$sql = "select * from schedule_info where user_id = ".$this->user_id;
 		$result = Db::query($sql);
-		//dump($result);
+		$len = count($result);
+		for($x = 0; $x < $len; $x++){
+			$time_id = $result[$x]['time_id'];
+			$time = Db::table('schedule_time')->where('id', $time_id)->value('name');
+			$result[$x]['time'] = $time;
+
+			$place_id = $result[$x]['place_id'];
+			$place = Db::table('schedule_place')->where('id', $place_id)->value('name');
+			$result[$x]['place'] = $location;
+
+			$item_id = $result[$x]['item_id'];
+			$item = Db::table('schedule_item')->where('id', $item_id)->value('name');
+			$result[$x]['item'] = $event;
+		}
 		return $result;
 	}
 
