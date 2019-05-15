@@ -150,6 +150,9 @@ class Whitelist extends Common
                     'position_id' => $tmp[4]];
                 $sqlData[$count++] = $tmp;
             }
+            else{
+                continue;
+            }
         }
         $addFlag = $excelData->insertAllUser($sqlData);
         //echo  $sqlData[0];
