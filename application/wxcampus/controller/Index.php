@@ -66,6 +66,9 @@ class Index extends Controller
             echo "error";
         }
     }
+    public function index0(){
+        return $this->fetch();
+    }
 
 
     public function wx_search(){
