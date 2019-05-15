@@ -22,7 +22,7 @@ class Department extends Common
     {
         //调用model中的recover方法，保证MVC分离
         $department = model('Department');
-        $department->recover($id);
+        return $department->recover($id);
     }
     /*
      *story:删除部门
