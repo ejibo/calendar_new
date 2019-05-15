@@ -49,7 +49,7 @@ class QueryMySchedule extends Controller
 		$res = Db::table('user_info')->where('work_id', $user_number)->find();
 		if($res){
 			if($res['type_id'] == 0){
-				echo "Sorry, 没有你的日程信息"；
+				echo "Sorry, 没有你的日程信息";
 				return;
 			}
 			else{
