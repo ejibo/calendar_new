@@ -153,11 +153,11 @@ class Whitelist extends Common
         }
 
         $addFlag = $excelData->insertAllUser($sqlData);
-        if ($addFlag) {
-            $model->recordLogApi(ADMIN_ID, 2, 'user_info', $addFlag);
-            $this->success('批量添加成功，重复用户信息已自动过滤未添加');
-        } else {
-            $this->error('添加失败');
-        }
-        }
+        echo  $excelData;
+//        if ($addFlag) {
+//            $this->success('添加成功,自动跳转');
+//        } else {
+//            $this->error('添加失败');
+//        }
+    }
 }
