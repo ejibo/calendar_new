@@ -18,10 +18,10 @@
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-                    <input type="hidden" id = "followid" value="{$vo.followid}">
-                    <input type="hidden" id ="userid" value="{$vo.userid}">
+                    <input type="hidden" value="{$vo.followid}">
+                    <input type="hidden"  value="{$vo.userid}">
                 </div>
-                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px" onclick="noFollow()"></div>
+                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px" onclick="noFollow(this)"></div>
             </a>
             {/volist}
 
@@ -53,9 +53,9 @@
 </div>
 
 <script type="text/javascript">
-    function noFollow(){
-        var followid = document.getElementById("followid").value;
-        var userid = document.getElementById("userid").value;
+    function noFollow(obj){
+        var followid = $(obj).closest('a').find('input').eq(0).value;
+        var userid = $(obj).closest('a').find('input').eq(1).value;
 
         $.post("{:url('noFollow')}",
             {
