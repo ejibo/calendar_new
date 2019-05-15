@@ -30,6 +30,7 @@
                                 <label><strong>数据千万条，安全第一条。</strong></label>
                                 <label>请上传Excel表格文件添加，格式：.xlsx、.xls</label><br/>
                                 <label>EXCEL表格式: |姓名|学(工)号|用户类型|所属部门|职位|</label> <br/>
+                                <label>EXCEL表格式: |姓名1|学号1|用户类型（数字）|所属部门（数字）|职位（数字）|</label> <br/>
                                 <input class="btn btn-success btn-sm" type="submit" value="上传"/>
                             </form>
                         </h4>
@@ -375,7 +376,7 @@
             $('#batchShow').text('取消上传');
             form.style.display = 'inline';
         } else {
-            $('#batchShow').text('批量添加');
+            $('#batchShow').text('Excel批量添加');
             form.style.display = 'none';
         }
     });
