@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -20,9 +20,9 @@
                                     <tr>
                                         <th class="serial">序号</th>
                                         <th>日期</th>
-                                        <th>时间ID</th>
-                                        <th>地点ID</th>
-                                        <th>事项ID</th>
+                                        <th>时间</th>
+                                        <th>地点</th>
+                                        <th>事项</th>
                                         <th>备注</th>
                                     </tr>
                                 </thead>
@@ -47,4 +47,53 @@
     </div>
 </div>
 
-</html>
+</html> -->
+
+{extend name="common@public/base" /}
+{block name="main-content"}
+<!-- Content -->
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">所有日程
+                        </h4>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats">
+                            <table id="bootstrap-data-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th class="serial">序号</th>
+                                    <th>日期</th>
+                                    <th>时间</th>
+                                    <th>地点</th>
+                                    <th>事项</th>
+                                    <th>备注</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+	                                {foreach name="schedule_info" item="vo"}
+                                    <tr>
+                                        <td class="serial">{$key+1}</td>
+                                        <td><span class="product">{$vo['date']}</span></td>
+                                        <td><span class="product">{$vo['time']}</span></td>
+                                        <td><span class="product">{$vo['place']}</span></td>
+                                        <td><span class="product">{$vo['item']}</span></td>
+                                        <td><span class="product">{$vo['note']}</span></td>
+                                    </tr>
+                                    {/foreach}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /.content -->
+{/block}
