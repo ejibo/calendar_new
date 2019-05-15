@@ -37,7 +37,7 @@ class QueryMySchedule extends Controller
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		echos $number;
+		echo $number;
 		//$this->assign('schedule_info', $this->defaultList());
 		//$this->assign('fields', $this->field_config);
 		//return $this->fetch('index');
