@@ -73,4 +73,15 @@ class Whitelist extends Model{
         }
         return $is_clear;
     }
+
+    public function insertAllUser($data) {
+        return Db::table('user_info')->insertAll($data);
+    }
+
+    public function findUserByWorkId($workId) {
+        return Db::table('user_info')
+            ->where('work_id', $workId)
+            ->where('is_delete', 0)
+            ->find();
+    }
 }
