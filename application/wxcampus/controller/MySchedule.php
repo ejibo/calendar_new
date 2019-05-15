@@ -6,7 +6,7 @@ use think\Db;
 use think\Request;
 
 
-class QueryMySchedule extends Controller
+class MySchedule extends Controller
 {
 	public $stu_number;
 	public $user_id;
