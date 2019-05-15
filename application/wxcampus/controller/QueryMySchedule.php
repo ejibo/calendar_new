@@ -37,11 +37,11 @@ class QueryMySchedule extends Controller
 
 			$place_id = $result[$x]['place_id'];
 			$place = Db::table('schedule_place')->where('id', $place_id)->value('name');
-			$result[$x]['place'] = $location;
+			$result[$x]['place'] = $place;
 
 			$item_id = $result[$x]['item_id'];
 			$item = Db::table('schedule_item')->where('id', $item_id)->value('name');
-			$result[$x]['item'] = $event;
+			$result[$x]['item'] = $item;
 		}
 		return $result;
 	}
