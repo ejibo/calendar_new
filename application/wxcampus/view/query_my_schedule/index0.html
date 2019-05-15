@@ -42,32 +42,31 @@ table.gridtable td {
             </form>
         </h4>
     </div>
-    <div class="card-body--">
-        <div>
-            <table class="gridtable">
-                <thead>
-                    <tr>
-                        <th class="serial">序号</th>
-                        <th>日期</th>
-                        <th>时间</th>
-                        <th>地点</th>
-                        <th>事项</th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach name="schedule_info" item="vo"}
-                    <tr>
-                        <td>{$vo['date']}</span></td>
-                        <td>{$vo['time']}</span></td>
-                        <td>{$vo['place']}</span></td>
-                        <td>{$vo['item']}</span></td>
-                        <td>{$vo['note']}</span></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-        </div>
+    <div>
+        <table class="gridtable">
+            <thead>
+                <tr>
+                    <th class="serial">序号</th>
+                    <th>日期</th>
+                    <th>时间</th>
+                    <th>地点</th>
+                    <th>事项</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach name="schedule_info" item="vo"}
+                <tr>
+                    <td class="serial">{$key+1}</td>
+                    <td>{$vo['date']}</span></td>
+                    <td>{$vo['time']}</span></td>
+                    <td>{$vo['place']}</span></td>
+                    <td>{$vo['item']}</span></td>
+                    <td>{$vo['note']}</span></td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
