@@ -16,7 +16,7 @@ use think\Request;
 
 class Index extends Controller
 {
-    public $stu_number;
+    public static $stu_number;
 //微校相关信息
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
