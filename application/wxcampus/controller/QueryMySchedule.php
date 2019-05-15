@@ -1,5 +1,5 @@
 <?php
-namespace app\wxcampus\controller
+namespace app\wxcampus\controller;
 
 use think\Controller;
 use think\Db;
