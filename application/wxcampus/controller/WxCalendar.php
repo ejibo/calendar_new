@@ -282,4 +282,8 @@ class WxCalendar extends Controller
         ];
         var_dump($data);
     }
+    //route
+    public function myRedirect($url){
+        $this->redirect($url);
+    }
 }
