@@ -28,7 +28,7 @@ class QueryMySchedule extends Controller
 		$model = new SIndex();
 		$this->stu_number = $model->getStuNumber();
 		echo "".$this->stu_number;
-		$this->user_id = getUserId($this->stu_number);
+		$this->user_id = $this->getUserId($this->stu_number);
 		$sql = "select * from schedule_info where user_id = ".$this->user_id." and is_delete = false";
 		$result = Db::query($sql);
 		return $result;
@@ -43,8 +43,8 @@ class QueryMySchedule extends Controller
 
 	public function getMyScheduleInfo()
 	{
-		$Index = controller('Index'); //同一个controller下的控制器可以直接调用
-		$user_number = $Index->getUserNumber();
+		$model = new SIndex(); //同一个controller下的控制器可以直接调用
+		$user_number = $model->getUserNumber();
 
 		$res = Db::table('user_info')->where('work_id', $user_number)->find();
 		if($res){
