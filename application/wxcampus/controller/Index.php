@@ -16,7 +16,7 @@ use think\Request;
 
 class Index extends Controller
 {
-    public $stu_number;
+    public  $stu_number;
 //微校相关信息
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
@@ -52,6 +52,7 @@ class Index extends Controller
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
             $this->stu_number = $userInfo['card_number'];
+            echo $this->stu_number;
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
@@ -184,7 +185,7 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        dump($stu_number);
+        dump($this->stu_number);
         // $code = input('param.wxcode');
         // $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         // if($accessToken){
