@@ -1,2 +1,86 @@
-<head>Hello</head>
-This is just a test.
+{extend name="common@public/base" /}
+{block name='main-content'}
+
+<div class="col-xl-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="box-title">个人日程查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
+                    data-target=".add-schedule">添加日程</button>
+            </h4>
+        </div>
+        <div class="card-body--">
+            <div class="table-stats">
+                <table id="bootstrap-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th class="serial">序号</th>
+                            <th>日期</th>
+                            <th>时间ID</th>
+                            <th>地点ID</th>
+                            <th>事项ID</th>
+                            <th>备注</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach name="schedule_info" item="vo"}
+                        <tr>
+                            <td class="serial">{$key+1}</td>
+                            <td><span class="product">{$vo['date']}</span></td>
+                            <td><span class="product">{$vo['time_id']}</span></td>
+                            <td><span class="product">{$vo['place_id']}</span></td>
+                            <td><span class="product">{$vo['item_id']}</span></td>
+                            <td><span class="product">{$vo['note']}</span></td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm mb-1 edit" data-id="{$vo.id}"
+                                    data-toggle="modal" data-target=".edit-schedule">
+                                    <i class="fa fa-magic"></i>&nbsp;编辑
+                                </button>
+                                <button type="button" class="btn btn-danger btn-sm mb-1 delete" data-id="{$vo.id}"
+                                    data-toggle="modal" data-target=".delete-schedule">
+                                    <i class="fa fa-exclamation"></i>&nbsp;删除
+                                </button>
+                            </td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade add-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">添加日程</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {foreach name="fields" item="vo"}
+                <p>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa {$vo['icon']}"></i>
+                            </div>
+                            <input type="text" name="itemDescription"
+                                placeholder="{$vo['name']}" class="form-control add-schedule-field {$vo['field']}">
+                        </div>
+                    </div>
+                </p>
+                {/foreach}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cancel-add" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-success submit-add" data-dismiss="modal">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{/block}
