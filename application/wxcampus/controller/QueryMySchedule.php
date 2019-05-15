@@ -56,7 +56,7 @@ class QueryMySchedule extends Controller
 			}
 		}
 		else{
-			echo "没有你的信息"；
+			echo "没有你的信息";
 		}
 	}
 }
