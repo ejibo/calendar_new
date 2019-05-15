@@ -155,8 +155,12 @@ class Whitelist extends Common
             }
         }
         $addFlag = false ;
-        if ($sqlData!=null)
-        $addFlag = $excelData->insertAllUser($sqlData);
+        //如果从Excel获取的数组不为空
+        if (empty($sqlData)){
+            $addFlag = $excelData->insertAllUser($sqlData);}
+        else{
+            $this->success('添加成功,自动跳转');
+        }
         //echo  $sqlData[0];
         if ($addFlag) {
             $this->success('添加成功,自动跳转');
