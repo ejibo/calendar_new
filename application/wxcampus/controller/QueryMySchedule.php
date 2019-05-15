@@ -29,7 +29,7 @@ class QueryMySchedule extends Controller
 		$this->stu_number = $model->getStuNumber();
 		echo "".$this->stu_number;
 		$this->user_id = $this->getUserId($this->stu_number);
-		$sql = "select * from schedule_info where user_id = ".$this->user_id." and is_delete = false";
+		$sql = "select * from schedule_info where user_id = ".$this->user_id.";
 		$result = Db::query($sql);
 		return $result;
 	}
