@@ -226,14 +226,21 @@ class WxCalendar extends Controller
         $cells = [];
         $schedules = $this->getOneDaySchedule($timestamp);
         foreach ($schedules as $sched){
-            $cell = [
-                'note' => $sched['note'],
+            $time = $this->times[$sched['time_id']]['name'];
+            if(!array_key_exists($time, $cells)){
+                $cell = [
+                    'time' => $time,
+                    'data' => []
+                ];
+                $cells[$time] = $cell;
+            }
+            $dataItem = [
                 'item' => $this->items[$sched['item_id']]['name'],
-                'place' => $this->places[$sched['place_id']]['name'],
-                'time' => $this->times[$sched['time_id']]['name'],
-                'id' => $sched['id']
+                'note' => $sched['note'],
+                'place'=> $this->places[$sched['place_id']]['name'],
+                'id'   => $sched['id']
             ];
-            array_push($cells, $cell);
+            array_push($cells[$time]['data'], $dataItem);
         }
         return $cells;
     }
