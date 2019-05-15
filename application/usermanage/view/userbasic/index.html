@@ -32,14 +32,17 @@
                                                   document.getElementById("button1").style.display="none"'>取消
                     </button>
                     <br>
+                    <br>
                     <form id="batchAdd" action="batchAddByExcel" enctype="multipart/form-data" method="post"
                           style="display: none">
-                        <label>Excel文件:</label>
-                        <input type="file" name="file"/> <br>
-                        <label>批量添加:</label>
+                        <label>Excel文件: </label>
+                        <input type="file" name="file"/>
+                        <br>
+                        <label>格式: |姓名|学(工)号|用户类型|所属部门|职位|</label> <br>
+                        <label>批量添加: </label>
                         <input class="btn btn-success btn-sm" type="submit" value="上传"/>
                     </form>
-                    
+
 
                 </div>
                 <div class="card-body--">
@@ -90,7 +93,7 @@
         </div>
 
         <!--添加白名单人员-->
-        <form action="addUser" method="post">
+        <form action="addUser" method="post" onsubmit="return check_submit()">
             <div class="modal fade" id="addwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -104,12 +107,19 @@
                         <div class="modal-body">
                             <p>
                             <div class="form-group">
+                                <div id="result_name"></div>
+                            </div>
+                            <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" id="name" name="name" placeholder="姓名" class="form-control">
+                                    <input type="text" id="name" name="name" placeholder="姓名"
+                                           class="form-control" onfocus="focus_name()" onblur="blur_name()">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="result_work_id"></div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
@@ -117,7 +127,7 @@
                                         <i class="fa fa-credit-card"></i>
                                     </div>
                                     <input type="text" id="work_id" name="work_id" placeholder="工号/学号"
-                                           class="form-control">
+                                           class="form-control" onfocus="focus_id()" onblur="blur_id()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -327,7 +337,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-secondary"  data-dismiss="modal">取消</button>
                         <button type="submit" class="btn btn-success" id="confirmdelete">确认</button>
                         </a>
                     </div>
@@ -541,13 +551,76 @@
             form.style.display = 'none';
         }
     });
+
+    let flagName = false;
+    let flagId = false;
+
+    function focus_name() {
+        let resultName = document.getElementById("result_name");
+        resultName.innerHTML = "姓名不可包含特殊字符且为2~20位的中英文";
+        resultName.style.color = '#999';
+    }
+
+    function blur_name() {
+        flagName = false;
+        let resultName = document.getElementById("result_name");
+        resultName.style.color = '#900';
+        let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
+        let name = $('#name').val();
+        if (name === null) {
+            resultName.innerHTML = "用户名为空";
+        } else if (name.length < 2 || name.length > 20) {
+            resultName.innerHTML = "用户名必须为2~20位";
+        } else if (cnPattern.test(name)) {
+            flagName = true;
+            resultName.innerHTML = "用户名合法";
+            resultName.style.color = '#090';
+        } else {
+            resultName.innerHTML = "用户名非法，请修改";
+        }
+    }
+
+    function focus_id() {
+        let resultId = document.getElementById("result_work_id");
+        resultId.innerHTML = "学工号仅为数字";
+        resultId.style.color = "#999";
+    }
+
+    function blur_id() {
+        flagId = false;
+        let resultId = document.getElementById("result_work_id");
+        resultId.style.color = "#900";
+        let cnPattern = /^\d+$/;
+        let workId = $('#work_id').val();
+        if (workId === null) {
+            resultId.innerHTML = "学工号为空";
+        } else if (cnPattern.test(workId)) {
+            flagId = true;
+            resultId.innerHTML = "学工号合法";
+            resultId.style.color = "#090";
+        } else {
+            resultId.innerHTML = "学工号非法，请修改";
+        }
+    }
+    
+    function check_submit() {
+        if (flagId && flagName) {
+            flagId = false;
+            flagName = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 </script>
 
 <script>
-    var idTmr;  
-    function  getExplorer() {  
-    var explorer = window.navigator.userAgent ;  
-    //ie  
+    var idTmr;
+    function  getExplorer() {
+    var explorer = window.navigator.userAgent ;
+    //ie
     if (explorer.indexOf("MSIE") >= 0) {
             return 'ie';
         }
@@ -591,7 +664,7 @@
             window.location.href = uri + base64(format(template, ctx))
         }
     })()
-    
-    
+
+
     </script>
 {/block}

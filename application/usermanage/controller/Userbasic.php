@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use think\Request;
+use app\logmanage\model\Log as LogModel;
 
 //require 'vendor/autoload.php';
 
@@ -65,6 +66,7 @@ class Userbasic extends Common
      */
     public function addUser()
     {
+        $model = new LogModel();
         $userbasic = model("Userbasic");
         $data = input('post.');
         $workId = $data['work_id'];
@@ -74,6 +76,7 @@ class Userbasic extends Common
         }
         $addFlag = $userbasic->insertUser($data);
         if ($addFlag) {
+            $model->recordLogApi(ADMIN_ID, 2, 'user_info', $addFlag);
             $this->success('添加成功');
         } else {
             $this->error('添加失败');
@@ -90,7 +93,7 @@ class Userbasic extends Common
     public function batchAddByExcel()
     {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
+        $model = new LogModel();
         try {
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
@@ -123,6 +126,7 @@ class Userbasic extends Common
 
         $addFlag = $userbasic->insertAllUser($sqlData);
         if ($addFlag) {
+            $model->recordLogApi(ADMIN_ID, 2, 'user_info', $addFlag);
             $this->success('批量添加成功，重复用户信息已自动过滤未添加');
         } else {
             $this->error('添加失败');
