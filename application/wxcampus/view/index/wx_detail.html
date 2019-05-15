@@ -70,6 +70,7 @@
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
         </div>
+        <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
 </div>
 </body>
@@ -127,6 +128,7 @@ $(document).ready(function(){
                     {
                         "method": "update",
                         "date": $('#date').val(),
+                        "id": $('#scheduleid').val(),
                         "time_id": $('#scheduletime option:selected').val(),
                         "place_id": $("#scheduleplace option:selected").val(),
                         "item_id": $("#scheduleitem option:selected").val(),
