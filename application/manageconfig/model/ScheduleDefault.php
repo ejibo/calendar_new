@@ -7,8 +7,7 @@ use think\model;
 
 class ScheduleDefault extends Model
 {
-    public static function getDefaultSchedules($username){
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
+    public static function getDefaultSchedules($user_id){
         $defaultSchedule=new ScheduleDefault();
         $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
         return $defaultSchedules;
@@ -26,17 +25,14 @@ class ScheduleDefault extends Model
         return Db::table('schedule_item')->where('id', $this->getData('item_id'))->find()['name'];
     }
 
-    public function setUser($username){
-        $user = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find();
-        if(empty($user)){
-            throw new \InvalidArgumentException('用户['.$username.']不存在',400);
-        }
-        $this->data('user_id',$user['id']);
+    public function setUserId($user_id){
+        $this->data('user_id',$user_id);
     }
 
     /**
      * 时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的。<br>
      * 并检查之前是否已经有一样的默认日程了
+     * @throws \InvalidArgumentException 存在相同时间段的话或者是未定义的时间段的话抛出
      */
     public function setTime($time){
         $time_id = Db::table('schedule_time')->where('name', $time)->find()['id'];
@@ -49,6 +45,7 @@ class ScheduleDefault extends Model
 
     /**
      * 检查之前是否已经有一样的默认日程了
+     * @throws \InvalidArgumentException 存在相同时间段的话抛出
      */
     public function checkSameTimeDefaultSchedule(){
         $res = Db::table('schedule_default')->where('user_id',$this->getData('user_id'))->

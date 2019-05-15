@@ -10,6 +10,16 @@ namespace app\manageconfig\controller;
 
 use think\Db;
 use app\common\controller\Common;
+use app\logmanage\model\Log as LogModel;
+
+
+use think\Loader;
+use PHPExcel;
+use PHPExcel_IOFactory;
+use PHPExcel_Cell;
+use PHPExcel_Writer_Excel5;
+use PHPExcel_Writer_Excel2007;
+
 
 class Whitelist extends Common
 {
@@ -78,16 +88,81 @@ class Whitelist extends Common
         }
     }
 
+    /*
+    创建： 翁嘉进
+    功能： 实现清空白名单操作
+    实现： 1.判断管理员是否登录 
+           2.若无登录，则跳转至登录界面（通过继承Common类实现） 
+           3.清空白名单 
+           4.记录操作日志 
+           5.返回结果
+    */
 
     public function clearwhitelist(){
-        $whitelist = model('Whitelist');
-        $is_clear = $whitelist->clearwhitelist();
-        if ($is_clear){
+        $whitelist = model('Whitelist');                            // 调用白名单数据模型
+        $is_clear = $whitelist->clearwhitelist();                   // 通过模型进行清空操作
+        $logmodel = new LogModel();                                 // 调用操作日志数据模型
+        $uid = ADMIN_ID;                                            // 管理员ID
+        $type = 4;                                                  // 操作类型：删除（清空）
+        $table = 'user_info';                                       // 操作数据表
+        $field = ['All whitelist items, total:'.$is_clear];                           // 删除的主键列表, 不是学号
+        $logmodel->recordLogApi ($uid, $type, $table, $field);      // 需要判断调用是否成功
+
+        if ($is_clear >= 0){
             $this->success('修改成功！');
         }else{
             $this->error('修改失败！');
         }
     }
 
+    function excelInput(){
+        if(request()->isPost()) {
+            Loader::import('PHPExcel.PHPExcel');
+            Loader::import('PHPExcel.PHPExcel.PHPExcel_IOFactory');
+            Loader::import('PHPExcel.PHPExcel.PHPExcel_Cell');
+            //实例化PHPExcel
+            $objPHPExcel = new \PHPExcel();
+            $file = request()->file('excel');
+            if ($file) {
+                $file_types = explode(".", $_FILES ['excel'] ['name']); // ["name"] => string(25) "excel文件名.xls"
+                $file_type = $file_types [count($file_types) - 1];//xls后缀
+                $file_name = $file_types [count($file_types) - 2];//xls去后缀的文件名
+                /*判别是不是.xls文件，判别是不是excel文件*/
+                if (strtolower($file_type) != "xls" && strtolower($file_type) != "xlsx") {
+                    echo '不是Excel文件，重新上传';
+                    die;
+                }
 
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'excel');//上传位置
+                $path = ROOT_PATH . 'public' . DS . 'excel' . DS;
+                $file_path = $path . $info->getSaveName();//上传后的EXCEL路径
+                //echo $file_path;//文件路径
+
+                //获取上传的excel表格的数据，形成数组
+                $re = $this->actionRead($file_path, 'utf-8');
+                array_splice($re, 1, 0);
+                unset($re[0]);
+
+                /*将数组的键改为自定义名称*/
+                $keys = array('name', 'work_id', 'type_id', 'depart_id', 'position_id');
+                foreach ($re as $i => $vals) {
+                    $re[$i] = array_combine($keys, $vals);
+
+                }
+                echo '上传成功';
+                //    dump($re); 查看数组
+
+                dump($re[1]);
+
+                //遍历数组写入数据库
+                for ($i = 1; $i <= count($re); $i++) {
+                    $data = $re[$i];
+                    dump($data);
+                    Db::table('user_info')->insert($re[$i]);
+
+                }
+            }
+        }
+
+    }
 }
