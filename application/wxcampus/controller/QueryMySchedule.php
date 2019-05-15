@@ -25,10 +25,8 @@ class QueryMySchedule extends Controller
 	);
 
 	public function defaultList(){
-		$model = new SIndex();
-		$this->stu_number = $model->getStuNumber();
-		dump($this->stu_number);
-		// $this->user_id = $this->getUserId($this->stu_number);
+		$this->user_id = $this->getUserId($this->stu_number);
+		echo $this->user_id;
 		// $sql = "select * from schedule_info where user_id = ".$this->user_id;
 		// $result = Db::query($sql);
 		// return $result;
@@ -37,8 +35,7 @@ class QueryMySchedule extends Controller
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		echo $number;
-		//$this->assign('schedule_info', $this->defaultList());
+		$this->assign('schedule_info', $this->defaultList());
 		//$this->assign('fields', $this->field_config);
 		//return $this->fetch('index');
 	}
