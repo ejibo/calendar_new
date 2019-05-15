@@ -184,7 +184,10 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        echo $this->stu_number;
+        $user_info = $this->getUserInfo();
+        $user_name = $user_info['name'];
+        $user_number = $user_info['card_number'];
+        echo $user_name."<br />".$user_number;
         //return $this->stu_number;
     }
 
