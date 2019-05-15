@@ -44,7 +44,7 @@ table.gridtable td {
     </div>
     <div class="card-body--">
         <div class="table-stats">
-            <table id="bootstrap-data-table" class="table">
+            <table id="bootstrap-data-table">
                 <thead>
                     <tr>
                         <th class="serial">序号</th>
@@ -59,11 +59,11 @@ table.gridtable td {
                     {foreach name="schedule_info" item="vo"}
                     <tr>
                         <td class="serial">{$key+1}</td>
-                        <td><span class="weui-media-box__title">{$vo['date']}</span></td>
-                        <td><span class="weui-media-box__title">{$vo['time']}</span></td>
-                        <td><span class="weui-media-box__title">{$vo['place']}</span></td>
-                        <td><span class="weui-media-box__title">{$vo['item']}</span></td>
-                        <td><span class="weui-media-box__title">{$vo['note']}</span></td>
+                        <td>{$vo['date']}</span></td>
+                        <td>{$vo['time']}</span></td>
+                        <td>{$vo['place']}</span></td>
+                        <td>{$vo['item']}</span></td>
+                        <td>{$vo['note']}</span></td>
                     </tr>
                     {/foreach}
                 </tbody>
