@@ -3,11 +3,12 @@ namespace app\wxcampus\controller;
 
 use think\Controller;
 use think\Db;
+use \app\wxcampus\controller\Index as SIndex;
 
 
 class QueryMySchedule extends Controller
 {
-	$Index = controller('Index');
+	$model = new SIndex();
 	public $stu_number;
 	public $user_id;
 
@@ -25,7 +26,7 @@ class QueryMySchedule extends Controller
 	);
 
 	public function defaultList(){
-		$this->stu_number = getStuNumber();
+		$this->stu_number = $model->getStuNumber();
 		echo "".$this->stu_number;
 		$this->user_id = getUserId($this->stu_number);
 		$sql = "select * from schedule_info where user_id = ".$this->user_id." and is_delete = false";
