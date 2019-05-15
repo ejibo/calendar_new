@@ -118,7 +118,6 @@ class Index extends Controller
     public function addFollow()
     {
         $followid = Request::instance()->param('followid');
-
         $add = [];
         $add['user_id'] = 1;
         $add['follow_id'] = $followid;
