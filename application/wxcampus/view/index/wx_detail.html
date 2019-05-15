@@ -14,7 +14,7 @@
             <div class="weui-cell">
                 <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="" id="date">
+                    <input class="weui-input" type="date" value="{$date}" id="date">
                 </div>
                 <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
             </div>
@@ -59,7 +59,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}"></textarea>
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}">{$note}</textarea>
                     <div class="weui-textarea-counter"><span><span id='wordcounter'>0</span></span>/{$maxlength}</div>
                 </div>
             </div>

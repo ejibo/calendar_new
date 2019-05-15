@@ -67,13 +67,19 @@ class WxCalendar extends Controller
         //TODO
         return date('Y-m-d', time() + 24*60*60);
     }
-    public function getOneDaySchedule($timestamp){
+    protected function getOneDaySchedule($timestamp){
         $page = Db::name('schedule_info')
             ->where('user_id', $this->getUserId())
             ->where('date', date('Y-m-d', $timestamp))
             ->where('is_delete', 0)
             ->select();
         return $page;
+    }
+    protected function getSchedule($scheduleId){
+        return Db::name('schedule_info')
+            ->where('user_id', $this->getUserId())
+            ->where('id', $scheduleId)
+            ->find();
     }
     //返回所有相关字段, 保证当一个项被删除后, 依然可以显示.
     protected function getAllScheduleItems(){
@@ -246,12 +252,17 @@ class WxCalendar extends Controller
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($scheduleId){
+    public function updatePage($id){
+        $sched = $this->getSchedule($id);
+        $this->assign('date', $sched['date']);
+        $this->assign('note', $sched['note']);
         $this->assign('title', '修改日程');
         $this->assign('confirmid', 'update-btn');
         return $this->detail();
     }
     public function createPage(){
+        $this->assign('date', '');
+        $this->assign('note', '');
         $this->assign('title', '添加日程');
         $this->assign('confirmid', 'create-btn');
         return $this->detail();
