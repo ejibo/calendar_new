@@ -157,7 +157,7 @@
     function addPosition() {
         console.log($("#name").val());
         let name=$("#name").val();
-        var reg=/([\u4E00-\u9FA5];
+        var reg=/([\u4E00-\u9FA5])+/;
             alert(reg.test(name));
         return true;
         $.ajax({
