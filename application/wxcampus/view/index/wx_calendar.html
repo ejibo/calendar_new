@@ -60,14 +60,14 @@
                 <div class="weui-flex" style="padding-top: 10px">
                     <div class="weui-flex__item">
                         <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160"><img
-                                src="__STATIC__/wx/img/before.png" style="height: 17px"></div>
+                                src="__STATIC__/wx/img/before.png" style="height: 17px" id="left"></div>
                     </div>
                     <div class="weui-flex__item">
-                        <div class="placeholder" style="font-size: 17px">{$date}</div>
+                        <div class="placeholder" style="font-size: 17px" id="date">{$date}</div>
                     </div>
                     <div class="weui-flex__item">
                         <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160"><img
-                                src="__STATIC__/wx/img/after.png" style="height: 17px"></div>
+                                src="__STATIC__/wx/img/after.png" style="height: 17px" id="right"></div>
                     </div>
                 </div>
                 <div class="weui-flex week">
@@ -198,7 +198,7 @@
             </div>
             {volist name="cell['data']" id="vo"}
             <div class="weui-panel__bd">
-                <a href="/wxcampus/updatePage?{$vo.id}" class="weui-media-box weui-media-box_appmsg"
+                <a href="/wxcampus/WxCalendar/updatePage?{$vo.id}" class="weui-media-box weui-media-box_appmsg"
                    style="padding: 10px;margin-left: 15px">
                     <div>
                         <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
@@ -227,11 +227,19 @@
 <script>
 
 $(document).ready(function(){
-   $('left').click(function(){
-
+   $('#left').click(function(){
+        var datestr = $('#date').text();
+        var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
+        timestamp -= 1000 * 60 * 60 * 24;
+        var yesterday =new Date(timestamp);
+        location.href = '/wxcampus/WxCalendar?date=' + yesterday.getFullYear() + '-' + (yesterday.getMonth()+1) + '-' + yesterday.getDate();
    });
-   $('right').click(function(){
-
+   $('#right').click(function(){
+        var datestr = $('#date').text();
+        var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
+        timestamp += 1000 * 60 * 60 * 24;;
+        var tomorrow =new Date(timestamp);
+        location.href = '/wxcampus/WxCalendar?date=' + tomorrow.getFullYear() + '-' + (tomorrow.getMonth()+1) + '-' + tomorrow.getDate();
    });
 });
 </script>
