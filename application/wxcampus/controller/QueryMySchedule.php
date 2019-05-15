@@ -81,10 +81,9 @@ class QueryMySchedule extends Controller
 			$event = Db::table('schedule_item')->where('id', $item_id)->value('name');
 			$result[$x]['event'] = $event;
 		}
-		//$mark = $starttime." ~ ".$endtime."的日程信息";
-		//$this->assign('mark', $mark);
-		$this->assign('schedule_info', $result);
-		return $this->fetch('result');
+		//$this->assign('schedule_info', $result);
+		//return $this->fetch('result');
+		dump($result);
 	}
 }
 
