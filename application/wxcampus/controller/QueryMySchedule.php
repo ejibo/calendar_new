@@ -8,7 +8,6 @@ use \app\wxcampus\controller\Index as SIndex;
 
 class QueryMySchedule extends Controller
 {
-	$model = new SIndex();
 	public $stu_number;
 	public $user_id;
 
@@ -26,6 +25,7 @@ class QueryMySchedule extends Controller
 	);
 
 	public function defaultList(){
+		$model = new SIndex();
 		$this->stu_number = $model->getStuNumber();
 		echo "".$this->stu_number;
 		$this->user_id = getUserId($this->stu_number);
