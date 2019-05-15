@@ -95,7 +95,7 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        return $this->fetch();
+        return $this->fetch('WxCalendar/index');
     }
 
     //返回未关注的领导可以用来新添关注人
