@@ -78,7 +78,7 @@
         </div>
       
       <div class="res">
-            <volist name="list" id="list" empty="暂时没有数据" >
+            
                 <table id="bootstrap-data-table" class="table">
                     <thead>
                     <tr>
@@ -90,6 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
+                      {volist name="list" id="list" empty="暂时没有数据"}
                     <tr>
                         <td class="serial">{$i}</td>
                         <td>  <span class="product">{$list.name}</span> </td>
@@ -97,9 +98,10 @@
                         <td>  <span class="product">{$list.place}</span> </td>
                         <td> <span class="product">{$list.item}</span> </td>
                     </tr>
+                        {/volist}
                     </tbody>
                 </table>
-            </volist>
+            
         </div>
       
     </div>
