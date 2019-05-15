@@ -154,6 +154,8 @@ class Whitelist extends Common
                 continue;
             }
         }
+        $addFlag = false ;
+        if ($sqlData!=null)
         $addFlag = $excelData->insertAllUser($sqlData);
         //echo  $sqlData[0];
         if ($addFlag) {
