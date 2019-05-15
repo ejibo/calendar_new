@@ -3,7 +3,7 @@ namespace app\wxcampus\controller;
 
 use think\Controller;
 use think\Db;
-use \app\wxcampus\controller\Index as SIndex;
+use think\Request;
 
 
 class QueryMySchedule extends Controller
