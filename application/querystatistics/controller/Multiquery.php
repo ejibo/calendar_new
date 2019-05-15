@@ -66,11 +66,14 @@ class Multiquery extends Common
             ->join('schedule_item','a.item_id = f.id')
             ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
+        $zero1=date("y-m-d h:i:s");
         $finalres = array();
         foreach ($nameids as $nameid) {
             foreach ($info as $singlearr) {
                 if ($singlearr['userid'] == $nameid){
-                    array_push($finalres,$singlearr); 
+                    if(strtotime($zero1) < strtotime($singlearr['date'])){
+                        array_push($finalres,$singlearr); 
+                    }
                 }
             }
         }
