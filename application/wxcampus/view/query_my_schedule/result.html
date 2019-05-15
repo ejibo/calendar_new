@@ -43,50 +43,6 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade add-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            {foreach name="fields" item="vo"}
-                            <p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa {$vo['icon']}"></i>
-                                        </div>
-                                        <input type="text" name="itemDescription"
-                                            placeholder="{$vo['name']}" class="form-control add-schedule-field {$vo['field']}">
-                                    </div>
-                                </div>
-                            </p>
-                            {/foreach}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade edit-schedule" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            {foreach name="fields" item="vo"}
-                            <p>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="input-group-addon">
-                                            <i class="fa {$vo['icon']}"></i>
-                                        </div>
-                                        <input type="text" id="itemDesA" name="itemDescription"
-                                            placeholder="{$vo['name']}" class="form-control edit-schedule-field {$vo['field']}">
-                                    </div>
-                                </div>
-                            </p>
-                            {/foreach}
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
