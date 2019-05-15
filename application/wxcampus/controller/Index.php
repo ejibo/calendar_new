@@ -184,7 +184,7 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        dump($this->stu_number);
+        echo $this->stu_number;
         //return $this->stu_number;
     }
 
