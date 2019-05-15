@@ -87,7 +87,7 @@ class Index extends Controller
                 ->where('a.user_id = '.$user_id)
                 ->join('user_info','a.follow_id = b.id')
                 ->join('user_position','b.position_id = c.id')
-                ->field('a.id as userid, a.follow_id as followid, b.name as name, c.name as position')
+                ->field('a.user_id as userid, a.follow_id as followid, b.name as name, c.name as position')
                 ->select();
             $this->assign('list_time_table',$list);
 
