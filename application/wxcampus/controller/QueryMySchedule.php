@@ -52,7 +52,7 @@ class QueryMySchedule extends Controller
 				echo "Sorry, 没有你的日程信息";
 			}
 			else{
-				$name = $res[]
+				echo $res['type_id'];
 			}
 		}
 		else{
