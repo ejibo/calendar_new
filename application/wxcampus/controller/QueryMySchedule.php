@@ -83,7 +83,8 @@ class QueryMySchedule extends Controller
 			$result[$x]['event'] = $event;
 		}
 		$this->assign('schedule_info', $result);
-		return $this->fetch('result');
+		dump($result);
+		//return $this->fetch('result');
 	}
 }
 
