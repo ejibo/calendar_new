@@ -185,7 +185,7 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        dump($this->stu_number);
+        //dump($this->stu_number);
         // $code = input('param.wxcode');
         // $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         // if($accessToken){
