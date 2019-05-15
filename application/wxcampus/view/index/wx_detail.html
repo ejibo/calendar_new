@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%;">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
+    <title>{$title}</title>
+</head>
+<body style="height: 100%; background-color: #ededed">
+<div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-cells__title">{$title}</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="date" value="" id="date">
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">时间</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2" id="scheduletime">
+                        {volist name='times' id='vo'}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">地点</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2" id="scheduleplace">
+                            {volist name='places' id='vo'}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">事项</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2" id="scheduleitem">
+                            {volist name='items' id='vo'}
+                            <option value="{$vo.id}">{$vo.name}</option>
+                            {/volist}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells__title">事项描述</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note"></textarea>
+                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="/wxcampus/WxCalendar" id="cancel-btn">返回</a>
+        </div>
+    </div>
+</div>
+</body>
+{literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+$('#create-btn').click(
+    function (){
+        $.post(
+            '/wxcampus/wxCalendar/postTest',
+            {
+                "method": "create",
+                "date": $('#date').val(),
+                "time_id": $('#scheduletime option:selected').val(),
+                "place_id": $("#scheduleplace option:selected").val(),
+                "item_id": $("#scheduleitem option:selected").val(),
+                "note": $("#note").val() 
+            },
+            function () {/*callback*/}
+        );
+    }
+);
+$('#update-btn').click(
+    function (){
+        $.post(
+            '/wxcampus/wxCalendar/postTest',
+            {
+                "method": "update",
+                "date": $('#date').val(),
+                "time_id": $('#scheduletime option:selected').val(),
+                "place_id": $("#scheduleplace option:selected").val(),
+                "item_id": $("#scheduleitem option:selected").val(),
+                "note": $("#note").val() 
+            },
+            function () {/*callback*/}
+        );
+    }
+);
+</script>
+{/literal}
+</html>

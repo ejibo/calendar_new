@@ -1,21 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 84333
- * Date: 2019/4/14
- * Time: 9:43
- */
 
-namespace app\wx\controller;
+namespace app\wxcampus\controller;
 
-
-use app\wx\common\Common;
+use think\Controller;
 use app\logmanage\model\Log as LogModel;
 use think\Validate;
 use think\Request;
 use think\Db;
 
-class PersonalValidator extends Validate
+class CalendarValidator extends Validate
 {
     protected $rule =[
         'pagenum' => 'require|number|>=:0',
@@ -62,7 +55,8 @@ class PersonalValidator extends Validate
         return $now <= $given && $given <= $ddl;
     }
 }
-class Personal extends Common
+
+class WxCalendar extends Controller
 {
     protected function getUserId(){
         //TODO
@@ -120,7 +114,7 @@ class Personal extends Common
             'create_time'   => time()
         ];
         //检查输入是否有效
-        $valid = $this->validate($data, 'app\wx\controller\PersonalValidator.create');
+        $valid = $this->validate($data, 'app\wx\controller\CalendarValidator.create');
         if($valid !== true){//验证失败
             dump($valid);
             return "failed";
@@ -142,7 +136,7 @@ class Personal extends Common
             'note'          => input('post.note'),
             'update_time'   => time()
         ];
-        $valid = $this->validate($data, 'app\wx\controller\PersonalValidator.update');
+        $valid = $this->validate($data, 'app\wx\controller\CalendarValidator.update');
 
         if($valid !== true){//验证失败
             dump($valid);
@@ -180,7 +174,7 @@ class Personal extends Common
     public function delete($id){
         $uid = getUserId();
         //检查是否有效
-        $valid = $this->validate($data, 'app\wx\controller\PersonalValidator.delete');
+        $valid = $this->validate($data, 'app\wx\controller\CalendarValidator.delete');
         if($valid !== true){
             return "failed";
         }
@@ -198,5 +192,65 @@ class Personal extends Common
         //记录日志
         $logRec = new LogModel;
         $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
+    }
+
+    protected $items;
+    protected $places;
+    protected $times;
+    public function Index($date = NULL){
+        if($date == NULL)$date = date('Y-m-d');
+        if($this->items == NULL)$this->items = $this->getAllScheduleItems();
+        if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
+        if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
+        $this->assign('date', date('Y-m-d'));
+        $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
+        return $this->fetch("index/wx_calendar");
+    }
+    public function getScheduleDisplayArray($timestamp){
+        assert($this->items != NULL);
+        assert($this->places!= NULL);
+        assert($this->times != NULL);
+        $cells = [];
+        $schedules = $this->getOneDaySchedule($timestamp);
+        foreach ($schedules as $sched){
+            $cell = [
+                'note' => $sched['note'],
+                'item' => $this->items[$sched['item_id']]['name'],
+                'place' => $this->places[$sched['place_id']]['name'],
+                'time' => $this->times[$sched['time_id']]['name'],
+                'id' => $sched['id']
+            ];
+            array_push($cells, $cell);
+        }
+        return $cells;
+    }
+    protected function detail(){
+        $this->assign('items', $this->getScheduleItems());
+        $this->assign('times', $this->getScheduleTimes());
+        $this->assign('places', $this->getSchedulePlaces());
+        return $this->fetch("index/wx_detail");
+    }
+    public function updatePage($scheduleId){
+        $this->assign('title', '修改日程');
+        $this->assign('confirmid', 'update-btn');
+        return $this->detail();
+    }
+    public function createPage(){
+        $this->assign('title', '添加日程');
+        $this->assign('confirmid', 'create-btn');
+        return $this->detail();
+    }
+    public function postTest(){
+        $data = [
+            'user_id'       => $this->getUserId(),
+            'method'        => input('post.method'),
+            'date'          => input('post.date'),
+            'time_id'       => input('post.time_id'),
+            'place_id'      => input('post.place_id'),
+            'item_id'       => input('post.item_id'),
+            'note'          => input('post.note'),
+            'create_time'   => time()
+        ];
+        var_dump($data);
     }
 }
