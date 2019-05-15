@@ -21,14 +21,40 @@ class Msgmodel extends Common
     }
 
     /*
-     *story:
-     *负责人：
-     */
+    *story:查询消息模板
+    *负责人：吴珏
+    */
+
     public function loadTemplate()
     {
         $template = model('Template');
         $templates = $template->getAllTemplates();
         return $templates;
+    }
+    
+    public function searchTemplate()
+    {
+        $status = $_POST['status'];
+        $search = $_POST['search'];
+        $model = model('Template');
+        $isHasTitle = $model->getItemByTitle($search);
+        $isHasContent = $model->getItemByContent($search);
+        if ($isHasTitle == null) {
+            $this->error("搜索项不存在，请重新尝试");
+        }
+        else{
+            var_dump($isHasTitle);
+            // $this->success();
+            // echo $templateItems['title'];
+            // $templateItems = $model->getAllTemplates();
+            $this->assign('templateItems',$isHasTitle);
+            // var_dump($templateItems);
+            // $this->assign('templateItems',$isHasTitle);
+            // echo $isHasTitle;
+            // console.log($templateItems);
+            // var_dump($templateItems);
+            return $this->fetch('index');
+        }
     }
 
     /*
@@ -91,7 +117,6 @@ class Msgmodel extends Common
     */
     public function remind($user_id)
     {
-        
         $position = model('Template');
         $position->remind($user_id);
         $this->redirect('msgmanage/msgmodel/index');
@@ -101,7 +126,6 @@ class Msgmodel extends Common
     细分story：取消发送消息提醒
     *负责人：刘玄
     */
-
     public function cancelremind($user_id)
     {
         
@@ -109,4 +133,5 @@ class Msgmodel extends Common
         $position->cancelremind($user_id);
         $this->redirect('msgmanage/msgmodel/index');
     }
+
 }
