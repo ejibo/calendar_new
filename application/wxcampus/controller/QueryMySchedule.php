@@ -64,26 +64,27 @@ class QueryMySchedule extends Controller
 		$starttime = $request->param('starttime');
 		$endtime = $request->param('endtime');
 
-		$sql = "select * from schedule_info
-		 where user_id=".$this->user_id." and date(date) between date('".$starttime."') and date('".$endtime."')";
-		$result = Db::query($sql);  
-		$len = count($result);
-		for($x = 0; $x < $len; $x++){
-			$time_id = $result[$x]['time_id'];
-			$time = Db::table('schedule_time')->where('id', $time_id)->value('name');
-			$result[$x]['time'] = $time;
+		echo $this->user_id;
+		// $sql = "select * from schedule_info
+		//  where user_id=".$this->user_id." and date(date) between date('".$starttime."') and date('".$endtime."')";
+		// $result = Db::query($sql);  
+		// $len = count($result);
+		// for($x = 0; $x < $len; $x++){
+		// 	$time_id = $result[$x]['time_id'];
+		// 	$time = Db::table('schedule_time')->where('id', $time_id)->value('name');
+		// 	$result[$x]['time'] = $time;
 
-			$place_id = $result[$x]['place_id'];
-			$location = Db::table('schedule_place')->where('id', $place_id)->value('name');
-			$result[$x]['location'] = $location;
+		// 	$place_id = $result[$x]['place_id'];
+		// 	$location = Db::table('schedule_place')->where('id', $place_id)->value('name');
+		// 	$result[$x]['location'] = $location;
 
-			$item_id = $result[$x]['item_id'];
-			$event = Db::table('schedule_item')->where('id', $item_id)->value('name');
-			$result[$x]['event'] = $event;
-		}
+		// 	$item_id = $result[$x]['item_id'];
+		// 	$event = Db::table('schedule_item')->where('id', $item_id)->value('name');
+		// 	$result[$x]['event'] = $event;
+		// }
 		//$this->assign('schedule_info', $result);
 		//return $this->fetch('result');
-		dump($result);
+		//dump($result);
 	}
 }
 
