@@ -28,10 +28,10 @@ class QueryMySchedule extends Controller
 		$model = new SIndex();
 		$this->stu_number = $model->getStuNumber();
 		dump($this->stu_number);
-		$this->user_id = $this->getUserId($this->stu_number);
-		$sql = "select * from schedule_info where user_id = ".$this->user_id;
-		$result = Db::query($sql);
-		return $result;
+		// $this->user_id = $this->getUserId($this->stu_number);
+		// $sql = "select * from schedule_info where user_id = ".$this->user_id;
+		// $result = Db::query($sql);
+		// return $result;
 	}
 
 	public function index()
