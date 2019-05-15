@@ -31,7 +31,6 @@ class Index extends Controller
     public function addUser($name,$number){
         Db::table('user_info')
             ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,'position_id'=>50,'is_delete'=>0])->insert();
-
     }
 
     //获取对应学号的user_id;
@@ -185,7 +184,8 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        return $this->stu_number;
+        dump($this->stu_number);
+        //return $this->stu_number;
     }
 
 }
