@@ -65,8 +65,8 @@ class QueryMySchedule extends Controller
 		$starttime = $request->param('starttime');
 		$endtime = $request->param('endtime');
 		$myUserId = $request->param('user_id');
-		$sql = "select * from schedule_info where user_id = ".$this->user_id;
-		$result = Db::query($sql);
+		$sql = "select * from schedule_info where user_id=".$myUserId." and date(date) between date('".$starttime."') and date('".$endtime."')";
+		$result = Db::query($sql);  
 		$len = count($result);
 		for($x = 0; $x < $len; $x++){
 			$time_id = $result[$x]['time_id'];
@@ -81,7 +81,9 @@ class QueryMySchedule extends Controller
 			$item = Db::table('schedule_item')->where('id', $item_id)->value('name');
 			$result[$x]['item'] = $item;
 		}
-		return $result;
+		$this->assign('schedule_info', $result);
+		//dump($result);
+		return $this->fetch('result');
 	}
 }
 
