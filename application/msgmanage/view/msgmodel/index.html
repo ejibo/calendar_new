@@ -9,6 +9,7 @@
                     <div class="card-body">
                         <h4 class="box-title">消息模板&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallModal1">添加模板</button>
+                            <button type="submit" id = "buttonSearch" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallModal5">查询模板</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -19,6 +20,7 @@
                                     <th class="serial">序号</th>
                                     <!--<th>事项ID</th>-->
                                     <th>模板名称</th>
+                                    <th>模板内容</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -29,6 +31,7 @@
                                     <td class="serial">{$key+1}</td>
                                     <!--<td>  <span class="product">{$templateItem['id']}</span></td>-->
                                     <td>  <span class="product">{$templateItem['title']}</span></td>
+                                    <td>  <span class="product">{$templateItem['content']}</span></td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$templateItem.id}" data-des="{$templateItem.title}" data-toggle="modal" data-target="#smallModal2">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
@@ -187,6 +190,43 @@
                 </div><!-- /.modal-dialog -->
             </div>
 
+            <div class="modal fade" id="smallModal5" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-md" role="document" >
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" style="display: inline">查询模板</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="" class="wrap-filter">
+                                <select id="itemStatus" name="status" class="form-control">
+                                    <option value="-1">请选择查询状态</option>
+                                    <option value="0">全部</option>>
+                                    <option value="1">已删除</option>
+                                    <option value ="2">正常</option>
+                                </select>
+                                </form>
+                            </br>
+                                <form action="" class="wrap-filter">
+                                    <select id="itemRange" name="range" class="form-control">
+                                        <option value="-1">请选择查询范围</option>
+                                        <option value="0">全部</option>>
+                                        <option value="1">标题</option>
+                                        <option value ="2">内容</option>
+                                    </select>
+                                 </form>
+                            </br>
+                                <input id="itemSearch" name="itemSearch" placeholder="模板名称/内容" class="form-control" style="margin-bottom: 15px;"/>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"  id="search_cancel" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-success" id="submit_search" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
     <!-- .animated -->
@@ -246,14 +286,6 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                // if(data.code == 1){
-                //     $("#msg2").html("<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                //     setTimeout("location.href='"+data.url+"'",1000);
-                // }else{
-                //     $("#msg2").html("<p class='color-red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                // }
                 alert(data.msg);
                 window.location.reload();
             }
@@ -278,20 +310,11 @@
             dataType: "json",
             success: function (data) {
                 console.log(data);
-                // if(data.code == 1){
-                //     $("#msg3").html("<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                //     setTimeout("location.href='"+data.url+"'",1000);
-                // }else{
-                //     $("#msg3").html("<p class='color-red'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                //         + data.msg + "</p>");
-                // }
                 alert(data.msg);
                 window.location.reload();
             }
         })
     });
-
 
     $("#submit_sure").click(function(){
 
@@ -307,6 +330,48 @@
             });
         });
     }
+    
+    $('#buttonSearch').on("click",function(){
+        console.log("click");
+    });
+
+    // $('#smallModal5').on('shown.bs.modal', function (event) {
+        // var id = $(e.relatedTarget);
+        // $("#id").val(id);
+        // console.log(id);
+        // $("#msg3").html("");
+        // var flag = $(event.relatedTarget);
+        // var modal = $(this);
+        // $.ajax({
+        //     url:"{:url('msgmanage/Msgmodel/index')}",
+        //     type:"POST",
+        //     data:{"flag":1},
+        //     dataType: "json",
+        //     success: function (data) {
+        //         console.log(data);
+        //         // alert(data.msg);
+        //         // window.location.reload();
+        //     }
+        // })
+    // });
+
+    $("#submit_search").on("click", function(){
+        var status = $("#itemStatus").val();
+        var search = $("#itemSearch").val();
+        var range = $("#itemRange").val();
+        $.ajax({
+            url:"{:url('msgmanage/Msgmodel/searchTemplate')}",
+            type:"POST",
+            data:{"status":status, "search":search,"range":range},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                // alert(data.msg);
+                // window.location.href();
+            }
+        })
+    });
+
 </script>
 <!-- /.content -->
 {/block}

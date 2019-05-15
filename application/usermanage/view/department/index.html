@@ -124,24 +124,37 @@
             }
         });
     }
-    function recoverDepartment(id) {
-        console.log("recover department of id "+id);
-        //用AJAX方式访问后台写的方法
-        $.ajax({
-            type: "POST",
-            url: 'recover',//你的请求程序页面随便
-            async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
-            data: {
-                "id":id
-            },//请求需要发送的处理数据
-            success: function (msg) {
-                //在这里刷新页面或者局部刷新表格
-                loadTable();
-            },
-            error: function (msg) {
-                alert("恢复失败！");
-            }
-        });
+    //story:恢复部门 负责人：李梦好
+    //id:待恢复部门的id
+    //name:待恢复部门的名称
+    function recoverDepartment(id,name) {
+        //console.log("recover department of id "+id+name);
+        if(confirm("确认恢复部门 "+name+"吗？")){
+            //用AJAX方式访问后台写的方法
+            $.ajax({
+                type: "POST",
+                url: 'recover',//请求方法的路径
+                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+                data: {
+                    "id":id//传递参数：待恢复部门的id
+                },//请求需要发送的处理数据
+                success: function (msg) {
+                    //msg包含status和message两个属性，status为1时是成功。
+                    if(msg.status==-1)//恢复失败
+                    {
+                        alert(msg.message);
+                    }else//成功
+                    {
+                        alert("恢复成功！");
+                        //在这里刷新页面或者局部刷新表格
+                        loadTable();
+                    }
+                },
+                error: function (msg) {
+                    alert("恢复失败！");
+                }
+            });
+        }
     }
 
     function loadTable() {
@@ -151,16 +164,16 @@
             async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
             dataType: 'json',
             success: function (data) {
-                console.log(data);
+                //console.log(data);
                 var table_html = "";
                 var strs = ["未删除","已删除"];
                 for(var i=0;i<data.length;i++){
                     if(data[i].is_delete == 1){
-                        table_html += '<tr class="deleted">' +
+                        table_html += '<tr style="background-color: #f1f2f7">' +
                             '<td class="serial">'+(i+1)+'</td>' +
                             '<td class="product">'+data[i].name+'</td>' +
                             '<td class="product">'+strs[data[i].is_delete]+'</td>' +
-                            '<td><button type="button" onclick="recoverDepartment('+data[i].id+')"' +
+                            '<td><button type="button" onclick="recoverDepartment('+data[i].id+',\''+data[i].name+'\')"' +
                             ' class="btn btn-recover btn-sm mb-1" >' +
                             '<i class="fa fa-rotate-left"></i>&nbsp;恢复</button></td></tr>';
                     }else {
