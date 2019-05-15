@@ -52,6 +52,7 @@ class Index extends Controller
             $userInfo = $this->getUserInfo($accessToken);
             //检查user_info表里面有没有改用户，用学号来确认。
             $this->stu_number = $userInfo['card_number'];
+            dump($this->stu_number);
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
@@ -184,8 +185,16 @@ class Index extends Controller
     }
 
     public function getStuNumber(){
-        dump($this->stu_number);
+        // $code = input('param.wxcode');
+        // $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
+        // if($accessToken){
+        //     $userInfo = $this->getUserInfo($accessToken);
+        // }else{
+        //     echo "There's some error";
+        // }
+        // $user_name = $user_info['name'];
+        // $user_number = $user_info['card_number'];
+        // echo $user_name."<br />".$user_number;
         //return $this->stu_number;
     }
-
 }

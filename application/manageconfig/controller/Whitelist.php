@@ -12,7 +12,6 @@ use think\Db;
 use app\common\controller\Common;
 use app\logmanage\model\Log as LogModel;
 
-
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
@@ -121,43 +120,44 @@ class Whitelist extends Common
          * 对于每一行获取的用户信息进行用户存在性判断
          * 不存在的用户会被记录，最后批量添加
          */
-            $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+        $model = new LogModel();
+        try {
+            $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
+        } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
+            die($e->getMessage());
+        }
 
-            try {
-                $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
-            } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
-                die($e->getMessage());
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sqlData = array();
+
+        $i = 0;
+
+        $excelData = model("Whitelist");
+
+        foreach ($sheet->getRowIterator(2) as $row) {
+            $tmp = array();
+            foreach ($row->getCellIterator() as $cell) {
+                $tmp[] = $cell->getFormattedValue();
             }
-
-            $sheet = $spreadsheet->getActiveSheet();
-
-            $sqlData = array();
-
-            $i = 0;
-
-            $userbasic = model("Userbasic");
-
-            foreach ($sheet->getRowIterator(2) as $row) {
-                $tmp = array();
-                foreach ($row->getCellIterator() as $cell) {
-                    $tmp[] = $cell->getFormattedValue();
-                }
-                // 未被添加的用户信息才会被记录到数组里，最后批量添加
-                if ($userbasic->findUserByWorkId($tmp[1]) == null) {
-                    $tmp = ['name' => $tmp[0],
-                        'work_id' => $tmp[1],
-                        'type_id' => $tmp[2],
-                        'depart_id' => $tmp[3],
-                        'position_id' => $tmp[4]];
-                    $sqlData[$i++] = $tmp;
-                }
-            }
-
-            $addFlag = $userbasic->insertAllUser($sqlData);
-            if ($addFlag) {
-                $this->success('批量添加成功，重复用户信息已自动过滤未添加');
-            } else {
-                $this->error('添加失败');
+            // 未被添加的用户信息才会被记录到数组里，最后批量添加
+            if ($excelData->findUserByWorkId($tmp[1]) == null) {
+                $tmp = ['name' => $tmp[0],
+                    'work_id' => $tmp[1],
+                    'type_id' => $tmp[2],
+                    'depart_id' => $tmp[3],
+                    'position_id' => $tmp[4]];
+                $sqlData[$i++] = $tmp;
             }
         }
+
+        $addFlag = $excelData->insertAllUser($sqlData);
+        echo  $excelData;
+//        if ($addFlag) {
+//            $this->success('添加成功,自动跳转');
+//        } else {
+//            $this->error('添加失败');
+//        }
+    }
 }
