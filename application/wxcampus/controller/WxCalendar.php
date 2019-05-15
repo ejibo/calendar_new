@@ -176,11 +176,11 @@ class WxCalendar extends Controller
             ->where('user_id', $data['user_id'])
             ->update($data);
         if($success !== 1){//更新失败
-            return $this->json('update', false, '数据库插入失败!');;
+            return $this->json('update', false, '数据库插入失败!');
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 3, 'schedule_info', [$id => $diff]);
+        $logRec->recordLogApi($this->getUserId(), 3, 'schedule_info', [$data['id'] => $diff]);
         return $this->json('update', true, 'success');
     }
 
@@ -262,6 +262,7 @@ class WxCalendar extends Controller
         return $this->detail();
     }
     public function createPage(){
+        $this->assign('scheduleid', -1);
         $this->assign('date', '');
         $this->assign('note', '');
         $this->assign('title', '添加日程');
