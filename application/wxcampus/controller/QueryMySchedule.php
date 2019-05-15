@@ -26,19 +26,18 @@ class QueryMySchedule extends Controller
 
 	public function defaultList($number){
 		$this->user_id = $this->getUserId($number);
-		echo $this->user_id;
-		// $sql = "select * from schedule_info where user_id = ".$this->user_id;
-		// $result = Db::query($sql);
-		// return $result;
+		//echo $this->user_id;
+		$sql = "select * from schedule_info where user_id = ".$this->user_id;
+		$result = Db::query($sql);
+		return $result;
 	}
 
 	public function index()
 	{
 		$number = Request::instance()->param('number');
-		$this->defaultList($number);
-		//$this->assign('schedule_info', $this->defaultList());
-		//$this->assign('fields', $this->field_config);
-		//return $this->fetch('index');
+		$this->assign('schedule_info', $this->defaultList());
+		$this->assign('fields', $this->field_config);
+		return $this->fetch('index');
 	}
 
 	public function getMyScheduleInfo()
