@@ -18,9 +18,9 @@
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-                    <input type="hidden" value="{$vo.id}" id="id">
+                    <input type="hidden" value="{$vo.id}" id="userid">
                 </div>
-                <div class=" weui-cell__ft" ><img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="add()"></div>
+                <div class=" weui-cell__ft"> <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="add()"></div>
             </a>
             {/volist}
 
@@ -30,7 +30,7 @@
 
 <script type="text/javascript">
     function add(){
-        var followid = document.getElementById('id').value;
+        var followid = document.getElementById("userid").value;
         console.log(followid);
         $.post("{:url('Index/addFollow')}",
             {
@@ -43,6 +43,7 @@
                     alert(data);
             });
     };
+
 </script>
 
 </body>
