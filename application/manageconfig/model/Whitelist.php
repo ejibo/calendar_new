@@ -74,6 +74,13 @@ class Whitelist extends Model{
         return $is_clear;
     }
 
+    //---------------------------------------------------------------
+    /*
+    responser: 陈国强
+    Created：2019/05/15
+    insertAllUser($data) ： 向 user_info 数据表插入信息
+    findUserByWorkId($workId)： 通过工号查找该用户是否存在
+    */
     public function insertAllUser($data) {
         return Db::table('user_info')->insertAll($data);
     }
@@ -85,3 +92,5 @@ class Whitelist extends Model{
             ->find();
     }
 }
+
+    //---------------------------------------------------------------
