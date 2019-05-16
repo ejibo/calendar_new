@@ -1,17 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: 84333
- * Date: 2019/4/14
- * Time: 0:27
+ * 说明该块主要是前端代码比较麻烦，任务主要在前端，
+ * 前端代码可在public/static/calendar_redpanda中查看
+ * 创建者：向建宇
+ * 最新更新：添加日志功能
  */
-
 namespace app\manageconfig\controller;
 use think\Model;
 use think\Db;
 use think\Request;
-
 use app\common\controller\Common;
+/*调用同学写的日志模块*/
+use app\logmanage\model\Log as LogModel;
 
 class Workday extends Common
 {
@@ -59,15 +59,42 @@ class Workday extends Common
               ->where([
                 'ymd' =>	['=',$ymd],
               ])->select(); 
-              
+            
+            $befor_is_work_day = (string)$isExists[0]['is_work_day'];
+
             if($isExists){
                 //更新数据库
                 $is_updata = Db::table('workday')->where([
                     'ymd' =>	['=',$ymd],
                 ])->update(['is_work_day' => $isWorkDay]);
+
+                
+                //记录到日志里面
+                $model = new LogModel();
+                $uid = ADMIN_ID; // 操作人主键id，非学号
+                $type = 3;
+                $table = 'workday';
+                $field = [
+                $ymd=>[
+                'is_work_day'=> [$befor_is_work_day, $isWorkDay]
+                ]
+                ];
+                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+
+
+
             }else{
                 //插入数据库
-                $res = Db::table('workday')->insert(['ymd'=>$ymd,'is_work_day'=>$isWorkDay]);    
+                $res = Db::table('workday')->insert(['ymd'=>$ymd,'is_work_day'=>$isWorkDay]);
+                
+                //记录到日志里面
+                $model = new LogModel();
+                $uid = ADMIN_ID; // 操作人主键id，非学号
+                $type = 2;
+                $table = 'workday';
+                $field = [$ymd]; // 增加的主键列表，不是学号
+                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+
             }
 
         }

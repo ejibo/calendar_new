@@ -9,6 +9,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="Server">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/ss_calendar_new" local="$PROJECT_DIR$" web="/ss_calendar_new" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>

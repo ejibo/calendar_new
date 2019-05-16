@@ -14,11 +14,11 @@ class ManageInfo extends Validate
     
 
     protected $message = [
-      'username.require' => '必須輸入管理員名稱',
-      'username.max' => '管理員名稱不得超過25個字符',
-      'password.require' => '必須輸入管理員密碼',
-      'telephone' => '請輸入正確的手機號格式',
-      'password.regex' => '密碼格式錯誤'
+      'username.require' => '必须输入管理员名称',
+      'username.max' => '管理员名称不得超过25个字符',
+      'password.require' => '必须输入管理员密码',
+      'telephone' => '请输入正确的手机号格式',
+      'password.regex' => '密码格式错误'
     ];
 
 
