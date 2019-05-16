@@ -80,19 +80,19 @@
                  // alert(data);
                    //var jsonobj=eval(data);
                   //alert(jsonobj);
-                    if (jsonobj.code== 1) {
+                    if (jsonobj["code"]== 1) {
                         alert('验证码发送成功，请在5分钟之内输入收到的验证码');
                     }
-                    else if (jsonobj.code== 2) {
+                    else if (jsonobj["code"]== 2) {
                         alert('验证码发送失败');
                     }
-                    else if (jsonobj.code == 3) {
+                    else if (jsonobj["code"] == 3) {
                         alert('手机号已注册');
                     }
-                    else if(jsonobj.code==4){
+                    else if(jsonobj["code"]==4){
                         alert('	操作过于频繁，请稍后再试');
                     }
-                  else if(jsonobj.code==5){
+                  else if(jsonobj["code"]==5){
                         alert('错误');
                     }
                     else {
