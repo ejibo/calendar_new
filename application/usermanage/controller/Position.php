@@ -48,62 +48,24 @@ class Position extends Common
         $position->restore($user_id);
         $this->redirect('usermanage/position/index');
     }
+
     /**
      * 第05组 张楚悦
      * 功能：添加职位
      */
-
-    public function add()
-    {
-        $name = $_POST['name'];//获取前端传入的数据
-        if (empty($name)){//判断是否为空
-            $this->error('职位不能为空，请重新输入');
-        }
-        if (strlen($name) < 30){//判断长度是否合适
-            $model = model('Position');//实例化模块
-            $ifsame = $model->getPosition($name);
-            if ($ifsame == null) {//判断是否重名
-                $result = $model->insertPosition($name);
-                if ($result == 1) {
-                    $this->success('新增成功'); //, 'usermanage/position/index'
-                } else {
-                    $this->error('新增失败，请重新尝试');
-                }
-            }
-            else{
-                $this->error("职位重复，请重新输入");
-            }
-        }
-
-    }
-    /*
-   public function add()
+    public function addPosition()
     {
         $name = $_POST['name'];
-        if (empty($name)){
-            $this->error('不能为空');
-        }
-        $position = model('Position');
-        $isexist = $position->isexist($name);
-        if($isexist){
-            $this->error('职位已存在，请重新添加');
-        }
-        $addposition = \app\usermanage\model\Position::addPosition($name);
-        if($addposition){
-            $this->success('添加成功', 'usermanage/position/index');
-        }else{
-            $this->error('添加失败');
-        }
-     }*/
-   /*
-    public function add($name)
-    {
-        $position = model('Position');
-        return $position->addPosition($name);
-    }*/
+        $model = model('Position');
+        $result = $model->insertPosition($name);
+        if ($result == 1) {
+            //设置成功后跳转页面的地址
+            $this->success('新增成功', 'usermanage/position/index');
+        } else {
 
-
-
+            $this->error('新增失败');
+        }
+    }
 
     /**
      * 第05组 张君兰
