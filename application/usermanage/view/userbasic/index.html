@@ -196,6 +196,9 @@
                             <input type="hidden" id="edit_id" name="edit_id">
                             <p>
                             <div class="form-group">
+                                <div id="achieve_name"></div>
+                            </div>
+                            <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
@@ -204,11 +207,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <div id="achieve_work_id"></div>
+                            </div>
+                            <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-credit-card"></i>
                                     </div>
-                                    <input type="text" id="edit_work_id" name="work_id" class="form-control" onfocus="valid_id()" onblur="review_id()">
+                                    <input type="text" id="edit_work_id" name="work_id" placeholder="工号/学号" class="form-control" onfocus="valid_id()" onblur="review_id()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -384,14 +390,14 @@
     let flagId = false;
 
     function valid_name() {
-        let resultName = document.getElementById("result_name");
+        let resultName = document.getElementById("achieve_name");
         resultName.innerHTML = "姓名不可包含特殊字符且为2~20位的中英文";
         resultName.style.color = '#aaaaaa';
     }
 
     function review_name() {
         flagName = false;
-        let resultName = document.getElementById("result_name");
+        let resultName = document.getElementById("achieve_name");
         resultName.style.color = '#ff6666';
         let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
         let name = $('#edit_name').val();
@@ -409,14 +415,14 @@
     }
 
     function valid_id() {
-        let resultId = document.getElementById("result_work_id");
+        let resultId = document.getElementById("achieve_work_id");
         resultId.innerHTML = "学工号仅为数字";
         resultId.style.color = "#aaaaaa";
     }
 
     function review_id() {
         flagId = false;
-        let resultId = document.getElementById("result_work_id");
+        let resultId = document.getElementById("achieve_work_id");
         resultId.style.color = "#ff6666";
         let cnPattern = /^\d{10}$/;
         let workId = $('#edit_work_id').val();
