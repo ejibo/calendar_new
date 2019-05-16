@@ -41,35 +41,10 @@
 {/block}
 {block name="scripts"}
 <script src="__STATIC__/assets/js/gVerify.js"></script>
-<script type="text/javascript" src="__STATIC__/assets/js/jquery.cookie.js"></script>
-<script src="__STATIC__/admin/js/admin/beyond.js"></script>
 <script type="text/javascript">
     var telephone=document.getElementById("telephone");
     var phonecode=document.getElementById("phonecode");
     var photocode = new GVerify("v_container");
-      $(function(){
-        if($.cookie('total') != undefined && $.cookie('total') != 'NaN' && $.cookie('total') != 'null'){
-            timekeeping();
-        }else{
-            $("#btn").attr('disabled',false);
-        }
-    });
-    function timekeeping(){
-        $("#btn").attr('disabled',true);//按钮设置为禁用
-        var interval=setInterval(function(){
-            total=$.cookie('total');
-            $("#btn").val('请等待'+total+'秒');
-            total--;
-            if(total == 0){
-                clearInterval(interval);
-                $.cookie('total',total,{ expires: -1 });
-                $("#btn").val('重新发送');
-                $("#btn").attr('disabled',false);
-            }else{
-                $.cookie('total',total);
-            }
-        },60);
-    }
     function get_code(){
         var res = photocode.validate(document.getElementById("code_input").value);
         if(telephone.value.length==0){
@@ -121,7 +96,7 @@
                         alert('错误');
                     }
                     else {
-                        alert(data);
+                      alert('验证码发送成功，请在5分钟之内输入收到的验证码');
                     }
                 }
             }
