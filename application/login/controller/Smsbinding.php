@@ -14,6 +14,10 @@ class Smsbinding extends Common
     {
         return $this->fetch();
     }
+  /*
+  *吴欣雨
+  *生成验证码并发送给管理员
+  */
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
         $signature=Request::instance()->post('signature');
@@ -21,7 +25,7 @@ class Smsbinding extends Common
 
         if($signature=='pkusstelephone'){
             $mobile=new Mobile();
-            $checkres=$mobile->hasMobile($telephone);
+            $checkres=$mobile->hasMobile($telephone);//判断手机号是否已经存在于数据库中
             if($checkres){//手机号已绑定
                 $res=3;
             }
@@ -43,7 +47,7 @@ class Smsbinding extends Common
                 srand($seed);                     // 播下随机数发生器种子
                 $verifyCode = rand(100000, 999999);
                 $_SESSION['verifycode']=$verifyCode;
-                $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
+                $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");//使用榛子云API发送短信
                 //$info="您的验证码为" + $verifyCode + "，有效时间为5分钟";
                $client->send($telephone, $verifyCode);
                 //var_dump($result);
@@ -52,7 +56,7 @@ class Smsbinding extends Common
              //       $res['code']=1;
              //  }
              //   else $res['code']=2;
-              $res=1;
+              $res=1;//发送成功
             }
             return $res;
         }
@@ -61,6 +65,10 @@ class Smsbinding extends Common
             return $res;
         }
     }
+    /*
+  *吴欣雨
+  *判断验证码是否在有效期内并且是否正确
+  */
     public function codeVerify(){
         $phonecode=Request::instance()->post('phonecode');
         $signature=Request::instance()->post('signature');
