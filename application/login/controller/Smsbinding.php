@@ -78,7 +78,7 @@ class Smsbinding extends Common
                     else {
 
                         $mobile=new Mobile();
-                        $addphone=$mobile->addMobile($_SESSION['think']['admin_id'],$_SESSION['telephone']);
+                        $addphone=$mobile->addMobile($_SESSION['admin_id'],$_SESSION['telephone']);
                         if($addphone){//如果成功将手机号写入数据库
                             $res1['code']=1;//绑定完成
                         }
