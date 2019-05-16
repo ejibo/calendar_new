@@ -33,7 +33,8 @@ class Wxquery extends controller
             ->field('b.name as name, d.name as time, e.name as place, f.name as item, b.id as id')
             ->select();
 
-        $this->assign('res',$res);
-        return $this->fetch();
+        // $this->assign('res',$res);
+        // return $this->fetch();
+      echo "congrats!"
     }
 }
