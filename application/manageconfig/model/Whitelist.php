@@ -72,7 +72,7 @@ class Whitelist extends Model{
                         ];
             $cul = db("white_list")->where("id",$data["id"])->update($postdata);
             $is_clear += $cul;
-            $clear_ids = $clear_ids . $data["id"] . ", "
+            $clear_ids = $clear_ids . $data["id"] . ", ";
         }
         $clear_ids = $clear_ids . "]"
         ret = [
