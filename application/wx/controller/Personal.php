@@ -129,7 +129,7 @@ class Personal extends Common
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 2, 'schedule_info', $id);
+        $logRec->recordLogApi($uid, 2, 0,'schedule_info', $id);
     }
     public function update(){
         $data = [
@@ -174,7 +174,7 @@ class Personal extends Common
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 3, 'schedule_info', [$id => $diff]);
+        $logRec->recordLogApi($uid, 3, 0,'schedule_info', [$id => $diff]);
     }
 
     public function delete($id){
@@ -197,6 +197,6 @@ class Personal extends Common
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
+        $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
     }
 }
