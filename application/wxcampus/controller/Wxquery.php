@@ -17,11 +17,9 @@ class Wxquery extends controller
     public function index()
     {
         // qname 前端传输回来的查询词--用户名
-        $name = Request::instance()->param('qname');
-        if ($name == NULL){
-            return "failed";
-        }
-        $list = Db::table('schedule_info')
+        // $name = Request::instance()->param('qname');
+        
+        $res = Db::table('schedule_info')
             ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
             ->where('a.is_delete', 0)
             ->where('b.name', $name)
@@ -33,7 +31,7 @@ class Wxquery extends controller
             ->field('b.name as name, d.name as time, e.name as place, f.name as item, b.id as id')
             ->select();
 
-        $this->assign('list',$list);
+        $this->assign('res',$res);
         return $this->fetch('wx_search');
     }
 }
