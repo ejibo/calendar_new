@@ -53,7 +53,7 @@ class Position extends Common
      * 功能：添加职位
      */
 
-    public function add()
+    public function addPosition()
     {
         $name = $_POST['name'];//获取前端传入的数据
         if (empty($name)){//判断是否为空
