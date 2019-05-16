@@ -254,6 +254,11 @@
             alert('请输入模板标题！');
             return false;
         }
+        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s-_]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
+        if(!regTit.test(tit)){  //验证标题格式 
+            alert('标题格式错误！');
+            return false; 
+        }
         if(conNum == 0){
             alert('请输入模板内容！');
             return false;
@@ -263,11 +268,7 @@
             return false;
         }
         //$("#smallmodal1").modal(true,true,true,false);
-        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s-_]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
-        if(!regTit.test(tit)){  //验证标题格式 
-            alert('标题格式错误！');
-            return false; 
-        }
+        
 
         $.ajax({
             url:"{:url('msgmanage/Msgmodel/addTemplate')}",
