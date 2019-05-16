@@ -14,11 +14,18 @@ use think\Request;
 class Wxquery extends controller
 {
     //按照部门、职务、姓名 查询用户日程
-    public function index($query_name, $work_id)
+    public function index(, $work_id)
     {
         // qname 前端传输回来的查询词--用户名
-        //$name = Request::instance()->param('query_name');
-        //$work_id = Request::instance()->param('query_name');
+      $param = input('post.');
+      if(empty($spram['query_name'])){
+      	$this->error('请输入姓名');
+      }
+      if(empty($spram['work_id'])){
+      	$this->error('请输入工号');
+      }
+       // $name = Request::instance()->param('query_name');
+       // $work_id = Request::instance()->param('query_name');
       
         // $res = Db::table('schedule_info')
         //     ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
@@ -34,7 +41,6 @@ class Wxquery extends controller
         //     ->select();
 
         // $this->assign('res',$res);
-        // return $this->fetch();
-      echo "congrats!"
+        return $this->fetch(index/wx_search);
     }
 }
