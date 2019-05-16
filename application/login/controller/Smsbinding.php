@@ -18,7 +18,7 @@ class Smsbinding extends Common
         $telephone=Request::instance()->post('telephone');
         $signature=Request::instance()->post('signature');
       $admin_id=Session::get('admin_id');
-      $_SESSION['admin_id']=$admin_id;
+
         if($signature=='pkusstelephone'){
             $mobile=new Mobile();
             $checkres=$mobile->hasMobile($telephone);
@@ -27,6 +27,7 @@ class Smsbinding extends Common
             }
             else {
                 if (!session_id()) session_start();
+                    $_SESSION['admin_id']=$admin_id;
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
