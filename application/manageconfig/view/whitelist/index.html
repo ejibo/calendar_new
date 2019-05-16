@@ -14,6 +14,7 @@
                             <button id="batchShow" type="submit" class="btn btn-success btn-sm">
                                 Excel批量导入
                             </button>
+                            <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                             <br/>
                             <button style="display:none ;" id="button2" type="submit"
                                     class="btn btn-success btn-sm "
@@ -22,6 +23,7 @@
                                           document.getElementById("button2").style.display="none" ,
                                                   document.getElementById("button1").style.display="none"'>取消
                             </button>
+
                             <form id="batchAdd" action="excelInput" enctype="multipart/form-data" method="post"
                                   style="display: none"><br/>
                                 <label>Excel文件:</label>
@@ -34,7 +36,6 @@
                                 <label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEXCEL表数据: |张三|1801212312|2|2|2|</label> <br/>
                                 <input class="btn btn-success btn-sm" type="submit" value="上传"/>
                             </form>
-                            <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                         </h4>
                     </div>
                     <div class="card-body--">
