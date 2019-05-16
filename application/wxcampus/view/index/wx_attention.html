@@ -9,24 +9,24 @@
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
+    {volist name="list_time_table" id="vo"}
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            {volist name="list_time_table" id="vo"}
             <a class="weui-cell  weui-cell_example">
                 <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$vo.name}</h4>
                     <p class="weui-media-box__desc">{$vo.position}</p>
-                    <input type="hidden" id = "followid" value="{$vo.followid}">
-                    <input type="hidden" id ="userid" value="{$vo.userid}">
+                    <p  class="weui-media-box__desc" type="hidden">{$vo.followid}</p>
+                    <p class="weui-media-box__desc" type="hidden">{$vo.userid}</p>
+
                 </div>
                 <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px" onclick="noFollow(this)"></div>
             </a>
-            {/volist}
-
         </div>
     </div>
+    {/volist}
 
     <div class="weui-tabbar">
         <a href="wx_search.html" class="weui-tabbar__item ">
@@ -54,8 +54,8 @@
 
 <script type="text/javascript">
     function noFollow(obj){
-        var followid = $(obj).closest('a').find('div').eq(1).find('input').eq(0).value;
-        var userid = $(obj).closest('a').find('div').eq(1).find('input').eq(1).value;
+        var followid = $(obj).closest('a').find('div').eq(1).find('p').eq(1).text();
+        var userid = $(obj).closest('a').find('div').eq(1).find('p').eq(2).text();
 
         $.post("{:url('noFollow')}",
             {
