@@ -181,7 +181,7 @@
         </form>
 
         <!--编辑人员信息-->
-        <form action="edituserinfo" method="post" onsubmit="return success_submit()">
+        <form action="edituserinfo" method="post">
             <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -431,15 +431,6 @@
         }
     }
 
-    function success_submit() {
-        if (flagId && flagName) {
-            flagId = false;
-            flagName = false;
-            return true;
-        } else {
-            return false;
-        }
-    }
 </script>
 
 <!--删除人员-->
