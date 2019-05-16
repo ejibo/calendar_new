@@ -52,12 +52,13 @@ class QueryMySchedule extends Controller
 		$result = $this->defaultList($number);
 		if($result == NULL){
 			echo "没有您的日程信息";
-			return;
 		}
-		$this->assign('user_id', $this->user_id);
-		$this->assign('schedule_info', $result);
-		$this->assign('fields', $this->field_config);
-		return $this->fetch('index0');
+		else{
+			$this->assign('user_id', $this->user_id);
+			$this->assign('schedule_info', $result);
+			$this->assign('fields', $this->field_config);
+			return $this->fetch('index');
+		}
 	}
 
 	public function getMyScheduleInfo(Request $request)
@@ -65,6 +66,8 @@ class QueryMySchedule extends Controller
 		$starttime = $request->param('starttime');
 		$endtime = $request->param('endtime');
 		$myUserId = $request->param('user_id');
+		if($starttime == NULL) $starttime = "0000-01-01";
+		if($endtime == NULL) $endtime = "9999-12-31";
 		$sql = "select * from schedule_info where user_id=".$myUserId." and date(date) between date('".$starttime."') and date('".$endtime."')";
 		$result = Db::query($sql);  
 		$len = count($result);

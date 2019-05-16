@@ -69,11 +69,7 @@
             <a class="weui-btn weui-btn_block weui-btn_primary" id="query">搜索</a>
         </div>
     </div>
-	{volist name="res" id="vo"}
-  	{$vo.name}<br>
-    {$vo.time}<br>
-  {$vo.place}<br>
-{/volist}
+
     <div class="weui-tabbar">
         <a href="wx_search.html" class="weui-tabbar__item  weui-bar__item_on">
                     <span style="display: inline-block;position: relative;">
@@ -99,7 +95,7 @@
 </div>
 </body>
   
-  
+  {literal}
   <script>
     $("#query").onclick(function () {
         query();
@@ -125,6 +121,6 @@
         });
     }
   </script>
-  
+  {literal}
   
 </html>

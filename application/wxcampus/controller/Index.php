@@ -87,7 +87,7 @@ class Index extends Controller
                 ->where('a.user_id = '.$user_id)
                 ->join('user_info','a.follow_id = b.id')
                 ->join('user_position','b.position_id = c.id')
-                ->field('a.id as id, a.follow_id as userid, b.name as name, c.name as position')
+                ->field('a.user_id as userid, a.follow_id as followid, b.name as name, c.name as position')
                 ->select();
             $this->assign('list_time_table',$list);
 
@@ -117,6 +117,32 @@ class Index extends Controller
         return $this->fetch('leaderList');
     }
 
+    //查看某个领导的日程
+    public function checkDate()
+    {
+        $id = Request::instance()->param('followid');
+        $info = Db::table('schedule_info')
+            ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
+            ->where('a.is_delete',0)
+            ->where("user_id",$id)
+            ->join('user_info','a.user_id = b.id')
+            ->join('user_position','b.position_id = c.id')
+            ->join('schedule_time','a.time_id = d.id')
+            ->join('schedule_place','a.place_id = e.id')
+            ->join('schedule_item','a.item_id = f.id')
+            ->field('d.name as time, e.name as place, f.name as item, b.id as userid')
+            ->select();
+
+        $name = Db::table('user_info')
+            ->where('id',$id)
+            ->column('name');
+
+        $this->assign('who',$name[0]);
+        $this->assign('info',$info);
+
+        return $this->fetch('leader_agenda');
+    }
+
     //增加关注人
     public function addFollow()
     {
@@ -130,6 +156,22 @@ class Index extends Controller
             return "添加成功";
         }
         return "添加失败";
+    }
+
+    //不再关注
+    public function noFollow()
+    {
+        $userid = Request::instance()->param('userid');
+        $followid = Request::instance()->param('followid');
+
+        $res = Db::table('user_follow')->where('user_id',$userid)->where('follow_id',$followid)
+               ->setField('is_delete',1);
+
+        if($res!=0)
+        {
+            return "更新成功";
+        }
+        return "更新失败";
     }
 
 

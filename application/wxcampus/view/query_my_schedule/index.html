@@ -4,24 +4,48 @@
     <meta charset="UTF-8">
     <title>查询我的日程信息</title>
 </head>
+<style type="text/css">
+table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:40px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+</style>
+
+
 <body>
-    <div class="card-body">
-        <h4 class="box-title">个人日程查询&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br />
+    <div>
+        <div>
             <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-            开始时间<input type="date" name="starttime" placeholder="start time">
-             结束时间<input type="date" name="endtime" placeholder="end time">
+            <font size="40px" style="vertical-align: middle;">开始时间</font><input type="date" name="starttime" placeholder="start time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
+            <font size="40px" style="vertical-align: middle">截止时间</font><input type="date" name="endtime" placeholder="end time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
             <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
-                data-target=".add-schedule">查询</button>
+                data-target=".add-schedule" style="vertical-align: middle;"><font size="40px">查询</font></button>
             </form>
-        </h4>
-    </div>
-    <div class="card-body--">
-        <div class="table-stats">
-            <table id="bootstrap-data-table" class="table">
+        </div>
+        <br />
+        <br />
+        <div>
+            <table class="gridtable" width="100%">
                 <thead>
                     <tr>
-                        <th class="serial">序号</th>
                         <th>日期</th>
                         <th>时间</th>
                         <th>地点</th>
@@ -32,12 +56,11 @@
                 <tbody>
                     {foreach name="schedule_info" item="vo"}
                     <tr>
-                        <td class="serial">{$key+1}</td>
-                        <td><span class="product">{$vo['date']}</span></td>
-                        <td><span class="product">{$vo['time']}</span></td>
-                        <td><span class="product">{$vo['place']}</span></td>
-                        <td><span class="product">{$vo['item']}</span></td>
-                        <td><span class="product">{$vo['note']}</span></td>
+                        <td>{$vo['date']}</span></td>
+                        <td>{$vo['time']}</span></td>
+                        <td>{$vo['place']}</span></td>
+                        <td>{$vo['item']}</span></td>
+                        <td>{$vo['note']}</span></td>
                     </tr>
                     {/foreach}
                 </tbody>

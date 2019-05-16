@@ -34,7 +34,8 @@ class ScheduleSearch extends Model
                 ->join('schedule_place','a.place_id = e.id')
                 ->join('schedule_item','a.item_id = f.id')
                 ->field('a.id, b.name as name, c.name as position, date,d.name as time, e.name as place, f.name as item, b.id as userid')
-                ->select();
+                ->order('date desc')
+				->select();
             return $info;
         }
     }

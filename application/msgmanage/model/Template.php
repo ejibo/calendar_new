@@ -41,6 +41,22 @@ class Template extends Model
             ->select();
         return $allItems;
     }
+    //根据模板名称获取模板
+    public function getItemByTitleDelete($tit){
+        $titleTemp = Db::name('message_template')
+            ->where('title',$tit)
+            ->where('is_delete',1)
+            ->select();
+        return $titleTemp;
+    }
+    //根据模板内容获取模板
+    public function getItemByContentDelete($content){
+        $contentTemp = Db::name('message_template')
+            ->where('content',$content)
+            ->where('is_delete',1)
+            ->select();
+        return $contentTemp;
+    }
 
     /*story:增加消息模板
     负责人：佟起
@@ -90,6 +106,19 @@ class Template extends Model
          $res = Db::name('message_template')
             ->where('id',$user_id)
             ->update($data);
+    }
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：向客户端发送消息内容
+    *负责人：刘玄
+    */
+  public  function remindToApp()
+    {
+        
+        $data = Db::name('message_template')
+            ->where('is_delete',0) ->where('is_remind',1)
+            ->select();
+        return $data;
     }
       
 
