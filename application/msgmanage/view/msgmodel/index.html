@@ -347,7 +347,14 @@
             data:{"status":status, "search":search,"range":range},
             dataType: "json",
             success: function (data) {
+                
                 console.log(data);
+                if(data.length==null)
+                { 
+                    alert(data.msg);
+                    window.location.reload();
+                }
+                    
                 console.log(data.length);
                 // console.log(data[0]);
                 // console.log(data[1]);
@@ -368,7 +375,10 @@
                     tb.rows[i].cells[1].innerHTML=data[i-1]['title'];
                     tb.rows[i].cells[2].innerHTML=data[i-1]['content'];
                 }
-        }
+                
+                    // window.location.reload();
+            }
+            
         })
     });
 

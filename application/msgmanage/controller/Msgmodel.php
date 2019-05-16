@@ -38,27 +38,38 @@ class Msgmodel extends Common
         $search = $_POST['search'];
         $range = $_POST['range'];
         $model = model('Template');
-        $isHasTitle = $model->getItemByTitle($search);
-        if($status==1 && $range==1){
-            $isHasTitle = $model->getItemByTitleDelete($search);
+        if($status==-1){
+            $this->error("请选择查询状态");
         }
-        else if($status==1 && $range==2){
-            $isHasTitle = $model->getItemByContentDelete($search);
+        else if($range==-1){
+            $this->error("请选择查询范围");
         }
-        else if($status==2 && $range==1){
-            $isHasTitle = $model->getItemByTitle($search);
-        }
-        else if($status==2 && $range==2){
-            $isHasTitle = $model->getItemByContent($search);
-        }
-        
-        // $isHasContent = $model->getItemByContent($search);
-        if ($isHasTitle == null) {
-            $this->error("搜索项不存在，请重新尝试");
+        else if($search==""){
+            $this->error("请输入查询内容");
         }
         else{
-            $this->assign('templateItems',$isHasTitle);
-            return $isHasTitle;
+            // $isHasTitle = $model->getItemByTitle($search);
+            if($status==1 && $range==1){
+                $isHasTitle = $model->getItemByTitleDelete($search);
+            }
+            else if($status==1 && $range==2){
+                $isHasTitle = $model->getItemByContentDelete($search);
+            }
+            else if($status==2 && $range==1){
+                $isHasTitle = $model->getItemByTitle($search);
+            }
+            else if($status==2 && $range==2){
+                $isHasTitle = $model->getItemByContent($search);
+            }
+            // $isHasContent = $model->getItemByContent($search);
+            if ($isHasTitle == null) {
+                $this->error("搜索项不存在，请重新尝试");
+            }
+            else{
+                // $this->success("查询成功");
+                $this->assign('templateItems',$isHasTitle);
+                return $isHasTitle;
+            }
         }
     }
 
