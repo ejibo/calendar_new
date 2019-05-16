@@ -137,6 +137,7 @@
                 success: function(data){
                     if(data.status == 0){
                         $("#go").val(data.msg);
+                        //window.alert("登录成功" + phoneNum);
                     }else {
                         $("#go").val(data.msg);
                     }
