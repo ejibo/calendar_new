@@ -181,7 +181,7 @@
         </form>
 
         <!--编辑人员信息-->
-        <form action="edituserinfo" method="post">
+        <form action="edituserinfo" method="post" onsubmit="return success_submit()">
             <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -200,7 +200,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                                    <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control" onfocus="valid_name()" onblur="review_name()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -208,7 +208,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-credit-card"></i>
                                     </div>
-                                    <input type="text" id="edit_work_id" name="work_id" class="form-control">
+                                    <input type="text" id="edit_work_id" name="work_id" class="form-control" onfocus="valid_id()" onblur="review_id()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -380,43 +380,65 @@
 
 <!--编辑人员信息特殊字符校验-->
 <script>
-    function editModalShow(id,name) {
-        $('#edit_id').val(id);
-        $("#edit_name").val(name);
-    }
-    function editUserName(){
-        var id = $("#edit_id").val();
-        var name = $('#edit_name').val();
-        var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
-        if(name.search(pattern)){
-            alert("输入名称不符合规范，请重新输入");
-        }
-        else{
-            //用AJAX方式访问后台写的方法
-            $.ajax({
-                type: "POST",
-                url: 'change',//你的请求程序页面随便
-                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
-                data: {
-                    "id":id,
-                    "name":name
-                },//请求需要发送的处理数据
-                success: function (msg) {
-                    console.log("success!"+msg);
-                    if(msg==1){
-                        alert("修改成功！");
-                    }
-                    else if(msg=-1){
-                        alert("用户名重复，请重新输入！");
-                    }
-                    $("#edituserinfo").modal("hide");
-                    $('.modal-backdrop').remove();//去除遮罩层
-                    //在这里刷新页面或者局部刷新表格
-                    loadTable();
-                }
-            });
-        }
+    let flagName = false;
+    let flagId = false;
 
+    function valid_name() {
+        let resultName = document.getElementById("result_name");
+        resultName.innerHTML = "姓名不可包含特殊字符且为2~20位的中英文";
+        resultName.style.color = '#aaaaaa';
+    }
+
+    function review_name() {
+        flagName = false;
+        let resultName = document.getElementById("result_name");
+        resultName.style.color = '#ff6666';
+        let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
+        let name = $('#edit_name').val();
+        if (name === null) {
+            resultName.innerHTML = "用户名为空";
+        } else if (name.length < 2 || name.length > 20) {
+            resultName.innerHTML = "用户名必须为2~20位";
+        } else if (cnPattern.test(name)) {
+            flagName = true;
+            resultName.innerHTML = "用户名合法";
+            resultName.style.color = '#2ecc71';
+        } else {
+            resultName.innerHTML = "用户名非法，请修改";
+        }
+    }
+
+    function valid_id() {
+        let resultId = document.getElementById("result_work_id");
+        resultId.innerHTML = "学工号仅为数字";
+        resultId.style.color = "#aaaaaa";
+    }
+
+    function review_id() {
+        flagId = false;
+        let resultId = document.getElementById("result_work_id");
+        resultId.style.color = "#ff6666";
+        let cnPattern = /^\d{10}$/;
+        let workId = $('#edit_work_id').val();
+        if (workId === null) {
+            resultId.innerHTML = "学工号为空";
+        } else if (cnPattern.test(workId)) {
+            flagId = true;
+            resultId.innerHTML = "学工号合法";
+            resultId.style.color = "#2ecc71";
+        } else {
+            resultId.innerHTML = "学工号非法，请修改";
+        }
+    }
+
+    function success_submit() {
+        if (flagId && flagName) {
+            flagId = false;
+            flagName = false;
+            return true;
+        } else {
+            return false;
+        }
     }
 </script>
 
