@@ -12,6 +12,7 @@ class ScopeModel extends Model
 {   
     public static $scope_table = 'global_config';
     public static $uid = ADMIN_ID;
+    public static $is_manager = 1;
     //初始化日程范围配置
     public function initScope()
     {
@@ -27,7 +28,7 @@ class ScopeModel extends Model
             $init_success = DB::table('global_config')->insert($default);
             $id = DB::table('global_config')->getLastInsID();
             $field = [$id];
-            $model->recordLogApi(SELF::$uid,$type,1,SELF::$scope_table,$field);
+            $model->recordLogApi(SELF::$uid,$type,SELF::$is_manager,SELF::$scope_table,$field);
          }
 
         return $init_success; //成功返回1
@@ -53,7 +54,7 @@ class ScopeModel extends Model
         $field = [
             $id=>[$before_update_para_day,$after_update_para_day]
         ];
-        $model->recordLogApi(SELF::$uid,$type,1,SELF::$scope_table,$field);
+        $model->recordLogApi(SELF::$uid,$type,SELF::$is_manager,SELF::$scope_table,$field);
         return $edit_success; //成功返回影响的条数（设定应该成功为1）
     }
 }
