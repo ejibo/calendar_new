@@ -186,7 +186,7 @@ class Log extends Model
         if($type == 1) {
             $data = ['is_manage' => $is_manage,'user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'user_agent' => json_encode($agent), 'ip' => $ip];
         }else{
-            $data = ['is_manage' => $is_manage, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'operate_action' => json_encode($action), 'user_agent' => json_encode($agent), 'ip' => $ip];
+            $data = ['is_manage' => $is_manage,'user_id' => $uid, 'operate_type' => $type, 'operate_time' => date('Y-m-d H:i:s', time()), 'operate_action' => json_encode($action), 'user_agent' => json_encode($agent), 'ip' => $ip];
         }
         $res = Db::name('log_user')->insert($data);
         return $res;
