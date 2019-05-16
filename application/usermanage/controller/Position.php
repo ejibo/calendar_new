@@ -55,34 +55,6 @@ class Position extends Common
      */
 <<<<<<< HEAD
     public function addPosition()
-=======
-
-    public function addPosition()
-    {
-        $name = $_POST['name'];//获取前端传入的数据
-        if (empty($name)){//判断是否为空
-            $this->error('职位不能为空，请重新输入');
-        }
-        if (strlen($name) < 30){//判断长度是否合适
-            $model = model('Position');//实例化模块
-            $ifsame = $model->getPosition($name);
-            if ($ifsame == null) {//判断是否重名
-                $result = $model->insertPosition($name);
-                if ($result == 1) {
-                    $this->success('新增成功'); //, 'usermanage/position/index'
-                } else {
-                    $this->error('新增失败，请重新尝试');
-                }
-            }
-            else{
-                $this->error("职位重复，请重新输入");
-            }
-        }
-
-    }
-    /*
-   public function add()
->>>>>>> temp
     {
         $name = $_POST['name'];
         $model = model('Position');
