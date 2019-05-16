@@ -188,7 +188,7 @@ class Whitelist extends Common
     getinfo()：获取白名单信息
     excelInput() ： 向 user_info 数据表插入信息
     */
-    public function exporOutput()
+    public function excelOutput()
     {
         $info = model("Whitelist")->getinfo();
         $spreadsheet = new Spreadsheet();
