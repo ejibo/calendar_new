@@ -246,8 +246,11 @@
 
     //添加消息模板
     $("#submit_add").on("click", function(){
-        var tit = $("#itemTit").val();
-        var con = $("#itemCont").val();
+        var titS = $("#itemTit").val();
+        var conS = $("#itemCont").val();
+        var tit = titS.replace(/(^\s*)|(\s*$)/g, "");
+        var con = conS.replace(/(^\s*)|(\s*$)/g, "");
+        //console.log("|",tit,"|",con);
         var titNum = tit.length;
         var conNum = con.length;
         if(titNum == 0){
