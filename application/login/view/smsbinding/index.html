@@ -74,11 +74,11 @@
                 signature: 'pkusstelephone'
             },
             dataType:"json",
-            success:function(data) {
-              //alert('test');
-                if (data) {
+            success:function(jsonobj) {
+              alert(jsonobj);
+                if (jsonobj) {
                  // alert(data);
-                   var jsonobj=eval(data);
+                   //var jsonobj=eval(data);
                   //alert(jsonobj);
                     if (jsonobj.code== 1) {
                         alert('验证码发送成功，请在5分钟之内输入收到的验证码');
