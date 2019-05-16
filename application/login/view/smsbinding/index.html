@@ -55,8 +55,10 @@
             alert("请输入正确的手机号");
             return;
         }
+      alert(document.getElementById("code_input").value);
       if(document.getElementById("code_input").value.length==0){
       		alert("请先输入图形验证码！");
+        	return;
       }
         if(!res){
             alert("验证码输入错误，请重试！");
