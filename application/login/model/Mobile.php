@@ -14,14 +14,14 @@ class Mobile extends Model
      */
     public function addMobile($id, $mobile)
     {
-        $data=Db::name('manage_info')->where('id', $id)->select();
-        $model=new LogModel();
-        $uid=$id;
-        $type=3;
-        $is_manage=1;
-        $table='manage_info';
-        $field="{"+$id+":[telephone:"+$data['telephone']+","+$mobile+"]}";
-        $model->rec􏰂ordLo􏰂gA􏰃pi ($uid,$type,$is_manage, $table, $field); //需要判断调用是否成功
+       // $data=Db::name('manage_info')->where('id', $id)->select();
+       // $model=new LogModel();
+       // $uid=$id;
+     //   $type=3;
+      //  $is_manage=1;
+     //   $table='manage_info';
+     //   $field="{"+$id+":[telephone:"+$data['telephone']+","+$mobile+"]}";
+     //   $model->rec􏰂ordLo􏰂gA􏰃pi ($uid,$type,$is_manage, $table, $field); //需要判断调用是否成功
         $res = Db::name('manage_info')->where('id', $id)->update(['telephone' => $mobile]);
         return $res;
     }
