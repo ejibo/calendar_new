@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" style="height: 100%;">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
+    <title>查询</title>
+    <style>
+        a {
+            color: #204d74;
+            font-size: 17px;
+        }
+
+        .weui-flex {
+            margin-left: 20px;
+        }
+
+        .weui-flex__item a {
+            width: 80px;
+        }
+    </style>
+</head>
+<body ontouchstart style="height: 100%; background-color: #ededed">
+<div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-cells">
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">部门</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option value="1">学工部</option>
+                        <option value="2">教务处</option>
+                        <option value="3">后勤</option>
+                    </select>
+                </div>
+            </div>
+            <div class="weui-cell weui-cell_select weui-cell_select-after">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">职务</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <select class="weui-select" name="select2">
+                        <option value="1">主任</option>
+                        <option value="2">教师</option>
+                        <option value="3">其他</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="weui-cell ">
+                <div class="weui-cell__hd">
+                    <label class="weui-label">姓名</label>
+                </div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" id="qname" placeholder="请输入姓名">
+                </div>
+            </div>
+
+        </div>
+        <div class="weui-cells__title">历史搜索</div>
+        <div class="weui-flex">
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">张老师</a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">王老师</a>
+            </div>
+            <div class="weui-flex__item">
+                <a href="#" class="placeholder">李老师</a>
+            </div>
+
+        </div>
+
+        <div class="weui-btn-area">
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="query">搜索</a>
+        </div>
+      
+      <div class="res">
+            
+                <table id="bootstrap-data-table" class="table">
+                    <thead>
+                    <tr>
+                        <th class="serial">序号</th>
+                        <th>姓名</th>
+                        <th>时间</th>
+                        <th>地点</th>
+                        <th>事项</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {volist name="result" id="list" empty="暂时没有数据"}
+                    <tr>
+                        <td class="serial">{$i}</td>
+                        <td>  <span class="product">{$list.name}</span> </td>
+                        <td>  <span class="product">{$list.time}</span> </td>
+                        <td>  <span class="product">{$list.place}</span> </td>
+                        <td> <span class="product">{$list.item}</span> </td>
+                    </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            
+        </div>
+      
+    </div>
+
+    {include file="../application/wxcampus/view/index/nav.html"}
+</div>
+</body>
+  
+  {literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+    $('#query').onclick(
+        function (){
+            qname=$('#qname').val();
+            $.ajax({
+                dataType : 'json',
+                type : 'POST',
+                url : 'wxcampus/wxquery/index',
+                async : true,
+                data : {
+                    "qname" : qname//测试数据
+                },
+                success : function(data){
+                    alert(data);
+                },
+                error : function(XMLHttpRequest, textStatus, errorThrown) {
+                    alert(XMLHttpRequest.status + "," + textStatus);
+                }
+            });
+        }
+    );
+</script>
+{literal}
+  
+</html>
