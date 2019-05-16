@@ -65,21 +65,48 @@ class PersonalValidator extends Validate
 class Personal extends Common
 {
     protected function getUserId(){
+        //TODO
         return 1;
     }
     private function getDdl(){
         //TODO
         return date('Y-m-d', time() + 24*60*60);
     }
-    public function getEditableSchedule($page_id){
-        $uid = $this->getUserId();
-        $ddl= $this->getDdl() ;//TODO
+    public function getOneDaySchedule($timestamp){
         $page = Db::name('schedule_info')
-            ->where('user_id', $uid)
-            ->where('date', 'between time', [date('Y-m-d'), $ddl])
-            ->page($pageid, 10)
+            ->where('user_id', $this->getUserId())
+            ->where('date', date('Y-m-d', $timestamp))
+            ->where('is_delete', 0)
             ->select();
         return $page;
+    }
+    //返回所有相关字段, 保证当一个项被删除后, 依然可以显示.
+    protected function getAllScheduleItems(){
+        return Db::name('schedule_item')
+            ->select();
+    }
+    protected function getAllSchedulePlaces(){
+        return Db::name('schedule_place')
+            ->select();
+    }
+    protected function getAllScheduleTimes(){
+        return Db::name('schedule_time')
+            ->select();
+    }
+    protected function getScheduleItems(){
+        return Db::name('schedule_item')
+        ->where('is_delete', 0)
+        ->select();
+    }
+    protected function getSchedulePlaces(){
+        return Db::name('schedule_place')
+        ->where('is_delete', 0)
+        ->select();
+    }
+    protected function getScheduleTimes(){
+        return Db::name('schedule_time')
+        ->where('is_delete', 0)
+        ->select();
     }
     public function create(){
         $data = [
@@ -102,7 +129,7 @@ class Personal extends Common
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 2, 'schedule_info', $id);
+        $logRec->recordLogApi($uid, 2, 0,'schedule_info', $id);
     }
     public function update(){
         $data = [
@@ -147,7 +174,7 @@ class Personal extends Common
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 3, 'schedule_info', [$id => $diff]);
+        $logRec->recordLogApi($uid, 3, 0,'schedule_info', [$id => $diff]);
     }
 
     public function delete($id){
@@ -170,6 +197,6 @@ class Personal extends Common
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
+        $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
     }
 }

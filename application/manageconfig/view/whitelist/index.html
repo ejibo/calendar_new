@@ -9,13 +9,33 @@
                     <div class="card-body">
                         <h4 class="box-title">日程时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addwhitelist">添加人员</button>
-			    <button type="submit" onclick="javascrtpt:window.location.href='/manageconfig/whitelist/clearwhitelist'" class="btn btn-success btn-sm" data-toggle="modal">清空所有</button>
-                            <form  action="{:url('whitelist/add/excelInput')}" enctype="multipart/form-data" method="post">
-                                <input type="file" name="excel" /> <br>
-                                <input type="submit" value="上传" />
+			    <button type="submit" onclick="javascrtpt:window.location.href='{:url(\"/manageconfig/whitelist/clearwhitelist\")}'" class="btn btn-success btn-sm">清空所有</button>
+
+                            <button id="batchShow" type="submit" class="btn btn-success btn-sm">
+                                Excel批量导入
+                            </button>
+                            <a href="{:url('excelOutput')}" class="btn btn-success btn-sm" >Excel批量导出</a>
+                            <br/>
+                            <button style="display:none ;" id="button2" type="submit"
+                                    class="btn btn-success btn-sm "
+                                    onclick='hideAllCheckbox() ,
+                                        refreshcheckbox(),
+                                          document.getElementById("button2").style.display="none" ,
+                                                  document.getElementById("button1").style.display="none"'>取消
+                            </button>
+
+                            <form id="batchAdd" action="excelInput" enctype="multipart/form-data" method="post"
+                                  style="display: none"><br/>
+                                <label>Excel文件:</label>
+                                <input type="file" name="file"/> <br/>
+                                <label>添加注意事项:</label><br/>
+                                <label>如果提示添加成功，却没有展示，是因为数据库已经插入数据，而展示功能不完善，请等待负责展示功能的同学实现该功能。</label><br/>
+                                <label>1、数据千万条，安全第一条。</label><br/>
+                                <label>2、请上传Excel表格文件添加，格式：.xlsx</label><br/>
+                                <label>3、EXCEL表头: |姓名|学(工)号|用户类型|所属部门|职位|</label> <br/>
+                                <label>&nbsp&nbsp&nbsp&nbsp&nbspEXCEL表数据: |张三|1801212312|2|2|2|</label> <br/>
+                                <input class="btn btn-success btn-sm" type="submit" value="上传"/>
                             </form>
-
-
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -349,5 +369,25 @@
         modal.find('#del_id').val(id);
 
     });
+</script>
+
+<!--Excel添加-->
+<script>
+    $('#batchShow').click(function () {
+        let form = document.getElementById('batchAdd');
+        if (form.style.display === 'none') {
+            $('#batchShow').text('取消上传');
+            form.style.display = 'inline';
+        } else {
+            $('#batchShow').text('Excel批量导入');
+            form.style.display = 'none';
+        }
+    });
+    function hideAllCheckbox() {
+        let allCheckboxs = document.getElementsByClassName("checkbox");
+        for (let i = 0; i < allCheckboxs.length; i++) {
+            allCheckboxs[i].style.display = "none";
+        }
+    }
 </script>
 {/block}

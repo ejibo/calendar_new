@@ -23,7 +23,7 @@ class Smsbinding extends Common
                 $res['code']=3;
             }
             else {
-                if(!isset($_SESSION)){ session_start(); }
+                if (!session_id()) session_start();
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
@@ -49,7 +49,8 @@ class Smsbinding extends Common
                 }
                 else $res['code']=2;
             }
-            return $res;
+           // return $res;
+          return 1;
         }
         else{
             $res['code']=5;
@@ -60,7 +61,7 @@ class Smsbinding extends Common
         $phonecode=Request::instance()->post('phonecode');
         $signature=Request::instance()->post('signature');
         if($signature=='pkussphonecode'){
-            if(!isset($_SESSION)){ session_start(); }
+            if (!session_id()) session_start();
             $res1['phonecode']=$phonecode;
             $res1['verifycode']=$_SESSION['verifycode'];
             $res1['time']=$_SESSION['time'];
@@ -75,15 +76,15 @@ class Smsbinding extends Common
                         $res1['code']=4;
                     }
                     else {
-                        /*
+
                         $mobile=new Mobile();
-                        $addphone=$mobile->addMobile($_SESSION['id'],$_SESSION['telephone']);//由于登录功能还未实现，因此无法获得管理员的id
+                        $addphone=$mobile->addMobile($_SESSION['admin_id'],$_SESSION['telephone']);
                         if($addphone){//如果成功将手机号写入数据库
                             $res1['code']=1;//绑定完成
                         }
                         else{
                             $res1['code']=3;//如果未成功写入，则让用户稍后再试
-                        }*/
+                        }
                         $res1['code'] = 1;
                     }
                 }
