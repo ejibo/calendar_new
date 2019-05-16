@@ -16,6 +16,8 @@ class Smsbinding extends Common
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
         $signature=Request::instance()->post('signature');
+      $admin_id=Session::get('admin_id');
+      $_SESSION['admin_id']=$admin_id;
         if($signature=='pkusstelephone'){
             $mobile=new Mobile();
             $checkres=$mobile->hasMobile($telephone);
