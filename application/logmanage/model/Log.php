@@ -164,8 +164,11 @@ class Log extends Model
      * 3修改：假如同时操作了数据表中主键为22和23的两条数据的field1和field2字段, 则 $field = ['22'=>['field1'=> ['before value', 'after value'], 'field2'=> ['before value', 'after value']],'23'=>['field1'=> ['before value', 'after value'], 'field2'=> ['before value', 'after value']]]
      * 4删除：需要传入$uid, $type, $table, $field(该字段传入你删除的所有数据的主键，如 $field = ['11'，'12'])
      */
-    public function recordLogApi($uid, $type, $table = '', $field = '', $is_manage = 1){
+    public function recordLogApi($uid, $type, $is_manage = 1, $table = '', $field = ''){
         if($type != 1 && $type != 2 && $type != 3 && $type != 4)
+            return 0;
+
+        if($is_manage != 0 && $is_manage != 1)
             return 0;
 
         $client = new ClientInfo();
@@ -198,6 +201,7 @@ class Log extends Model
     public function getLogByUid($uid){
         $nameItem = Db::name('log_user')
             ->where('user_id',$uid)
+            ->where('is_manage',1)
             ->order("log_user.operate_time desc")
             ->select();
         return $nameItem;
@@ -226,8 +230,7 @@ class Log extends Model
      */
     public function getAllManagerLog(){
         $list = Db::query('SELECT manage_info.id,log_user.user_id,log_user.operate_time,log_user.operate_type,log_user.operate_action,log_user.user_agent,log_user.ip FROM log_user,manage_info WHERE log_user.user_id = manage_info.id AND log_user.is_manage = 1');
-        /*
-        $list = Db::table('log_user')
+        /*$list = Db::table('log_user')
             ->alias('l')
             ->join('manage_info m', 'l.user_id = m.id')
             ->where("m.is_delete=0")

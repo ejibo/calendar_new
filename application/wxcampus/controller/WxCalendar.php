@@ -137,7 +137,7 @@ class WxCalendar extends Controller
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 2, 'schedule_info', $id);
+        $logRec->recordLogApi($this->getUserId(), 2, 0,'schedule_info', $id);
         return $this->json('create', true, 'success');
     }
     public function update(){
@@ -180,7 +180,7 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 3, 'schedule_info', [$data['id'] => $diff]);
+        $logRec->recordLogApi($this->getUserId(), 3, 0,'schedule_info', [$data['id'] => $diff]);
         return $this->json('update', true, 'success');
     }
 
@@ -204,7 +204,7 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 4, 'schedule_info', [$id]);
+        $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
         return $this->json('delete', true, 'success');;
     }
     //Views
