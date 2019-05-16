@@ -18,6 +18,6 @@ class Wxpolicy extends Common
         $provisionFile = fopen("provisions.txt", "r") or die("Unable to open file!");
         $last = fread($provisionFile, filesize("provisions.txt"));
         fclose($provisionFile);
-        return json(['msg' => $last, 'code' => 20010]);
+        return json(['data' => $last, 'code' => 20010]);
     }
 }
