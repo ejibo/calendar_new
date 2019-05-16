@@ -184,14 +184,14 @@
         console.log($('#name').val())
                 $.ajax({
                     type:"POST",
-                    url: "add",
+                    url: "addPosition",
                     async: false,
-                    //dataType: 'json',
+                    dataType: 'json',
                     data: {
                     "name": $("#name").val()
                     },
                 success: function () {
-                    notifyAndRemoveModal("添加成功");;
+                    notifyAndRemoveModal("添加成功");
                     loadTable();
                     },
             });
