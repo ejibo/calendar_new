@@ -2,11 +2,6 @@ application/.htaccess.bak
 public/.htaccess.bak
 public/.htaccess
 application/.htaccess
-<<<<<<< HEAD
-.idea/workspace.xml
-.DS_Store
-.vscode/
-=======
 
 # IDE
 .idea
@@ -15,4 +10,3 @@ application/.htaccess
 
 # other
 .DS_Store
->>>>>>> 🙂update gitignore
