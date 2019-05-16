@@ -31,7 +31,7 @@ class Wxquery extends controller
             ->join('e', 'a.place_id = e.id')
             ->join('f', 'a.item_id = f.id')
             ->field('b.name as name, d.name as time, e.name as place, f.name as item, b.id as id')
-            ->find();
+            ->select();
 
         $this->assign('res',$res);
         return $this->fetch("index/wx_search");
