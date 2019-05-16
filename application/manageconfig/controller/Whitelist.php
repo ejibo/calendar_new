@@ -91,8 +91,8 @@ class Whitelist extends Common
     public function clearwhitelist(){
         $whitelist = model('Whitelist');                                  // 调用白名单数据模型
         $ret_date = $whitelist->clearwhitelist();                         // 通过模型进行清空操作
-        $is_clear = $ret_date["$is_clear"];
-        $clear_ids = $ret_date["$clear_ids"];
+        $is_clear = $ret_date["is_clear"];
+        $clear_ids = $ret_date["clear_ids"];
         $logmodel = new LogModel();                                       // 调用操作日志数据模型
         $uid = ADMIN_ID;                                                  // 管理员ID
         $type = 4;                                                        // 操作类型：删除（清空）
