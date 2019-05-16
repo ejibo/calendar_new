@@ -199,17 +199,9 @@
                     "name": name
                     },
                 success: function (data) {
-                    console.log(data);
-                    if (data.code == 1) {
-                        alert(data.msg);
-                        $("#smallmodal1").modal("hide");
-                        $('.modal-backdrop').remove();//去除遮罩层
-                        window.location.reload();
-                        loadTable();
-                    } else {
-                        alert(data.msg);
-                    }
-                }
+                    notifyAndRemoveModal("添加成功");;
+                    loadTable();
+                    },
             });
             } else alert("输入非法，请重新输入");
         }
