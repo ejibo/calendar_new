@@ -24,9 +24,16 @@
                     <p style="display:none">{$vo.userid}</p>
 
                 </div>
-                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/chaxun_on.png" style="width: 30px" ></div>
 
-                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px" onclick="noFollow(this)"></div>
+                     <div class=" weui-cell__ft">
+                         <object>
+                         <a href="{:url('checkDate',['followid'=> $vo.followid])}">
+                             <img src="__STATIC__/wx/img/chaxun_on.png" style="width: 30px" >
+                         </a>
+                         </object>
+                     </div>
+
+                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px"></div>
             </a>
             {/volist}
         </div>
@@ -51,7 +58,7 @@
         <p class="weui-tabbar__label">关注</p>
                     </span>
         </a>
-        <a  href="{:url('index')}" class="weui-tabbar__item">
+        <a   class="weui-tabbar__item">
             <img src="__STATIC__/wx/img/wode.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">我的</p>
         </a>
@@ -59,6 +66,7 @@
 </div>
 
 <script type="text/javascript">
+    //不再关注
     function noFollow(obj){
         var followid = $(obj).closest('a').find('div').eq(1).find('p').eq(1).text();
         var userid = $(obj).closest('a').find('div').eq(1).find('p').eq(2).text();
@@ -74,8 +82,24 @@
                 else
                     alert(data);
             });
-
     };
+
+    //查看该用户日程
+    function checkDate(obj) {
+        var followid = $(obj).closest('a').find('div').eq(1).find('p').eq(1).text();
+
+        $.post("{:url('checkDate')}",
+            {
+                followid:followid,
+
+            },
+            function(data,status){
+                if(data == "更新成功")
+                    location.reload();
+                else
+                    alert(data);
+            });
+    }
 </script>
 
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
