@@ -14,8 +14,8 @@ class Mobile extends Model
      */
     public function addMobile($id, $mobile)
     {
-        $data=Db::name('manage_info')->where('id', $id)->select();
-      alert($data['telephone']);
+        $data=Db::name('manage_info')->where('id', $id)->field("telephone")->select();
+      alert($data);
        // $model=new LogModel();
        // $uid=$id;
      //   $type=3;
