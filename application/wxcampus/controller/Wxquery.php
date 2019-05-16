@@ -32,6 +32,6 @@ class Wxquery extends controller
             ->select();
 
         $this->assign('res',$res);
-        return $this->fetch('wx_search');
+        return $this->fetch();
     }
 }
