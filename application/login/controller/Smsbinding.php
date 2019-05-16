@@ -23,7 +23,7 @@ class Smsbinding extends Common
             $mobile=new Mobile();
             $checkres=$mobile->hasMobile($telephone);
             if($checkres){//手机号已绑定
-                $res['code']=3;
+                $res=3;
             }
             else {
                 if (!session_id()) session_start();
@@ -31,7 +31,7 @@ class Smsbinding extends Common
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
-                        $res['code']=4;
+                        $res=4;
                         return json_encode($res);
                     } else {//如果是在1分钟之前申请的，则可以再次申请，并更新时间
                         $_SESSION['time'] = time();
@@ -52,13 +52,13 @@ class Smsbinding extends Common
              //       $res['code']=1;
              //  }
              //   else $res['code']=2;
-              $res['code']=1;
+              $res=1;
             }
-            return json_encode($res);
+            return $res;
         }
         else{
-            $res['code']=5;
-            return json_encode($res);
+            $res=5;
+            return $res;
         }
     }
     public function codeVerify(){
