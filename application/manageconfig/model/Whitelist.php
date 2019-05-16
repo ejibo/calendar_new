@@ -75,10 +75,10 @@ class Whitelist extends Model{
             $clear_ids = $clear_ids . $data["id"] . ", ";
         }
         $clear_ids = $clear_ids . "]"
-        ret = [
+        $ret_date = [
             "clear_ids" => $clear_ids,
             "is_clear" => $is_clear,
         ]
-        return $is_clear;
+        return $ret_date;
     }
 }
