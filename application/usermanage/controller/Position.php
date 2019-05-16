@@ -53,7 +53,6 @@ class Position extends Common
      * 第05组 张楚悦
      * 功能：添加职位
      */
-<<<<<<< HEAD
     public function addPosition()
     {
         $name = $_POST['name'];
