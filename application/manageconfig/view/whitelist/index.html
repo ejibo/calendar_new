@@ -12,7 +12,7 @@
 			    <button type="submit" onclick="javascrtpt:window.location.href='{:url(\"/manageconfig/whitelist/clearwhitelist\")}'" class="btn btn-success btn-sm">清空所有</button>
 
                             <button id="batchShow" type="submit" class="btn btn-success btn-sm">
-                                Excel批量添加
+                                Excel批量导入
                             </button>
                             <br/>
                             <button style="display:none ;" id="button2" type="submit"
@@ -34,6 +34,7 @@
                                 <label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspEXCEL表数据: |张三|1801212312|2|2|2|</label> <br/>
                                 <input class="btn btn-success btn-sm" type="submit" value="上传"/>
                             </form>
+                            <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -377,7 +378,7 @@
             $('#batchShow').text('取消上传');
             form.style.display = 'inline';
         } else {
-            $('#batchShow').text('Excel批量添加');
+            $('#batchShow').text('Excel批量导入');
             form.style.display = 'none';
         }
     });
