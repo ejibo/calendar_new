@@ -47,18 +47,18 @@ class Smsbinding extends Common
                 //$info="您的验证码为" + $verifyCode + "，有效时间为5分钟";
                 $result = $client->send($telephone, $verifyCode);
                 //var_dump($result);
-                $res['coderes']=$result;
-                if($result['code']=='0'){
-                    $res['code']=1;
-                }
-                else $res['code']=2;
+            //    $res['coderes']=$result;
+              //  if($result['code']=='0'){
+             //       $res['code']=1;
+             //  }
+             //   else $res['code']=2;
               $res['code']=1;
             }
-            return $res;
+            return json_encode($res);
         }
         else{
             $res['code']=5;
-            return $res;
+            return json_encode($res);
         }
     }
     public function codeVerify(){
