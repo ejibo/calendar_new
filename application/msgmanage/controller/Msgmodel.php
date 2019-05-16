@@ -21,14 +21,56 @@ class Msgmodel extends Common
     }
 
     /*
-     *story:
-     *负责人：
-     */
+    *story:查询消息模板
+    *负责人：吴珏
+    */
+
     public function loadTemplate()
     {
         $template = model('Template');
         $templates = $template->getAllTemplates();
         return $templates;
+    }
+    
+    public function searchTemplate()
+    {
+        $status = $_POST['status'];
+        $search = $_POST['search'];
+        $range = $_POST['range'];
+        $model = model('Template');
+        if($status==-1){
+            $this->error("请选择查询状态");
+        }
+        else if($range==-1){
+            $this->error("请选择查询范围");
+        }
+        else if($search==""){
+            $this->error("请输入查询内容");
+        }
+        else{
+            // $isHasTitle = $model->getItemByTitle($search);
+            if($status==1 && $range==1){
+                $isHasTitle = $model->getItemByTitleDelete($search);
+            }
+            else if($status==1 && $range==2){
+                $isHasTitle = $model->getItemByContentDelete($search);
+            }
+            else if($status==2 && $range==1){
+                $isHasTitle = $model->getItemByTitle($search);
+            }
+            else if($status==2 && $range==2){
+                $isHasTitle = $model->getItemByContent($search);
+            }
+            // $isHasContent = $model->getItemByContent($search);
+            if ($isHasTitle == null) {
+                $this->error("搜索项不存在，请重新尝试");
+            }
+            else{
+                // $this->success("查询成功");
+                $this->assign('templateItems',$isHasTitle);
+                return $isHasTitle;
+            }
+        }
     }
 
     /*
@@ -42,7 +84,7 @@ class Msgmodel extends Common
         /* var_dump($des);
         var_dump($con); */
         $model = model('Template');
-        $isHasSame = $model->getItemByTitle($tit);
+        $isHasSame = $model->getItemByTitle('');
         if ($isHasSame == null) {
             $res = $model->insertTemplate($tit, $con);
             if($res ==1){
@@ -91,7 +133,6 @@ class Msgmodel extends Common
     */
     public function remind($user_id)
     {
-        
         $position = model('Template');
         $position->remind($user_id);
         $this->redirect('msgmanage/msgmodel/index');
@@ -101,7 +142,6 @@ class Msgmodel extends Common
     细分story：取消发送消息提醒
     *负责人：刘玄
     */
-
     public function cancelremind($user_id)
     {
         
@@ -109,4 +149,24 @@ class Msgmodel extends Common
         $position->cancelremind($user_id);
         $this->redirect('msgmanage/msgmodel/index');
     }
+    /*
+    *story:根据消息模板向用户发送提醒消息（刘玄）
+    细分story：向客户端发送消息内容
+    *负责人：刘玄
+    */
+
+    public function remindToApp()
+    {
+     
+
+        $res= model('Template');
+        $dateres = $res->remindToApp();
+        $res_success = json_encode($dateres);
+    
+        header('Content-Type:application/json');//这个类型声明非常关键
+        return $res_success;
+    
+
+    }
+
 }

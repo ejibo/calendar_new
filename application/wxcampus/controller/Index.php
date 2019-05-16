@@ -9,30 +9,68 @@
 namespace app\wxcampus\controller;
 
 
+use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
+use think\Db;
+use think\Request;
 
 class Index extends Controller
 {
+    public  $stu_number;
 //微校相关信息
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
 
+    //检查用户是否存在
+    public function checkUser($number){
+        $res = Db::table("user_info")->where('work_id ='.$number)->select();
+        return $res;
+    }
+
+    public function addUser($name,$number){
+        Db::table('user_info')
+            ->data(['name'=> $name,'work_id'=>$number,'type_id'=>0,'depart_id'=>0,'position_id'=>50,'is_delete'=>0])->insert();
+    }
+
+    //获取对应学号的user_id;
+    public function getUserId($number){
+        $res = Db::table('user_info')->where('work_id',$number)->column('id');
+        if($res){
+            return $res[0];
+        }else{
+            return "没有该用户";
+        }
+
+    }
+
     public function index(){
-        return $this->fetch();
+    //  return $this->fetch();
         $code = input('param.wxcode');
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$code);
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
-            $this->assign("number",$userInfo['card_number']);
+            //检查user_info表里面有没有改用户，用学号来确认。
+            $this->stu_number = $userInfo['card_number'];
+            $res = $this->checkUser($userInfo['card_number']);
+            //如果不存在该用户，则新增该用户
+            if(!$res){
+                $this->addUser($userInfo['name'],$userInfo['card_number']);
+            }
+           // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
-          
+            $this->assign("number",$userInfo['card_number']);
             return $this->fetch();
         }
         else{
             echo "error";
         }
     }
+    public function index0(){
+        return $this->fetch();
+    }
+
+
     public function wx_search(){
         return $this->fetch();
     }
@@ -40,13 +78,74 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_attention(){
-        return $this->fetch();
+            $number = Request::instance()->param('number');
+
+            $user_id = $this->getUserId($number);
+            $list = Db::table('user_follow')
+                ->alias(['user_follow' => 'a', 'user_info' => 'b', 'user_position' => 'c'])
+                ->where('a.is_delete',0)
+                ->where('a.user_id = '.$user_id)
+                ->join('user_info','a.follow_id = b.id')
+                ->join('user_position','b.position_id = c.id')
+                ->field('a.user_id as userid, a.follow_id as followid, b.name as name, c.name as position')
+                ->select();
+            $this->assign('list_time_table',$list);
+
+            return $this->fetch('wx_attention');
+
     }
     public function wx_me(){
         return $this->fetch();
     }
     public function wx_calendar(){
-        return $this->fetch();
+        return $this->redirect('WxCalendar/Index');
+    }
+
+    //返回未关注的领导可以用来新添关注人
+    public function leaderList(){
+        $number = Request::instance()->param('number');
+        $user_id = $this->getUserId($number);
+        $condition = Db::table('user_follow')->where('is_delete = 0 AND user_id ='.$user_id)->column('follow_id');
+        $list = Db::table('user_info')
+            ->alias(['user_info' => 'a', 'user_position' => 'b'])
+            ->where("a.id","not in",$condition)
+            ->join('user_position','a.position_id = b.id')
+            ->field('a.id as id, a.name as name, b.name as position')
+            ->select();
+        $this->assign('list_time_table',$list);
+        $this->assign("userid",$user_id);
+        return $this->fetch('leaderList');
+    }
+
+    //增加关注人
+    public function addFollow()
+    {
+        $followid = Request::instance()->param('followid');//被关注人
+        $userid = Request::instance()->param('userid');//关注人
+        $add = ['user_id'=> $userid,'follow_id'=>$followid,'is_delete'=>0];
+
+        $res = Db::table("user_follow")->insert($add);
+        if($res)
+        {
+            return "添加成功";
+        }
+        return "添加失败";
+    }
+
+    //不再关注
+    public function noFollow()
+    {
+        $userid = Request::instance()->param('userid');
+        $followid = Request::instance()->param('followid');
+
+        $res = Db::table('user_follow')->where('user_id',$userid)->where('follow_id',$followid)
+               ->setField('is_delete',1);
+
+        if($res!=0)
+        {
+            return "更新成功";
+        }
+        return "更新失败";
     }
 
 
@@ -102,6 +201,4 @@ class Index extends Controller
         curl_close($ch);
         return $result;
     }
-
-
 }
