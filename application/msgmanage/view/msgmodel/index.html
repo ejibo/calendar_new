@@ -60,7 +60,7 @@
 
             <!-- 添加消息模板时弹出smallModal1 -->
             <div class="modal fade" id="smallModal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-md" role="document" >
+                <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" style="display: inline">添加模板</h5>
@@ -70,8 +70,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                            <input id="itemTit" name="itemTitle" placeholder="模板名称:请输入汉字，英文字母，数字，减号，下划线,空格" class="form-control" style="margin-bottom: 15px;" />
-                            <textarea id="itemCont" name="itemContent" placeholder="模板内容" class="form-control" style='height:180px;' ></textarea>
+                            <input id="itemTit" name="itemTitle" placeholder="模板名称:以汉字或字母开始,以汉字、字母或数字结束,可以使用减号、下划线与空格,长度不超过30个字符" class="form-control" style="margin-bottom: 15px;" />
+                            <textarea id="itemCont" name="itemContent" placeholder="模板内容：长度不超过140个字符" class="form-control" style='height:180px;' ></textarea>
                             </div>
                             <!-- <p>
                             <div class="form-group">
@@ -211,13 +211,26 @@
     $("#submit_add").on("click", function(){
         var tit = $("#itemTit").val();
         var con = $("#itemCont").val();
-        //$("#smallmodal1").modal(true,true,true,false);
-        var regTit=/^[\u0391-\uFFE5A-Za-z\s-_]{1,20}$/; 
-        if(!regTit.test(tit)){  //验证标题格式 
-        alert('标题格式错误！');
-        return false; 
+        var titNum = tit.length;
+        var conNum = con.length;
+        if(titNum == 0){
+            alert('请输入模板标题！');
+            return false;
         }
-        if(length)
+        if(conNum == 0){
+            alert('请输入模板内容！');
+            return false;
+        }
+        if(conNum > 140){
+            alert('模板内容过长！')
+            return false;
+        }
+        //$("#smallmodal1").modal(true,true,true,false);
+        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s-_]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
+        if(!regTit.test(tit)){  //验证标题格式 
+            alert('标题格式错误！');
+            return false; 
+        }
 
         $.ajax({
             url:"{:url('msgmanage/Msgmodel/addTemplate')}",
