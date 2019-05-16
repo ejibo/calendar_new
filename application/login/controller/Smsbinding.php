@@ -23,7 +23,7 @@ class Smsbinding extends Common
                 $res['code']=3;
             }
             else {
-                session_start();
+                if (!session_id()) session_start();
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
@@ -60,7 +60,7 @@ class Smsbinding extends Common
         $phonecode=Request::instance()->post('phonecode');
         $signature=Request::instance()->post('signature');
         if($signature=='pkussphonecode'){
-            session_start();
+            if (!session_id()) session_start();
             $res1['phonecode']=$phonecode;
             $res1['verifycode']=$_SESSION['verifycode'];
             $res1['time']=$_SESSION['time'];
