@@ -4,6 +4,7 @@ use app\common\controller\Common;
 use think\Controller;
 use think\Request;
 use think\Db;
+use think\Session;
 use app\login\controller\ZhenziSmsClient;
 use app\login\model\Mobile;
 
@@ -16,6 +17,8 @@ class Smsbinding extends Common
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
         $signature=Request::instance()->post('signature');
+      $admin_id=Session::get('admin_id');
+
         if($signature=='pkusstelephone'){
             $mobile=new Mobile();
             $checkres=$mobile->hasMobile($telephone);
@@ -24,6 +27,7 @@ class Smsbinding extends Common
             }
             else {
                 if (!session_id()) session_start();
+                    $_SESSION['admin_id']=$admin_id;
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
@@ -48,9 +52,9 @@ class Smsbinding extends Common
                     $res['code']=1;
                 }
                 else $res['code']=2;
+              $res['code']=1;
             }
-           // return $res;
-          return 1;
+            return $res;
         }
         else{
             $res['code']=5;
