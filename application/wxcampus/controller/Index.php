@@ -117,6 +117,32 @@ class Index extends Controller
         return $this->fetch('leaderList');
     }
 
+    //查看某个领导的日程
+    public function checkDate()
+    {
+        $id = Request::instance()->param('followid');
+        $info = Db::table('schedule_info')
+            ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
+            ->where('a.is_delete',0)
+            ->where("user_id",$id)
+            ->join('user_info','a.user_id = b.id')
+            ->join('user_position','b.position_id = c.id')
+            ->join('schedule_time','a.time_id = d.id')
+            ->join('schedule_place','a.place_id = e.id')
+            ->join('schedule_item','a.item_id = f.id')
+            ->field('d.name as time, e.name as place, f.name as item, b.id as userid')
+            ->select();
+
+        $name = Db::table('user_info')
+            ->where('id',$id)
+            ->column('name');
+
+        $this->assign('who',$name[0]);
+        $this->assign('info',$info);
+
+        return $this->fetch('leader_agenda');
+    }
+
     //增加关注人
     public function addFollow()
     {
