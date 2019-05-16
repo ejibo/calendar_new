@@ -90,7 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                      {volist name="$list" id="list" empty="暂时没有数据"}
+                      {volist name="res" id="list" empty="暂时没有数据"}
                     <tr>
                         <td class="serial">{$i}</td>
                         <td>  <span class="product">{$list.name}</span> </td>
@@ -109,31 +109,7 @@
     {include file="../application/wxcampus/view/index/nav.html"}
 </div>
 </body>
-  
-  {literal}
-<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script>
-    $('#query').click(
-        function (){
-            qname=$('#qname').val();
-            $.ajax({
-                dataType : 'json',
-                type : 'POST',
-                url : 'wxcampus/wxquery/index',
-                async : true,
-                data : {
-                    "qname" : qname//测试数据
-                },
-                success : function(data){
-                    alert(data);
-                },
-                error : function(XMLHttpRequest, textStatus, errorThrown) {
-                    alert(XMLHttpRequest.status + "," + textStatus);
-                }
-            });
-        }
-    );
-</script>
-{literal}
+ 
+ 
   
 </html>
