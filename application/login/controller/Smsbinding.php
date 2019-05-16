@@ -45,7 +45,7 @@ class Smsbinding extends Common
                 $_SESSION['verifycode']=$verifyCode;
                 $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
                 //$info="您的验证码为" + $verifyCode + "，有效时间为5分钟";
-                $result = $client->send($telephone, $verifyCode);
+               $client->send($telephone, $verifyCode);
                 //var_dump($result);
             //    $res['coderes']=$result;
               //  if($result['code']=='0'){
