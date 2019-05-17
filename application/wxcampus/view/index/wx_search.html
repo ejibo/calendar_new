@@ -71,11 +71,10 @@
     </div>
   here is result:
   
-  lll
-	{volist name="$rest" id="vo"}
-        {$vo.name}<br>
-        {$vo.time}<br>
-        {$vo.place}<br>
+  
+	{volist name="$list" id="vo"}
+        {$vo.id}<br>
+        {$vo.user_id}<br>
 	{/volist}
     <div class="weui-tabbar">
         <a href="wx_search.html" class="weui-tabbar__item  weui-bar__item_on">
