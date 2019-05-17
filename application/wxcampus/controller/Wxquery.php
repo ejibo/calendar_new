@@ -22,8 +22,12 @@ class Wxquery extends controller
         $res = $query->wx_query(); // 使用模型中的wx_query方法
         dump($res);
 
+      $list = Db::table('schedule_info')
+            ->where('schedule_item.is_delete', 0)
+            ->select();
+
         // echo $res;
-        $this->assign('rest', $res);
+        $this->assign('list', $list);
         return $this->fetch('index/wx_search');
     }
 }
