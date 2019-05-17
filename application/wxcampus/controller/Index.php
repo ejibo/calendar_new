@@ -253,7 +253,9 @@ class Index extends Controller
                 return json(['data' => true, 'code' => 20010]);
             }
             return json(['data' => false, 'code' => 20010]);
+        } else {
+            return json(['data' => true, 'code' => 20020]);
         }
-        return json(['data' => true, 'code' => 20020]);
+        
     }
 }
