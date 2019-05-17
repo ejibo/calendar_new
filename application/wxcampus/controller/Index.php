@@ -56,10 +56,10 @@ class Index extends Controller
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                $this->isFirstLogin[$code] = false;
+                $this->isFirstLogin[$code] = true;
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
             } else {
-                $this->isFirstLogin[$code] = true;
+                $this->isFirstLogin[$code] = false;
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -67,7 +67,7 @@ class Index extends Controller
             return $this->fetch();
         }
         else{
-            $this->isFirstLogin[$code] = false;
+            $this->isFirstLogin[$code] = true;
             echo "error";
         }
     }
