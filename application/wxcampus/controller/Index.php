@@ -57,7 +57,7 @@ class Index extends Controller
             if(!$res){
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
             } else {
-                return $this->redirect('Index/wx_policy');
+                return $this->redirect('Index/wx_policy', $code);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -72,7 +72,8 @@ class Index extends Controller
         return $this->fetch();
     }
 
-    public function wx_policy(){
+    public function wx_policy($wxcode){
+        $this->assign('wxcode', $wxcode);
         return $this->fetch(); 
     }
 
