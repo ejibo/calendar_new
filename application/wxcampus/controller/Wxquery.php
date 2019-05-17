@@ -15,7 +15,7 @@ use app\wxcampus\model\Query as Que;
 
 class Wxquery extends controller
 {
-    public function index()
+    public function Index()
     {
     	//按照部门、职务、姓名 查询用户日程
     	$query = new Que();  // 实例化模型
