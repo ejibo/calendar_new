@@ -1,5 +1,5 @@
 <?php
-namespace app\query\model;
+namespace app\wxcampus\model;
 
 use think\Model;
 use think\Db;
