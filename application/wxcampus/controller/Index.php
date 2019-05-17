@@ -66,6 +66,7 @@ class Index extends Controller
             return $this->fetch();
         }
         $this->assign("isFirstLogin",true);
+        return $this->fetch();
     }
     public function index0(){
         return $this->fetch();
