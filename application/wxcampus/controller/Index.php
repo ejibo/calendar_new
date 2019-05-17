@@ -70,6 +70,17 @@ class Index extends Controller
         return $this->fetch();
     }
 
+    public function wx_policy(){
+        return $this->fetch(); 
+    }
+
+    public function wx_loginProtocol(){
+        return $this->fetch(); 
+    }
+
+    public function wx_privateh5(){
+        return $this->fetch(); 
+    }
 
     public function wx_search(){
         return $this->fetch();
