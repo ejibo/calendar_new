@@ -11,6 +11,31 @@
             position: relative;
         }
     </style>
+    <script>
+        var req = new XMLHttpRequest();
+        function reqCallback(){
+            if (req.readyState == 4 && req.status == 200) {
+                var response = req.responseText;
+                var jsonObject = eval("(" + response + ")");
+                var dataSize = jsonObject.size;
+                if(true) {
+                    window.location.href = './wx-policy.html';
+                    window.event.returnValue = false;
+                }
+            }
+        }
+        function isFirstLogin(){
+            let wxcode = location.href.split('wxcode=')
+            if(wxcode.length < 2) return;
+            var url = 'http://114.116.99.20/calendar_new/public/index.php/wxcampus/index/isfirstlogin?wxcode=' + wxcode[1];
+            req.open('GET', url, true);
+            req.onreadystatechange = reqCallback;
+            req.send();
+        }
+        window.onload = function() {
+            isFirstLogin();
+        }
+    </script>
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
