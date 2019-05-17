@@ -18,13 +18,13 @@ class Wxquery extends controller
     public function Index()
     {
     	//按照部门、职务、姓名 查询用户日程
-    	$query = new Que();  // 实例化模型
-        $res = $query->wx_query(); // 使用模型中的wx_query方法
-        dump($res);
-
-      $list = Db::table('schedule_info')
-            ->where('schedule_item.is_delete', 0)
+    	//$query = new Que();  // 实例化模型
+        //$res = $query->wx_query(); // 使用模型中的wx_query方法
+        
+      	$list = Db::table('schedule_info')
+            ->where('schedule_info.is_delete', 0)
             ->select();
+		dump($list);
 
         // echo $res;
         $this->assign('list', $list);
