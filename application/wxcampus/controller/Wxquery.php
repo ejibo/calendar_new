@@ -5,7 +5,7 @@
  * 2019-5-15
  */
 
-namespace app\wx\controller;
+namespace app\wxcampus\controller;
 use app\common\controller\Common;
 use think\Controller;
 use think\Db;
