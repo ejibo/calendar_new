@@ -18,7 +18,7 @@
                 var response = req.responseText;
                 var jsonObject = eval("(" + response + ")");
                 if(jsonObject.data) {
-                    window.location.href = './wx-policy.html';
+                    window.location.href = './wx_policy.html';
                     window.event.returnValue = false;
                 }
             }
