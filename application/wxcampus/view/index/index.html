@@ -12,24 +12,11 @@
         }
     </style>
     <script>
-        var req = new XMLHttpRequest();
-        function reqCallback(){
-            if (req.readyState == 4 && req.status == 200) {
-                var response = req.responseText;
-                var jsonObject = eval("(" + response + ")");
-                if(jsonObject.data) {
-                    window.location.href = './wx_policy.html';
-                    window.event.returnValue = false;
-                }
-            }
-        }
+ 
         function isFirstLogin(){
-            let wxcode = location.href.split('wxcode=')
-            if(wxcode.length < 2) return;
-            var url = 'http://114.116.99.20/calendar_new/public/index.php/wxcampus/index/isfirstlogin?wxcode=' + wxcode[1];
-            req.open('GET', url, true);
-            req.onreadystatechange = reqCallback;
-            req.send();
+           if($isFirstLogin) {
+               window.location.href = './wx_policy.html'
+           }
         }
         window.onload = function() {
             isFirstLogin();

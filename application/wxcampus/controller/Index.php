@@ -55,7 +55,10 @@ class Index extends Controller
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
+                $this->assign("isFirstLogin",true);
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
+            } else {
+                $this->assign("isFirstLogin",false);
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -236,23 +239,5 @@ class Index extends Controller
         }*/
         curl_close($ch);
         return $result;
-    }
-
-    public function isFirstLogin($wxcode){
-        header("Access-Control-Allow-Origin: *");
-        header("Access-Control-Allow-Credentials: true");
-        header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-        header("Access-Control-Max-Age: 3600");
-        header("Access-Control-Allow-Headers: X-Requested-With, Content-Type,X-Requested-With, Content-Type, X-File-Name,token,Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Max-Age,authorization");
-        $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$wxcode);
-        if($accessToken){
-            $userInfo = $this->getUserInfo($accessToken);
-            $res = $this->checkUser($userInfo['card_number']);
-            if (!$res) {
-                return json(['data' => true, 'code' => 20010]);
-            }
-            return json(['data' => false, 'code' => 20010]);
-        }
-        return json(['data' => true, 'code' => 20020]);
     }
 }
