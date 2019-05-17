@@ -59,6 +59,7 @@ class Index extends Controller
                 $this->isFirstLogin[$code] = true;
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
             } else {
+                return $this->redirect('Index/wx_policy');
                 $this->isFirstLogin[$code] = false;
             }
            // $this->assign("number",$userInfo['card_number']);
