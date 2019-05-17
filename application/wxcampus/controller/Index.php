@@ -250,11 +250,13 @@ class Index extends Controller
             $this->stu_number = $userInfo['card_number'];
             $res = $this->checkUser($userInfo['card_number']);
             if (!$res) {
+                return json(['data' => false, 'code' => 20010]);
+            } else {
                 return json(['data' => true, 'code' => 20010]);
             }
-            return json(['data' => false, 'code' => 20010]);
+            
         } else {
-            return json(['data' => true, 'code' => 20020]);
+            return json(['data' => false, 'code' => 20020]);
         }
         
     }

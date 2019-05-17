@@ -17,7 +17,7 @@
             if (req.readyState == 4 && req.status == 200) {
                 var response = req.responseText;
                 var jsonObject = eval("(" + response + ")");
-                if(jsonObject.data) {
+                if(!!jsonObject.data) {
                     window.location.href = './wx_policy.html';
                     window.event.returnValue = false;
                 }
