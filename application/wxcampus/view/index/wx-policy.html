@@ -2,7 +2,7 @@
 @Author: gunjianpan
 @Date:   2019-05-16 11:01:18
 @Last Modified by:   gunjianpan
-@Last Modified time: 2019-05-16 20:14:09
+@Last Modified time: 2019-05-17 15:18:55
 -->
 <!DOCTYPE html>
 <html lang="zh-CN" style="height: 100%;">
@@ -11,6 +11,23 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <title>添加日程</title>
+    <script>
+            var url = 'http://114.116.99.20/calendar_new/public/index.php/wx/wxpolicy/getpolicy'
+            var req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.onreadystatechange=reqCallback;
+            req.send();
+            function reqCallback(){
+                if (req.readyState == 4 && req.status == 200) {
+                    var response = req.responseText;
+                    var jsonObject = eval("(" + response + ")");
+                    var dataSize = jsonObject.size;
+                    var policyText = jsonObject.data;
+                    var policyDiv = document.getElementById('policyText');
+                    policyDiv.innerHTML = policyText;
+                }
+            }
+        </script>
 </head>
 <body style="height: 100%; background-color: #ededed">
     <div class="weui-msg">
@@ -35,33 +52,9 @@
         </div>
     </div>
 </body>
-<script>
-    var url = 'http://114.116.99.20/calendar_new/public/index.php/wx/wxpolicy/getpolicy'
-    var req = new XMLHttpRequest();
-    req.open('GET', url, true);
-    req.onreadystatechange=reqCallback;
-    req.send();
-    console.log(req.readyState);
-    function reqCallback(){
-        if (req.readyState == 4 && req.status == 200) {
-        
-        var response = req.responseText;
-       
-        var jsonObject = eval("(" + response + ")");
-        
-        var dataSize = jsonObject.size;
-        
-        var policyText = jsonObject.data;
-
-        var policyDiv = document.getElementById('policyText');
-        policyDiv.innerHTML = policyText;
-        }
-    }
-    
-</script>
 <style>
 .policy{
-    width: 500px;
+    width: 300px;
     margin: 0 auto;
     font-size: 14px !important;
     text-align: left;
