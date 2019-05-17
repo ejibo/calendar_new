@@ -65,6 +65,8 @@ class Index extends Controller
             $this->assign("number",$userInfo['card_number']);
             return $this->fetch();
         }
+        $this->assign("name",'sspku');
+        $this->assign("number",1);
         $this->assign("isFirstLogin",true);
         return $this->fetch();
     }
