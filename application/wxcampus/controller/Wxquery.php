@@ -10,7 +10,7 @@ use app\common\controller\Common;
 use think\Controller;
 use think\Db;
 use think\Request;
-use app\Wxquery\model\Query as Que;
+use app\wxcampus\model\Query as Que;
 
 
 class Wxquery extends controller
