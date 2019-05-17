@@ -65,9 +65,7 @@ class Index extends Controller
             $this->assign("number",$userInfo['card_number']);
             return $this->fetch();
         }
-        else{
-            echo "error";
-        }
+        $this->assign("isFirstLogin",true);
     }
     public function index0(){
         return $this->fetch();

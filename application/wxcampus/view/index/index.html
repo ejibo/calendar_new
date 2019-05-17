@@ -11,16 +11,6 @@
             position: relative;
         }
     </style>
-    <script>
-        function isFirstLogin(){
-           if($isFirstLogin) {
-               window.location.href = './wx_policy.html';
-           }
-        }
-        window.onload = function() {
-            isFirstLogin();
-        }
-    </script>
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
@@ -107,5 +97,15 @@
         </a>
     </div>
 </div>
+<script>
+        function isFirstLogin(){
+           if(!$isFirstLogin) {
+               window.location.href = './wx_policy.html';
+           }
+        }
+        window.onload = function() {
+            isFirstLogin();
+        }
+</script>
 </body>
 </html>
