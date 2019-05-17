@@ -24,6 +24,6 @@ class Wxquery extends controller
 
         // echo $res;
         $this->assign('rest', $res);
-        return $this->fetch();
+        return $this->fetch('index/wx_search');
     }
 }
