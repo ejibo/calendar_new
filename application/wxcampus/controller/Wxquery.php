@@ -21,9 +21,15 @@ class Wxquery extends controller
     	//$query = new Que();  // 实例化模型
         //$res = $query->wx_query(); // 使用模型中的wx_query方法
         
-      	$list = Db::table('schedule_info')
-            ->where('schedule_info.is_delete', 0)
-            ->select();
+      	$list = [
+          [
+          "id"=>'1';
+          "name"=>'liu'
+        ],[
+          "id"=>'2';
+          "name"=>'lau'
+       	]
+        ]
 		dump($list);
 
         // echo $res;
