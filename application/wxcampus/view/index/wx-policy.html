@@ -2,7 +2,7 @@
 @Author: gunjianpan
 @Date:   2019-05-16 11:01:18
 @Last Modified by:   gunjianpan
-@Last Modified time: 2019-05-17 15:18:55
+@Last Modified time: 2019-05-17 15:37:13
 -->
 <!DOCTYPE html>
 <html lang="zh-CN" style="height: 100%;">
@@ -21,7 +21,6 @@
                 if (req.readyState == 4 && req.status == 200) {
                     var response = req.responseText;
                     var jsonObject = eval("(" + response + ")");
-                    var dataSize = jsonObject.size;
                     var policyText = jsonObject.data;
                     var policyDiv = document.getElementById('policyText');
                     policyDiv.innerHTML = policyText;
@@ -38,8 +37,8 @@
         </div>
         <div class="weui-msg__opr-area">
             <p class="weui-btn-area">
-                <a href="./wx-agenda.html" class="weui-btn weui-btn_primary">同意并继续</a>
-                <a href="javascript:history.back();" class="weui-btn weui-btn_default">不同意</a>
+                <a href="javascript:history.back();" class="weui-btn weui-btn_primary">同意并继续</a>
+                <a href="http://ss.pku.edu.cn" class="weui-btn weui-btn_default">不同意</a>
             </p>
         </div>
         <div class="weui-msg__extra-area">
