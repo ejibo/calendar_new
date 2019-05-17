@@ -247,6 +247,7 @@ class Index extends Controller
         $accessToken = $this->getAccessToken($this->APP_KEY,$this->APP_SECRET,$wxcode);
         if($accessToken){
             $userInfo = $this->getUserInfo($accessToken);
+            $this->stu_number = $userInfo['card_number'];
             $res = $this->checkUser($userInfo['card_number']);
             if (!$res) {
                 return json(['data' => true, 'code' => 20010]);
