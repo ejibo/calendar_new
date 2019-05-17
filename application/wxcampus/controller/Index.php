@@ -56,10 +56,10 @@ class Index extends Controller
             $res = $this->checkUser($userInfo['card_number']);
             //如果不存在该用户，则新增该用户
             if(!$res){
-                $this->isFirstLogin[$code] = true;
+                $this->isFirstLogin[$code] = false;
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
             } else {
-                $this->isFirstLogin[$code] = false;
+                $this->isFirstLogin[$code] = true;
             }
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
@@ -67,7 +67,7 @@ class Index extends Controller
             return $this->fetch();
         }
         else{
-            $this->isFirstLogin[$code] = true;
+            $this->isFirstLogin[$code] = false;
             echo "error";
         }
     }
@@ -250,8 +250,8 @@ class Index extends Controller
         header("Access-Control-Max-Age: 3600");
         header("Access-Control-Allow-Headers: X-Requested-With, Content-Type,X-Requested-With, Content-Type, X-File-Name,token,Access-Control-Allow-Origin,Access-Control-Allow-Methods,Access-Control-Max-Age,authorization");
         if ($this->isFirstLogin[$wxcode]) {
-            return json(['data' => true, 'code' => 20010]); 
+            return json(['data' => false, 'code' => 20010]); 
         }
-        return json(['data' => false, 'code' => 20010]);
+        return json(['data' => true, 'code' => 20010]);
     }
 }
