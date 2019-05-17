@@ -56,7 +56,6 @@ class Index extends Controller
             //如果不存在该用户，则新增该用户
             if(!$res){
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
-            } else {
                 return $this->redirect('Index/wx_policy',['wxcode'=>$code]);
             }
            // $this->assign("number",$userInfo['card_number']);
