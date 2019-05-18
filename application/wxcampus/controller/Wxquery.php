@@ -24,7 +24,7 @@ class Wxquery extends controller
         $list = $query->wx_query(); // 使用模型中的wx_query方法
         // dump($res);
 
-        $this->assign('list', $query_name);
+        $this->assign('list', $list);
         return $this->fetch('index/wx_search');
     //echo 'ajdhfks';
     }
