@@ -80,11 +80,12 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
-    //  if(!preg_match("/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u",$name)){
-     // 如果输入的部门名称中包含标点符号
-        // $message = '部门名称不能包含标点符号';
-    //	return ['message' => $message];
-     // }
+      if(!preg_match("/^[\x{4e00}-\x{9fa5}]+$/u",$name)){
+     
+      如果输入的部门名称中包含非中文
+         $message = '部门名称只能包含中文';
+    	return ['message' => $message];
+      }
         $user = model('Department');
         // 模型对象赋值
         $user->data([
