@@ -80,7 +80,7 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
-      if(preg_match(^[\u4E00-\u9FA5A-Za-z0-9]+$,$name)){
+      if(preg_match('^[\u4E00-\u9FA5A-Za-z0-9]+$',$name)){
       如果输入的部门名称中包含标点符号
          $message = '部门名称不能包含标点符号';
     	return ['message' => $message];
