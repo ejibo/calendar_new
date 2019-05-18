@@ -20,17 +20,17 @@ class Wxquery extends controller
     	//按照部门、职务、姓名 查询用户日程
     	//$query = new Que();  // 实例化模型
         //$res = $query->wx_query(); // 使用模型中的wx_query方法
-        
+        $list = array();
       	$list = [
           [
           "id"=>'1';
           "name"=>'liu'
-        ],[
+          ],[
           "id"=>'2';
           "name"=>'lau'
-       	]
+       	  ]
         ]
-		dump($list);
+		var_dump($list);
 
         // echo $res;
         $this->assign('list', $list);
