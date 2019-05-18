@@ -36,13 +36,15 @@
                     </select>
                 </div>
             </div>
-
+        
+          
+          <form action="wxcampus/Wxquery/index" method="POST">
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入姓名" id="query_name">
+                    <input class="weui-input" placeholder="请输入姓名" name="query_name">
                 </div>
             </div>
 
@@ -51,10 +53,11 @@
                     <label class="weui-label">工号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="number" placeholder="请输入工号" id="work_id">
+                    <input class="weui-input" type="number" placeholder="请输入工号" name="work_id">
                 </div>
             </div>
-
+          </form>
+          
         </div>
         <div class="weui-cells__title">历史搜索</div>
         <div style="margin:0px 12px;">
@@ -66,11 +69,15 @@
 
 
         <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" id="query">搜索</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href=":url('Wxquery/index')">搜索</a>
         </div>
     </div>
   
   here is result:  
+  	{if condition="count($list.id) != 0"}
+            {$list}
+            暂无数据
+            {/if}
 	
   
     <div class="weui-tabbar">
@@ -96,34 +103,6 @@
         </a>
     </div>
 </div>
-</body>
-  
-  
-  <script>
-    $("#query").onclick(function () {
-        query();
-    });
-    
-  	function query() {
-        var query_name = $("#query_name").val();
-        var work_id = $('#work_id').val();
-        $.ajax({
-            type: "POST",
-            url: 'wxcampus/Wxquery/index', //请求程序页面
-            async: false,
-            data: {
-                "query_name": query_name,
-                "work_id": work_id
-            },//请求需要发送的处理数据
-            success: function (msg) {
-                window.location.reload()
-            },
-            fail: function (msg) {
-                console.log(msg);
-            }
-        });
-    }
-  </script>
-  
+</body>  
   
 </html>
