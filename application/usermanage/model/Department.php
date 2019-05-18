@@ -69,7 +69,7 @@ class Department extends Model
 		#protected $_validate = array(
         #array('name','require','部门名称不能为空'，0,'regex',3),
         #);
-        if (Department::get(['name' => $name])) {
+        if(!preg_match("/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u",$name)){
             //如果在表中查询到该用户名
             $status = 0;
             $message = '部门已存在,请重新输入';
@@ -80,12 +80,12 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
-     # if(!preg_match("/^[\x{4e00}-\x{9fa5}]+$/u",$name)){
+      if(!preg_match("/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u",$name)){
      
-     # 如果输入的部门名称中包含非中文
-     #    $message = '部门名称只能包含中文';
-    #	return ['message' => $message];
-  #    }
+      #如果输入的部门名称中包含非中文
+         $message = '部门名称只能包含中文';
+    	return ['message' => $message];
+      }
         $user = model('Department');
         // 模型对象赋值
         $user->data([
