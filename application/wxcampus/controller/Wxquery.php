@@ -28,11 +28,11 @@ class Wxquery extends controller
   
   	public function query()
     {
-        //$query = new query();  // 实例化模型
-        //$list = $query->wx_query(); // 使用模型中的wx_query方法
-        // dump($res);
+        $query = new query();  // 实例化模型
+        $list = $query->wx_query(); // 使用模型中的wx_query方法
+        dump($list);
 
-        //$this->assign('list', $list);
-        // return $this->fetch('index/wx_search');
+        $this->assign('list', $list);
+        return $this->fetch('index/wx_search');
     }
 }
