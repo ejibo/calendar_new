@@ -35,9 +35,12 @@ class ScheduleDefault extends Model
      * @throws \InvalidArgumentException 存在相同时间段的话或者是未定义的时间段的话抛出
      */
     public function setTime($time){
+        if(!preg_match("周[一二三四五六日][(上午)(下午)(晚上)]",$time)){
+            throw new \InvalidArgumentException($time.'是未定义的时间段',404);
+        }
         $time_id = Db::table('schedule_time')->where('name', $time)->find()['id'];
         if (empty($time_id)) {//时间必须是之前配置好的时间，正常来说传过来的时间都是已经存在了的
-            throw new \InvalidArgumentException($time.'是未定义的时间段',404);
+            $time_id=Db::table('schedule_time')->insertGetId(['name'=>$time,'is_delete'=>0]);
         }
         $this->data('time_id',$time_id);
         $this->checkSameTimeDefaultSchedule();
