@@ -33,34 +33,27 @@
                                                                     <td><span class="product {$vo.id}">{$vo.name}</span></td>
                                                                     <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>
                                                                     </td>
-                                                                    <td>
+                                                                    {if condition="$vo.is_delete eq 1"}
                                                                         <button type="button"
-                                                                                class="btn btn-primary btn-sm mb-1"
-                                                                                data-toggle="modal"
-                                                                                data-target="#smallmodal"
-                                                                                data-id="{$vo.id}"
-                                                                                onclick="recordId(this)">
-                                                                            <i class="fa fa-magic"></i>&nbsp;编辑
+                                                                                onclick="recoverPosition('{$vo.id}')"
+                                                                                class="btn btn-recover btn-sm mb-1" >
+                                                                            <i class="fa fa-rotate-left"/>&nbsp;恢复
                                                                         </button>
-                                                                        {eq name="vo.is_delete" value="0"
-                                                                        <button id="${vo.id}"
-                                                                                type="button"
-                                                                                class="btn btn-danger btn-sm mb-1"
-                                                                                data-id="${vo.id}"
-                                                                                onclick="invalid(this)">
-                                                                            <i class="fa fa-exclamation"></i>&nbsp;作废
-                                                                        </button>
-                                                                        {else/}
-                                                                        <button id="${vo.id}"
-                                                                                type="button"
-                                                                                class="btn btn-success btn-sm mb-1"
-                                                                                onclick="recoverPosition(this)"
-                                                                                data-id="${vo.id}">
-                                                                            <i class="fa fa-exclamation"></i>&nbsp;恢复
-                                                                        </button>
-                                                                        {/eq}
+                                                                    {else /}
+                                                                    <button type="button"
+                                                                            class="btn btn-primary btn-sm mb-1"
+                                                                            data-toggle="modal"
+                                                                            data-target="#smallmodal"
+                                                                            onclick="setData('{$vo.id}', '{$vo.name}')">
+                                                                        <i class="fa fa-magic"></i>&nbsp;编辑
+                                                                    </button>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <button type="button"
+                                                                            class="btn btn-danger btn-sm mb-1"
+                                                                            onclick="invalid('{$vo.id}')">
+                                                                        <i class="fa fa-exclamation"/>&nbsp;删除
+                                                                    </button>
+                                                                    {/if}
 
-                                                                    </td>
                                                                 </tr>
                                                                 {/volist}
                                 </tbody>
