@@ -26,43 +26,43 @@
                                 </thead>
                                 <tbody id="position_info">
 
-                                <!--                                {volist name="position_list" id="vo"}-->
+                                                                {volist name="position_list" id="vo"}
 
-                                <!--                                <tr>-->
-                                <!--                                    <td class="serial">{$vo.id}</td>-->
-                                <!--                                    <td><span class="product {$vo.id}">{$vo.name}</span></td>-->
-                                <!--                                    <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>-->
-                                <!--                                    </td>-->
-                                <!--                                    <td>-->
-                                <!--                                        <button type="button"-->
-                                <!--                                                class="btn btn-primary btn-sm mb-1"-->
-                                <!--                                                data-toggle="modal"-->
-                                <!--                                                data-target="#smallmodal"-->
-                                <!--                                                data-id="{$vo.id}"-->
-                                <!--                                                onclick="recordId(this)">-->
-                                <!--                                            <i class="fa fa-magic"></i>&nbsp;编辑-->
-                                <!--                                        </button>-->
-                                <!--                                        {eq name="vo.is_delete" value="0"-->
-                                <!--                                        <button id="${vo.id}"-->
-                                <!--                                                type="button"-->
-                                <!--                                                class="btn btn-danger btn-sm mb-1"-->
-                                <!--                                                data-id="${vo.id}"-->
-                                <!--                                                onclick="invalid(this)">-->
-                                <!--                                            <i class="fa fa-exclamation"></i>&nbsp;作废-->
-                                <!--                                        </button>-->
-                                <!--                                        {else/}-->
-                                <!--                                        <button id="${vo.id}"-->
-                                <!--                                                type="button"-->
-                                <!--                                                class="btn btn-success btn-sm mb-1"-->
-                                <!--                                                onclick="recoverPosition(this)"-->
-                                <!--                                                data-id="${vo.id}">-->
-                                <!--                                            <i class="fa fa-exclamation"></i>&nbsp;恢复-->
-                                <!--                                        </button>-->
-                                <!--                                        {/eq}-->
+                                                                <tr>
+                                                                    <td class="serial">{$vo.id}</td>
+                                                                    <td><span class="product {$vo.id}">{$vo.name}</span></td>
+                                                                    <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <button type="button"
+                                                                                class="btn btn-primary btn-sm mb-1"
+                                                                                data-toggle="modal"
+                                                                                data-target="#smallmodal"
+                                                                                data-id="{$vo.id}"
+                                                                                onclick="recordId(this)">
+                                                                            <i class="fa fa-magic"></i>&nbsp;编辑
+                                                                        </button>
+                                                                        {eq name="vo.is_delete" value="0"
+                                                                        <button id="${vo.id}"
+                                                                                type="button"
+                                                                                class="btn btn-danger btn-sm mb-1"
+                                                                                data-id="${vo.id}"
+                                                                                onclick="invalid(this)">
+                                                                            <i class="fa fa-exclamation"></i>&nbsp;作废
+                                                                        </button>
+                                                                        {else/}
+                                                                        <button id="${vo.id}"
+                                                                                type="button"
+                                                                                class="btn btn-success btn-sm mb-1"
+                                                                                onclick="recoverPosition(this)"
+                                                                                data-id="${vo.id}">
+                                                                            <i class="fa fa-exclamation"></i>&nbsp;恢复
+                                                                        </button>
+                                                                        {/eq}
 
-                                <!--                                    </td>-->
-                                <!--                                </tr>-->
-                                <!--                                {/volist}-->
+                                                                    </td>
+                                                                </tr>
+                                                                {/volist}
                                 </tbody>
                             </table>
                         </div>
@@ -136,7 +136,7 @@
 {block name="scripts"}
 <script type="text/javascript">
     $(document).ready(function () {
-        loadTable();
+        //loadTable();
     });
 
     function setData(id, name) {
@@ -203,7 +203,7 @@
                         alert(data.msg);
                         $("#smallmodal1").modal("toggle");
                         $('.modal-backdrop').remove();//去除遮罩层
-                        
+
                         //notifyAndRemoveModal(data.msg);
                         loadTable();
                     }
