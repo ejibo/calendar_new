@@ -56,11 +56,14 @@ class Position extends Common
     public function addPosition()
     {
         $name = $_POST['name'];
+      	//判断输入是否为空
         if (empty($name)){
             $this->error('职位不能为空，请重新输入');
         }
+      	//判断输入长度
         if (strlen($name)<30){
             $model = model('Position');
+          	//判断是否重名
             $ifsame=$model->getPosition($name);
             if ($ifsame==null){
                 $result = $model->insertPosition($name);
