@@ -93,13 +93,7 @@ class Calendar extends Common
         $username = session('username');
         $this->validate($param, 'ScheduleDefault');
 
-        if (empty($username)) {
-            $username = "张三";//测试
-        }
-        $user_id = Db::table("user_info")->where(["name" => $username, "is_delete" => 0])->find()['id'];
-        if (empty($user_id)) {
-            return json(["code" => 400, 'msg' => '用户[' . $username . ']不存在', 'data' => []]);
-        }
+
         $place_id = Db::table("schedule_default")->where(["id" => $id,])->find()['place_id'];
         $item_id = Db::table("schedule_default")->where(["id" => $id,])->find()['item_id'];
         $time_id = Db::table("schedule_default")->where(["id" => $id,])->find()['time_id'];
