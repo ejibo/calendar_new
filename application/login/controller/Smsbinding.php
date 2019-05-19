@@ -4,6 +4,7 @@ use app\common\controller\Common;
 use think\Controller;
 use think\Request;
 use think\Db;
+use think\Session;
 use app\login\controller\ZhenziSmsClient;
 use app\login\model\Mobile;
 
@@ -13,21 +14,28 @@ class Smsbinding extends Common
     {
         return $this->fetch();
     }
+  /*
+  *吴欣雨
+  *生成验证码并发送给管理员
+  */
     public function getCode(){
         $telephone=Request::instance()->post('telephone');
         $signature=Request::instance()->post('signature');
+      $admin_id=Session::get('admin_id');
+
         if($signature=='pkusstelephone'){
             $mobile=new Mobile();
-            $checkres=$mobile->hasMobile($telephone);
+            $checkres=$mobile->hasMobile($telephone);//判断手机号是否已经存在于数据库中
             if($checkres){//手机号已绑定
-                $res['code']=3;
+                $res=3;
             }
             else {
                 if (!session_id()) session_start();
+                    $_SESSION['admin_id']=$admin_id;
                 $_SESSION['telephone'] = $telephone;
                 if (isset($_SESSION['time'])) {//如果此前已经申请过验证码
                     if ($_SESSION['time']+ 60 > time()) {//判断是否是在1分钟内申请的
-                        $res['code']=4;
+                        $res=4;
                         return json_encode($res);
                     } else {//如果是在1分钟之前申请的，则可以再次申请，并更新时间
                         $_SESSION['time'] = time();
@@ -39,24 +47,28 @@ class Smsbinding extends Common
                 srand($seed);                     // 播下随机数发生器种子
                 $verifyCode = rand(100000, 999999);
                 $_SESSION['verifycode']=$verifyCode;
-                $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");
+                $client = new  ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101241", "7c697169-8031-4c8d-8a5f-653c107e6711");//使用榛子云API发送短信
                 //$info="您的验证码为" + $verifyCode + "，有效时间为5分钟";
-                $result = $client->send($telephone, $verifyCode);
+               $client->send($telephone, $verifyCode);
                 //var_dump($result);
-                $res['coderes']=$result;
-                if($result['code']=='0'){
-                    $res['code']=1;
-                }
-                else $res['code']=2;
+            //    $res['coderes']=$result;
+              //  if($result['code']=='0'){
+             //       $res['code']=1;
+             //  }
+             //   else $res['code']=2;
+              $res=1;//发送成功
             }
-           // return $res;
-          return 1;
+            return $res;
         }
         else{
-            $res['code']=5;
+            $res=5;
             return $res;
         }
     }
+    /*
+  *吴欣雨
+  *判断验证码是否在有效期内并且是否正确
+  */
     public function codeVerify(){
         $phonecode=Request::instance()->post('phonecode');
         $signature=Request::instance()->post('signature');

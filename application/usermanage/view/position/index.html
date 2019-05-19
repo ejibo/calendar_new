@@ -182,21 +182,31 @@
     function addPosition() {
 
        // console.log($('#name').val())
-        $.ajax({
-            type: "POST",
-            url: "addPosition",
-            async: false,
-            dataType: 'json',
-            data: {
-                "name": $("#name").val()
-            },
-            success: function () {
-                    notifyAndRemoveModal("添加成功");
-                    loadTable();
-
-
+        let n=$("#name");
+        var name=n.val();
+        if (name.length>30){
+            alert("长度过长，请重新输入");
+        }else{
+            var reg=/([\u4E00-\u9FA5])+/;
+            if(reg.test(name)){
+                $.ajax({
+                    type: "POST",
+                    url: "addPosition",
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        "name": $("#name").val()
+                    },
+                    success: function () {
+                        notifyAndRemoveModal("添加成功");
+                        loadTable();
+                    }
+                })
+            }else{
+                alert("输入非法，请重新输入");
             }
-        });
+        }
+        n.val("");
     }
 
 

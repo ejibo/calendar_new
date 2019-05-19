@@ -5,42 +5,37 @@
  * 2019-5-15
  */
 
-namespace app\wx\controller;
+namespace app\wxcampus\controller;
 use app\common\controller\Common;
 use think\Controller;
 use think\Db;
 use think\Request;
+use app\wxcampus\model\Query as query;
+
 
 class Wxquery extends controller
 {
-    //按照部门、职务、姓名 查询用户日程
-    public function index(, $work_id)
+    public function Index()
     {
-        // qname 前端传输回来的查询词--用户名
-      $param = input('post.');
-      if(empty($spram['query_name'])){
-      	$this->error('请输入姓名');
-      }
-      if(empty($spram['work_id'])){
-      	$this->error('请输入工号');
-      }
-       // $name = Request::instance()->param('query_name');
-       // $work_id = Request::instance()->param('query_name');
-      
-        // $res = Db::table('schedule_info')
-        //     ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
-        //     ->where('a.is_delete', 0)
-        //     ->where('b.name', $query_name)
-        //     ->where('b.work_id', $work_id)
-        //     ->join('b', 'a.user_id = b.id')
-        //     ->join('c', 'b.position_id = c.id')
-        //     ->join('d', 'a.time_id = d.id')
-        //     ->join('e', 'a.place_id = e.id')
-        //     ->join('f', 'a.item_id = f.id')
-        //     ->field('b.name as name, d.name as time, e.name as place, f.name as item, b.id as id')
-        //     ->select();
+        $query_name = input('post.query_name');
+        $work_id = input('post.work_id');
+    	//按照部门、职务、姓名 查询用户日程
+    	$query = new query();  // 实例化模型
+        $list = $query->wx_query(); // 使用模型中的wx_query方法
+        // dump($res);
 
-        // $this->assign('res',$res);
-        return $this->fetch(index/wx_search);
+        $this->assign('list', $list);
+        return $this->fetch('index/wx_search');
+    //echo 'ajdhfks';
+    }
+  
+  	public function wxquery()
+    {
+        $query = new query();  // 实例化模型
+        $list = $query->wx_query(); // 使用模型中的wx_query方法
+        dump($list);
+
+        $this->assign('list', $list);
+        return $this->fetch('index/wx_search');
     }
 }

@@ -69,7 +69,14 @@ class Position extends Model
         $result = Db::name('user_position')->insert($data);
         return $result;
     }
-
+    public function getPosition($name)
+    {
+        $positionName = Db::name('user_position')
+            ->where('name', $name)
+            ->where('is_delete', 0)
+            ->find();
+        return $positionName;
+    }
 }
 
 
