@@ -187,7 +187,7 @@
             alert("长度过长，请重新输入");
         }else{
           //判断输入是否为汉字
-            var reg=/([\u4E00-\u9FA5])+/;
+            var reg=/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u;
             if(reg.test(name)){
                 $.ajax({
                     type: "POST",
