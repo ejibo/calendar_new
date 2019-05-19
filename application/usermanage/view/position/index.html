@@ -187,7 +187,7 @@
             alert("长度过长，请重新输入");
         }else{
           //判断输入是否为汉字
-            var reg=/^(\p{Unified_Ideograph})/u;
+            var reg=/\p{Unified_Ideograph}/u;
             if(reg.test(name)){
                 $.ajax({
                     type: "POST",
@@ -213,8 +213,29 @@
         n.val("");
     }
 
-
-    function changePositionName() {
+function changePositionName() {
+        var id = $("#tmp_id").attr('id_memory');
+        var name = $('#position_name').val();
+        console.log(id, name);
+        $.ajax({
+            type: "POST",
+            url: 'change',//请求程序页面
+            async: false,//同步：当有返回值以后才会运行后面的js程序。
+            data: {
+                "id": id,
+                "name": name
+            },//请求需要发送的处理数据
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    notifyAndRemoveModal(data.message);
+                    loadTable();
+                } else {
+                    alert(data.message);
+                }
+            }
+          
+    /*function changePositionName() {
         var id = $("#tmp_id").attr('id_memory');
         var name = $('#position_name').val();
 
@@ -235,7 +256,7 @@
             }
 
         });
-    }
+    }*/
 
     function notifyAndRemoveModal(msg) {
         alert(msg);
