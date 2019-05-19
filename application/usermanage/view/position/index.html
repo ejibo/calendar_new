@@ -9,8 +9,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">所有职位&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal"
-                                    data-target="#smallmodal1">添加职位
+                            <button type="submit" class="btn btn-success btn-sm" onclick="showModel1()">添加职位
                             </button>
                         </h4>
                     </div>
@@ -178,6 +177,9 @@
         })
     }
 
+    function showModel1() {
+        $('#smallmodal1').modal('show');
+    }
 
     function addPosition() {
 
@@ -197,8 +199,9 @@
                     data: {
                         "name": $("#name").val()
                     },
-                    success: function () {
-                        notifyAndRemoveModal("添加成功");
+                    success: function (data) {
+                        console.log(data);
+                        notifyAndRemoveModal(data.msg);
                         loadTable();
                     }
                 })
