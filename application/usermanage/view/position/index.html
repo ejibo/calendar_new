@@ -182,9 +182,11 @@
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
+      //判断字符串长度
         if (name.length>30){
             alert("长度过长，请重新输入");
         }else{
+          //判断输入是否为汉字
             var reg=/([\u4E00-\u9FA5])+/;
             if(reg.test(name)){
                 $.ajax({
