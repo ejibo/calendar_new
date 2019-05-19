@@ -202,6 +202,7 @@
                     success: function (data) {
                         alert(data.msg);
                         $("#smallmodal1").modal("toggle");
+                        $('.modal-backdrop').remove();//去除遮罩层
                         //notifyAndRemoveModal(data.msg);
                         loadTable();
                     }
