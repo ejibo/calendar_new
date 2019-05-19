@@ -197,11 +197,11 @@
                     },
                     success: function (data) {
                         alert(data.msg);
-                        $("#smallmodal1").modal("toggle");
-                        $('.modal-backdrop').remove();//去除遮罩层
-
+                        //$("#smallmodal1").modal("toggle");
+                        //$('.modal-backdrop').remove();//去除遮罩层
+                        window.location.reload();
                         //notifyAndRemoveModal(data.msg);
-                        loadTable();
+                        //loadTable();
                     }
                 })
             }else{
