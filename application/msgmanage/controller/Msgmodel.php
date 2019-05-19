@@ -83,17 +83,14 @@ class Msgmodel extends Common
         $con = $_POST['con'];
         /* var_dump($des);
         var_dump($con); */
-        //$("#smallmodal1").modal(true,true,true,false);
+        
         $regTit = '/^[\x{4e00}-\x{9fa5}A-Za-z][\x{4e00}-\x{9fa5}A-Za-z\d\s]{0,29}[\x{4e00}-\x{9fa5}A-Za-z\d]$/u'; 
-        if(!preg_match($regTit,$tit) && strlen($tit)>140){  //验证标题格式 
-            $this->error("添加失败，请重新尝试"); 
-        }
-        else{
+        if(preg_match($regTit,$tit) && strlen($tit)<=140){  //验证标题格式 
             $model = model('Template');
             $isHasSame = $model->getItemByTitle('');
             if ($isHasSame == null) {
                 $res = $model->insertTemplate($tit, $con);
-                if($res ==1){
+                if($res){
                     $this->success("新增成功");
                 }
                 else{
@@ -103,6 +100,9 @@ class Msgmodel extends Common
             else{
                 $this->error("名称重复");
             }
+        }
+        else{
+            $this->error("添加失败，请重新尝试"); 
         }
     }
     /*

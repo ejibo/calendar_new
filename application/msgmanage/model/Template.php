@@ -8,6 +8,7 @@
 namespace app\msgmanage\model;
 use think\Model;
 use think\Db;
+use app\logmanage\model\Log as LogModel;
 
 class Template extends Model
 {
@@ -62,9 +63,18 @@ class Template extends Model
     负责人：佟起
     */
     public function insertTemplate($tit, $cont){
+        //插入数据
         $data = ['title' => $tit, 'content'=> $cont, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
-        $res = Db::name('message_template')->insert($data);
-        return $res;
+        $res = Db::name('message_template')->insertGetId($data);
+        //记录日志
+        $model = new LogModel();
+        $uid = ADMIN_ID; // 操作人主键id，非学号
+        $type = 2;
+        $table = 'message_template';
+        $field = [(string)$res]; // 增加的主键列表，不是学号
+        $isRcd = $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+
+        return $isRcd;
     }
     /**
      * Created by 张骁雄.

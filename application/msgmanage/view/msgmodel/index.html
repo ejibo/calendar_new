@@ -70,8 +70,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                            <input id="itemTit" name="itemTitle" placeholder="模板名称:以汉字或字母开始,以汉字、字母或数字结束,可以使用减号、下划线与空格,长度不超过30个字符" class="form-control" style="margin-bottom: 15px;" />
-                            <textarea id="itemCont" name="itemContent" placeholder="模板内容：长度不超过140个字符" class="form-control" style='height:180px;' ></textarea>
+                            <input id="itemTit" name="itemTitle" placeholder="模板名称：以汉字或字母开始，以汉字、字母或数字结束，可以使用空格，长度不超过30个字符。" class="form-control" style="margin-bottom: 15px;" />
+                            <textarea id="itemCont" name="itemContent" placeholder="模板内容：长度不超过140个字符。" class="form-control" style='height:180px;' ></textarea>
                             </div>
                             <!-- <p>
                             <div class="form-group">
@@ -257,7 +257,7 @@
             alert('请输入模板标题！');
             return false;
         }
-        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s-_]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
+        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
         if(!regTit.test(tit)){  //验证标题格式 
             alert('标题格式错误！');
             return false; 
@@ -287,8 +287,11 @@
     });
 
     $('#smallModal2').on('show.bs.modal', function (e) {
-        var id = $(e.relatedTarget).data("id");
-        var des = $(e.relatedTarget).data("des");
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        var des = ele.cells[1].innerText;
+        /* var id = $(e.relatedTarget).data("id");
+        var des = $(e.relatedTarget).data("des"); */
         $("#itemIdE").val(id);
         $("#itemDesE").val(des);
         $("#msg2").html("");
@@ -314,7 +317,9 @@
         })
     });
     $('#smallModal3').on('show.bs.modal', function (e) {
-        var id = $(e.relatedTarget).data("id");
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        /* var id = $(e.relatedTarget).data("id"); */
         $("#id").val(id);
         $("#msg3").html("");
     });
