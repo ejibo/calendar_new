@@ -63,17 +63,24 @@ class Template extends Model
     负责人：佟起
     */
     public function insertTemplate($tit, $cont){
+        
+        $uid = ADMIN_ID; // 获取当前管理员ID
         //插入数据
-        $data = ['title' => $tit, 'content'=> $cont, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
+        $data = ['title' => $tit, 'content'=> $cont, 'creat_id'=> $uid, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
         $res = Db::name('message_template')->insertGetId($data);
-        //记录日志
-        $model = new LogModel();
-        $uid = ADMIN_ID; // 操作人主键id，非学号
-        $type = 2;
-        $table = 'message_template';
-        $field = [(string)$res]; // 增加的主键列表，不是学号
-        $isRcd = $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
 
+        $model = new LogModel();
+        $type = 2;
+        $is_manage = 1; // 管理员填1,非管理员填0
+        $table = 'message_template';
+        $field = [$res]; // 增加的主键列表，不是学号
+        $isRcd = 0;
+
+        //记录日志
+        if($res){
+            $isRcd = $model->recordLogApi ($uid, $type, $is_manage, $table, $field); //需要判断调用是否成功
+        }
+        
         return $isRcd;
     }
     /**
