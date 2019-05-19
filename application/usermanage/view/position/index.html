@@ -132,7 +132,7 @@
 {block name="scripts"}
 <script type="text/javascript">
     $(document).ready(function () {
-        loadTable();
+        //loadTable();
     });
 
     function setData(id, name) {
@@ -258,7 +258,7 @@
                     var item = data[i]
                     if (item.is_delete) {
                         table_html += `<tr class="deleted">
-                                            <td class="serial">${i + 1}</td>
+                                            <td class="serial">${item.id}</td>
                                             <td class="product">${item.name}</td>
                                             <td class="product">${note[item.is_delete]}</td>
                                             <td>
