@@ -79,7 +79,7 @@ class Workday extends Common
                 'is_work_day'=> [$befor_is_work_day, $isWorkDay]
                 ]
                 ];
-                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+                $model->recordLogApi ($uid, $type, 1, $table, $field); //需要判断调用是否成功
 
 
 
@@ -93,7 +93,7 @@ class Workday extends Common
                 $type = 2;
                 $table = 'workday';
                 $field = [$ymd]; // 增加的主键列表，不是学号
-                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+                $model->recordLogApi ($uid, $type, 1, $table, $field); //需要判断调用是否成功
 
             }
 
