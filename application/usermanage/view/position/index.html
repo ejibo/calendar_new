@@ -197,7 +197,8 @@
                     data: {
                         "name": $("#name").val()
                     },
-                    success: function () {
+                    success: function (data) {
+                      	console.log(data);
                         notifyAndRemoveModal("添加成功");
                         loadTable();
                     }
