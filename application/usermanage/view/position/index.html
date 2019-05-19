@@ -198,8 +198,8 @@
                         "name": $("#name").val()
                     },
                     success: function (data) {
-                      	console.log(data);
-                        notifyAndRemoveModal("添加成功");
+                      	//console.log(data);
+                        notifyAndRemoveModal(data.msg);
                         loadTable();
                     }
                 })
