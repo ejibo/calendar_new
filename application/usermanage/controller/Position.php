@@ -65,7 +65,6 @@ class Position extends Common
             if ($ifsame==null){
                 $result = $model->insertPosition($name);
                 if ($result == 1) {
-                    //设置成功后跳转页面的地址
                     $this->success('新增成功');
                 } else {
 
@@ -75,6 +74,8 @@ class Position extends Common
             else{
                 $this->error("职位重复，请重新输入");
             }
+        }else{
+            $this->error("职位名称过长，请重新输入");
         }
 
     }
