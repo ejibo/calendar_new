@@ -120,10 +120,13 @@ class Index extends Controller
     public function wx_schedule_default(){
         $number=Request::instance()->param('number');
         $defaultSchedules=\app\manageconfig\model\ScheduleDefault::getDefaultSchedules($this->getUserId($number));
+        $this->assign("number",$number);
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }
     public function wx_add_schedule_default(){
+        $number=Request::instance()->param('number');
+        $this->assign("number",$number);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
