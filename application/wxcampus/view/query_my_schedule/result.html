@@ -13,35 +13,35 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-xl-12">
-                    <div class="card-body">
-                        <h4 class="box-title">我的的日程</h4>
+                <div class="card-body">
+                    <h4 class="box-title">我的的日程</h4>
 
-                    </div>
-                    <div class="card-body--">
-                        <div class="table-stats">
-                            <table id="bootstrap-data-table" class="table">
-                                <thead>
-                                <tr>
-                                    <th class="serial">序号</th>
+                </div>
+                <div class="card-body--">
+                    <div class="table-stats">
+                        <table id="bootstrap-data-table" class="table">
+                            <thead>
+                            <tr>
+                                <th class="serial">序号</th>
 
-                                    <th>时间</th>
-                                    <th>地点</th>
-                                    <th>事项</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {volist name= 'schedule_info' id='list'}
-                                <tr>
-                                    <td class="serial">{$i}</td>
-                                    <td>  <span class="product">{$list.date}</span> </td>
-                                    <td>  <span class="product">{$list.place}</span> </td>
-                                    <td> <span class="product">{$list.item}</span> </td>
-                                </tr>
-                                {/volist}
-                                </tbody>
-                            </table>
-                        </div>
+                                <th>时间</th>
+                                <th>地点</th>
+                                <th>事项</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name= 'schedule_info' id='list'}
+                            <tr>
+                                <td class="serial">{$i}</td>
+                                <td>  <span class="product">{$list.date}</span> </td>
+                                <td>  <span class="product">{$list.place}</span> </td>
+                                <td> <span class="product">{$list.item}</span> </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
                     </div>
+                </div>
             </div>
         </div>
     </div>
