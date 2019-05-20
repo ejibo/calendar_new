@@ -28,7 +28,7 @@ class Namelogin extends Controller
             $num = $admin -> checkLogin($username, $password);
             switch ($num){
                 case 3:
-                    $this -> success('登入成功', 'index/index/index', null, 1);
+                    $this -> success('登入成功', 'querystatistics/query/index', null, 1);
                     break;
                 case 4:
                     $this -> error('您的帐户状态已失效，请联系相关管理员', null, null, 3);
