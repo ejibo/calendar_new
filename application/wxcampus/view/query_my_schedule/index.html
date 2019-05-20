@@ -13,24 +13,28 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-xl-12">
+                <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
+                    <div class="weui-cells">
+                        <div class="weui-cell">
+                            <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="wei-input" type="date" value="{$date}" name="starttime">
+                            </div>
+
+                            <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
+                            <div class="weui-cell__bd">
+                                <input class="wei-input" type="date" value="{$date}" name="endtime">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
+                        data-target=".add-schedule" style="vertical-align: middle;"><font size="5px">查询</font></button>
+                </form>
+
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">我的的日程</h4>
                         <div>
-                            <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-                                <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label></div>
-                                <div class="weui-cell__bd">
-                                    <input class="wei-input" type="date" value="{$date}" name="starttime">
-                                </div>
-
-                                <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
-                                <div class="weui-cell__bd">
-                                    <input class="wei-input" type="date" value="{$date}" name="endtime">
-                                </div>
-                                
-                                <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
-                                    data-target=".add-schedule" style="vertical-align: middle;"><font size="5px">查询</font></button>
-                            </form>
                         </div>
                     </div>
                     <div class="card-body--">
