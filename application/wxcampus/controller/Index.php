@@ -113,6 +113,12 @@ class Index extends Controller
     public function wx_calendar(){
         return $this->redirect('WxCalendar/Index');
     }
+    public function wx_schedule_default(){
+        $number=Request::instance()->param('number');
+        $defaultSchedules=\app\manageconfig\model\ScheduleDefault::getDefaultSchedules($this->getUserId($number));
+        $this->assign("defaultSchedules",$defaultSchedules);
+        return $this->fetch();
+    }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){
         $number = Request::instance()->param('number');
