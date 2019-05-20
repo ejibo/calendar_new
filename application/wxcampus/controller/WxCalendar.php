@@ -63,11 +63,9 @@ class CalendarValidator extends Validate
 class WxCalendar extends Controller
 {
     //apis
+    private $uid;
     protected function getUserId(){
-        $index = controller('index');
-        $userid = $index->getUserId($index->stu_number);
-        var_dump($userid);
-        return $userid;
+        return $this->uid;
     }
     private function getDdl(){
         //TODO
@@ -217,7 +215,8 @@ class WxCalendar extends Controller
     protected $items;
     protected $places;
     protected $times;
-    public function Index($date = NULL){
+    public function Index($uid = NULL, $date = NULL){
+        if($uid != NULL)$this->uid = $uid;
         if($date == NULL)$date = date('Y-m-d');
         $this->items = $this->getAllScheduleItems();
         $this->places = $this->getAllSchedulePlaces();
