@@ -20,6 +20,7 @@
                             <table id="bootstrap-data-table" class="table">
                                 <thead>
                                     <tr>
+                                        <th class="serial">序号</th>
                                         <th>姓名</th>
                                         <th>时间</th>
                                         <th>地点</th>
@@ -29,6 +30,7 @@
                                 <tbody>
                                     {volist name='info' id='list'}
                                     <tr>
+                                        <td class="serial">{$list.id}</td>
                                         <td>  <span class="product">{$list.name}</span> </td>
                                         <td>  <span class="product">{$list.date} {$list.time}</span> </td>
                                         <td>  <span class="product">{$list.place}</span> </td>
