@@ -42,9 +42,10 @@ class Calendar extends Common
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }
         $schedule->is_delete=0;
-        if($id=$schedule->save()){
+        $schedule->update_time=date("Y-m-d H:i:s");
+        if($schedule->save()){
             $log= new Log();
-            $log->recordLogApi($user_id,2,0,"schedule_default",[$id]);
+            $log->recordLogApi($user_id,2,0,"schedule_default",[$schedule->id]);
             return json(['code'=>1,'msg'=>'success','data'=>[]]);
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
