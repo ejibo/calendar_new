@@ -21,7 +21,7 @@ class Template extends Model
     //根据模板名称获取模板
     public function getItemByTitle($tit){
         $titleTemp = Db::name('message_template')
-            ->where('title',$tit)
+            ->where('title','like','%'.$tit.'%')
             ->where('is_delete',0)
             ->select();
         return $titleTemp;
@@ -30,7 +30,7 @@ class Template extends Model
     //根据模板内容获取模板
     public function getItemByContent($content){
         $contentTemp = Db::name('message_template')
-            ->where('content',$content)
+            ->where('content','like','%'.$content.'%')
             ->where('is_delete',0)
             ->select();
         return $contentTemp;
@@ -42,10 +42,18 @@ class Template extends Model
             ->select();
         return $allItems;
     }
+    //根据模板名称活内容获取模板
+    public function getAllItems($tit){
+        $allItems = Db::name('message_template')
+            ->where('content|title','like','%'.$tit.'%')
+            ->where('is_delete',0)
+            ->select();
+        return $allItems;
+    }
     //根据模板名称获取模板
     public function getItemByTitleDelete($tit){
         $titleTemp = Db::name('message_template')
-            ->where('title',$tit)
+            ->where('title','like','%'.$tit.'%')
             ->where('is_delete',1)
             ->select();
         return $titleTemp;
@@ -53,12 +61,19 @@ class Template extends Model
     //根据模板内容获取模板
     public function getItemByContentDelete($content){
         $contentTemp = Db::name('message_template')
-            ->where('content',$content)
+            ->where('content','like','%'.$content.'%')
             ->where('is_delete',1)
             ->select();
         return $contentTemp;
     }
-
+    //获取所有模板
+    public function getAllItemsDelete($tit){
+        $allItems = Db::name('message_template')
+            ->where('content|title','like','%'.$tit.'%')
+            ->where('is_delete',1)
+            ->select();
+        return $allItems;
+    }
     /*story:增加消息模板
     负责人：佟起
     */
@@ -137,8 +152,5 @@ class Template extends Model
             ->select();
         return $data;
     }
-      
-
-
 
 }

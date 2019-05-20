@@ -61,7 +61,12 @@ class Msgmodel extends Common
             else if($status==2 && $range==2){
                 $isHasTitle = $model->getItemByContent($search);
             }
-            // $isHasContent = $model->getItemByContent($search);
+            else if($status==1 && $range==0){
+                $isHasTitle = $model->getAllItems($search);
+            }
+            else if($status==2 && $range==0){
+                $isHasTitle = $model->getAllItemsDelete($search);
+            }
             if ($isHasTitle == null) {
                 $this->error("搜索项不存在，请重新尝试");
             }
