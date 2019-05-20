@@ -11,9 +11,6 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            <button class="weui-btn" onclick="addDefaultSchedule()">
-                添加
-            </button>
             {volist name="defaultSchedules" id="schedule"}
             <a class="weui-cell  weui-cell_example">
                 <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
@@ -29,108 +26,16 @@
                     ></div>
             </a>
             {/volist}
-            <div class="modal fade" id="smallmodal1" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="scrollmodalLabel">添加事项</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-check-square-o"></i>
-                                    </div>
-                                    <input type="text" id="username" name="username" value="new" class="form-control" disabled="disabled">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <select id="addNewDay" name="addNewDay" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-                                        <option value="周一">周一</option>
-                                        <option value="周二">周二</option>
-                                        <option value="周三">周三</option>
-                                        <option value="周四">周四</option>
-                                        <option value="周五">周五</option>
-                                        <option value="周六">周六</option>
-                                        <option value="周日">周日</option>
-                                    </select>
-                                    <select id="addNewTime" name="addNewTime" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-                                        <option value="上午">上午</option>
-                                        <option value="下午">下午</option>
-                                        <option value="晚上">晚上</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="addNewPlace" name="addNewPlace" placeholder="地点" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="addNewItem" name="addNewItem" placeholder="事项" class="form-control">
-                                </div>
-                            </div>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                            <button type="button" id="addDefaultSchedule" class="btn btn-success" onclick="addDefaultSchedule()">确认</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="weui-btn-area" style="position: fixed;bottom:70px ;right:5px;z-index:9999;">
+                <a class="weui-btn weui-btn_block weui-btn_primary" href="wx_add_schedule_default" id="showTooltips" style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
             </div>
+
         </div>
     </div>
+    {include file="../application/wxcampus/view/index/nav.html"}
 </div>
 
-<script type="text/javascript">
-    /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
-    function addDefaultSchedule(){
-        var time = $('#addNewDay').val() + $('#addNewTime').val();
-        var place = $('#addNewPlace').val();
-        if (place.trim().length == 0) {
-            alert('请输入地点');
-            return 1;
-        }
-        var item = $('#addNewItem').val();
-        if (item.trim().length == 0) {
-            alert('请输入事项');
-            return 1;
-        }
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "{:url('Calendar/addDefaultSchedule')}",
-            data: {"time":time,"place": place,"item":item },
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
-                    alert('添加成功');
-                    //document.getElementById('smallmodal1').style.display = 'none';
-                    window.location.reload();
-                }
-                else{
-                    alert('添加失败：' + data.msg);
-                }
-            }
-        });
-    }
-</script>
+
 
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
 <script src="__STATIC__/assets/js/popper.min.js"></script>
