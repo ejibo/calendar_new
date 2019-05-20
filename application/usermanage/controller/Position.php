@@ -69,6 +69,8 @@ class Position extends Common
                 $result = $model->insertPosition($name);
                 if ($result == 1) {
                     $this->success('新增成功');
+                    $status = 1;
+                    return ['status'=> $status];
                 } else {
 
                     $this->error('新增失败,请重新尝试');
