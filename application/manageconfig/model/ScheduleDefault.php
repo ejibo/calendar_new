@@ -14,15 +14,15 @@ class ScheduleDefault extends Model
     }
 
     public function getTime(){
-        return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name')->find();
+        return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name');
     }
 
     public function getPlace(){
-        return Db::table('schedule_place')->where('id', $this->getData('place_id'))->value('name')->find();
+        return Db::table('schedule_place')->where('id', $this->getData('place_id'))->value('name');
     }
 
     public function getItem(){
-        return Db::table('schedule_item')->where('id', $this->getData('item_id'))->value('name')->find();
+        return Db::table('schedule_item')->where('id', $this->getData('item_id'))->value('name');
     }
 
     public function setUserId($user_id){
@@ -34,7 +34,7 @@ class ScheduleDefault extends Model
      * @throws \InvalidArgumentException 存在相同时间段的话或者是未定义的时间段的话抛出
      */
     public function setTime($time){
-        $time_id = Db::table('schedule_time')->where('name', $time)->value('id')->find();
+        $time_id = Db::table('schedule_time')->where('name', $time)->value('id');
         if (empty($time_id)) {
             $time_id=Db::table('schedule_time')->insertGetId(['name'=>$time,'is_delete'=>0]);
         }
@@ -55,7 +55,7 @@ class ScheduleDefault extends Model
     }
 
     public function setPlace($place){
-        $place_id=Db::table('schedule_place')->where(['name'=>$place,'is_delete'=> 0])->value('id')->find();
+        $place_id=Db::table('schedule_place')->where(['name'=>$place,'is_delete'=> 0])->value('id');
         if(empty($place_id)){//如果是之前不存在的地点，则新建一个
             $place_id=Db::table('schedule_place')->insertGetId(['name'=>$place,'is_delete'=>0]);
         }
@@ -63,7 +63,7 @@ class ScheduleDefault extends Model
     }
 
     public function setItem($item){
-        $item_id=Db::table('schedule_item')->where(['name'=>$item,'is_delete'=> 0])->value('id')->find();
+        $item_id=Db::table('schedule_item')->where(['name'=>$item,'is_delete'=> 0])->value('id');
         if(empty($item_id)){//如果是之前不存在的事项，则新建一个
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>0]);
         }
