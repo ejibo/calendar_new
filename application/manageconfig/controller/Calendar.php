@@ -44,7 +44,7 @@ class Calendar extends Common
         $schedule->is_delete=0;
         if($id=$schedule->save()){
             $log= new Log();
-            $log->recordLogApi($user_id,2,0,[$id]);
+            $log->recordLogApi($user_id,2,0,"schedule_default",[$id]);
             return json(['code'=>1,'msg'=>'success','data'=>[]]);
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
