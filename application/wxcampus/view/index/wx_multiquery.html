@@ -9,8 +9,6 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                            <h4 class="box-title">所有日程
-                            </h4>
                         <form action="searchnames" method="post">
                         多人查询(<b>请使用空格隔开</b>):&nbsp;&nbsp;&nbsp; 
                         <input type="text" name="names" />
@@ -22,7 +20,6 @@
                             <table id="bootstrap-data-table" class="table">
                                 <thead>
                                     <tr>
-                                        <th class="serial">序号</th>
                                         <th>姓名</th>
                                         <th>时间</th>
                                         <th>地点</th>
@@ -32,7 +29,6 @@
                                 <tbody>
                                     {volist name='info' id='list'}
                                     <tr>
-                                        <td class="serial">{$list.id}</td>
                                         <td>  <span class="product">{$list.name}</span> </td>
                                         <td>  <span class="product">{$list.date} {$list.time}</span> </td>
                                         <td>  <span class="product">{$list.place}</span> </td>
