@@ -119,6 +119,9 @@ class Index extends Controller
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }
+    public function wx_add_schedule_default(){
+        return $this->fetch();
+    }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){
         $number = Request::instance()->param('number');
