@@ -18,7 +18,7 @@ class CalendarValidator extends Validate
         'pagenum' => 'require|number|>=:0',
         'id' => 'require|number|checkTable:schedule_info,id',
         'user_id' => 'require|number',
-        'date' => 'require|date|checkDate',
+        'date' => 'require|date',
         'time_id' => 'require|number|checkTable:schedule_time,id',
         'place_id' => 'require|number|checkTable:schedule_place,id',
         'item_id' => 'require|number|checkTable:schedule_item,id',
