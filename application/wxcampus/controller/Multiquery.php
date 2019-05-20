@@ -33,6 +33,10 @@ class Multiquery extends Controller
         #        $info[$key]['type'] = '系领导';
         #    }
         #}
+        $all_dates = array_column($info,'place');
+        array_multisort($all_dates,SORT_ASC,$info);
+        $all_dates = array_column($info,'date');
+        array_multisort($all_dates,SORT_ASC,$info);
         $this->assign('info',$info);
 
         return $this->fetch('wx_multiquery');
@@ -76,8 +80,10 @@ class Multiquery extends Controller
                 }
             }
         }
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
         $all_dates = array_column($finalres,'date');
-        array_multisort($all_dates,SORT_DESC,$finalres);
+        array_multisort($all_dates,SORT_ASC,$finalres);
         $this->assign('info',$finalres);
         #echo "<pre>";print_r($mydata);echo "<pre>";
         #echo "<pre>";print_r($names);echo "<pre>";
