@@ -11,6 +11,7 @@ namespace app\wxcampus\controller;
 
 use app\logmanage\model\Log;
 use app\manageconfig\model\ScheduleDefault;
+//use app\manageconfig\validate\ScheduleDefault as ScheduleDefaultValidate;
 use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
@@ -131,7 +132,6 @@ class Index extends Controller
      */
     public function addDefaultSchedule(){
         $param = Request::instance()->post();
-        $this->validate($param,'ScheduleDefault');
         $user_id = Session::get('admin_id');
         $schedule=new ScheduleDefault();
         try{
