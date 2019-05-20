@@ -178,7 +178,6 @@
     }
 
     function addPosition() {
-
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
@@ -189,6 +188,8 @@
           //判断输入是否为汉字
             var reg=/^(\p{Unified_Ideograph})/u;
             if(reg.test(name)){
+                alert("输入非法，请重新输入");
+            }else{
                 $.ajax({
                     type: "POST",
                     url: "addPosition",
@@ -206,8 +207,6 @@
                         //loadTable();
                     }
                 })
-            }else{
-                alert("输入非法，请重新输入");
             }
         }
         n.val("");
