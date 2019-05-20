@@ -115,7 +115,8 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        $url = 'WxCalendar/Index?uid=' +  $this->getUserId($stu_number);
+        $number=Request::instance()->param('number');
+        $url = 'WxCalendar/Index?uid=' +  $this->getUserId($number);
         return $this->redirect($url);
     }
     public function wx_schedule_default(){
@@ -126,8 +127,6 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_add_schedule_default(){
-        $number=Request::instance()->param('number');
-        $this->assign("number",$number);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
