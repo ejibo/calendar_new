@@ -76,6 +76,10 @@ class Multiquery extends Controller
                 }
             }
         }
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
         $this->assign('info',$finalres);
         #echo "<pre>";print_r($mydata);echo "<pre>";
         #echo "<pre>";print_r($names);echo "<pre>";
@@ -86,7 +90,4 @@ class Multiquery extends Controller
         #return view('search');
     }
 }
-
-
-
 ?>
