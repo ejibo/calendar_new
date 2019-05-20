@@ -33,6 +33,10 @@ class Multiquery extends Controller
         #        $info[$key]['type'] = '系领导';
         #    }
         #}
+        $all_dates = array_column($info,'place');
+        array_multisort($all_dates,SORT_ASC,$info);
+        $all_dates = array_column($info,'date');
+        array_multisort($all_dates,SORT_ASC,$info);
         $this->assign('info',$info);
 
         return $this->fetch('wx_multiquery');
