@@ -77,17 +77,10 @@
 <script type="text/javascript">
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
+        alert("test");
         var time = $('#addNewDay').val() + $('#addNewTime').val();
         var place = $('#addNewPlace').val();
-        if (place.trim().length == 0) {
-            alert('请输入地点');
-            return 1;
-        }
         var item = $('#addNewItem').val();
-        if (item.trim().length == 0) {
-            alert('请输入事项');
-            return 1;
-        }
         $.ajax({
             type: "POST",
             async: false,
