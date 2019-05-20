@@ -211,7 +211,7 @@
                                 <form action="" class="wrap-filter">
                                     <select id="itemRange" name="range" class="form-control">
                                         <option value="-1">请选择查询范围</option>
-                                        <!-- <option value="0">全部</option> -->
+                                        <option value="0">全部</option>
                                         <option value="1">标题</option>
                                         <option value ="2">内容</option>
                                     </select>
@@ -362,24 +362,17 @@
         console.log("click");
     });
 
-    // $('#smallModal5').on('shown.bs.modal', function (event) {
-        // var id = $(e.relatedTarget);
-        // $("#id").val(id);
-        // console.log(id);
-        // $("#msg3").html("");
-        // var flag = $(event.relatedTarget);
-        // var modal = $(this);
-        // $.ajax({
-        //     url:"{:url('msgmanage/Msgmodel/index')}",
-        //     type:"POST",
-        //     data:{"flag":1},
-        //     dataType: "json",
-        //     success: function (data) {
-        //         console.log(data);
-        //         // alert(data.msg);
-        //         // window.location.reload();
-        //     }
-        // })
+    // $('#smallModal5').on('show.bs.modal', function (e) {
+    //     // var ele = e.relatedTarget.parentNode.parentNode;
+    //     // var id = ele.cells[0].innerText;
+    //     // console.log(ele);
+    //     // console.log(id);
+    //     // var des = ele.cells[1].innerText;
+    //     /* var id = $(e.relatedTarget).data("id");
+    //     var des = $(e.relatedTarget).data("des"); */
+    //     // $("#itemIdE").val(id);
+    //     // $("#itemDesE").val(des);
+    //     // $("#msg2").html("");
     // });
 
     $("#submit_search").on("click", function(){
@@ -394,26 +387,27 @@
             type:"POST",
             data:{"status":status, "search":search,"range":range},
             dataType: "json",
+            
             success: function (data) {
-                console.log(data);
+                console.log("data",data);
                 if(data.length==null)
                 { 
                     alert(data.msg);
                     window.location.reload();
                 }
-                console.log(data.length);
-                console.log(data[0]);
+                console.log("data.length",data.length);
+                // console.log(data[0]);
                 var tb = document.getElementById('bootstrap-data-table');
-                console.log(tb.rows.length);
+                // console.log(tb.rows.length);
                 tb.rows[0].cells[3]='';
-                console.log(tb);
+                // console.log(tb);
                 for(i=data.length+1;i<tb.rows.length;i++){
                     for(j=0;j<4;j++){
                         var td = tb.rows[i].cells[j];
                         td.innerHTML = '';
                         }
                 }
-                console.log(data[0]);
+                // console.log(data[0]);
                 for(i=1;i<data.length+1;i++){
                     tb.rows[i].cells[0].innerHTML=data[i-1]['id'];
                     tb.rows[i].cells[1].innerHTML=data[i-1]['title'];
