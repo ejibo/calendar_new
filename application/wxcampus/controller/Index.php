@@ -115,8 +115,9 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_calendar(){
-        $url = 'WxCalendar/Index?uid='.($this->getUserId($this->stu_number));
-        return $this->redirect($url);
+        $number = Request::instance()->param('number');
+        $user_id = $this->getUserId($number);
+        return $this->redirect('WxCalendar/Index', ['uid'=> $user_id]);
     }
     public function wx_schedule_default(){
         $number=Request::instance()->param('number');

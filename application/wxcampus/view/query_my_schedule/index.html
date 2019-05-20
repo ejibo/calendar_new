@@ -6,7 +6,7 @@
 
 <!--其他样式-->
 
-<body style="width： 100%; height: 100%; background-color: #ededed">
+<body style="width： 100%; height: 100%;">
 
 <!-- Content -->
 <div class="content">
@@ -18,14 +18,14 @@
                         <div class="wei-tab__panel">
                             <div class="weui-cells">
                                 <div class="weui-cell">
-                                    <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
-                                    <div class="weui-cell__bd">
-                                        <input class="wei-input" type="date" value="{$date}" name="starttime">
+                                    <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label>
+                                            <input class="wei-input" type="date" value="{$date}" name="starttime" style="background-color: #FFFFFF">
                                     </div>
 
-                                    <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
-                                    <div class="weui-cell__bd">
-                                        <input class="wei-input" type="date" value="{$date}" name="endtime">
+                                    <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label>
+                                        <div class="weui-cell__bd">
+                                            <input class="wei-input" type="date" value="{$date}" name="endtime" style="background-color: #FFFFFF">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -35,36 +35,34 @@
                         data-target=".add-schedule" style="vertical-align: middle;"><font size="5px">查询</font></button>
                 </form>
 
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="box-title">我的的日程</h4>
-                        <div>
-                        </div>
+                <div class="card-body">
+                    <h4 class="box-title">我的的日程</h4>
+                    <div>
                     </div>
-                    <div class="card-body--">
-                        <div class="table-stats">
-                            <table id="bootstrap-data-table" class="table">
-                                <thead>
-                                <tr>
-                                    <th class="serial">序号</th>
+                </div>
+                <div class="card-body--">
+                    <div class="table-stats">
+                        <table id="bootstrap-data-table" class="table">
+                            <thead>
+                            <tr>
+                                <th class="serial">序号</th>
 
-                                    <th>时间</th>
-                                    <th>地点</th>
-                                    <th>事项</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {volist name= 'schedule_info' id='list'}
-                                <tr>
-                                    <td class="serial">{$i}</td>
-                                    <td>  <span class="product">{$list.date}</span> </td>
-                                    <td>  <span class="product">{$list.place}</span> </td>
-                                    <td> <span class="product">{$list.item}</span> </td>
-                                </tr>
-                                {/volist}
-                                </tbody>
-                            </table>
-                        </div>
+                                <th>时间</th>
+                                <th>地点</th>
+                                <th>事项</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name= 'schedule_info' id='list'}
+                            <tr>
+                                <td class="serial">{$i}</td>
+                                <td>  <span class="product">{$list.date}</span> </td>
+                                <td>  <span class="product">{$list.place}</span> </td>
+                                <td> <span class="product">{$list.item}</span> </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
