@@ -1,90 +1,62 @@
-<!DOCTYPE html>
-<html lang="en" style="height: 100%;">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
-    <title>查询我的日程信息</title>
-</head>
+<!doctype html>
+<html class="no-js" lang="">
 
-<style type="text/css">
-table.gridtable {
-    font-family: verdana,arial,sans-serif;
-    font-size:10px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #666666;
-    border-collapse: collapse;
-}
-table.gridtable th {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #dedede;
-}
-table.gridtable td {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #ffffff;
-}
-</style>
+{include file='common@public:header' /}
+<!--其他样式-->
 
+<!--其他样式-->
 
 <body>
-    <div>
-        <div>
-            <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-            <font size="15px" style="vertical-align: middle;">开始时间</font><input type="date" name="starttime" placeholder="start time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
-            <font size="15px" style="vertical-align: middle">截止时间</font><input type="date" name="endtime" placeholder="end time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
-            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
-                data-target=".add-schedule" style="vertical-align: middle;"><font size="40px">查询</font></button>
-            </form>
-        </div>
-        <br />
-        <br />
-        <div class="content">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="box-title">我的的日程</h4>
 
-                            </div>
-                            <div class="card-body--">
-                                <div class="table-stats">
-                                    <table id="bootstrap-data-table" class="table">
-                                        <thead>
-                                        <tr>
-                                            <th class="serial">序号</th>
+<!-- Content -->
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">我的的日程</h4>
+                        <div>
+                            <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
+                            <font size="15px" style="vertical-align: middle;">开始时间</font><input type="date" name="starttime" placeholder="start time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
+                            <font size="15px" style="vertical-align: middle">截止时间</font><input type="date" name="endtime" placeholder="end time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
+                            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
+                                data-target=".add-schedule" style="vertical-align: middle;"><font size="40px">查询</font></button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-body--">
+                        <div class="table-stats">
+                            <table id="bootstrap-data-table" class="table">
+                                <thead>
+                                <tr>
+                                    <th class="serial">序号</th>
 
-                                            <th>时间</th>
-                                            <th>地点</th>
-                                            <th>事项</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        {volist name= 'schedule_info' id='list'}
-                                        <tr>
-                                            <td class="serial">{$i}</td>
-                                            <td>  <span class="product">{$list.date}</span> </td>
-                                            <td>  <span class="product">{$list.place}</span> </td>
-                                            <td> <span class="product">{$list.item}</span> </td>
-                                        </tr>
-                                        {/volist}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                    <th>时间</th>
+                                    <th>地点</th>
+                                    <th>事项</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name= 'schedule_info' id='list'}
+                                <tr>
+                                    <td class="serial">{$i}</td>
+                                    <td>  <span class="product">{$list.date}</span> </td>
+                                    <td>  <span class="product">{$list.place}</span> </td>
+                                    <td> <span class="product">{$list.item}</span> </td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-    <!-- .animated -->
         </div>
     </div>
+    <!-- .animated -->
+</div>
+
+<!-- /.content -->
 </body>
 </html>
