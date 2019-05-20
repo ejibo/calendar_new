@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <title>查询我的日程信息</title>
 </head>
-
 <style type="text/css">
 table.gridtable {
     font-family: verdana,arial,sans-serif;
@@ -33,7 +32,7 @@ table.gridtable td {
 </style>
 
 
-<body>
+<body ontouchstart style="height: 100%; background-color: #ededed">
     <div>
         <div>
             <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">

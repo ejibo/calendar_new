@@ -57,7 +57,7 @@ class QueryMySchedule extends Controller
 			$this->assign('user_id', $this->user_id);
 			$this->assign('schedule_info', $result);
 			$this->assign('fields', $this->field_config);
-			return $this->fetch('index');
+			return $this->fetch('index0');
 		}
 	}
 
