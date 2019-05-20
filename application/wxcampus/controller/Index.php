@@ -123,13 +123,13 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_add_schedule_default(){
+        $this->assign("title","添加日程列表");
         return $this->fetch();
     }
     /**
      * 添加默认事项
      */
-    public function addDefaultSchedule()
-    {
+    public function addDefaultSchedule(){
         $param = Request::instance()->post();
         $this->validate($param,'ScheduleDefault');
         $user_id = Session::get('admin_id');
@@ -147,7 +147,7 @@ class Index extends Controller
         if($schedule->save()){
             $log= new Log();
             $log->recordLogApi($user_id,2,0,"schedule_default",[$schedule->id]);
-            return json(['code'=>1,'msg'=>'success','data'=>[]]);
+            return $this->success("添加成功","wx_schedule_default.html","",0);
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
         }
