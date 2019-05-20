@@ -51,16 +51,19 @@
     var photocode = new GVerify("v_container");//创建图形验证码，提高系统安全性
     function get_code(){
        
-        if(telephone.value.length==0){//判断手机号是否为空
+        if(telephone.value.length==0){
+          //判断手机号是否为空
             alert("手机号不能为空");
             return;
         }
-        if(telephone.value.length!=11){//判断手机号长度是否正确
+        if(telephone.value.length!=11){
+          //判断手机号长度是否正确
             alert("请输入正确的手机号");
             return;
         }
      // alert(document.getElementById("code_input").value);
-      if(document.getElementById("code_input").value.length==0){//判断是否已经输入了图形验证码
+      if(document.getElementById("code_input").value.length==0){
+        //判断是否已经输入了图形验证码
       		alert("请先输入图形验证码！");
         	return;
       }
@@ -106,14 +109,17 @@
 
         });
     }
-    function verify() {//点击确认按钮则需要验证输入的手机验证码是否正确
+    function verify() {
+      //点击确认按钮则需要验证输入的手机验证码是否正确
         //                alert(mobile.value);
         //                alert();
-        if(phonecode.value.length==0){//判断输入的手机验证码是否为空
+        if(phonecode.value.length==0){
+          //判断输入的手机验证码是否为空
             alert("请输入验证码");
             return;
         }
-        if(phonecode.value.length!=6){//判断输入的手机验证码是否为6位
+        if(phonecode.value.length!=6){
+          //判断输入的手机验证码是否为6位
             alert("请输入6位验证码");
             return;
         }
@@ -127,13 +133,15 @@
             },
             dataType:"json",
             success:function(data) {
-                if (data) {//根据返回的结果进行输出
+                if (data) {
+                  //根据返回的结果进行输出
                     //var jsonobj1=eval("("+data+")");
                  // alert(data.time);
                 //  alert(data.timenow);
                  // alert(data.phonecode);
                 //  alert(data.verifycode);
-                    if (data.code == 1) {//如果绑定成功则跳转至首页
+                    if (data.code == 1) {
+                      //如果绑定成功则跳转至首页
                         alert('绑定成功');
                         window.location.href="http://114.116.99.20/calendar_new/public/index.php";
                     }
