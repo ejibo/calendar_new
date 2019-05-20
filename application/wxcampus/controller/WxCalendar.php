@@ -64,8 +64,10 @@ class WxCalendar extends Controller
 {
     //apis
     protected function getUserId(){
-        //TODO
-        return 1;
+        $index = controller('index');
+        $userid = $index->getUserId($index->stu_number);
+        var_dump($userid);
+        return $userid;
     }
     private function getDdl(){
         //TODO
@@ -217,9 +219,9 @@ class WxCalendar extends Controller
     protected $times;
     public function Index($date = NULL){
         if($date == NULL)$date = date('Y-m-d');
-        if($this->items == NULL)$this->items = $this->getAllScheduleItems();
-        if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
-        if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
+        $this->items = $this->getAllScheduleItems();
+        $this->places = $this->getAllSchedulePlaces();
+        $this->times = $this->getAllScheduleTimes();
         $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         return $this->fetch("index/wx_calendar");

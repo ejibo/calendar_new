@@ -1,48 +1,65 @@
 <!DOCTYPE html>
-<html lang="zh-CN" style="height: 100%;">
+<html lang="en" style="height: 100%;">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
-    <title>查询我的日程</title>
+    <title>查询我的日程信息</title>
 </head>
-<body style="height: 100%; background-color: #ededed">
-<div class="weui-tab">
+<style type="text/css">
+table.gridtable {
+    font-family: verdana,arial,sans-serif;
+    font-size:40px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 1px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+</style>
+
+
+<body ontouchstart style="height: 100%; background-color: #ededed">
     <div class="weui-tab__panel">
-        <div class="weui-cells__title">一段时间内的日程信息</div>
-        <div class="weui-cells">
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label></div>
-                <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="{$date}" id="date">
-                </div>
-                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
-            </div>
 
-            <div class="weui-cell">
-                <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
+        <div class="weui-panel weui-panel_access">
+            {volist name="list_time_table" id="vo"}
+            <a class="weui-cell  weui-cell_example">
+                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
+                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="date" value="{$date}" id="date">
-                </div>
-                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
-            </div>
-        </div>
-        <!-- <div class="weui-cells__title">事项描述</div>
-        <div class="weui-cells weui-cells_form">
-            <div class="weui-cell">
-                <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}">{$note}</textarea>
-                    <div class="weui-textarea-counter"><span><span id='wordcounter'>0</span></span>/{$maxlength}</div>
-                </div>
-            </div>
-        </div> -->
+                    <h4 class="weui-media-box__title">{$vo.name}</h4>
+                    <p class="weui-media-box__desc">{$vo.position}</p>
+                    <p  style="display:none">{$vo.followid}</p>
+                    <p style="display:none">{$vo.userid}</p>
 
-        <div class="weui-btn-area">
-            <span id='callbackstatus'></span>
-            <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="index?date={$date}" id="cancel-btn">返回</a>
+                </div>
+
+                     <div class=" weui-cell__ft">
+                         <object>
+                         <a href="{:url('checkDate',['followid'=> $vo.followid])}">
+                             <img src="__STATIC__/wx/img/chaxun_on.png" style="width: 30px" >
+                         </a>
+                         </object>
+                     </div>
+
+                <div class=" weui-cell__ft"><img src="__STATIC__/wx/img/guanzhu.png" style="width: 30px" onclick="noFollow(this)"></div>
+            </a>
+            {/volist}
         </div>
-        <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
-</div>
 </body>
+</html>
