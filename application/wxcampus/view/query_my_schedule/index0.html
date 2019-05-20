@@ -1,73 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
+<html lang="zh-CN" style="height: 100%;">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
-    <title>查询我的日程信息</title>
+    <title>查询我的日程</title>
 </head>
-<style type="text/css">
-table.gridtable {
-    font-family: verdana,arial,sans-serif;
-    font-size:40px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #666666;
-    border-collapse: collapse;
-}
-table.gridtable th {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #dedede;
-}
-table.gridtable td {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #ffffff;
-}
-</style>
+<body style="height: 100%; background-color: #ededed">
+<div class="weui-tab">
+    <div class="weui-tab__panel">
+        <div class="weui-cells__title">一段时间内的日程信息</div>
+        <div class="weui-cells">
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="date" value="{$date}" id="date">
+                </div>
+                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
+            </div>
 
+            <div class="weui-cell">
+                <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="date" value="{$date}" id="date">
+                </div>
+                <div class="weui-cell__bd" id="empty_date_notification" style="display: none; color:red;">请选择日期</div>
+            </div>
+        </div>
+        <!-- <div class="weui-cells__title">事项描述</div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell">
+                <div class="weui-cell__bd">
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3" id="note" maxlength="{$maxlength}">{$note}</textarea>
+                    <div class="weui-textarea-counter"><span><span id='wordcounter'>0</span></span>/{$maxlength}</div>
+                </div>
+            </div>
+        </div> -->
 
-<body ontouchstart style="height: 100%; background-color: #ededed">
-    <div>
-        <div>
-            <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-            <font size="40px" style="vertical-align: middle;">开始时间</font><input type="date" name="starttime" placeholder="start time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
-            <font size="40px" style="vertical-align: middle">截止时间</font><input type="date" name="endtime" placeholder="end time" style="width: 150px; height: 50px" style="vertical-align: middle; padding-left: 3px">
-            <button type="submit" id="add" class="btn btn-success btn-sm" data-toggle="modal"
-                data-target=".add-schedule" style="vertical-align: middle;"><font size="40px">查询</font></button>
-            </form>
+        <div class="weui-btn-area">
+            <span id='callbackstatus'></span>
+            <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="index?date={$date}" id="cancel-btn">返回</a>
         </div>
-        <br />
-        <br />
-        <div>
-            <table class="gridtable" width="100%">
-                <thead>
-                    <tr>
-                        <th>日期</th>
-                        <th>时间</th>
-                        <th>地点</th>
-                        <th>事项</th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach name="schedule_info" item="vo"}
-                    <tr>
-                        <td>{$vo['date']}</span></td>
-                        <td>{$vo['time']}</span></td>
-                        <td>{$vo['place']}</span></td>
-                        <td>{$vo['item']}</span></td>
-                        <td>{$vo['note']}</span></td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
-        </div>
+        <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
+</div>
 </body>
-</html>
