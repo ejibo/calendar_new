@@ -61,6 +61,22 @@ class QueryMySchedule extends Controller
 		}
 	}
 
+	public function index0()
+	{
+		$number = Request::instance()->param('number');
+		$result = $this->defaultList($number);
+		if($result == NULL){
+			echo "没有您的日程信息";
+		}
+		else{
+			$this->assign('date', date('Y-m-d'));
+			$this->assign('user_id', $this->user_id);
+			$this->assign('schedule_info', $result);
+			$this->assign('fields', $this->field_config);
+			return $this->fetch('index0');
+		}
+	}
+
 	public function getMyScheduleInfo(Request $request)
 	{
 		$starttime = $request->param('starttime');
