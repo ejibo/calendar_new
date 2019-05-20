@@ -11,7 +11,7 @@ namespace app\wxcampus\controller;
 
 use app\logmanage\model\Log;
 use app\manageconfig\model\ScheduleDefault;
-//use app\manageconfig\validate\ScheduleDefault as ScheduleDefaultValidate;
+use app\manageconfig\validate\ScheduleDefault as ScheduleDefaultValidate;
 use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
@@ -127,12 +127,34 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_add_schedule_default(){
-        $number=Request::instance()->param('number');
-        $this->assign("number",$number);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
-
+    /**
+     * 添加默认事项
+     */
+    public function addDefaultSchedule(){
+        $param = Request::instance()->post();
+        $user_id=$this->getUserId($this->stu_number);
+        $schedule=new ScheduleDefault();
+        try{
+            $schedule->setUserId($user_id);
+            $schedule->setTime($param['time']);
+            $schedule->setPlace($param['place']);
+            $schedule->setItem($param['item']);
+        }catch(\InvalidArgumentException $e) {
+            return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
+        }
+        $schedule->is_delete=0;
+        $schedule->update_time=date("Y-m-d H:i:s");
+        if($schedule->save()){
+            $log= new Log();
+            $log->recordLogApi($user_id,2,0,"schedule_default",[$schedule->id]);
+            return json(['code'=>1,'msg'=>'success','data'=>[]]);
+        }else{
+            return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
+        }
+    }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){
         $number = Request::instance()->param('number');
