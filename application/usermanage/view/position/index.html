@@ -178,7 +178,6 @@
     }
 
     function addPosition() {
-
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
@@ -186,8 +185,8 @@
         if (name.length>30){
             alert("长度过长，请重新输入");
         }else{
-          //判断输入是否为汉字
-            var reg=/^(\p{Unified_Ideograph})/u;
+          //判断输入是否为汉字数字和字母
+            var reg=  /^[\u4e00-\u9fa5\A-\Z\d\a-\z]+$/;
             if(reg.test(name)){
                 $.ajax({
                     type: "POST",
@@ -198,12 +197,16 @@
                         "name": $("#name").val()
                     },
                     success: function (data) {
-                        alert(data.msg);
-                        //$("#smallmodal1").modal("toggle");
-                        //$('.modal-backdrop').remove();//去除遮罩层
-                        window.location.reload();
-                        //notifyAndRemoveModal(data.msg);
-                        //loadTable();
+                        if (data.result==1) {
+                            alert(data.msg);
+                            //$("#smallmodal1").modal("toggle");
+                            //$('.modal-backdrop').remove();//去除遮罩层
+                            window.location.reload();
+                            //notifyAndRemoveModal(data.msg);
+                            //loadTable();
+                        }else{
+                            alert(data.msg);
+                        }
                     }
                 })
             }else{
