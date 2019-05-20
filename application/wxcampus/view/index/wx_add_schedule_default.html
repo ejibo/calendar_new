@@ -87,7 +87,7 @@
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('manageconfig/Calendar/addDefaultSchedule')}",
+            url: "{:url('manageconfig/Calendar/addDefaultSchedule', ['number'=> $number])}",
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
@@ -96,7 +96,7 @@
                     alert('添加成功');
                     //document.getElementById('smallmodal1').style.display = 'none';
                     setTimeout(function () {
-                        window.location.href="{:url('wx_schedule_default')}";
+                        window.location.href="{:url('wx_schedule_default', ['number'=> $number])}";
                     },1000)
                     //window.location.href="{:url('wx_schedule_default')}";
                 }
