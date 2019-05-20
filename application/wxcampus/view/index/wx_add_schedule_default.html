@@ -71,22 +71,27 @@
         </div>
 
         <div class="weui-btn-area">
+            <span id='callbackstatus'></span>
             <button class="weui-btn weui-btn_block weui-btn_primary" onclick="addDefaultSchedule()" id="showTooltips">确定</button>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="wx_schedule_default.html" id="cancel-btn">返回</a>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
+        $("#callbackstatus").text("点击");
         var time = $('#addNewDay').val() + $('#addNewTime').val();
         var place = $('#addNewPlace').val();
         var item = $('#addNewItem').val();
+        $("#callbackstatus").text("下面post");
         $.ajax({
             type: "POST",
             url: "{:url('Index/addDefaultSchedule')}",
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
+                $("#callbackstatus").text("data:"+data);
                 if (data.code == 1) {
                     alert('添加成功');
                     //document.getElementById('smallmodal1').style.display = 'none';
@@ -97,6 +102,7 @@
                 }
             }
         });
+        $("#callbackstatus").text("post后面");
     }
 </script>
 </body>

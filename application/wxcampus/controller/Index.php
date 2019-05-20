@@ -123,7 +123,7 @@ class Index extends Controller
         return $this->fetch();
     }
     public function wx_add_schedule_default(){
-        $this->assign("title","添加日程列表");
+        $this->assign("title","添加默认日程");
         return $this->fetch();
     }
     /**
