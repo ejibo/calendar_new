@@ -186,10 +186,8 @@
             alert("长度过长，请重新输入");
         }else{
           //判断输入是否为汉字
-            var reg= /^[\u4e00-\u9fa5]+$/;
+            var reg=  /^[\u4e00-\u9fa5\A-\Z\d]+$/;
             if(reg.test(name)){
-                alert("输入非法，请重新输入");
-            }else{
                 $.ajax({
                     type: "POST",
                     url: "addPosition",
@@ -207,6 +205,8 @@
                         //loadTable();
                     }
                 })
+            }else{
+                alert("输入非法，请重新输入");
             }
         }
         n.val("");
