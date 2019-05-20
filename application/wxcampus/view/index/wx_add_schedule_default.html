@@ -81,15 +81,13 @@
 <script>
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        $("#callbackstatus").text("点击");
         var time = $('#addNewDay').val() + $('#addNewTime').val();
         var place = $('#addNewPlace').val();
         var item = $('#addNewItem').val();
-        $("#callbackstatus").text("下面post");
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('manageconfig/ScheduleDefault/addDefaultSchedule')}",
+            url: "{:url('manageconfig/Calendar/addDefaultSchedule')}",
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
@@ -107,7 +105,6 @@
                 }
             }
         });
-        $("#callbackstatus").text("post后面");
     }
 </script>
 </body>
