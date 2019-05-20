@@ -227,21 +227,41 @@ class WxCalendar extends Controller
         $cells = [];
         $schedules = $this->getOneDaySchedule($timestamp);
         foreach ($schedules as $sched){
-            $time = $this->times[$sched['time_id']]['name'];
-            if(!array_key_exists($time, $cells)){
+            $timeid = $sched['time_id'];
+            $itemid = $sched['item_id'];
+            $placeid = $sched['place_id'];
+            $timename = '';
+            $itemname = '';
+            $placename = '';
+            foreach($this->times as $timeunit) {
+                if($timeunit['id'] == $timeid){
+                    $timename = $timeunit['name'];
+                }
+            }
+            foreach($this->items as $itemunit) {
+                if($itemunit['id'] == $itemid){
+                    $itemname = $itemunit['name'];
+                }
+            }
+            foreach($this->places as $placeunit) {
+                if($placeunit['id'] == $placeid){
+                    $placename = $placeunit['name'];
+                }
+            }
+            if(!array_key_exists($timename, $cells)){
                 $cell = [
-                    'time' => $time,
+                    'time' => $timename,
                     'data' => []
                 ];
-                $cells[$time] = $cell;
+                $cells[$timename] = $cell;
             }
             $dataItem = [
-                'item' => $this->items[$sched['item_id']]['name'],
+                'item' => $itemname,
                 'note' => $sched['note'],
-                'place'=> $this->places[$sched['place_id']]['name'],
+                'place'=> $placename,
                 'id'   => $sched['id']
             ];
-            array_push($cells[$time]['data'], $dataItem);
+            array_push($cells[$timename]['data'], $dataItem);
         }
         return $cells;
     }
