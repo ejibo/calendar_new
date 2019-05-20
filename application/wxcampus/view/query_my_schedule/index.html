@@ -14,16 +14,20 @@
         <div class="row">
             <div class="col-xl-12">
                 <form action="{:url('getMyScheduleInfo', ['user_id'=>$user_id])}" method="get">
-                    <div class="weui-cells">
-                        <div class="weui-cell">
-                            <div class="weui-cell__hd"><label for="" class="weui-label">开始日期</label></div>
-                            <div class="weui-cell__bd">
-                                <input class="wei-input" type="date" value="{$date}" name="starttime">
-                            </div>
+                    <div class="weui-tab">
+                        <div class="wei-tab__panel">
+                            <div class="weui-cells">
+                                <div class="weui-cell">
+                                    <div class="weui-cell__hd"><label for="" class="weui-label">日期</label></div>
+                                    <div class="weui-cell__bd">
+                                        <input class="wei-input" type="date" value="{$date}" name="starttime">
+                                    </div>
 
-                            <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
-                            <div class="weui-cell__bd">
-                                <input class="wei-input" type="date" value="{$date}" name="endtime">
+                                    <div class="weui-cell__hd"><label for="" class="weui-label">截止日期</label></div>
+                                    <div class="weui-cell__bd">
+                                        <input class="wei-input" type="date" value="{$date}" name="endtime">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
