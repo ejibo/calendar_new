@@ -82,8 +82,7 @@
         var item = $('#addNewItem').val();
         $.ajax({
             type: "POST",
-            async: false,
-            url: "{:url('manageconfig/Calendar/addDefaultSchedule')}",
+            url: "{:url('Index/addDefaultSchedule')}",
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {

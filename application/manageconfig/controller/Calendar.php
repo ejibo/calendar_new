@@ -20,8 +20,7 @@ use think\Session;
 class Calendar extends Common
 {
     public function index(){
-        $user_id=Session::get('admin_id');
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules($user_id));
+        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules(ADMIN_ID));
         return $this->fetch();
     }
     /**
@@ -31,10 +30,9 @@ class Calendar extends Common
     {
         $param = Request::instance()->post();
         $this->validate($param,'ScheduleDefault');
-        $user_id = Session::get('admin_id');
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId($user_id);
+            $schedule->setUserId(ADMIN_ID);
             $schedule->setTime($param['time']);
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
@@ -45,7 +43,7 @@ class Calendar extends Common
         $schedule->update_time=date("Y-m-d H:i:s");
         if($schedule->save()){
             $log= new Log();
-            $log->recordLogApi($user_id,2,0,"schedule_default",[$schedule->id]);
+            $log->recordLogApi(ADMIN_ID,2,0,"schedule_default",[$schedule->id]);
             return json(['code'=>1,'msg'=>'success','data'=>[]]);
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误','data'=>[]]);
