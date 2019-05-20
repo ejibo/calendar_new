@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <title>{title}</title>
+    <title>{$title}</title>
 </head>
 <body style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <div class="weui-cells__title">{title}</div>
+        <div class="weui-cells__title">{$title}</div>
         <div class="weui-cells">
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd">
@@ -64,7 +64,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="3"></textarea>
+                    <textarea class="weui-textarea" placeholder="请输入文本" rows="2"></textarea>
                     <div class="weui-textarea-counter"><span>0</span>/200</div>
                 </div>
             </div>
@@ -72,33 +72,12 @@
 
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
-            <button class="weui-btn weui-btn_block weui-btn_primary" onclick="addDefaultSchedule()" id="showTooltips">确定</button>
+            <a class="weui-btn weui-btn_block weui-btn_primary" onclick="addDefaultSchedule()" id="yes-btn">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" href="wx_schedule_default.html" id="cancel-btn">返回</a>
         </div>
     </div>
+    {include file='nav.html'/}
 
-    <div class="weui-tabbar">
-        <a href="wx_search.html" class="weui-tabbar__item ">
-                    <span style="display: inline-block;position: relative;">
-                        <img src="__STATIC__/wx/img/chaxun.png" alt="" class="weui-tabbar__icon">
-                    </span>
-            <p class="weui-tabbar__label">查询</p>
-        </a>
-        <a href="wx_calendar.html" class="weui-tabbar__item ">
-            <img src="__STATIC__/wx/img/richeng.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">日程</p>
-        </a>
-        <a href="wx_attention.html" class="weui-tabbar__item">
-                    <span style="display: inline-block;position: relative;">
-                        <img src="__STATIC__/wx/img/guanzhu-black.png" alt="" class="weui-tabbar__icon">
-                    </span>
-            <p class="weui-tabbar__label">关注</p>
-        </a>
-        <a href="index0" class="weui-tabbar__item weui-bar__item">
-            <img src="__STATIC__/wx/img/wode_on.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我的</p>
-        </a>
-    </div>
 </div>
 <script type="text/javascript">
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
@@ -110,7 +89,8 @@
         $("#callbackstatus").text("下面post");
         $.ajax({
             type: "POST",
-            url: "{:url('Index/addDefaultSchedule')}",
+            async: false,
+            url: "{:url('addDefaultSchedule')}",
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
@@ -118,7 +98,7 @@
                 if (data.code == 1) {
                     alert('添加成功');
                     //document.getElementById('smallmodal1').style.display = 'none';
-                    window.location.href="{:url('wx_schedule_default')}";
+                    //window.location.href="{:url('wx_schedule_default')}";
                 }
                 else{
                     alert('添加失败：' + data.msg);
