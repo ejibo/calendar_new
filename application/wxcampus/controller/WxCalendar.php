@@ -7,7 +7,11 @@ use app\logmanage\model\Log as LogModel;
 use think\Validate;
 use think\Request;
 use think\Db;
-
+//描述：用户更新自己的日程
+//1.用户通过点击日程选项，会显示自己当天的日程；
+//2.用户通过点击加号按钮，跳转到新建日程页面；
+//3.用户点击当天的日程，跳转到修改日程页面；
+//4.用户点击上面的两个箭头，跳转到前天和明天的日程页面， 从而修改其他时间的日程
 class CalendarValidator extends Validate
 {
     protected $rule =[
