@@ -10,9 +10,11 @@ use think\Request;
 class ScheduleDefault extends Controller {
 
     /**管理默认日程的界面*/
-    public function index($uid){
+    public function index($uid,$number,$wxcode){
         $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($uid);
         $this->assign("uid",$uid);
+        $this->assign("number",$number);
+        $this->assign("wxcode",$wxcode);
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }

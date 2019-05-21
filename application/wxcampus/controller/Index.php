@@ -118,9 +118,11 @@ class Index extends Controller
         return $this->redirect('WxCalendar/Index', ['userid'=> $userid, 'wxcode'=>$wxcode]);
     }
     public function schedule_default(){
-        $number = Request::instance()->param('number');
+        $params=Request::instance()->param();
+        $wxcode=$params['wxcode'];
+        $number = $params['number'];
         $user_id = $this->getUserId($number);
-        $this->redirect('ScheduleDefault/index', ['uid'=> $user_id]);
+        $this->redirect('ScheduleDefault/index', ['uid'=> $user_id,'number'=>$number,'wxcode'=>$wxcode]);
     }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){
