@@ -4,6 +4,7 @@ namespace app\wxcampus\controller;
 use app\logmanage\model\Log;
 use think\Controller;
 use app\manageconfig\model\ScheduleDefault as ScheduleDefaultModel;
+use think\Exception;
 use think\Request;
 
 class ScheduleDefault extends Controller {
@@ -28,9 +29,13 @@ class ScheduleDefault extends Controller {
      */
     public function addDefaultSchedule($uid){
         $param = Request::instance()->post();
+        try{
         $res=$this->validate($param,'app\manageconfig\validate\ScheduleDefault');
         if(!res){
             return json(['code'=>403,'msg'=>'参数不符合规则']);
+        }
+        }catch(Exception $e){
+            return json(['code'=>403,'msg'=>'验证时出错']);
         }
         $schedule=new ScheduleDefaultModel();
         try{
