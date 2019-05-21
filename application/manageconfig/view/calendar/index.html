@@ -15,6 +15,7 @@
                         </div>
                         <input type="text" id="uname" placeholder="用户名" class="form-control">
                         <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
+                        <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
 
                     </div>
                     <div class="card-body--">
@@ -224,21 +225,22 @@
 <script>
     function getUserDefaultSchedules() {
         var user=$("#uname").val();
-        $.ajax({
-            type:"GET",
-            url:"{:url('search')}",
-            data:{"user":user},
-            success:function (data) {
-                if(data!=0){
-                    alert(data.msg);
-                }else{
-                    var uid=data.data.uid;
-                    var uname=data.data.uname;
-                    var defaultSchedules=data.data.default_schedule_list;
-                    window.location.href="{:url('search',['uid'=>$uid,'uname'=>$uname,'defaultSchedules'=>$defaultSchedules])}";
-                }
-            }
-        })
+        window.location.href="{:url('search',['user'=>"+user+"])}";
+        // $.ajax({
+        //     type:"GET",
+        //     url:"{:url('search')}",
+        //     data:{"user":user},
+        //     success:function (data) {
+        //         // if(data!=0){
+        //         //     alert(data.msg);
+        //         // }else{
+        //         //     var uid=data.data.uid;
+        //         //     var uname=data.data.uname;
+        //         //     var defaultSchedules=data.data.default_schedule_list;
+        //         //     window.location.href="{:url('search',['uid'=>$uid,'uname'=>$uname,'defaultSchedules'=>$defaultSchedules])}";
+        //         // }
+        //     }
+        // })
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){

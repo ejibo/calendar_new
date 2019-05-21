@@ -32,15 +32,15 @@ class Calendar extends Common
         $this->assign('uname',$user);
         $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
         $this->assign('defaultSchedules',$defaultSchedules);
-        return json([
-            "code"=>1,
-            "msg"=>"success",
-            "data"=>[
-                "uid"=>$user_id,
-                "uname"=>$user,
-                "default_schedule_list"=>$defaultSchedules
-            ]]);
-        //return $this->fetch();
+//        return json([
+//            "code"=>1,
+//            "msg"=>"success",
+//            "data"=>[
+//                "uid"=>$user_id,
+//                "uname"=>$user,
+//                "default_schedule_list"=>$defaultSchedules
+//            ]]);
+        return $this->fetch();
     }
     /**
      * 添加默认事项
