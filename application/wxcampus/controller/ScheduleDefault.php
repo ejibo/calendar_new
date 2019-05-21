@@ -35,7 +35,7 @@ class ScheduleDefault extends Controller {
         $param = Request::instance()->post();
         try{
         $res=$this->validate($param,'app\manageconfig\validate\ScheduleDefault');
-        if(!res){
+        if(!$res){
             return json(['code'=>403,'msg'=>'参数不符合规则']);
         }
         }catch(\Exception $e){
