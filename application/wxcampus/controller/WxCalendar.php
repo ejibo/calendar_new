@@ -12,6 +12,12 @@ use think\Db;
 //2.用户通过点击加号按钮，跳转到新建日程页面；
 //3.用户点击当天的日程，跳转到修改日程页面；
 //4.用户点击上面的两个箭头，跳转到前天和明天的日程页面， 从而修改其他时间的日程
+
+//bug list:
+//1. 导航栏还没做好
+//2. 新增日程默认的日程是当天， 即使页面是其他天
+//3. 更改页面的选项没有随着用户的选中的事项来改变
+
 class CalendarValidator extends Validate
 {
     protected $rule =[
@@ -207,7 +213,7 @@ class WxCalendar extends Controller
         //记录日志
         $logRec = new LogModel;
         $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
-        return $this->json('delete', true, 'success');;
+        return $this->json('delete', true, 'success');
     }
     //Views
     protected $items;
