@@ -75,6 +75,7 @@
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
     </div>
+    {include file="../application/wxcampus/view/index/nav.html"}
 
 </div>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -104,7 +105,7 @@
                 if (data.code == 1) {
                     $("#callbackstatus").text("添加成功");
                     setTimeout(function () {
-                        window.location.href="{:url('index',['uid'=>$uid])}";
+                        window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
                     },1000)
                 }
                 else{

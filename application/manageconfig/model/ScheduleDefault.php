@@ -56,17 +56,13 @@ class ScheduleDefault extends Model
 //        }
         $this->data('day',$day);
     }
-    /**
-     * 会检查之前是否已经有一样的默认日程了
-     * @throws \InvalidArgumentException 存在相同时间段的话或者是未定义的时间段的话抛出
-     */
+
     public function setTime($time){
         $time_id = Db::table('schedule_time')->where('name', $time)->value('id');
         if (empty($time_id)) {
             $time_id=Db::table('schedule_time')->insertGetId(['name'=>$time,'is_delete'=>0]);
         }
         $this->data('time_id',$time_id);
-        $this->checkSameTimeDefaultSchedule();
     }
 
     /**
@@ -74,8 +70,11 @@ class ScheduleDefault extends Model
      * @throws \InvalidArgumentException 存在相同时间段的话抛出
      */
     public function checkSameTimeDefaultSchedule(){
-        $res = Db::table('schedule_default')->where('user_id',$this->getData('user_id'))->
-        where('time_id', $this->getData('time_id'))->where('is_delete', 0)->find();
+        $res = Db::table('schedule_default')->
+            where('user_id',$this->getData('user_id'))->
+            where('day',$this->day)->
+            where('time_id', $this->getData('time_id'))->
+            where('is_delete', 0)->find();
         if ($res != null){
             throw new \InvalidArgumentException('已存在该时间段的默认日程，可点击编辑进行修改,创建时间：'.$res['create_time']);
         }

@@ -10,7 +10,7 @@ use think\Request;
 class ScheduleDefault extends Controller {
 
     /**管理默认日程的界面*/
-    public function index($uid,$number,$wxcode){
+    public function index($uid,$wxcode){
         $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($uid);
         $this->assign("uid",$uid);
         $this->assign("userid",$uid);
@@ -21,8 +21,10 @@ class ScheduleDefault extends Controller {
     /**
     *添加默认日程界面
      */
-    public function wx_add_schedule_default($uid){
+    public function wx_add_schedule_default($uid,$wxcode){
         $this->assign("uid",$uid);
+        $this->assign("userid",$uid);
+        $this->assign("wxcode",$wxcode);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
@@ -37,13 +39,14 @@ class ScheduleDefault extends Controller {
             return json(['code'=>403,'msg'=>'参数不符合规则']);
         }
         }catch(\Exception $e){
-            //return json(['code'=>-200,'msg'=>'验证时出错']);
+            return json(['code'=>-200,'msg'=>'验证时出错'.($e->getMessage())]);
         }
         $schedule=new ScheduleDefaultModel();
         try{
             $schedule->setUserId($uid);
             $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
+            $schedule->checkSameTimeDefaultSchedule();
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
             $schedule->setNote($param['note']);

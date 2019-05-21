@@ -35,6 +35,7 @@ class Calendar extends Common
             $schedule->setUserId(ADMIN_ID);
             $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
+            $schedule->checkSameTimeDefaultSchedule();
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
         }catch(\InvalidArgumentException $e) {
