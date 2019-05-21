@@ -13,7 +13,7 @@ class ScheduleDefault extends Controller {
     public function index($uid,$number,$wxcode){
         $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($uid);
         $this->assign("uid",$uid);
-        $this->assign("number",$number);
+        $this->assign("userid",$uid);
         $this->assign("wxcode",$wxcode);
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
