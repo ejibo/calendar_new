@@ -20,7 +20,17 @@ use think\Session;
 class Calendar extends Common
 {
     public function index(){
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules(ADMIN_ID));
+        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
+        return $this->fetch();
+    }
+    public function search(){
+        $user=Request::instance()->get('user');
+        $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+        if(empty($user_id))
+            return json(['code'=>404,'msg'=>'用户不存在','data'=>[]]);
+        $this->assign('uid',$user_id);
+        $this->assign('uname',$user);
+        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules($user));
         return $this->fetch();
     }
     /**

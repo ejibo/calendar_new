@@ -7,12 +7,26 @@ use think\Model;
 
 class ScheduleDefault extends Model
 {
-    public static function getDefaultSchedules($user_id){
+    /**
+     * 获取某用户的默认日程
+     *@param user  可以是uname，也可以是uid,如果是NULL或者不填则是选择所有用户的。
+     *@return Array
+     */
+    public static function getDefaultSchedules($user=NULL){
+        if($user==NULL){
+            return Db::table('schedule_default')->where('is_delete',0)->limit(30)->select();
+        }else if(is_string($user)){
+            $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+        }else if(is_int($user)){
+            $user_id=$user;
+        }else{
+            return array();
+        }
         $defaultSchedule=new ScheduleDefault();
-        $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
-        return $defaultSchedules;
+        return $defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
     }
     /*
+     * 获取某人的星期几的默认日程
     *@param day 一周的第几天，从1开始，周一为1，周日为7
      *@return Array ScheduleDefault的数组
      */
@@ -33,6 +47,9 @@ class ScheduleDefault extends Model
             case 7:return '周日';
             default :return "";
         }
+    }
+    public function getUname(){
+        return Db::table('user_info')->where('id',$this->getData('user_id'))->value('name');
     }
 
     public function getTime(){

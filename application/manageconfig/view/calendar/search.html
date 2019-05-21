@@ -14,9 +14,10 @@
                                 <div class="input-group-addon">
                                     用户
                                 </div>
-                                <input type="text" id="uname" placeholder="用户名" class="form-control">
+                                <input type="text" id="uname" placeholder="用户名" class="form-control" value={$uname}>
                                 <button type="button" id="search" class="btn btn-success" onclick="search()">搜索</button>
                             </div>
+                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -36,7 +37,7 @@
                                 {volist name="defaultSchedules" id="defaultSchedule" key="key"}
                                 <tr class="data-row">
                                     <td class="serial">{$key}</td>
-                                    <td>  <span class="product">{$defaultSchedule->getUname()}</span> </td>
+                                    <td>  <span class="product">{$uname}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getDay().$defaultSchedule->getTime()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getPlace()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getItem()}</span> </td>
@@ -270,13 +271,13 @@
         });
     }
 
-function deleteId(id,place,item) {
+    function deleteId(id,place,item) {
 
-    $('#deleteNewId').attr('value', id)
-    $('#deleteNewPlace').attr('value', place)
-    $('#deleteNewItem').attr('value', item)
+        $('#deleteNewId').attr('value', id)
+        $('#deleteNewPlace').attr('value', place)
+        $('#deleteNewItem').attr('value', item)
 
-}
+    }
     function deleteDefaultSchedule(){
         var id = $('#deleteNewId').val();
         var place = $('#deleteNewPlace').val();
@@ -302,12 +303,12 @@ function deleteId(id,place,item) {
     }
 
 
-  
-  function editId(data){
-    var id = $(data).attr('data-id');
-    $('#editIdBtn').attr('data-id', id);
-  }
-  
+
+    function editId(data){
+        var id = $(data).attr('data-id');
+        $('#editIdBtn').attr('data-id', id);
+    }
+
 
 
     function editDefaultSchedule(data){
