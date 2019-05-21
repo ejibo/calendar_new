@@ -51,7 +51,7 @@
                                                                         <button type="button"
                                                                                 class="btn btn-danger btn-sm mb-1"
                                                                                 onclick="invalid('{$vo.id}')">
-                                                                            <i class="fa fa-exclamation"></i>&nbsp;删除
+                                                                            <i class="fa fa-exclamation"></i>&nbsp;作废
                                                                         </button>
                                                                         {/if}
                                                                     </td>
@@ -275,7 +275,7 @@
             dataType: 'json',
             success: function (data) {
                 var table_html = "";
-                var note = ["未删除", "已删除"];
+                var note = ["正常", "已作废"];
                 for (var i = 0; i < data.length; i++) {
                     var item = data[i]
                     if (item.is_delete) {
@@ -307,7 +307,7 @@
                                                 <button type="button"
                                                         class="btn btn-danger btn-sm mb-1"
                                                         onclick="invalid(${item.id})">
-                                                        <i class="fa fa-exclamation"/>&nbsp;删除
+                                                        <i class="fa fa-exclamation"/>&nbsp;作废
                                                 </button>
                                             </td>
                                        </tr>`;
