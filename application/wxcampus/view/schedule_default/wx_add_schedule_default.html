@@ -80,7 +80,7 @@
 <script>
     window.onload=function () {
         $("#note").addEventListener(function () {
-            $("#current-word-counter").innerHTML=this.val().length;
+            $("#current-word-counter").innerHTML=$("#note").val().length;
         })
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
