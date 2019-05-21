@@ -79,9 +79,12 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     window.onload=function () {
-        $("#note").addEventListener("input",function () {
+        $("#note").bind("input propertychange",function () {
             $("#current-word-counter").innerHTML=$("#note").val().length;
         })
+        // $("#note").addEventListener("propertychange",function () {
+        //     $("#current-word-counter").innerHTML=$("#note").val().length;
+        // })
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
