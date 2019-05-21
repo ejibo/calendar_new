@@ -120,7 +120,7 @@ class Index extends Controller
     public function schedule_default(){
         $number = Request::instance()->param('number');
         $user_id = $this->getUserId($number);
-        $this->redirect('ScheduleDefault/Index', ['user_id'=> $user_id]);
+        $this->redirect('ScheduleDefault/index', ['user_id'=> $user_id]);
     }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){

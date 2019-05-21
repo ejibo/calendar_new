@@ -14,18 +14,19 @@ class ScheduleDefault extends Controller {
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }
-    public function wx_add_schedule_default(){
+    public function wx_add_schedule_default($user_id){
+        $this->assign("user_id",$user_id);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
     /**
      * 添加默认事项
      */
-    public function addDefaultSchedule(){
+    public function addDefaultSchedule($user_id){
         $param = Request::instance()->post();
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId($this->user_id);
+            $schedule->setUserId($user_id);
             $schedule->setTime($param['time']);
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
