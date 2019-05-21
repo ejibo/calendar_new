@@ -37,7 +37,7 @@ class ScheduleDefault extends Controller {
             return json(['code'=>403,'msg'=>'参数不符合规则']);
         }
         }catch(\Exception $e){
-            return json(['code'=>-200,'msg'=>'验证时出错']);
+            //return json(['code'=>-200,'msg'=>'验证时出错']);
         }
         $schedule=new ScheduleDefaultModel();
         try{
