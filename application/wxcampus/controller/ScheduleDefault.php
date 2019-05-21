@@ -9,27 +9,28 @@ use think\Request;
 class ScheduleDefault extends Controller {
 
     /**管理默认日程的界面*/
-    public function index($user_id){
-        $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($user_id);
+    public function index($uid){
+        $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($uid);
+        $this->assign("uid",$uid);
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }
     /**
     *添加默认日程界面
      */
-    public function wx_add_schedule_default($user_id){
-        $this->assign("user_id",$user_id);
+    public function wx_add_schedule_default($uid){
+        $this->assign("uid",$uid);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
     /**
      * 添加默认日程动作
      */
-    public function addDefaultSchedule($user_id){
+    public function addDefaultSchedule($uid){
         $param = Request::instance()->post();
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId($user_id);
+            $schedule->setUserId($uid);
             $schedule->setTime($param['time']);
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
@@ -40,7 +41,7 @@ class ScheduleDefault extends Controller {
         $schedule->update_time=date("Y-m-d H:i:s");
         if($schedule->save()){
             $log= new Log();
-            $log->recordLogApi($this->user_id,2,0,"schedule_default",[$schedule->id]);
+            $log->recordLogApi($uid,2,0,"schedule_default",[$schedule->id]);
             return json(['code'=>1,'msg'=>'success']);
         }else{
             return json(['code'=>-1,'msg'=>'添加失败，发生未知错误']);
