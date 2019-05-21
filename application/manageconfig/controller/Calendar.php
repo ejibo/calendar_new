@@ -42,7 +42,7 @@ class Calendar extends Common
         $this->validate($param,'ScheduleDefault');
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId(ADMIN_ID);
+            $schedule->setUserId($param['uid']);
             $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
             $schedule->checkSameTimeDefaultSchedule();

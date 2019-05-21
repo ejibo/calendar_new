@@ -256,7 +256,7 @@
             type: "POST",
             async: false,
             url: "{:url('Calendar/addDefaultSchedule')}",
-            data: {"day":day,"time":time,"place": place,"item":item },
+            data: {"uid":$uid,"day":day,"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
