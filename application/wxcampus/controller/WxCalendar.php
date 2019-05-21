@@ -224,7 +224,7 @@ class WxCalendar extends Controller
     protected $items;
     protected $places;
     protected $times;
-    public function Index($wxcode, $userid = NULL, $date = NULL){
+    public function Index($wxcode, $userid, $date = NULL){
         $this->uid = $userid;
         $this->wxcode = $wxcode;
         if($date == NULL)$date = date('Y-m-d');
@@ -233,8 +233,8 @@ class WxCalendar extends Controller
         $this->times = $this->getAllScheduleTimes();
         $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
-        $this->assign('left', url('index', ['wxcode' => $wxcode, 'userid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
-        $this->assign('right', url('index', ['wxcode' => $wxcode, 'userid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
+        $this->assign('left', url('index', ['wxcode' => $wxcode, 'userid'=>$userid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
+        $this->assign('right', url('index', ['wxcode' => $wxcode, 'userid'=>$userid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
         $this->assign('userid', $userid);
         $this->assign('wxcode' ,$wxcode);
         return $this->fetch("index/wx_calendar");
@@ -284,15 +284,15 @@ class WxCalendar extends Controller
         }
         return $cells;
     }
-    protected function detail(){
-        $this->assign('wxcode' , $this->wxcode);
+    protected function detail($wxcode){
+        $this->assign('wxcode' , $wxcode);
         $this->assign('items', $this->getScheduleItems());
         $this->assign('times', $this->getScheduleTimes());
         $this->assign('places', $this->getSchedulePlaces());
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($userid, $id){
+    public function updatePage($wxcode, $userid, $id){
         $sched = $this->getSchedule($userid, $id);
         $this->assign('userid', $userid);
         $this->assign('scheduleid', $id);
@@ -300,16 +300,16 @@ class WxCalendar extends Controller
         $this->assign('note', $sched['note']);
         $this->assign('title', '修改日程');
         $this->assign('confirmid', 'update-btn');
-        return $this->detail();
+        return $this->detail($wxcode);
     }
-    public function createPage($userid){
+    public function createPage($wxcode, $userid){
         $this->assign('userid', $userid);
         $this->assign('scheduleid', -1);
         $this->assign('date', date('Y-m-d'));
         $this->assign('note', '');
         $this->assign('title', '添加日程');
         $this->assign('confirmid', 'create-btn');
-        return $this->detail();
+        return $this->detail($wxcode);
     }
     public function postTest($userid){
         $data = [
