@@ -223,6 +223,8 @@ class WxCalendar extends Controller
         $this->times = $this->getAllScheduleTimes();
         $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
+        $this->assign('left', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
+        $this->assign('right', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
         return $this->fetch("index/wx_calendar");
     }
     public function getScheduleDisplayArray($timestamp){
