@@ -225,6 +225,7 @@ class WxCalendar extends Controller
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         $this->assign('left', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
         $this->assign('right', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
+        $this->assign('userid', $uid);
         return $this->fetch("index/wx_calendar");
     }
     public function getScheduleDisplayArray($timestamp){
@@ -279,8 +280,9 @@ class WxCalendar extends Controller
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($id){
+    public function updatePage($uid, $id){
         $sched = $this->getSchedule($id);
+        $this->assign('userid', $uid);
         $this->assign('scheduleid', $id);
         $this->assign('date', $sched['date']);
         $this->assign('note', $sched['note']);
@@ -288,7 +290,8 @@ class WxCalendar extends Controller
         $this->assign('confirmid', 'update-btn');
         return $this->detail();
     }
-    public function createPage(){
+    public function createPage($uid){
+        $this->assign('userid', $uid);
         $this->assign('scheduleid', -1);
         $this->assign('date', date('Y-m-d'));
         $this->assign('note', '');
