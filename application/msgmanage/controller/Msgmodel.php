@@ -44,12 +44,14 @@ class Msgmodel extends Common
         else if($range==-1){
             $this->error("请选择查询范围");
         }
-        else if($search==""){
-            $this->error("请输入查询内容");
-        }
         else{
-            // $isHasTitle = $model->getItemByTitle($search);
-            if($status==1 && $range==1){
+            if($status==2 && $search==""){
+                $isHasTitle = $model->getAllTemplates();
+            }
+            else if($status==1 && $search==""){
+                $isHasTitle = $model->getAllTemplatesDelete();
+            }
+            else if($status==1 && $range==1){
                 $isHasTitle = $model->getItemByTitleDelete($search);
             }
             else if($status==1 && $range==2){
