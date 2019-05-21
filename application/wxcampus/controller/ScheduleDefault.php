@@ -28,7 +28,7 @@ class ScheduleDefault extends Controller {
      */
     public function addDefaultSchedule($uid){
         $param = Request::instance()->post();
-        $schedule=new ScheduleDefault();
+        $schedule=new ScheduleDefaultModel();
         try{
             $schedule->setUserId($uid);
             $schedule->setTime($param['time']);
