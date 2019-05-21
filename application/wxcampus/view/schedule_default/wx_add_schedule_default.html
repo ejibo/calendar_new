@@ -16,13 +16,13 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="select2" id="day">
-                        <option value="周一">周一</option>
-                        <option value="周二">周二</option>
-                        <option value="周三">周三</option>
-                        <option value="周四">周四</option>
-                        <option value="周五">周五</option>
-                        <option value="周六">周六</option>
-                        <option value="周日">周日</option>
+                        <option value="1">周一</option>
+                        <option value="2">周二</option>
+                        <option value="3">周三</option>
+                        <option value="4">周四</option>
+                        <option value="5">周五</option>
+                        <option value="6">周六</option>
+                        <option value="7">周日</option>
                     </select>
                 </div>
                 <div class="weui-cell__bd">
@@ -30,6 +30,7 @@
                         <option value="上午">上午</option>
                         <option value="下午">下午</option>
                         <option value="晚上">晚上</option>
+                        <option value="其他">其他</option>
                     </select>
                 </div>
             </div>
@@ -88,7 +89,8 @@
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        var time = $('#day').val() + $('#time').val();
+        var day=$('#day').val();
+        var time =  $('#time').val();
         var place = $('#place').val();
         var item = $('#item').val();
         var note = $('#note').val();
@@ -96,7 +98,7 @@
             type: "POST",
             async: false,
             url: "{:url('addDefaultSchedule',['uid'=>$uid])}",
-            data: {"time":time,"place": place,"item":item ,"note":note},
+            data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {

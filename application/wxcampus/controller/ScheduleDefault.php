@@ -31,17 +31,18 @@ class ScheduleDefault extends Controller {
      */
     public function addDefaultSchedule($uid){
         $param = Request::instance()->post();
-//        try{
-//        $res=$this->validate($param,'app\manageconfig\validate\ScheduleDefault');
-//        if(!res){
-//            return json(['code'=>403,'msg'=>'参数不符合规则']);
-//        }
-//        }catch(\Exception $e){
-//            return json(['code'=>-200,'msg'=>'验证时出错']);
-//        }
+        try{
+        $res=$this->validate($param,'app\manageconfig\validate\ScheduleDefault');
+        if(!res){
+            return json(['code'=>403,'msg'=>'参数不符合规则']);
+        }
+        }catch(\Exception $e){
+            return json(['code'=>-200,'msg'=>'验证时出错']);
+        }
         $schedule=new ScheduleDefaultModel();
         try{
             $schedule->setUserId($uid);
+            $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);

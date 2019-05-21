@@ -34,7 +34,7 @@
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px">
                 </div>
                 <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">{$schedule->getTime()}</h4>
+                    <h4 class="weui-media-box__title">{$schedule->getDay().$schedule->getTime()}</h4>
                     <p class="weui-media-box__desc">{$schedule->getPlace()}　－＞　{$schedule->getItem()}</p>
                     <p class="weui-media-box__desc">{$schedule->note}</p>
                 </div>

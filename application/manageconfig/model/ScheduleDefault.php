@@ -12,6 +12,28 @@ class ScheduleDefault extends Model
         $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
         return $defaultSchedules;
     }
+    /*
+    *@param day 一周的第几天，从1开始，周一为1，周日为7
+     *@return Array ScheduleDefault的数组
+     */
+    public static function getDefaultScheduleInDay($user_id,$day){
+        $defaultSchedule=new ScheduleDefault();
+        $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])-> select();
+        return $defaultSchedules;
+    }
+    /**return 周一 => 周日，需要的是数字的话直接调用day属性就行了*/
+    public function getDay(){
+        switch ($this->getData("day")){
+            case 1:return '周一';
+            case 2:return '周二';
+            case 3:return '周三';
+            case 4:return '周四';
+            case 5:return '周五';
+            case 6:return '周六';
+            case 7:return '周日';
+            default :return "";
+        }
+    }
 
     public function getTime(){
         return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name');
@@ -28,7 +50,12 @@ class ScheduleDefault extends Model
     public function setUserId($user_id){
         $this->data('user_id',$user_id);
     }
-
+    public function setDay($day){
+//        if(!is_int($day)||$day<1||$day>7){
+//
+//        }
+        $this->data('day',$day);
+    }
     /**
      * 会检查之前是否已经有一样的默认日程了
      * @throws \InvalidArgumentException 存在相同时间段的话或者是未定义的时间段的话抛出

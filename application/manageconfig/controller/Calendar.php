@@ -33,6 +33,7 @@ class Calendar extends Common
         $schedule=new ScheduleDefault();
         try{
             $schedule->setUserId(ADMIN_ID);
+            $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
