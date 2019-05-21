@@ -63,6 +63,8 @@ class Index extends Controller
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
             $this->assign("number",$userInfo['card_number']);
+            $this->assign("wxcode", $code);
+            $this->assign("userid", $this->getUserId($userInfo['card_number']));
             return $this->fetch();
         }
         else{
@@ -112,10 +114,8 @@ class Index extends Controller
     public function wx_me(){
         return $this->fetch();
     }
-    public function wx_calendar(){
-        $number = Request::instance()->param('number');
-        $user_id = $this->getUserId($number);
-        return $this->redirect('WxCalendar/Index', ['uid'=> $user_id]);
+    public function wx_calendar($userid, $wxcode){
+        return $this->redirect('WxCalendar/Index', ['userid'=> $userid, 'wxcode'=>$wxcode]);
     }
     public function schedule_default(){
         $number = Request::instance()->param('number');

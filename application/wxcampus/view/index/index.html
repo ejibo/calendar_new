@@ -99,7 +99,7 @@
                     </span>
             <p class="weui-tabbar__label">查询</p>
         </a>
-        <a href="{:url('wx_calendar',['number'=> $number])}" class="weui-tabbar__item ">
+        <a href="{:url('wx_calendar/index',['wxcode' => $wxcode, 'userid'=> $userid])}" class="weui-tabbar__item ">
             <img src="__STATIC__/wx/img/richeng.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">日程</p>
         </a>
@@ -109,7 +109,7 @@
                     </span>
             <p class="weui-tabbar__label">关注</p>
         </a>
-        <a href="wx_me.html" class="weui-tabbar__item weui-bar__item_on">
+        <a href="{:url('Index/index', ['wxcode' => $wxcode])}" class="weui-tabbar__item weui-bar__item_on">
             <img src="__STATIC__/wx/img/wode_on.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">我的</p>
         </a>
