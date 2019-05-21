@@ -63,7 +63,7 @@ class Index extends Controller
            // $this->assign("number",$userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
             $this->assign("number",$userInfo['card_number']);
-            $this->assign("wxcode", $wxcode);
+            $this->assign("wxcode", $code);
             $this->assign("userid", $this->getUserId($userInfo['card_number']));
             return $this->fetch();
         }
