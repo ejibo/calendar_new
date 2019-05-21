@@ -129,7 +129,6 @@ class WxCalendar extends Controller
             'place_id'      => input('post.place_id'),
             'item_id'       => input('post.item_id'),
             'note'          => input('post.note'),
-            'is_delete'     => false,
             'create_time'   => time()
         ];
         //检查输入是否有效
@@ -141,7 +140,7 @@ class WxCalendar extends Controller
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 2, 0,'schedule_info', $id);
+        $logRec->recordLogApi($uid, 2, 0,'schedule_info', $id);
         return $this->json('create', true, 'success');
     }
     public function update($uid){
