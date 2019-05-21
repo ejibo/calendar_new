@@ -13,8 +13,9 @@ class ScheduleDefault extends Model
      *@return Array
      */
     public static function getDefaultSchedules($user=NULL){
+        $defaultSchedule=new ScheduleDefault();
         if($user==NULL){
-            return Db::table('schedule_default')->where('is_delete',0)->limit(30)->select();
+            return $defaultSchedule->where('is_delete',0)->limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         }else if(is_int($user)){
@@ -22,7 +23,6 @@ class ScheduleDefault extends Model
         }else{
             return array();
         }
-        $defaultSchedule=new ScheduleDefault();
         return $defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
     }
     /*
