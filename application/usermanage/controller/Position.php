@@ -15,7 +15,6 @@ class Position extends Common
 {
 
     /**
-     * 第05组 高裕欣
      * 功能：显示列表
      */
     public function index()
