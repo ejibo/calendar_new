@@ -10,13 +10,11 @@
                         <h4 class="box-title">
                             默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                            <div class="input-group">
                                 <div class="input-group-addon">
                                     用户
                                 </div>
                                 <input type="text" id="uname" placeholder="用户名" class="form-control">
-                                <button type="button" id="search" class="btn btn-success" onclick="search()">搜索</button>
-                            </div>
+                                <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -224,7 +222,7 @@
 {/block}
 {block name="scripts"}
 <script>
-    function getDefaultSchedules() {
+    function getUserDefaultSchedules() {
         var user=$("#uname").val();
         $.ajax({
             type:"GET",

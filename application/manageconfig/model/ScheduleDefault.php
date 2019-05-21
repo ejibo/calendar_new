@@ -27,7 +27,7 @@ class ScheduleDefault extends Model
     }
     /*
      * 获取某人的星期几的默认日程
-    *@param day 一周的第几天，从1开始，周一为1，周日为7
+     *@param day 一周的第几天，从1开始，周一为1，周日为7
      *@return Array ScheduleDefault的数组
      */
     public static function getDefaultScheduleInDay($user_id,$day){
