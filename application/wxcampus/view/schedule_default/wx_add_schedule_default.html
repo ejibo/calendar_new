@@ -91,11 +91,10 @@
             data: {"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
-                $("#callbackstatus").text("data:"+data);
                 if (data.code == 1) {
-                    alert('添加成功');
+                    $("#callbackstatus").text("添加成功");
                     setTimeout(function () {
-                        window.location.href="{:url('index')}";
+                        window.location.href="{:url('index',['uid'=>$uid])}";
                     },1000)
                 }
                 else{
