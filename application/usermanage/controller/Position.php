@@ -69,8 +69,6 @@ class Position extends Common
                 $result = $model->insertPosition($name);
                 if ($result == 1) {
                     $this->success('新增成功');
-                    $status = 1;
-                    return ['status'=>$status];
                 } else {
 
                     $this->error('新增失败,请重新尝试');
@@ -78,8 +76,6 @@ class Position extends Common
             }
             else{
                 $this->error("职位重复，请重新输入");
-                $status = 0;
-                return ['status'=>$status];
             }
         }else{
             $this->error("职位名称过长，请重新输入");
