@@ -74,6 +74,7 @@ class WxCalendar extends Controller
 {
     //apis
     private $uid;
+    private $wxcode;
     protected function getUserId(){
         return $this->uid;
     }
@@ -89,9 +90,9 @@ class WxCalendar extends Controller
             ->select();
         return $page;
     }
-    protected function getSchedule($uid, $scheduleId){
+    protected function getSchedule($userid, $scheduleId){
         return Db::name('schedule_info')
-            ->where('user_id', $uid)
+            ->where('user_id', $userid)
             ->where('id', $scheduleId)
             ->find();
     }
@@ -131,9 +132,9 @@ class WxCalendar extends Controller
         ]);
     }
 
-    public function create($uid){
+    public function create($userid){
         $data = [
-            'user_id'       => $uid,
+            'user_id'       => $userid,
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
             'place_id'      => input('post.place_id'),
@@ -150,13 +151,13 @@ class WxCalendar extends Controller
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 2, 0,'schedule_info', $id);
+        $logRec->recordLogApi($userid, 2, 0,'schedule_info', $id);
         return $this->json('create', true, 'success');
     }
-    public function update($uid){
+    public function update($userid){
         $data = [
             'id'            => input('post.id'),
-            'user_id'       => $uid,
+            'user_id'       => $userid,
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
             'place_id'      => input('post.place_id'),
@@ -193,11 +194,11 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 3, 0,'schedule_info', [$data['id'] => $diff]);
+        $logRec->recordLogApi($userid, 3, 0,'schedule_info', [$data['id'] => $diff]);
         return $this->json('update', true, 'success');
     }
 
-    public function delete($uid, $id){
+    public function delete($userid, $id){
         //检查是否有效
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.delete');
         if($valid !== true){
@@ -206,7 +207,7 @@ class WxCalendar extends Controller
         //删除
         $success = Db::name('schedule_info')
             ->where('id', $id)
-            ->where('user_id', $uid)
+            ->where('user_id', $userid)
             ->update([
                 'is_delete'     => true,
                 'delete_time'   => time()
@@ -216,15 +217,16 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
+        $logRec->recordLogApi($userid, 4, 0,'schedule_info', [$id]);
         return $this->json('delete', true, 'success');
     }
     //Views
     protected $items;
     protected $places;
     protected $times;
-    public function Index($uid = NULL, $date = NULL){
-        if($uid != NULL)$this->uid = $uid;
+    public function Index($wxcode, $userid = NULL, $date = NULL){
+        $this->uid = $userid;
+        $this->wxcode = $wxcode;
         if($date == NULL)$date = date('Y-m-d');
         $this->items = $this->getAllScheduleItems();
         $this->places = $this->getAllSchedulePlaces();
@@ -233,7 +235,8 @@ class WxCalendar extends Controller
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
         $this->assign('left', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
         $this->assign('right', url('index', ['uid'=>$this->uid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
-        $this->assign('userid', $uid);
+        $this->assign('userid', $userid);
+        $this->assign('wxcode' ,$wxcode);
         return $this->fetch("index/wx_calendar");
     }
     public function getScheduleDisplayArray($timestamp){
@@ -288,9 +291,9 @@ class WxCalendar extends Controller
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($uid, $id){
-        $sched = $this->getSchedule($uid, $id);
-        $this->assign('userid', $uid);
+    public function updatePage($userid, $id){
+        $sched = $this->getSchedule($userid, $id);
+        $this->assign('userid', $userid);
         $this->assign('scheduleid', $id);
         $this->assign('date', $sched['date']);
         $this->assign('note', $sched['note']);
@@ -298,8 +301,8 @@ class WxCalendar extends Controller
         $this->assign('confirmid', 'update-btn');
         return $this->detail();
     }
-    public function createPage($uid){
-        $this->assign('userid', $uid);
+    public function createPage($userid){
+        $this->assign('userid', $userid);
         $this->assign('scheduleid', -1);
         $this->assign('date', date('Y-m-d'));
         $this->assign('note', '');
@@ -307,9 +310,9 @@ class WxCalendar extends Controller
         $this->assign('confirmid', 'create-btn');
         return $this->detail();
     }
-    public function postTest($uid){
+    public function postTest($userid){
         $data = [
-            'user_id'       => $uid,
+            'user_id'       => $userid,
             'method'        => input('post.method'),
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
