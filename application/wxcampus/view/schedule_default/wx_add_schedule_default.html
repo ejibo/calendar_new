@@ -101,6 +101,7 @@
                     $("#callbackstatus").text("添加成功");
                     setTimeout(function () {
                         window.history.back();
+                        window.location.reload();
                         //window.location.href="{:url('index',['uid'=>$uid])}";
                     },1000)
                 }
