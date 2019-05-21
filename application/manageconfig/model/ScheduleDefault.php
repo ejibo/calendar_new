@@ -69,4 +69,7 @@ class ScheduleDefault extends Model
         }
         $this->data('item_id',$item_id);
     }
+    public function setNote($note){
+        $this->data('note',$note);
+    }
 }

@@ -15,7 +15,7 @@
                     <label class="weui-label">时间</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="addNewDay">
+                    <select class="weui-select" name="select2" id="day">
                         <option value="周一">周一</option>
                         <option value="周二">周二</option>
                         <option value="周三">周三</option>
@@ -26,7 +26,7 @@
                     </select>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="addNewTime">
+                    <select class="weui-select" name="select2" id="time">
                         <option value="上午">上午</option>
                         <option value="下午">下午</option>
                         <option value="晚上">晚上</option>
@@ -38,7 +38,7 @@
                     <label class="weui-label">地点</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="addNewPlace">
+                    <select class="weui-select" name="select2" id="place">
                         <option value="校本部">校本部</option>
                         <option value="大兴">大兴</option>
                         <option value="其他">其他</option>
@@ -50,7 +50,7 @@
                     <label class="weui-label">事项</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="addNewItem">
+                    <select class="weui-select" name="select2" id="item">
                         <option value="上课">上课</option>
                         <option value="开会">开会</option>
                         <option value="其他">其他</option>
@@ -62,7 +62,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" placeholder="请输入文本" rows="2"></textarea>
+                    <textarea class="weui-textarea" id="note" placeholder="请输入文本" rows="2"></textarea>
                     <div class="weui-textarea-counter"><span>0</span>/200</div>
                 </div>
             </div>
@@ -81,14 +81,15 @@
 <script>
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        var time = $('#addNewDay').val() + $('#addNewTime').val();
-        var place = $('#addNewPlace').val();
-        var item = $('#addNewItem').val();
+        var time = $('#day').val() + $('#time').val();
+        var place = $('#place').val();
+        var item = $('#item').val();
+        var note = $('#note').val();
         $.ajax({
             type: "POST",
             async: false,
             url: "{:url('addDefaultSchedule',['uid'=>$uid])}",
-            data: {"time":time,"place": place,"item":item },
+            data: {"time":time,"place": place,"item":item ,"note":note},
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
