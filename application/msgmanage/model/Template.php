@@ -42,7 +42,14 @@ class Template extends Model
             ->select();
         return $allItems;
     }
-    //根据模板名称活内容获取模板
+    //获取所有删除模板
+    public function getAllTemplatesDelete(){
+        $allItems = Db::name('message_template')
+            ->where('is_delete',1)
+            ->select();
+        return $allItems;
+    }
+    //根据模板名称或内容获取模板
     public function getAllItems($tit){
         $allItems = Db::name('message_template')
             ->where('content|title','like','%'.$tit.'%')
