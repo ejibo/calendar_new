@@ -50,7 +50,7 @@
                     <label class="weui-label">事项</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="item" contenteditable="true">
+                    <select class="weui-select" name="select2" id="item">
                         <option value="上课">上课</option>
                         <option value="开会">开会</option>
                         <option value="其他">其他</option>
@@ -79,7 +79,7 @@
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
     window.onload=function () {
-        $("#note").addEventListener(function () {
+        $("#note").addEventListener("input",function () {
             $("#current-word-counter").innerHTML=$("#note").val().length;
         })
     }
