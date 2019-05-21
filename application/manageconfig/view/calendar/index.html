@@ -9,13 +9,13 @@
                     <div class="card-body">
                         <h4 class="box-title">
                             默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                <div class="input-group-addon">
-                                    用户
-                                </div>
-                                <input type="text" id="uname" placeholder="用户名" class="form-control">
-                                <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
                         </h4>
+                        <div class="input-group-addon">
+                            用户
+                        </div>
+                        <input type="text" id="uname" placeholder="用户名" class="form-control">
+                        <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
+
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
@@ -231,7 +231,12 @@
             success:function (data) {
                 if(data!=0){
                     alert(data.msg);
-                }//为0的话已经被重定向
+                }else{
+                    var uid=data.data.uid;
+                    var uname=data.data.uname;
+                    var defaultSchedules=data.data.default_schedule_list;
+                    window.location.href="{:url('search',['uid'=>uid,'uname'=>uname,'defaultSchedules'=>defaultSchedules])}";
+                }
             }
         })
     }
