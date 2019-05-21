@@ -7,20 +7,23 @@ use app\manageconfig\model\ScheduleDefault as ScheduleDefaultModel;
 use think\Request;
 
 class ScheduleDefault extends Controller {
-    private $user_id;
+
+    /**管理默认日程的界面*/
     public function index($user_id){
-        $this->user_id=$user_id;
-        $defaultSchedules=ScheduleDefault::getDefaultSchedules($user_id);
+        $defaultSchedules=ScheduleDefaultModel::getDefaultSchedules($user_id);
         $this->assign("defaultSchedules",$defaultSchedules);
         return $this->fetch();
     }
+    /**
+    *添加默认日程界面
+     */
     public function wx_add_schedule_default($user_id){
         $this->assign("user_id",$user_id);
         $this->assign("title","添加默认日程");
         return $this->fetch();
     }
     /**
-     * 添加默认事项
+     * 添加默认日程动作
      */
     public function addDefaultSchedule($user_id){
         $param = Request::instance()->post();
