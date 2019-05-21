@@ -73,6 +73,8 @@
         <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
 </div>
+<a style="display: none" href="{:url('WxCalendar/Create', ['uid' => $userid])}" id="create-url"></a>
+<a style="display: none" href="{:url('WxCalendar/Update', ['uid' => $userid])}" id="update-url"></a>
 </body>
 {literal}
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
@@ -97,7 +99,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    'create',
+                    $('#create-url').attr('href'),
                     {
                         "method": "create",
                         "date": $('#date').val(),
@@ -124,7 +126,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    'update',
+                    $('#update-url').attr('href'),
                     {
                         "method": "update",
                         "date": $('#date').val(),
