@@ -27,7 +27,7 @@ class QueryMySchedule extends Controller
 	public function defaultList($number){
 		$this->user_id = $this->getUserId($number);
 		//echo $this->user_id;
-		$sql = "select * from schedule_info where user_id = ".$this->user_id;
+		$sql = "select * from schedule_info where user_id = ".$this->user_id." order by date";
 		$result = Db::query($sql);
 		$len = count($result);
 		for($x = 0; $x < $len; $x++){
@@ -85,7 +85,7 @@ class QueryMySchedule extends Controller
 		$myUserId = $request->param('user_id');
 		if($starttime == NULL) $starttime = "0000-01-01";
 		if($endtime == NULL) $endtime = "9999-12-31";
-		$sql = "select * from schedule_info where user_id=".$myUserId." and date(date) between date('".$starttime."') and date('".$endtime."')";
+		$sql = "select * from schedule_info where user_id=".$myUserId." and date(date) between date('".$starttime."') and date('".$endtime."') order by date";
 		$result = Db::query($sql);  
 		$len = count($result);
 		for($x = 0; $x < $len; $x++){
