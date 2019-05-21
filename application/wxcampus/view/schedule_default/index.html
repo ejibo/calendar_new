@@ -25,7 +25,7 @@
             </div>
             <script>
                 (function f() {
-                    if({$defaultSchedules}.length==0){
+                    if({$defaultSchedules} instanceof Array && {$defaultSchedules}.length==0){
                         dom.write("空空如也");
                     }
                 })();
