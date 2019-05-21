@@ -285,6 +285,7 @@ class WxCalendar extends Controller
         return $cells;
     }
     protected function detail(){
+        $this->assign('wxcode' , $this->wxcode);
         $this->assign('items', $this->getScheduleItems());
         $this->assign('times', $this->getScheduleTimes());
         $this->assign('places', $this->getSchedulePlaces());

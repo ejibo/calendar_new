@@ -68,7 +68,7 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('WxCalendar/Index', ['userid' => $userid, 'date' => $date])}" id="cancel-btn">返回</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('WxCalendar/Index', ['wxcode' => $wxcode, 'userid' => $userid, 'date' => $date])}" id="cancel-btn">返回</a>
         </div>
         <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
