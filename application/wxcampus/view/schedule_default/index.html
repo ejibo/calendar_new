@@ -11,30 +11,47 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
-            {volist name="defaultSchedules" id="schedule"}
+            <div class="weui-flex" style="padding-top: 10px">
+                <div class="weui-flex__item">
+                    <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160">
+                        <a onclick="window.history.back()">
+                            <img src="__STATIC__/wx/img/before.png" style="height: 17px" id="left">
+                        </a>
+                    </div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder" style="font-size: 17px" id="title">默认日程列表</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160">
+                        <img src="__STATIC__/wx/img/richeng.png" style="height: 17px">
+                    </div>
+                </div>
+            </div>
+            {volist name="defaultSchedules" id="schedule" empty="空空如也"}
             <a class="weui-cell  weui-cell_example">
-                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
-                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
+                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/richeng_on.png" alt=""
+                                                style="width:50px;margin-right:16px;display:block;border-radius: 5px">
+                </div>
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$schedule->getTime()}</h4>
-                    <p class="weui-media-box__desc">{$schedule->getPlace()}</p>
-                    <p class="weui-media-box__desc">{$schedule->getItem()}</p>
+                    <p class="weui-media-box__desc">{$schedule->getPlace()}　－＞　{$schedule->getItem()}</p>
                     <p class="weui-media-box__desc">{$schedule->note}</p>
-
                 </div>
-                <div class=" weui-cell__ft" >
-                    <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick=""
-                    ></div>
+                <div class=" weui-cell__ft">
+                    <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="">
+                </div>
             </a>
             {/volist}
             <div class="weui-btn-area" style="position: fixed;bottom:70px ;right:5px;z-index:9999;">
-                <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('wx_add_schedule_default',['uid'=>$uid])}" id="showTooltips" style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
+                <a class="weui-btn weui-btn_block weui-btn_primary"
+                   href="{:url('wx_add_schedule_default',['uid'=>$uid])}" id="showTooltips"
+                   style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
             </div>
 
         </div>
     </div>
 </div>
-
 
 
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>

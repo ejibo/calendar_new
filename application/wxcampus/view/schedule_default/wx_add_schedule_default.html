@@ -50,7 +50,7 @@
                     <label class="weui-label">事项</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2" id="item">
+                    <select class="weui-select" name="select2" id="item" contenteditable="true">
                         <option value="上课">上课</option>
                         <option value="开会">开会</option>
                         <option value="其他">其他</option>
@@ -62,8 +62,8 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" id="note" placeholder="请输入文本" rows="2"></textarea>
-                    <div class="weui-textarea-counter"><span>0</span>/200</div>
+                    <textarea class="weui-textarea" id="note" placeholder="请输入文本" rows="2" ></textarea>
+                    <div class="weui-textarea-counter"><span id="current-word-counter">0</span>/2000</div>
                 </div>
             </div>
         </div>
@@ -71,14 +71,18 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="addDefaultSchedule()" id="yes-btn">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('index',['uid'=>$uid])}" id="cancel-btn">返回</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
     </div>
-    {include file="../application/wxcampus/view/index/nav.html"}
 
 </div>
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>
+    window.onload=function () {
+        $("#note").addEventListener(function () {
+            $("#current-word-counter").innerHTML=$("#note").val().length;
+        })
+    }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
         var time = $('#day').val() + $('#time').val();
@@ -95,7 +99,9 @@
                 if (data.code == 1) {
                     $("#callbackstatus").text("添加成功");
                     setTimeout(function () {
-                        window.location.href="{:url('index',['uid'=>$uid])}";
+                        window.history.back();
+                        window.location.reload();
+                        //window.location.href="{:url('index',['uid'=>$uid])}";
                     },1000)
                 }
                 else{
