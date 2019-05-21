@@ -23,14 +23,7 @@
                     <div class="placeholder" style="font-size: 17px" id="title">默认日程列表</div>
                 </div>
             </div>
-            <script>
-                (function f() {
-                    if({$defaultSchedules} instanceof Array && {$defaultSchedules}.length==0){
-                        dom.write("空空如也");
-                    }
-                })();
-            </script>
-            {volist name="defaultSchedules" id="schedule"}
+            {volist name="defaultSchedules" id="schedule" empty="空空如也"}
             <a class="weui-cell  weui-cell_example">
                 <div class="weui-cell__hd"><img src="__STATIC__/wx/img/richeng.jpg" alt=""
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
