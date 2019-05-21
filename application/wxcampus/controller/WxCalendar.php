@@ -14,9 +14,13 @@ use think\Db;
 //4.用户点击上面的两个箭头，跳转到前天和明天的日程页面， 从而修改其他时间的日程
 
 //bug list:
-//1. 导航栏还没做好
+//1. 导航栏还没做好(Index默认要传wxcode, 很麻烦)
 //2. 新增日程默认的日程是当天， 即使页面是其他天
 //3. 更改页面的选项没有随着用户的选中的事项来改变
+//4. 新增时数据库里create_time未被修改,而是null
+//5. 修改日程时create_time被修改，但update_time未被修改，而是null
+//6. 可以修改过去的日程
+//7. 可以修改期限以外的日程
 
 class CalendarValidator extends Validate
 {
