@@ -11,9 +11,28 @@
 <div class="weui-tab">
     <div class="weui-tab__panel">
         <div class="weui-panel weui-panel_access">
+            <div class="weui-flex" style="padding-top: 10px">
+                <div class="weui-flex__item">
+                    <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160">
+                        <a onclick="window.history.back()">
+                            <img src="__STATIC__/wx/img/before.png" style="height: 17px" id="left">
+                        </a>
+                    </div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder" style="font-size: 17px" id="title">默认日程列表</div>
+                </div>
+            </div>
+            <script>
+                (function f() {
+                    if({$defaultSchedules}.isEmpty()){
+                        dom.write("空空如也");
+                    }
+                })();
+            </script>
             {volist name="defaultSchedules" id="schedule"}
             <a class="weui-cell  weui-cell_example">
-                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/s.jpg" alt=""
+                <div class="weui-cell__hd"><img src="__STATIC__/wx/img/richeng.jpg" alt=""
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px"></div>
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$schedule->getTime()}</h4>
@@ -31,7 +50,6 @@
             </div>
 
         </div>
-        {include file="../application/wxcampus/view/index/nav.html"}
     </div>
 </div>
 
