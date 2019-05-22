@@ -123,12 +123,20 @@ class Msgmodel extends Common
     }
     public function enableTemplate(){
         $id = $_POST['id'];
+        $tit = $_POST['tit'];
         $model = model('Template');
-        $res = $model->renewTemplate($id);
-        if($res == 1)
-            $this->success("恢复成功");
-        else
-            $this->success("恢复失败");
+        $isHasSame = $model->strictGetItemByTitle($tit);
+        if($isHasSame==null){
+            $res = $model->renewTemplate($id);
+            if($res == 1)
+                $this->success("恢复成功");
+            else
+                $this->success("恢复失败");
+        }
+        else{
+            $this->success("已存在相同标题，恢复失败");
+        }
+        
     }
     /*
      *story:添加消息模板
@@ -141,7 +149,8 @@ class Msgmodel extends Common
         $regTit = '/^[\x{4e00}-\x{9fa5}A-Za-z][\x{4e00}-\x{9fa5}A-Za-z\d\s]{0,29}[\x{4e00}-\x{9fa5}A-Za-z\d]$/u'; 
         if(preg_match($regTit,$tit) && strlen($tit)<=140){  //验证标题格式 
             $model = model('Template');
-            $isHasSame = $model->getItemByTitle('');
+            $isHasSame = $model->strictGetItemByTitle($tit);
+            //$isHasSame = null;
             if ($isHasSame == null) {
                 $res = $model->insertTemplate($tit, $con);
                 if($res){
