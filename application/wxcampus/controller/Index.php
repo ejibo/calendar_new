@@ -117,6 +117,9 @@ class Index extends Controller
     public function wx_calendar($userid, $wxcode){
         return $this->redirect('WxCalendar/Index', ['userid'=> $userid, 'wxcode'=>$wxcode]);
     }
+    public function wxquery($userid, $wxcode){
+        return $this->redirect('Wxquery/Index', ['userid'=> $userid, 'wxcode'=>$wxcode]);
+    }
     public function schedule_default(){
         $params=Request::instance()->param();
         $wxcode=$params['wxcode'];
