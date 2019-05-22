@@ -7,14 +7,14 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group">
+                        <div class="box-title">
                         <h4 class="box-title">
                             默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </h4>
                         <div class="input-group-addon">
-                            用户
+                            用户:
                         </div>
-                        <input type="text" id="uname" placeholder="用户名" class="form-control">
+                        <input type="text" id="uname-search" placeholder="用户名" class="form-control">
                         <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
                         <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
                         </div>
@@ -167,7 +167,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="username" name="username" value="new" class="form-control" disabled="disabled">
+                                    <input type="text" id="addNewUser" name="uname" value="new" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -225,8 +225,8 @@
 {block name="scripts"}
 <script>
     function getUserDefaultSchedules() {
-        var user=$("#uname").val();
-        window.location.href="{:url('search',['user'=>"+user+"])}";
+        var user=$("#uname-search").val();
+        window.location.href="{:url('index')}?user="+user;
         // $.ajax({
         //     type:"GET",
         //     url:"{:url('search')}",
@@ -241,9 +241,14 @@
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
+        var uname = $('#addNewUser').val();
         var day = $('#addNewDay').val();
         var time =  $('#addNewTime').val();
         var place = $('#addNewPlace').val();
+        if (uname.trim().length == 0) {
+            alert('请输入用户名');
+            return 1;
+        }
         if (place.trim().length == 0) {
             alert('请输入地点');
             return 1;
@@ -257,7 +262,7 @@
             type: "POST",
             async: false,
             url: "{:url('Calendar/addDefaultSchedule')}",
-            data: {"day":day,"time":time,"place": place,"item":item },
+            data: {"user":user,"day":day,"time":time,"place": place,"item":item },
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {

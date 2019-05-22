@@ -48,8 +48,11 @@ class ScheduleDefault extends Model
             default :return "";
         }
     }
-    public function getUname(){
-        return Db::table('user_info')->where('id',$this->getData('user_id'))->value('name');
+
+    /**@param user_id 为NULL则从对象的data里取uid，不为NULL则是获取该user_id对应的uname*/
+    public function getUserName($user_id=NULL){
+        return Db::table('user_info')->
+            where('id',$user_id==NULL?$this->getData('user_id'):$user_id)->value('name');
     }
 
     public function getTime(){
@@ -64,13 +67,17 @@ class ScheduleDefault extends Model
         return Db::table('schedule_item')->where('id', $this->getData('item_id'))->value('name');
     }
 
-    public function setUserId($user_id){
-        $this->data('user_id',$user_id);
+
+    /**@param $user 可以是字符串，代表用户名，也可以是整数，代表user_id*/
+    public function setUserId($user){
+        if(is_string($user)){
+            $user=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+        }else if(!is_int($user)&&!is_long($user)){
+            throw new \InvalidArgumentException('user只能是字符串或者整数');
+        }
+        $this->data('user_id',$user);
     }
     public function setDay($day){
-//        if(!is_int($day)||$day<1||$day>7){
-//
-//        }
         $this->data('day',$day);
     }
 

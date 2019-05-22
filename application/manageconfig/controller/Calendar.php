@@ -20,7 +20,18 @@ use think\Session;
 class Calendar extends Common
 {
     public function index(){
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
+        $user=Request::instance()->get('user');
+        if($user){
+            $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+            if(!empty($user_id)){
+                $this->assign('uid',$user_id);
+                $this->assign('uname',$user);
+                $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
+                $this->assign('defaultSchedules',$defaultSchedules);
+            }
+        }else{
+            $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
+        }
         return $this->fetch();
     }
     public function search(){
@@ -32,6 +43,7 @@ class Calendar extends Common
         $this->assign('uname',$user);
         $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
         $this->assign('defaultSchedules',$defaultSchedules);
+        return $this->fetch();
 //        return json([
 //            "code"=>1,
 //            "msg"=>"success",
@@ -40,7 +52,6 @@ class Calendar extends Common
 //                "uname"=>$user,
 //                "default_schedule_list"=>$defaultSchedules
 //            ]]);
-        return $this->fetch();
     }
     /**
      * 添加默认事项
@@ -51,7 +62,7 @@ class Calendar extends Common
         $this->validate($param,'ScheduleDefault');
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId($param['uid']);
+            $schedule->setUserId($param['user']);
             $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
             $schedule->checkSameTimeDefaultSchedule();
