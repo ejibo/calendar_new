@@ -29,13 +29,23 @@ class Wxquery extends controller
     //echo 'ajdhfks';
     }
   
-  	public function wxquery()
-    {
-        $query = new query();  // 实例化模型
-        $list = $query->wx_query(); // 使用模型中的wx_query方法
-        dump($list);
+  	 public function departList(){
+      $depart_list = array();
+      $depart_list = Db::table('user_depart')
+      ->where('is_delete', 0)
+      ->field('id', 'name')
+      ->select();
+      $this.assign('depart', $depart_list);
+      return $this->fetch('index/wx_search');
+    }
 
-        $this->assign('list', $list);
-        return $this->fetch('index/wx_search');
+    public function positionList(){
+      $position_list = array();
+      $position_list = Db::table('user_position')
+      ->where('is_delete', 0)
+      ->field('id', 'name')
+      ->select();
+      $this.assign('pos', $pos_list);
+      return $this->fetch('index/wx_search');
     }
 }
