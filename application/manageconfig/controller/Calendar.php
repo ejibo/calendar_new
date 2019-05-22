@@ -28,6 +28,8 @@ class Calendar extends Common
                 $this->assign('uname',$user);
                 $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
                 $this->assign('defaultSchedules',$defaultSchedules);
+            }else{
+                $this->assign('defaultSchedules',array());
             }
         }else{
             $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
