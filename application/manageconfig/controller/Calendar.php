@@ -62,8 +62,8 @@ class Calendar extends Common
     public function addDefaultSchedule(){
         $param = Request::instance()->post();
         $res=$this->validate($param,'ScheduleDefault');
-        if (!$res) {
-            return json(['code' => 403, 'msg' => '参数不符合规则']);
+        if (true!==$res) {
+            return json(['code' => 403, 'msg' => '参数不符合规则'.$res]);
         }
         $schedule=new ScheduleDefault();
         try{

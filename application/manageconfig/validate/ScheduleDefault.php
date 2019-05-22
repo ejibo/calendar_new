@@ -14,4 +14,11 @@ class ScheduleDefault extends Validate
         'item'=>'require|length:1,30',
         'note'=>'max:2000'
     ];
+    protected $message=[
+        'day'=>'日期为1到7的整数',
+        'time'=>'时间不能为空',
+        'place'=>'地点长度为1到30',
+        'item'=>'事项长度为1到30',
+        'note'=>'备注长度最大2000'
+    ];
 }
