@@ -27,13 +27,11 @@ class Wxquery extends controller
         $depart_list = array();
         $depart_list = Db::table('user_depart')
           ->where('is_delete', 0)
-          ->field('id', 'name')
           ->select();
       
         $position_list = array();
         $position_list = Db::table('user_position')
           ->where('is_delete', 0)
-          ->field('id', 'name')
           ->select();
       
         $this->assign('depart', $depart_list);
