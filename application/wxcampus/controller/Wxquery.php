@@ -38,7 +38,11 @@ class Wxquery extends controller
       
         $this->assign('depart', $depart_list);
       	$this->assign('pos', $position_list);
-        if ($list==NULL){echo '检索结果为空';} else{$this->assign('list', $list);};          
+        if ($list!==NULL){
+          $this->assign('list', $list);
+        }else{
+          echo '检索结果为空';
+        }
         return $this->fetch('index/wx_search');
     }
   
