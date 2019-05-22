@@ -439,8 +439,8 @@
 
      function md_submit() {
          if (mdId && mdName) {
-             mdId = false;
-             mdName = false;
+             mdId = true;
+             mdName = true;
              return true;
          } else {
              alert("所填信息不符合要求，请修改！");
