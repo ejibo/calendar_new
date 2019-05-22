@@ -40,7 +40,7 @@
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
                                         {else/}
-                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal6">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" date-title="{$templateItem.title}" data-toggle="modal" data-target="#smallModal6">
                                             <i class="fa fa-exclamation"></i>&nbsp;恢复
                                         </button>
                                         {/eq}
@@ -235,6 +235,7 @@
                             </div>
                             <div>
                                 <input id="id" type="hidden"/>
+                                <input id="title" type="hidden"/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -384,8 +385,10 @@
     $('#smallModal6').on('show.bs.modal', function (e) {
         var ele = e.relatedTarget.parentNode.parentNode;
         var id = ele.cells[0].innerText;
+        var title = ele.cells[1].innerText;
         /* var id = $(e.relatedTarget).data("id"); */
         $("#id").val(id);
+        $("#title").val(title);
         $("#msg6").html("");
     });
     $("#renew_cancel").on("click", function(){
@@ -394,11 +397,12 @@
     });
     $("#submit_renew").on("click", function(){
         var id = $("#id").val();
-        console.log(id);
+        var tit = $("#title").val();
+        console.log(id+"   "+tit);
         $.ajax({
             url:"{:url('msgmanage/Msgmodel/enableTemplate')}",
             type:"POST",
-            data:{"id":id},
+            data:{"id":id,"tit":tit},
             dataType: "json",
             success: function (data) {
                 console.log(data);
