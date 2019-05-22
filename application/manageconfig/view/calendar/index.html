@@ -13,7 +13,7 @@
                         <div class="input-group-addon">
                             用户:
                         </div>
-                        <input type="text" id="uname-search" placeholder="用户名" class="form-control">
+                        <input type="text" id="uname-search" placeholder="用户名" class="form-control" value={$uname}>
                         <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
                         <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -167,7 +167,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="addNewUser" name="uname" value="new" class="form-control">
+                                    <input type="text" id="addNewUser" name="uname" value={$uname} class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">

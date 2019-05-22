@@ -22,16 +22,17 @@ class Calendar extends Common
     public function index(){
         $user=Request::instance()->get('user');
         if($user){
+            $this->assign('uname',$user);
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
             if(!empty($user_id)){
                 $this->assign('uid',$user_id);
-                $this->assign('uname',$user);
                 $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
                 $this->assign('defaultSchedules',$defaultSchedules);
             }else{
                 $this->assign('defaultSchedules',array());
             }
         }else{
+            $this->assign('uname',"");
             $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
         }
         return $this->fetch();
