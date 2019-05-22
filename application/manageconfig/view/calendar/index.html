@@ -226,9 +226,6 @@
 <script>
     function getUserDefaultSchedules() {
         var user=$("#uname-search").val();
-        if(!user){
-            user="";
-        }
         window.location.href="{:url('index')}?user="+user;
         // $.ajax({
         //     type:"GET",
@@ -244,11 +241,11 @@
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        var uname = $('#addNewUser').val();
+        var user = $('#addNewUser').val();
         var day = $('#addNewDay').val();
         var time =  $('#addNewTime').val();
         var place = $('#addNewPlace').val();
-        if (uname.trim().length == 0) {
+        if (user.trim().length == 0) {
             alert('请输入用户名');
             return 1;
         }
