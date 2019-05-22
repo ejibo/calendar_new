@@ -17,8 +17,8 @@ class Wxquery extends controller
 {
     public function Index()
     {
-        $query_name = input('post.query_name');
-        $work_id = input('post.work_id');
+        //$query_name = input('post.query_name');
+        //$work_id = input('post.work_id');
     	//按照部门、职务、姓名 查询用户日程
     	$query = new query();  // 实例化模型
         
@@ -39,7 +39,7 @@ class Wxquery extends controller
         $this->assign('depart', $depart_list);
       	$this->assign('pos', $position_list);
         if ($list!==NULL){
-          $this->assign('list', $list);
+          $this->assign('result', $list);
         }else{
           echo '检索结果为空';
         }
