@@ -27,10 +27,19 @@ class Calendar extends Common
         $user=Request::instance()->get('user');
         $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         if(empty($user_id))
-            return json(['code'=>404,'msg'=>'用户不存在','data'=>[]]);
+            return json(['code'=>404,'msg'=>'用户['.$user.']不存在','data'=>[]]);
         $this->assign('uid',$user_id);
         $this->assign('uname',$user);
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules($user));
+        $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
+        $this->assign('defaultSchedules',$defaultSchedules);
+//        return json([
+//            "code"=>1,
+//            "msg"=>"success",
+//            "data"=>[
+//                "uid"=>$user_id,
+//                "uname"=>$user,
+//                "default_schedule_list"=>$defaultSchedules
+//            ]]);
         return $this->fetch();
     }
     /**
