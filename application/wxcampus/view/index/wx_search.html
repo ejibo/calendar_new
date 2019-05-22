@@ -18,9 +18,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" id="select1">
-                      {volist name='depart' id='vo'}
+                      {foreach $depart as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
-                      {/volist}
+                      {/foreach}
                     </select>
                 </div>
             </div>
@@ -30,9 +30,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" id="select2">
-                      {volist name='pos' id='vo'}
+                      {foreach $pos as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
-                      {/volist}
+                      {/foreach}
                     </select>
                 </div>
             </div>
