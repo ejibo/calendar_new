@@ -247,34 +247,34 @@ if (schedule_item_name ) {
     var id = $.trim(modal.find('#id').val());
     var user_info_name = $.trim(modal.find('#user_info_name').val());
     var user_position_name = $.trim(modal.find('#user_position_name').val());
-    var new_date = modal.find('#date').val();
-    var new_schedule_time_name = $.trim(modal.find('#schedule_time_name').val());
-    var new_schedule_time_text = $.trim(modal.find('#schedule_time_name').find("option:selected").text());
-    var new_schedule_place_name = $.trim(modal.find('#schedule_place_name').val());
-    var new_schedule_place_text = $.trim(modal.find('#schedule_place_name').find("option:selected").text());
-    var new_schedule_item_name = $.trim(modal.find('#schedule_item_name').val());
-    var new_schedule_item_text = $.trim(modal.find('#schedule_item_name').find("option:selected").text());
+    var date = modal.find('#date').val();
+    var schedule_time_name = $.trim(modal.find('#schedule_time_name').val());
+    var schedule_time_text = $.trim(modal.find('#schedule_time_name').find("option:selected").text());
+    var schedule_place_name = $.trim(modal.find('#schedule_place_name').val());
+    var schedule_place_text = $.trim(modal.find('#schedule_place_name').find("option:selected").text());
+    var schedule_item_name = $.trim(modal.find('#schedule_item_name').val());
+    var schedule_item_text = $.trim(modal.find('#schedule_item_name').find("option:selected").text());
     console.log("1"+id);
     console.log("2"+user_info_name);
     console.log("3"+user_position_name);
-    console.log("4"+new_date);
-    console.log("5"+new_schedule_time_name);
-    console.log("6"+new_schedule_time_text);
-    console.log("7"+new_schedule_place_name);
-    console.log("8"+new_schedule_place_text);
-    console.log("9"+new_schedule_item_name);
-    console.log("10"+new_schedule_item_text);
+    console.log("4"+date);
+    console.log("5"+schedule_time_name);
+    console.log("6"+schedule_time_text);
+    console.log("7"+schedule_place_name);
+    console.log("8"+schedule_place_text);
+    console.log("9"+schedule_item_name);
+    console.log("10"+schedule_item_text);
 
-    if(date.length === 0 || new_schedule_place_name.length === 0 ||new_schedule_item_name.length === 0 ||new_schedule_time_name.length === 0)
-    {
-        alert('输入不能为空');
-        return;
-    }
-    if(new_schedule_place_text == schedule_place_name & new_schedule_item_text == schedule_item_name & new_schedule_time_text  == schedule_time_name)
-    {
-        alert('并未修改信息');
-        return;
-    }       
+    // if(date.length === 0 || schedule_place_name.length === 0 ||schedule_item_name.length === 0 ||schedule_time_name.length === 0)
+    // {
+    //     alert('输入不能为空');
+    //     return;
+    // }
+    // if(schedule_place_text == schedule_place_name & schedule_item_text == schedule_item_name & schedule_time_text  == schedule_time_name)
+    // {
+    //     alert('并未修改信息');
+    //     return;
+    // }       
 
       //post方法修改
     $.post("{:url('Modifyschedule/modifySchedule')}",
