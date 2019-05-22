@@ -230,6 +230,7 @@
                 if (data.status == 1) {
                     notifyAndRemoveModal(data.message);
                     loadTable();
+                    window.location.reload();
                 } else {
                     alert(data.message);
                 }
