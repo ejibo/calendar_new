@@ -7,17 +7,17 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="box-title">
+                        <div class="input-group">
                         <h4 class="box-title">
-                            默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </h4>
                         <div class="input-group-addon">
                             用户:
                         </div>
-                        <input type="text" id="uname-search" placeholder="用户名" class="form-control">
+                        <input type="text" id="uname-search" placeholder="用户名" class="form-control" value={$uname} style="max-width:180px">
                         <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
                         <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
-                        </div>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
@@ -167,7 +167,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="addNewUser" name="uname" value="new" class="form-control">
+                                    <input type="text" id="addNewUser" name="uname" value={$uname} class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -241,11 +241,11 @@
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        var uname = $('#addNewUser').val();
+        var user = $('#addNewUser').val();
         var day = $('#addNewDay').val();
         var time =  $('#addNewTime').val();
         var place = $('#addNewPlace').val();
-        if (uname.trim().length == 0) {
+        if (user.trim().length == 0) {
             alert('请输入用户名');
             return 1;
         }
