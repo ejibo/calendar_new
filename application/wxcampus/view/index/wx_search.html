@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" id="query" href="{:url('Wxquery/Index')}">搜索</a>
+            <button class="weui-btn weui-btn_block weui-btn_primary" id="query">搜索</button>
         </div>
           </form>
           
@@ -111,6 +111,7 @@
 $(document).ready(function(){
   $('#query').click(function (){
     $.ajax({
+      url: 'Wxquery/Index',
       type: "post",
       url: $('#query').attr('href'),
       data: {
