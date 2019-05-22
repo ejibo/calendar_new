@@ -29,7 +29,7 @@
                                                                 {volist name="position_list" id="vo"}
 
                                                                 <tr>
-                                                                    <td class="serial">{$vo.id}</td>
+                                                                    <td class="serial">{$i}</td>
                                                                     <td><span class="product {$vo.id}">{$vo.name}</span></td>
                                                                     <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>
                                                                     </td>
@@ -132,7 +132,7 @@
 {block name="scripts"}
 <script type="text/javascript">
     $(document).ready(function () {
-        loadTable();
+        //loadTable();
     });
 
     function setData(id, name) {
@@ -152,7 +152,8 @@
             },
             success: function () {
                 notifyAndRemoveModal("恢复成功");
-                loadTable();
+                //loadTable();
+                window.location.reload();
             }
         })
     }
@@ -168,7 +169,8 @@
             },
             success: function () {
                 notifyAndRemoveModal("作废成功");
-                loadTable();
+                //loadTable();
+                window.location.reload();
             }
         })
     }
@@ -181,6 +183,8 @@
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
+        //var name_add= $.trim(n).val();
+        //console.log(name_add);
       //判断字符串长度
         if (name.length>30){
             alert("长度过长，请重新输入");
@@ -197,12 +201,18 @@
                         "name": $("#name").val()
                     },
                     success: function (data) {
-                            alert(data.msg);
-                            //$("#smallmodal1").modal("toggle");
-                            //$('.modal-backdrop').remove();//去除遮罩层
-                            window.location.reload();
-                            //notifyAndRemoveModal(data.msg);
-                            //loadTable();
+                            console.log(data);
+                            if(data.status==1){
+                                alert(data.msg);
+                                //$("#smallmodal1").modal("toggle");
+                                //$('.modal-backdrop').remove();//去除遮罩层
+                                window.location.reload();
+                                //notifyAndRemoveModal(data.msg);
+                                //loadTable();
+                            }else{
+                                alert(data.msg);
+                            }
+
                     }
                 })
             }else{
@@ -228,7 +238,8 @@
                 console.log(data);
                 if (data.status == 1) {
                     notifyAndRemoveModal(data.message);
-                    loadTable();
+                    //loadTable();
+                    window.location.reload();
                 } else {
                     alert(data.message);
                 }
@@ -280,7 +291,7 @@
                     var item = data[i]
                     if (item.is_delete) {
                         table_html += `<tr class="deleted">
-                                            <td class="serial">${item.id}</td>
+                                            <td class="serial">${i + 1}</td>
                                             <td class="product">${item.name}</td>
                                             <td class="product">${note[item.is_delete]}</td>
                                             <td>
@@ -293,7 +304,7 @@
                                         </tr>`;
                     } else {
                         table_html += `<tr>
-                                            <td class="serial">${item.id}</td>
+                                            <td class="serial">${i + 1}</td>
                                             <td class="product">${item.name}</td>
                                             <td class="product">${note[item.is_delete]}</td>
                                             <td>

@@ -13,17 +13,63 @@ use app\common\controller\Common;
 
 class Msgmodel extends Common
 {
-    public function index(){
-        $model = model('Template');
-        $templateItems = $model->getAllTemplates();
-        $this->assign('templateItems',$templateItems);
-        return $this->fetch();
-    }
-
     /*
     *story:查询消息模板
     *负责人：吴珏
     */
+    public function index(){
+        $model = model('Template');
+        $search = "";
+        $status = -2;
+        $range = -2;
+        if (isset($_GET['search'])) {
+            $search = $_GET['search'];
+        }
+        if (isset($_GET['status'])) {
+            $status = $_GET['status'];
+        }
+        if (isset($_GET['range'])) {
+            $range = $_GET['range'];
+        }
+        if($status==-2 && $range == -2){
+            $templateItems = $model->getAllTemplates();
+            $this->assign('templateItems',$templateItems);
+            return $this->fetch();
+        }
+        else{
+            if($status==1 && $search==""){
+                $templateItems = $model->getAllTemplates();
+            }
+            else if($status==2 && $search==""){
+                $templateItems = $model->getAllTemplatesDelete();
+            }
+            else if($status==1 && $range==1){
+                $templateItems = $model->getItemByTitle($search);
+            }
+            else if($status==1 && $range==2){
+                $templateItems = $model->getItemByContent($search);
+            }
+            else if($status==2 && $range==1){
+                $templateItems = $model->getItemByTitleDelete($search);
+            }
+            else if($status==2 && $range==2){
+                $templateItems = $model->getItemByContentDelete($search);
+            }
+            else if($status==1 && $range==0){
+                $templateItems = $model->getAllItems($search);
+            }
+            else if($status==2 && $range==0){
+                $templateItems = $model->getAllItemsDelete($search);
+            }
+            if ($templateItems == null) {
+                $this->error("搜索项不存在，请重新尝试");
+            }
+            else{
+                $this->assign('templateItems',$templateItems);
+                return $this->fetch();
+            }
+        }
+    }
 
     public function loadTemplate()
     {
@@ -32,11 +78,8 @@ class Msgmodel extends Common
         return $templates;
     }
     
-    public function searchTemplate()
+    public function searchTemplate($search,$status,$range)
     {
-        $status = $_POST['status'];
-        $search = $_POST['search'];
-        $range = $_POST['range'];
         $model = model('Template');
         if($status==-1){
             $this->error("请选择查询状态");
@@ -73,13 +116,20 @@ class Msgmodel extends Common
                 $this->error("搜索项不存在，请重新尝试");
             }
             else{
-                // $this->success("查询成功");
                 $this->assign('templateItems',$isHasTitle);
-                return $isHasTitle;
+                return $this->fetch();
             }
         }
     }
-
+    public function enableTemplate(){
+        $id = $_POST['id'];
+        $model = model('Template');
+        $res = $model->renewTemplate($id);
+        if($res == 1)
+            $this->success("恢复成功");
+        else
+            $this->success("恢复失败");
+    }
     /*
      *story:添加消息模板
      *负责人：佟起
@@ -88,9 +138,6 @@ class Msgmodel extends Common
     {
         $tit = $_POST['tit'];
         $con = $_POST['con'];
-        /* var_dump($des);
-        var_dump($con); */
-        
         $regTit = '/^[\x{4e00}-\x{9fa5}A-Za-z][\x{4e00}-\x{9fa5}A-Za-z\d\s]{0,29}[\x{4e00}-\x{9fa5}A-Za-z\d]$/u'; 
         if(preg_match($regTit,$tit) && strlen($tit)<=140){  //验证标题格式 
             $model = model('Template');

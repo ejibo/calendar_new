@@ -81,6 +81,11 @@ class Template extends Model
             ->select();
         return $allItems;
     }
+    //恢复模板
+    public function renewTemplate($id){
+        $res = Db::name("message_template")->where('id',$id)->update(['is_delete'=>0,'update_time'=> date('Y-m-d H:i:s',time())]);
+        return $res;
+    }
     /*story:增加消息模板
     负责人：佟起
     */
