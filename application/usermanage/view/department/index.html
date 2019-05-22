@@ -103,7 +103,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         console.log("hello");
-        loadTable();
+        //loadTable();
         //$('#bootstrap-data-table').DataTable();
     });
     function deleteDepartment(id) {
@@ -210,7 +210,7 @@
             },
             success: function(data){
                 console.log(data);
-                if(data.status==1){
+                if(data.status===1){
                     alert(data.message);
                     $("#smallmodal1").modal("hide");
                     $('.modal-backdrop').remove();//去除遮罩层

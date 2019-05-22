@@ -67,17 +67,20 @@ class Position extends Common
             if ($ifsame==null){
                 $result = $model->insertPosition($name);
                 if ($result == 1) {
-                    $this->success('新增成功');
+                    return json(array(["status"=>1,"msg"=>"新增成功"]));
+                    //$this->success('新增成功');
                 } else {
-
-                    $this->error('新增失败,请重新尝试');
+                    return json(array(["status"=>0,"msg"=>"新增失败,请重新尝试"]));
+                    //$this->error('新增失败,请重新尝试');
                 }
             }
             else{
-                $this->error("职位重复，请重新输入");
+                return json(array(["status"=>0,"msg"=>"职位重复，请重新输入"]));
+                //$this->error("职位重复，请重新输入");
             }
         }else{
-            $this->error("职位名称过长，请重新输入");
+            return json(array(["status"=>0,"msg"=>"职位名称过长，请重新输入"]));
+            //$this->error("职位名称过长，请重新输入");
         }
 
     }
