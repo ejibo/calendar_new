@@ -38,6 +38,10 @@
                                         <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal3">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
+                                        {else/}
+                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal6">
+                                            <i class="fa fa-exclamation"></i>&nbsp;恢复
+                                        </button>
                                         {/eq}
                                         {eq name="templateItem.is_delete" value="0"}
                                         {eq name="templateItem.is_remind" value="0"}<a
@@ -76,26 +80,6 @@
                             <input id="itemTit" name="itemTitle" placeholder="模板名称：以汉字或字母开始，以汉字、字母或数字结束，可以使用空格，长度不超过30个字符。" class="form-control" style="margin-bottom: 15px;" />
                             <textarea id="itemCont" name="itemContent" placeholder="模板内容：长度不超过140个字符。" class="form-control" style='height:180px;' ></textarea>
                             </div>
-                            <!-- <p>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon" >
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="itemTit" name="itemTitle" placeholder="模板名称" class="form-control">
-                                </div>
-                                
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon" >
-                                        <i class="fa fa-pencil-square-o"></i>
-                                    </div>
-                                    <input type="text" id="itemCont" name="itemContent" placeholder="模板内容" class="form-control">
-                                </div>
-                            </div>
-                            </p> -->
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary"  id="add_cancel" data-dismiss="modal">取消</button>
@@ -228,7 +212,37 @@
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
+
+            <div class="modal fade" id="smallModal6" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">恢复模板</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                            <div class="form-group">
+                                确定恢复吗?
+                            </div>
+                            </p>
+                            <div class="form-group">
+                                <div id="msg6"></div>
+                            </div>
+                            <div>
+                                <input id="id" type="hidden"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="delete_renew" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_renew" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- .animated -->
 </div>
@@ -345,6 +359,32 @@
         })
     });
 
+    $('#smallModal6').on('show.bs.modal', function (e) {
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        /* var id = $(e.relatedTarget).data("id"); */
+        $("#id").val(id);
+        $("#msg6").html("");
+    });
+    $("#renew_cancel").on("click", function(){
+        $("#id").val("");
+
+    });
+    $("#submit_renew").on("click", function(){
+        var id = $("#id").val();
+        console.log(id);
+        $.ajax({
+            url:"{:url('msgmanage/Msgmodel/enableTemplate')}",
+            type:"POST",
+            data:{"id":id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    });
     $("#submit_sure").click(function(){
 
         window.location.reload();
