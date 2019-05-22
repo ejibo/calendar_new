@@ -12,8 +12,8 @@ class Query extends Model
     {
         $query_depart = input('post.select1');
         $query_pos = input('post.select2');
-        $query_name = input('post.query_name');
-        $work_id = input('post.work_id');
+        $query_name = Request::instance()->post('query_name','','strip_tags,htmlspecialchars');
+        $work_id = Request::instance()->post('work_id','','strip_tags,htmlspecialchars');
 
         
         $allInfo = array();
