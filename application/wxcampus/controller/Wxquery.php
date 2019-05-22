@@ -24,7 +24,7 @@ class Wxquery extends controller
         
       	$list = array();
         $list = $query->wx_query(); // 使用模型中的wx_query方法
-        dump($list);
+        // dump($list);
       
         $depart_list = array();
         $depart_list = Db::table('user_depart')
@@ -38,8 +38,8 @@ class Wxquery extends controller
       
         $this->assign('depart', $depart_list);
       	$this->assign('pos', $position_list);
-        $this->assign('list', $list);
-        //return $this->fetch('index/wx_search');
+        if ($list==NULL){echo '检索结果为空'} else{$this->assign('list', $list);};          
+        return $this->fetch('index/wx_search');
     }
   
 }
