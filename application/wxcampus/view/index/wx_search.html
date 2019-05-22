@@ -17,7 +17,7 @@
                     <label class="weui-label">部门</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select1">
+                    <select class="weui-select" id="select1">
                         <option value="1">党委书记办公室</option>
                         <option value="2">教务处</option>
                         <option value="3">后勤</option>
@@ -29,7 +29,7 @@
                     <label class="weui-label">职务</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
+                    <select class="weui-select" id="select2">
                         <option value="1">副党委书记</option>
                         <option value="2">教师</option>
                         <option value="3">其他</option>
@@ -44,7 +44,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入姓名" name="query_name">
+                    <input class="weui-input" placeholder="请输入姓名" id="query_name">
                 </div>
             </div>
 
@@ -53,11 +53,11 @@
                     <label class="weui-label">工号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="number" placeholder="请输入工号" name="work_id">
+                    <input class="weui-input" type="number" placeholder="请输入工号" id="work_id">
                 </div>
             </div>
             <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('Wxquery/Index', ['userid' => $userid])}">搜索</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" id="query" href="{:url('Wxquery/Index')}">搜索</a>
         </div>
           </form>
           
@@ -68,10 +68,6 @@
             <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" style="margin: 5px;color:#9b9b9b">张老师</a>
             <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default" style="margin: 5px;color:#9b9b9b">张老师</a>
         </div>
-
-		
-
-        
     </div>
   
   here is result:  
@@ -102,5 +98,28 @@
     </div>
 </div>
 </body>  
+  
+{literal}
+<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
+<script>
+
+$(document).ready(function(){
+  $('#query').click(function (){
+    $.ajax({
+      type: "post",
+      url: $('#query').attr('href'),
+      data: {
+      "depart": $('#select1 option:selected').val(),
+      "pos": $("#select2 option:selected").val(),
+      "query_name": $('#query_name').val(),
+	  "work_id": $("#work_id").val() 
+      }
+    })
+  }
+}
+
+</script>
+{/literal}
+  
   
 </html>
