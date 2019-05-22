@@ -17,7 +17,7 @@
                     <label class="weui-label">部门</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
+                    <select class="weui-select" name="select1">
                         <option value="1">学工部</option>
                         <option value="2">教务处</option>
                         <option value="3">后勤</option>
@@ -38,7 +38,7 @@
             </div>
         
           
-          <form action="Wxquery/index" method="POST">
+          <form action="{:url(Wxquery/index'),['query_name'=>$query_name, 'work_id'=>$work_id, 'select1'=>$select1, 'select2'=>$select2]}" method="POST">
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">姓名</label>
