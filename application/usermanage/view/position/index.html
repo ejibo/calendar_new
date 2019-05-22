@@ -132,7 +132,7 @@
 {block name="scripts"}
 <script type="text/javascript">
     $(document).ready(function () {
-        loadTable();
+        //loadTable();
     });
 
     function setData(id, name) {
@@ -197,12 +197,18 @@
                         "name": $("#name").val()
                     },
                     success: function (data) {
+                        console.log(data);
+                        if(data.status==1){
                             alert(data.msg);
                             //$("#smallmodal1").modal("toggle");
                             //$('.modal-backdrop').remove();//去除遮罩层
                             window.location.reload();
                             //notifyAndRemoveModal(data.msg);
                             //loadTable();
+                        }else{
+                            alert(data.msg);
+                        }
+
                     }
                 })
             }else{
@@ -229,6 +235,7 @@
                 if (data.status == 1) {
                     notifyAndRemoveModal(data.message);
                     loadTable();
+                    window.location.reload();
                 } else {
                     alert(data.message);
                 }
