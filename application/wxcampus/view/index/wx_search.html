@@ -71,9 +71,12 @@
     </div>
   
   here <br>
-  {foreach $list as $schedule}
+  {if condition="$result neq NULL"}
+  {foreach $result as $schedule}
   	{$schedule.date} - {$schedule.time} - {$schedule.item} <br>
   {/foreach}
+  {else /}<span>无数据！</span>
+  {/if}
 	<br>
   
     <div class="weui-tabbar">
