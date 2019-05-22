@@ -18,9 +18,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" id="select1">
-                        <option value="1">党委书记办公室</option>
-                        <option value="2">教务处</option>
-                        <option value="3">后勤</option>
+                      {volist name='depart' id='vo'}
+                      	<option value="{$vo.id}">{$vo.name}</option>
+                      {/volist}
                     </select>
                 </div>
             </div>
@@ -30,9 +30,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" id="select2">
-                        <option value="1">副党委书记</option>
-                        <option value="2">教师</option>
-                        <option value="3">其他</option>
+                      {volist name='pos' id='vo'}
+                      	<option value="{$vo.id}">{$vo.name}</option>
+                      {/volist}
                     </select>
                 </div>
             </div>
