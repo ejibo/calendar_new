@@ -70,9 +70,11 @@
         </div>
     </div>
   
-  here is result:  
-  	{list.date} - {list.time} - {list.item} 
-	
+  here <br>
+  {foreach $list as $schedule}
+  	{$schedule.date} - {$schedule.time} - {$schedule.item} <br>
+  {/foreach}
+	<br>
   
     <div class="weui-tabbar">
         <a href="wx_search.html" class="weui-tabbar__item  weui-bar__item_on">
