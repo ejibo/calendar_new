@@ -34,20 +34,23 @@
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$templateItem.id}" data-des="{$templateItem.title}" data-toggle="modal" data-target="#smallModal2">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
                                         </button>
+                                        {eq name="templateItem.is_delete" value="0"}
                                         <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal3">
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
-                                        
+                                        {/eq}
+                                        {eq name="templateItem.is_delete" value="0"}
                                         {eq name="templateItem.is_remind" value="0"}<a
-                                            href="{:url('/msgmanage/msgmodel/remind','user_id='.$templateItem.id);}">
-                                        <button type="button" class="btn btn-success btn-sm mb-1">
-                                            <i class="fa fa-star"></i>&nbsp;发送提醒
-                                        </button>
-                                    </a>{else/}<a href="{:url('/msgmanage/msgmodel/cancelremind','user_id='.$templateItem.id);}">
-                                        <button type="button" class="btn  btn-sm mb-1">
-                                            <i class="fa fa-star"></i>&nbsp;取消发送
-                                        </button>
-                                    </a>{/eq}
+                                                href="{:url('/msgmanage/msgmodel/remind','user_id='.$templateItem.id);}">
+                                            <button type="button" class="btn btn-success btn-sm mb-1">
+                                                <i class="fa fa-star"></i>&nbsp;发送提醒
+                                            </button>
+                                        </a>{else/}<a href="{:url('/msgmanage/msgmodel/cancelremind','user_id='.$templateItem.id);}">
+                                            <button type="button" class="btn  btn-sm mb-1">
+                                                <i class="fa fa-star"></i>&nbsp;取消发送
+                                            </button>
+                                        </a>{/eq}
+                                        {/eq}
                                     </td>
                                 </tr>
                                 {/volist}
@@ -201,23 +204,22 @@
                             <div class="modal-body">
                                 <form action="" class="wrap-filter">
                                 <select id="itemStatus" name="status" class="form-control">
-                                    <option value="-1">请选择查询状态</option>
+                                    <option value="1">请选择查询状态：默认为正常</option>
                                     <!-- <option value="0">全部</option> -->
-                                    <option value ="2">正常</option>
-                                    <option value="1">已删除</option>
+                                    <option value ="2">已删除</option>
                                 </select>
                                 </form>
                             </br>
                                 <form action="" class="wrap-filter">
                                     <select id="itemRange" name="range" class="form-control">
-                                        <option value="-1">请选择查询范围</option>
-                                        <option value="0">全部</option>
+                                        <option value="0">请选择查询范围：默认为全部</option>
+                                        <!-- <option value="0">全部</option> -->
                                         <option value="1">标题</option>
                                         <option value ="2">内容</option>
                                     </select>
                                  </form>
                             </br>
-                                <input id="itemSearch" name="itemSearch" placeholder="模板名称/内容" class="form-control" style="margin-bottom: 15px;"/>
+                                <input id="itemSearch" name="itemSearch" placeholder="请输入查询内容" class="form-control" style="margin-bottom: 15px;"/>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"  id="search_cancel" data-dismiss="modal">取消</button>
@@ -360,63 +362,60 @@
     
     $('#buttonSearch').on("click",function(){
         console.log("click");
+        // window.location.reload();
     });
-
-    // $('#smallModal5').on('show.bs.modal', function (e) {
-    //     // var ele = e.relatedTarget.parentNode.parentNode;
-    //     // var id = ele.cells[0].innerText;
-    //     // console.log(ele);
-    //     // console.log(id);
-    //     // var des = ele.cells[1].innerText;
-    //     /* var id = $(e.relatedTarget).data("id");
-    //     var des = $(e.relatedTarget).data("des"); */
-    //     // $("#itemIdE").val(id);
-    //     // $("#itemDesE").val(des);
-    //     // $("#msg2").html("");
-    // });
+    // var href = window.location.href;
 
     $("#submit_search").on("click", function(){
         var status = $("#itemStatus").val();
         var search = $("#itemSearch").val();
         var range = $("#itemRange").val();
+        // window.location.reload();
         // var list = document.getElementsByName("templateItems");
         // console.log(list);
-
-        $.ajax({
-            url:"{:url('msgmanage/Msgmodel/searchTemplate')}",
-            type:"POST",
-            data:{"status":status, "search":search,"range":range},
-            dataType: "json",
-            
-            success: function (data) {
-                console.log("data",data);
-                if(data.length==null)
-                { 
-                    alert(data.msg);
-                    window.location.reload();
-                }
-                console.log("data.length",data.length);
-                // console.log(data[0]);
-                var tb = document.getElementById('bootstrap-data-table');
-                // console.log(tb.rows.length);
-                tb.rows[0].cells[3]='';
-                // console.log(tb);
-                for(i=data.length+1;i<tb.rows.length;i++){
-                    for(j=0;j<4;j++){
-                        var td = tb.rows[i].cells[j];
-                        td.innerHTML = '';
-                        }
-                }
-                // console.log(data[0]);
-                for(i=1;i<data.length+1;i++){
-                    tb.rows[i].cells[0].innerHTML=data[i-1]['id'];
-                    tb.rows[i].cells[1].innerHTML=data[i-1]['title'];
-                    tb.rows[i].cells[2].innerHTML=data[i-1]['content'];
-                }
-            }
-            
-        })
+        // console.log(href);
+        console.log(window.location.href);
+        // window.location.href = window.location.href.split('?')[0];
+        // console.log(window.location.href);
+        window.location.href = window.location.href.split('?')[0] + '?status=' + status + '&search=' + search + '&range=' + range;
+        console.log(window.location.href)
     });
+        // $.ajax({
+        //     url:"{:url('msgmanage/Msgmodel/searchTemplate')}",
+        //     type:"POST",
+        //     data:{"status":status, "search":search,"range":range},
+        //     dataType: "json",
+        //     success: function (data) {
+        //         console.log("data",data);
+        //         if(data.length==null)
+        //         { 
+        //             alert(data.msg);
+        //             window.location.reload();
+        //         }
+        //         document.write(data);
+        //         console.log("data.length",data.length);
+                // console.log(queryParams);
+                // console.log(data[0]);
+                // var tb = document.getElementById('bootstrap-data-table');
+                // // console.log(tb.rows.length);
+                // tb.rows[0].cells[3]='';
+                // // console.log(tb);
+                // for(i=data.length+1;i<tb.rows.length;i++){
+                //     for(j=0;j<4;j++){
+                //         var td = tb.rows[i].cells[j];
+                //         td.innerHTML = '';
+                //         }
+                // }
+                // // console.log(data[0]);
+                // for(i=1;i<data.length+1;i++){
+                //     tb.rows[i].cells[0].innerHTML=data[i-1]['id'];
+                //     tb.rows[i].cells[1].innerHTML=data[i-1]['title'];
+                //     tb.rows[i].cells[2].innerHTML=data[i-1]['content'];
+                // }
+            //}
+            
+        //})
+    //});
 
 </script>
 <!-- /.content -->

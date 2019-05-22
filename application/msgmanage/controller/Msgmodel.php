@@ -15,9 +15,56 @@ class Msgmodel extends Common
 {
     public function index(){
         $model = model('Template');
-        $templateItems = $model->getAllTemplates();
-        $this->assign('templateItems',$templateItems);
-        return $this->fetch();
+        $search = "";
+        $status = -2;
+        $range = -2;
+        if (isset($_GET['search'])) {
+            $search = $_GET['search'];
+        }
+        if (isset($_GET['status'])) {
+            $status = $_GET['status'];
+        }
+        if (isset($_GET['range'])) {
+            $range = $_GET['range'];
+        }
+        if($status==-2 && $range == -2){
+            $templateItems = $model->getAllTemplates();
+            $this->assign('templateItems',$templateItems);
+            return $this->fetch();
+        }
+        else{
+            if($status==1 && $search==""){
+                $templateItems = $model->getAllTemplates();
+            }
+            else if($status==2 && $search==""){
+                $templateItems = $model->getAllTemplatesDelete();
+            }
+            else if($status==1 && $range==1){
+                $templateItems = $model->getItemByTitle($search);
+            }
+            else if($status==1 && $range==2){
+                $templateItems = $model->getItemByContent($search);
+            }
+            else if($status==2 && $range==1){
+                $templateItems = $model->getItemByTitleDelete($search);
+            }
+            else if($status==2 && $range==2){
+                $templateItems = $model->getItemByContentDelete($search);
+            }
+            else if($status==1 && $range==0){
+                $templateItems = $model->getAllItems($search);
+            }
+            else if($status==2 && $range==0){
+                $templateItems = $model->getAllItemsDelete($search);
+            }
+            if ($templateItems == null) {
+                $this->error("搜索项不存在，请重新尝试");
+            }
+            else{
+                $this->assign('templateItems',$templateItems);
+                return $this->fetch();
+            }
+        }
     }
 
     /*
@@ -32,11 +79,13 @@ class Msgmodel extends Common
         return $templates;
     }
     
-    public function searchTemplate()
+    public function searchTemplate($search,$status,$range)
     {
-        $status = $_POST['status'];
-        $search = $_POST['search'];
-        $range = $_POST['range'];
+        // $status = $_GET['status'];
+        // $search = $_GET['search'];
+        // $range = $_GET['range'];
+        // $status = 2;
+        // $range = 0;
         $model = model('Template');
         if($status==-1){
             $this->error("请选择查询状态");
@@ -75,7 +124,8 @@ class Msgmodel extends Common
             else{
                 // $this->success("查询成功");
                 $this->assign('templateItems',$isHasTitle);
-                return $isHasTitle;
+                // $this->success("查询成功");
+                return $this->fetch();
             }
         }
     }
