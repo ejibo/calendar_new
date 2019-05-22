@@ -156,7 +156,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success" id="confirm_change">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirm_change" onclick="javascript:return mod();">确认</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -170,6 +171,15 @@
 
 {block name="scripts"}
 <script type="text/javascript">
+    //确认修改前，弹出提示框
+    function mod() {
+    var msg = "您真的确定要修改吗？\n\n请确认！";
+    if (confirm(msg)==true){
+    return true;
+    }else{
+    return false;
+    }
+    }
     // 修改时间段描述 模态框
     $('#smallmodal').on('show.bs.modal', function (event) {
         
@@ -204,9 +214,9 @@ modal.find('#id').val(id);
 modal.find('#user_info_name').val(user_info_name);      
 modal.find('#user_position_name').val(user_position_name); 
 modal.find('#date').val(date);   
-//modal.find('#schedule_time_name').val(schedule_time_name);
-//modal.find('#schedule_place_name').val(schedule_place_name);
-//modal.find('#schedule_item_name').val(schedule_item_name);
+modal.find('#schedule_time_name').val(modal_time_id);
+modal.find('#schedule_place_name').val(modal_place_id);
+modal.find('#schedule_item_name').val(modal_item_id);
 if (schedule_place_name ) {
     //console.log($("#schedule_place_name").val("2"));
     //console.log($("#schedule_place_name").find("option:contains('"+modal_place_id+"')").val());
@@ -237,30 +247,34 @@ if (schedule_item_name ) {
     var id = $.trim(modal.find('#id').val());
     var user_info_name = $.trim(modal.find('#user_info_name').val());
     var user_position_name = $.trim(modal.find('#user_position_name').val());
-    var date = modal.find('#date').val();
-    var schedule_time_name = $.trim(modal.find('#schedule_time_name').val());
-    var schedule_time_text = $.trim(modal.find('#schedule_time_name').find("option:selected").text());
-    var schedule_place_name = $.trim(modal.find('#schedule_place_name').val());
-    var schedule_place_text = $.trim(modal.find('#schedule_place_name').find("option:selected").text());
-    var schedule_item_name = $.trim(modal.find('#schedule_item_name').val());
-    var schedule_item_text = $.trim(modal.find('#schedule_item_name').find("option:selected").text());
+    var new_date = modal.find('#date').val();
+    var new_schedule_time_name = $.trim(modal.find('#schedule_time_name').val());
+    var new_schedule_time_text = $.trim(modal.find('#schedule_time_name').find("option:selected").text());
+    var new_schedule_place_name = $.trim(modal.find('#schedule_place_name').val());
+    var new_schedule_place_text = $.trim(modal.find('#schedule_place_name').find("option:selected").text());
+    var new_schedule_item_name = $.trim(modal.find('#schedule_item_name').val());
+    var new_schedule_item_text = $.trim(modal.find('#schedule_item_name').find("option:selected").text());
     console.log("1"+id);
     console.log("2"+user_info_name);
     console.log("3"+user_position_name);
-    console.log("4"+date);
-    console.log("5"+schedule_time_name);
-    console.log("6"+schedule_time_text);
-    console.log("7"+schedule_place_name);
-    console.log("8"+schedule_place_text);
-    console.log("9"+schedule_item_name);
-    console.log("10"+schedule_item_text);
+    console.log("4"+new_date);
+    console.log("5"+new_schedule_time_name);
+    console.log("6"+new_schedule_time_text);
+    console.log("7"+new_schedule_place_name);
+    console.log("8"+new_schedule_place_text);
+    console.log("9"+new_schedule_item_name);
+    console.log("10"+new_schedule_item_text);
 
-    if(date.length === 0 || schedule_place_name.length === 0 ||schedule_item_name.length === 0 ||schedule_time_name.length === 0)
+    if(date.length === 0 || new_schedule_place_name.length === 0 ||new_schedule_item_name.length === 0 ||new_schedule_time_name.length === 0)
     {
         alert('输入不能为空');
         return;
     }
-            
+    if(new_schedule_place_text == schedule_place_name & new_schedule_item_text == schedule_item_name & new_schedule_time_text  == schedule_time_name)
+    {
+        alert('并未修改信息');
+        return;
+    }       
 
       //post方法修改
     $.post("{:url('Modifyschedule/modifySchedule')}",
@@ -284,5 +298,6 @@ if (schedule_item_name ) {
             alert(data);
     });
 });
+
 </script>
 {/block}
