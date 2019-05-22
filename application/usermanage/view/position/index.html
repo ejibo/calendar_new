@@ -131,6 +131,7 @@
 {/block}
 {block name="scripts"}
 <script type="text/javascript">
+    modal.find('#name').val(content);
     $(document).ready(function () {
         //loadTable();
     });
@@ -183,7 +184,7 @@
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
-        var name_add= $.trim($("#name")).val();
+        var name_add= $.trim(n).val();
         console.log(name_add);
       //判断字符串长度
         if (name_add.length>30){
