@@ -29,7 +29,7 @@
                                                                 {volist name="position_list" id="vo"}
 
                                                                 <tr>
-                                                                    <td class="serial">{$vo.id}</td>
+                                                                    <td class="serial">{$i}</td>
                                                                     <td><span class="product {$vo.id}">{$vo.name}</span></td>
                                                                     <td><span class="product">{eq name="vo.is_delete" value="0"}正常{else/}已作废{/eq}</span>
                                                                     </td>
