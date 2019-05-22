@@ -36,8 +36,8 @@ class Wxquery extends controller
           ->field('id', 'name')
           ->select();
       
-        $this.assign('depart', $depart_list);
-      	$this.assign('pos', $pos_list);
+        $this->assign('depart', $depart_list);
+      	$this->assign('pos', $pos_list);
         $this->assign('list', $list);
         return $this->fetch('index/wx_search');
     }
