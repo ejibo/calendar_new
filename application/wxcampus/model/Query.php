@@ -39,7 +39,7 @@ class Query extends Model
         if (empty($query_name) or empty($work_id)){
             // return $this->index();
             echo '输入不能为空';
-        }elseif (!isset($allInfo)){
+        }elseif (!is_array($allInfo)){
             echo '检索结果无';
         }else{
             return $allInfo;  
