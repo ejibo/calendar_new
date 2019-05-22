@@ -226,6 +226,9 @@
 <script>
     function getUserDefaultSchedules() {
         var user=$("#uname-search").val();
+        if(!user){
+            user="";
+        }
         window.location.href="{:url('index')}?user="+user;
         // $.ajax({
         //     type:"GET",
