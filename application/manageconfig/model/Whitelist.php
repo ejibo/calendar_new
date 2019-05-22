@@ -51,17 +51,54 @@ class Whitelist extends Model{
         return $is_delete;
     }
 
+    /*
+    创建： 翁嘉进
+    功能： 清空白名单操作
+    实现： 1.连接表——白名单 
+           2.查询带清空的数据
+           3.软清空白名单
+           4.记录清空个数 
+           5.返回结果
+    */
     public function clearwhitelist(){
-    	$list = db("user_info")->where('type_id','>',0)->where("is_delete",0)->select();
+    	$list = db("white_list")->where("is_delete",0)->select();
         $is_clear = 0;
+        $clear_ids = "[";
+
         foreach($list as $data){
             $postdata = [
-                    "name" => "#".$data["name"],
+                    "user_id" => $data["user_id"] * (-1),
                     "is_delete" => 1,
                         ];
-            $cul = db("user_info")->where("id",$data["id"])->update($postdata);
+            $cul = db("white_list")->where("id",$data["id"])->update($postdata);
             $is_clear += $cul;
+            $clear_ids = $clear_ids . $data["id"] . ", ";
         }
-        return $is_clear;
+        $clear_ids = $clear_ids . "]";
+        $ret_date = [
+            "clear_ids" => $clear_ids,
+            "is_clear" => $is_clear,
+        ];
+        return $ret_date;
+    }
+
+    //---------------------------------------------------------------
+    /*
+    responser: 陈国强
+    Created：2019/05/15
+    insertAllUser($data) ： 向 user_info 数据表插入信息
+    findUserByWorkId($workId)： 通过工号查找该用户是否存在
+    */
+    public function insertAllUser($data) {
+        return Db::table('user_info')->insertAll($data);
+    }
+
+    public function findUserByWorkId($workId) {
+        return Db::table('user_info')
+            ->where('work_id', $workId)
+            ->where('is_delete', 0)
+            ->find();
     }
 }
+
+    //---------------------------------------------------------------

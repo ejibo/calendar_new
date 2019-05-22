@@ -25,9 +25,16 @@ class Department extends Model
     public function recover($id)
     {
         $department = Department::get($id);
+        //$department = Department::where("id",$id)->find();
+        $myname = $department->getAttr("name");
+        $dep = Department::all(['name'=>$myname]);
+        if(count($dep)>1){
+            return ['status' => -1, 'message' => '该部门已存在'];
+        }
         //更新该记录的is_delete字段
-        $department->is_delete = '0';
+        $department->data(['is_delete' => 0]);
         $department->save();//保存，也就是把更新提交到数据库表*/
+        return ['status' => 1, 'message' => 'success'];
     }
 
     /*
@@ -73,9 +80,14 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
-      if(preg_match('[\s\p{P}\n\r=+$￥<>^`~|]',$name)){
-      //如果输入的部门名称中包含标点符号
-         $message = '部门名称不能包含标点符号';
+      if(strlen($name) > 25){
+      //如果部门名称大于25个字符
+        $message = '部门名称不能大于25个字符';
+        return ['message' => $message];
+      }
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u',$name)){
+      #如果输入的部门包含标点
+         $message = '部门名称中不能包含标点符号';
     	return ['message' => $message];
       }
         $user = model('Department');

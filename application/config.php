@@ -8,7 +8,17 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+$module = \think\Request::instance()->url(); // 获取访问URL
+$debugArr = ['wxcampus']; // 关闭调试模式的模块名
+$isDebug = true; // 默认为开启调试模式
+$i = count($debugArr);
+while($i){
+    $i--;
+    if(strpos($module, $debugArr[$i]) !== false){
+        $isDebug = false;
+        break;
+    }
+}
 return [
     // +----------------------------------------------------------------------
     // | 应用设置
@@ -17,7 +27,7 @@ return [
     // 应用调试模式
     'app_debug'              => true,
     // 应用Trace
-    'app_trace'              => true,
+    'app_trace'              => $isDebug,
     // 应用模式状态
     'app_status'             => '',
     // 是否支持多模块
@@ -41,7 +51,7 @@ return [
     // 是否开启多语言
     'lang_switch_on'         => false,
     // 默认全局过滤方法 用逗号分隔多个
-    'default_filter'         => '',
+    'default_filter'         => 'trim',
     // 默认语言
     'default_lang'           => 'zh-cn',
     // 应用类库后缀

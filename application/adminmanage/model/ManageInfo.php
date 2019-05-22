@@ -60,8 +60,9 @@ class ManageInfo extends Model
       // 寫入日誌
       $model = new LogModel();
       $type = 1;
+      $is_manage = 1;
       if(Session::get('admin_id')){
-        $res = $model->recordLogApi(Session::get('admin_id'), $type);
+        $res = $model->recordLogApi(Session::get('admin_id'), $type,$is_manage);
         if ($res){
           return 3; //登入成功
         }

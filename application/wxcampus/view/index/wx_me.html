@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <title>我的</title>
     <style>
         .weui-cell__ft{
@@ -26,6 +26,15 @@
             </div>
         </a>
         <div class="weui-cells">
+            <a class="weui-cell weui-cell_access weui-cell_example" href="{:url(QueryMySchedule/index)}">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/tongji.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>查询我的日程信息</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
             <a class="weui-cell weui-cell_access weui-cell_example" href="javascript:;">
                 <div class="weui-cell__hd"><img
                         src="__STATIC__/wx/img/guanzhu.png"
@@ -82,7 +91,7 @@
                     </span>
             <p class="weui-tabbar__label">关注</p>
         </a>
-        <a href="wx_me.html" class="weui-tabbar__item weui-bar__item_on">
+        <a href="index0" class="weui-tabbar__item weui-bar__item_on">
             <img src="__STATIC__/wx/img/wode_on.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">我的</p>
         </a>
