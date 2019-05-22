@@ -15,7 +15,7 @@
                             用户:
                         </div>
                         <input type="text" id="uname-search" placeholder="用户名" class="form-control" style="max-width:180px" value={$uname} >
-                        <button type="button" id="search" class="btn btn-success" onclick="getUserDefaultSchedules()">搜索</button>
+                        <button type="button" id="search" class="btn btn-success" style="margin:0 10px 0 10px" onclick="getUserDefaultSchedules()">搜索</button>
                         <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
@@ -167,7 +167,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="addNewUser" name="uname" value={$uname} class="form-control">
+                                    <input type="text" id="addNewUser" name="uname" class="form-control" value={$uname}>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -207,6 +207,14 @@
                                     <input type="text" id="addNewItem" name="addNewItem" placeholder="事项" class="form-control">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <textarea type="text" id="addNewNote" name="addNewNote" placeholder="备注" class="form-control"/>
+                                </div>
+                            </div>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -227,17 +235,6 @@
     function getUserDefaultSchedules() {
         var user=$("#uname-search").val();
         window.location.href="{:url('index')}?user="+user;
-        // $.ajax({
-        //     type:"GET",
-        //     url:"{:url('search')}",
-        //     data:{"user":user},
-        //     success:function (data) {
-        //         // if(data!=0){
-        //         //     alert(data.msg);
-        //         // }else{
-        //         // }
-        //     }
-        // })
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
@@ -245,6 +242,7 @@
         var day = $('#addNewDay').val();
         var time =  $('#addNewTime').val();
         var place = $('#addNewPlace').val();
+        var note = $('#addNewNote').val();
         if (user.trim().length == 0) {
             alert('请输入用户名');
             return 1;
@@ -262,7 +260,7 @@
             type: "POST",
             async: false,
             url: "{:url('Calendar/addDefaultSchedule')}",
-            data: {"user":user,"day":day,"time":time,"place": place,"item":item },
+            data: {"user":user,"day":day,"time":time,"place": place,"item":item,"note":note },
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
