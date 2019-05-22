@@ -7,7 +7,7 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">管理员查询日程
+                        <h4 class="box-title">所有日程
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -17,7 +17,7 @@
                                 <tr>
                                     <th class="serial">序号</th>
                                     <th>姓名</th>
-                                    <th>日期</th>
+                                    <th>身份</th>
                                     <th>时间</th>
                                     <th>地点</th>
                                     <th>事项</th>
@@ -30,7 +30,7 @@
                                         <td class="serial">{$key+1}</td>
                                         <td>  <span class="product">{$info.name}</span> </td>
                                         <td>  <span class="product">{$info.position}</span> </td>
-                                        <td>  <span class="product">{$info.time}</span> </td>
+                                        <td>  <span class="product">{$info.date}{$info.time}</span> </td>
                                         <td>  <span class="product">{$info.place}</span> </td>
                                         <td> <span class="product">{$info.item}</span> </td>
                                     </tr>

@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
 use think\Request;
+use app\logmanage\model\Log as LogModel;
 
 //require 'vendor/autoload.php';
 
@@ -65,6 +66,7 @@ class Userbasic extends Common
      */
     public function addUser()
     {
+        $model = new LogModel();
         $userbasic = model("Userbasic");
         $data = input('post.');
         $workId = $data['work_id'];
@@ -74,6 +76,7 @@ class Userbasic extends Common
         }
         $addFlag = $userbasic->insertUser($data);
         if ($addFlag) {
+            $model->recordLogApi(ADMIN_ID, 2, 1,'user_info', $addFlag);
             $this->success('添加成功');
         } else {
             $this->error('添加失败');
@@ -90,7 +93,7 @@ class Userbasic extends Common
     public function batchAddByExcel()
     {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-
+        $model = new LogModel();
         try {
             $spreadsheet = $reader->load($_FILES['file']['tmp_name']);
         } catch (\PhpOffice\PhpSpreadsheet\Reader\Exception $e) {
@@ -123,11 +126,92 @@ class Userbasic extends Common
 
         $addFlag = $userbasic->insertAllUser($sqlData);
         if ($addFlag) {
+            $model->recordLogApi(ADMIN_ID, 2, 1,'user_info', $addFlag);
             $this->success('批量添加成功，重复用户信息已自动过滤未添加');
         } else {
             $this->error('添加失败');
         }
     }
+
+    public function exampleExcel() {
+        $userbasic = model('Userbasic');
+        $depart = $userbasic->getdepart();
+        $position = $userbasic->getposition();
+
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', '姓名');
+        $sheet->setCellValue('B1', '学工号');
+        $sheet->setCellValue('C1', '用户类型[普通用户:0, 院领导:1, 部门领导:2, 系领导:3]');
+        $sheet->setCellValue('D1', '所属部门');
+        $sheet->setCellValue('E1', '职位');
+        $sheet->setCellValue('F1', '右边为映射，不为模板');
+        $sheet->setCellValue('G1', '所属部门id(上传)');
+        $sheet->setCellValue('H1', '所属部门name');
+        $sheet->setCellValue('I1', '职位id(上传)');
+        $sheet->setCellValue('J1', '职位name');
+
+        $sheet->setCellValue('A2', '张测试');
+        $sheet->setCellValue('B2', '1801210999');
+        $sheet->setCellValue('C2', '0');
+        $sheet->setCellValue('D2', '1');
+        $sheet->setCellValue('E2', '1');
+        $i = 2; //从第二行开始
+        foreach ($depart as $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue('G' . $i, $data['id'])
+                ->setCellValue('H' . $i, $data['name']);
+            $i++;
+        }
+        $i = 2; //从第二行开始
+        foreach ($position as $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue('I' . $i, $data['id'])
+                ->setCellValue('J' . $i, $data['name']);
+            $i++;
+        }
+
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(10);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('G')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('H')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('I')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('J')
+            ->setWidth(20);
+
+        $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="example.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
+    }
+
 
 
     //删除单个用户

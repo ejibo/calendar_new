@@ -1,5 +1,9 @@
-{extend name="common@public/base" /}
-{block name='main-content'}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询我的日程信息</title>
+</head>
 
 <!-- Content -->
 <div class="content">
@@ -173,53 +177,4 @@
     </div>
     <!-- .animated -->
 </div>
-{/block}
-
-{block name="scripts"}
-{literal}
-<script>
-    $("button.btn.btn-success.submit-add").click( function (){
-        $.post(
-            '/queryschedule/Index/postTest',
-            {
-                "method": "post",
-                "date": $(".add-schedule-field.date").val(),
-                "time_id": $(".add-schedule-field.time_id").val(),
-                "place_id": $(".add-schedule-field.place_id").val(),
-                "item_id": $(".add-schedule-field.item_id").val(),
-                "note": $(".add-schedule-field.note").val() 
-            },
-            function () {/*callback*/});
-    });
-    $("button.btn.btn-primary.btn-sm.mb-1.edit").click( function(){
-        var id = $(this).attr("data-id");
-        $("button.btn.btn-success.submit-edit").one('click', function (){
-            $.post(
-                '/queryschedule/Index/postTest',
-                {
-                    "method": "update",
-                    "id": id,
-                    "date": $(".edit-schedule-field.date").val(),
-                    "time_id": $(".edit-schedule-field.time_id").val(),
-                    "place_id": $(".edit-schedule-field.place_id").val(),
-                    "item_id": $(".edit-schedule-field.item_id").val(),
-                    "note": $(".edit-schedule-field.note").val() 
-                },
-                function () {/*callback*/});
-        });
-    });
-    $("button.btn.btn-danger.btn-sm.mb-1.delete").click( function(){
-       var id = $(this).attr("data-id");
-       $("button.btn.btn-success.submit-delete").one('click', function(){
-            $.post(
-                '/queryschedule/Index/postTest',
-                {
-                    "method": "delete",
-                    "id": id
-                },
-                function () {/*callback*/});
-        });
-    });
-</script>
-{/literal}
-{/block}
+</html>
