@@ -152,7 +152,7 @@
             },
             success: function () {
                 notifyAndRemoveModal("恢复成功");
-                loadTable();
+                //loadTable();
             }
         })
     }
@@ -168,7 +168,7 @@
             },
             success: function () {
                 notifyAndRemoveModal("作废成功");
-                loadTable();
+                //loadTable();
             }
         })
     }
@@ -234,7 +234,7 @@
                 console.log(data);
                 if (data.status == 1) {
                     notifyAndRemoveModal(data.message);
-                    loadTable();
+                    //loadTable();
                     window.location.reload();
                 } else {
                     alert(data.message);
