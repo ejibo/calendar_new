@@ -60,9 +60,9 @@ class Workday extends Common
                 'ymd' =>	['=',$ymd],
               ])->select(); 
             
-            $befor_is_work_day = (string)$isExists[0]['is_work_day'];
 
             if($isExists){
+              	$befor_is_work_day = (string)$isExists[0]['is_work_day'];
                 //更新数据库
                 $is_updata = Db::table('workday')->where([
                     'ymd' =>	['=',$ymd],
