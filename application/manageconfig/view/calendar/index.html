@@ -7,14 +7,14 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="input-group">
+                        <input class="input-group">
                         <h4 class="box-title">
                             默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </h4>
                         <div class="input-group-addon">
                             用户:
                         </div>
-                        <input type="text" id="uname-search" placeholder="用户名" class="form-control" style="max-width:180px" value={$uname} />
+                            <input type="text" id="uname-search" placeholder="用户名" class="form-control" style="max-width:180px" value={$uname}+"" />
                         <button type="button" id="search" class="btn btn-success" style="margin:0 10px 0 10px;" onclick="getUserDefaultSchedules()">搜索</button>
                         <button type="button" class="btn btn-success" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
                         </div>&nbsp;&nbsp;&nbsp;&nbsp;
