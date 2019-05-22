@@ -33,13 +33,13 @@ class ScheduleDefault extends Controller {
      */
     public function addDefaultSchedule($uid){
         $param = Request::instance()->post();
-        try{
-        $res=$this->validate($param,'app\manageconfig\validate\ScheduleDefault');
-        if(!$res){
-            return json(['code'=>403,'msg'=>'参数不符合规则']);
-        }
-        }catch(\Exception $e){
-            return json(['code'=>-200,'msg'=>'验证时出错'.($e->getMessage())]);
+        try {
+            $res = $this->validate($param, 'app\manageconfig\validate\ScheduleDefault');
+            if (!$res) {
+                return json(['code' => 403, 'msg' => '参数不符合规则']);
+            }
+        } catch (\Exception $e) {
+            return json(['code' => -200, 'msg' => '验证时出错' . ($e->getMessage())]);
         }
         $schedule=new ScheduleDefaultModel();
         try{

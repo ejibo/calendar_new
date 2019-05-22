@@ -59,10 +59,12 @@ class Calendar extends Common
     /**
      * 添加默认事项
      */
-    public function addDefaultSchedule()
-    {
+    public function addDefaultSchedule(){
         $param = Request::instance()->post();
-        $this->validate($param,'ScheduleDefault');
+        $res=$this->validate($param,'ScheduleDefault');
+        if (!$res) {
+            return json(['code' => 403, 'msg' => '参数不符合规则']);
+        }
         $schedule=new ScheduleDefault();
         try{
             $schedule->setUserId($param['user']);
@@ -71,6 +73,7 @@ class Calendar extends Common
             $schedule->checkSameTimeDefaultSchedule();
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
+            $schedule->setNote($param['note']);
         }catch(\InvalidArgumentException $e) {
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }
