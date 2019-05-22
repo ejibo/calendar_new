@@ -9,7 +9,8 @@
                     <div class="card-body">
                         <h4 class="box-title">消息模板&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallModal1">添加模板</button>
-                            <button type="submit" id = "buttonSearch" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallModal5">查询模板</button>
+                            <button type="submit" id = "buttonSearch" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#smallModal5">查询模板</button>
+                            <button type="submit" id = "buttonRefresh" class="btn btn-info btn-sm"><i class="fa fa-refresh"></i>&nbsp;全部</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -358,6 +359,27 @@
             }
         })
     });
+    $("#submit_sure").click(function(){
+
+        window.location.reload();
+    });
+    //显示消息modal,信息设为msg
+    function hintShow(msg){
+        $(document).ready(function() {
+            $('#smallModal4').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+        });
+    }
+
+    /*story:查询消息模板
+    负责人：吴珏
+    */
+    $('#buttonRefresh').click(function(){
+        window.location.href = window.location.href.split('?')[0];
+    });
 
     $('#smallModal6').on('show.bs.modal', function (e) {
         var ele = e.relatedTarget.parentNode.parentNode;
@@ -385,26 +407,12 @@
             }
         })
     });
-    $("#submit_sure").click(function(){
 
-        window.location.reload();
-    });
-    //显示消息modal,信息设为msg
-    function hintShow(msg){
-        $(document).ready(function() {
-            $('#smallModal4').modal({
-                backdrop: 'static',
-                keyboard: false,
-                show: true
-            });
-        });
-    }
     
     $('#buttonSearch').on("click",function(){
         console.log("click");
         // window.location.reload();
     });
-    // var href = window.location.href;
 
     $("#submit_search").on("click", function(){
         var status = $("#itemStatus").val();
