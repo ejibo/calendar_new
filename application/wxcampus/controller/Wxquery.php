@@ -45,6 +45,31 @@ class Wxquery extends controller
         }
         return $this->fetch('index/wx_search');
     }
-  public function wxquery(){}
+  public function wxquery(){
+  	$query = new query();  // 实例化模型
+        
+      	$list = array();
+        $list = $query->wx_query(); // 使用模型中的wx_query方法
+        // dump($list);
+      
+        $depart_list = array();
+        $depart_list = Db::table('user_depart')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $position_list = array();
+        $position_list = Db::table('user_position')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $this->assign('depart', $depart_list);
+      	$this->assign('pos', $position_list);
+        if ($list!==NULL){
+          $this->assign('result', $list);
+        }else{
+          echo '检索结果为空';
+        }
+        return $this->fetch('index/wx_search');
+  }
   
 }
