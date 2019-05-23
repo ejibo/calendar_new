@@ -20,10 +20,16 @@ class Wxquery extends controller
         //$query_name = input('post.query_name');
         //$work_id = input('post.work_id');
     	//按照部门、职务、姓名 查询用户日程
-    	$query = new query();  // 实例化模型
+      
+        $query_depart = input('post.select1');
+        $query_pos = input('post.select2');
+        $query_name = Request::instance()->post('query_name','','strip_tags,htmlspecialchars');
+        $work_id = Request::instance()->post('work_id','','strip_tags,htmlspecialchars');
+    	
+      	$query = new query();  // 实例化模型
         
       	$list = array();
-        $list = $query->wx_query(); // 使用模型中的wx_query方法
+        $list = $query->wx_query($query_depart, $query_pos, $query_name, $work_id); // 使用模型中的wx_query方法
         // dump($list);
       
         $depart_list = array();
