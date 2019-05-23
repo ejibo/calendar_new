@@ -12,8 +12,8 @@ class Query extends Model
     {
         $query_depart = input('post.select1');
         $query_pos = input('post.select2');
-        $query_name = input('post.query_name');
-        $work_id = input('post.work_id');
+        $query_name = Request::instance()->post('query_name','','strip_tags,htmlspecialchars');
+        $work_id = Request::instance()->post('work_id','','strip_tags,htmlspecialchars');
 
         
         $allInfo = array();
@@ -39,10 +39,11 @@ class Query extends Model
         if (empty($query_name) or empty($work_id)){
             // return $this->index();
             echo '输入不能为空';
-        }elseif (!isset($$allInfo)){
+        }
+      	if (!is_array($allInfo)){
             echo '检索结果无';
         }else{
             return $allInfo;  
-        }      
+        }
     }
 }

@@ -17,25 +17,34 @@ class Wxquery extends controller
 {
     public function Index()
     {
-        $query_name = input('post.query_name');
-        $work_id = input('post.work_id');
+        //$query_name = input('post.query_name');
+        //$work_id = input('post.work_id');
     	//按照部门、职务、姓名 查询用户日程
     	$query = new query();  // 实例化模型
+        
+      	$list = array();
         $list = $query->wx_query(); // 使用模型中的wx_query方法
-        // dump($res);
-
-        $this->assign('list', $list);
+        // dump($list);
+      
+        $depart_list = array();
+        $depart_list = Db::table('user_depart')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $position_list = array();
+        $position_list = Db::table('user_position')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $this->assign('depart', $depart_list);
+      	$this->assign('pos', $position_list);
+        if ($list!==NULL){
+          $this->assign('result', $list);
+        }else{
+          echo '检索结果为空';
+        }
         return $this->fetch('index/wx_search');
-    //echo 'ajdhfks';
     }
+  public function wxquery(){}
   
-  	public function wxquery()
-    {
-        $query = new query();  // 实例化模型
-        $list = $query->wx_query(); // 使用模型中的wx_query方法
-        dump($list);
-
-        $this->assign('list', $list);
-        return $this->fetch('index/wx_search');
-    }
 }
