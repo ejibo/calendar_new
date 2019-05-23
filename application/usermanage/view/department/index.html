@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-success btn-sm" onclick="showAddModal()">添加部门</button>
+                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加部门</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -196,9 +196,9 @@
             }
         });
     }
-	function showAddModal(){
-      $("#smallmodal1").modal("show");
-    }
+#	function showAddModal(){
+ #     $("#smallmodal1").modal("show");
+ #   }
     function addDepartment(name)
     {
         //console.log($("#name").val());
