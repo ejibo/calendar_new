@@ -214,13 +214,15 @@
                     alert(data.message);
                     $("#smallmodal1").modal("hide");
                     $('.modal-backdrop').remove();//去除遮罩层
-                    loadTable();
+                    //loadTable();
+                    window.location.reload();
                 }else {
                     alert(data.message);
                 }
 
             }
         });
+      
     }
     function editModalShow(id,name) {
         $('#tmp_id').val(id);
