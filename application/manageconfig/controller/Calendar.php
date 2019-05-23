@@ -21,17 +21,21 @@ class Calendar extends Common
 {
     public function index(){
         $user=Request::instance()->get('user');
-        if($user){
+        if($user){//填了user参数的情况
             $this->assign('uname',$user);
-            $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-            if(!empty($user_id)){
+            if(is_numeric($user)){//填的是user_id，此处不能用is_long，因为user_id貌似是字符串类型
+                $user_id=$user;
+            }else if(is_string($user)){//用户名的形式，则需要转化成user_id
+                $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+            }
+            if(!empty($user_id)){//是已存在的用户才去默认日程表查看
                 $this->assign('uid',$user_id);
                 $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
                 $this->assign('defaultSchedules',$defaultSchedules);
             }else{
                 $this->assign('defaultSchedules',array());
             }
-        }else{
+        }else{//user缺省的情况，检索所有用户的，最多30条数据
             $this->assign('uname',"");
             $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
         }

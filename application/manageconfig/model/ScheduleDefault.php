@@ -17,7 +17,9 @@ class ScheduleDefault extends Model
         if(is_numeric($user)){
             $user_id=$user;
         }else if($user==NULL){
-            return $defaultSchedule->where('is_delete',0)->limit(30)->select();
+            return $defaultSchedule->query("select * from schedule_info where is_delete=0 and user_id in (select id as user_id where is_delete=0)");
+//            where('is_delete',0)->
+//            join("user_info","schedule_default.user_id=user_info.id")->limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         }else{
