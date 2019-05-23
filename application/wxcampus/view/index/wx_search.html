@@ -111,7 +111,7 @@
 $(document).ready(function(){
   $('#query').click(function (){
     $.ajax({
-      url: "{:url('wxquery/index')}",
+      url: 'wxquery/index',
       type: "post",
       url: $('#query').attr('href'),
       data: {
