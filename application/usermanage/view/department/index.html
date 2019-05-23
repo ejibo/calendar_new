@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success btn-sm" onclick="show_add_modal()">添加部门</button>
+                            <button type="submit" class="btn btn-success btn-sm" onclick="showAddModal()">添加部门</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -196,7 +196,7 @@
             }
         });
     }
-	function show_add_modal(){
+	function showAddModal(){
       $("#smallmodal1").modal("show");
     }
     function addDepartment(name)
@@ -254,7 +254,7 @@
                     	alert("用户名重复，请重新输入！");
                 	}
                     $("#smallmodal").modal("hide");
-                    $('.modal-backdrop').remove();//去除遮罩层
+                    //$('.modal-backdrop').remove();//去除遮罩层
                     //在这里刷新页面或者局部刷新表格
                     loadTable();
                 }
