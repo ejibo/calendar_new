@@ -27,7 +27,8 @@ class Wxquery extends controller
         $work_id = Request::instance()->post('work_id','','strip_tags,htmlspecialchars');
     	
       	$query = new query();  // 实例化模型
-        
+        dump($query_depart, $query_pos, $query_name, $work_id);
+      
       	$list = array();
         $list = $query->wx_query($query_depart, $query_pos, $query_name, $work_id); // 使用模型中的wx_query方法
         // dump($list);
