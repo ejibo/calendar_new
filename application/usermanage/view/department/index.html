@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加部门</button>
+                            <button class="btn btn-success btn-sm" onclick="showAddModal()">添加部门</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -60,7 +60,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="smallmodal" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel1" aria-hidden="true">
+<div class="modal fade" id="smallmodal2" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel1" aria-hidden="true">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -182,8 +182,7 @@
                             '<td class="product">'+data[i].name+'</td>' +
                             '<td class="product">'+strs[data[i].is_delete]+'</td>' +
                             '<td><button type="button" class="btn btn-primary btn-sm mb-1"' +
-                            ' data-toggle="modal" data-target="#smallmodal" ' +
-                            'onclick="editModalShow('+data[i].id+','+'\''+data[i].name+'\')">' +
+                            'onclick="editModalShow2('+data[i].id+','+'\''+data[i].name+'\')">' +
                             '<i class="fa fa-magic"></i>&nbsp;编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                             '<button type="button" class="btn btn-danger btn-sm mb-1" ' +
                             'onclick="deleteDepartment('+data[i].id+')">' +
@@ -196,7 +195,9 @@
             }
         });
     }
-	
+	function showAddModal(){
+      $("#smallmodal1").modal("show");
+    }
     function addDepartment(name)
     {
         //console.log($("#name").val());
@@ -226,9 +227,16 @@
         $('#tmp_id').val(id);
         $("#depart_name").val(name);
     }
+  
+    function editModalShow2(id,name) {
+        $('#tmp_id').val(id);
+        $("#depart_name").val(name);
+        $("#smallmodal2").modal("show");
+    }
+  
     function changeDepartmentName(){
         var id = $("#tmp_id").val();
-        var name = $('#depart_name').val();
+        var name = $('#depart_name').val().trim();
        	var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
         if(name.search(pattern)){
             alert("输入名称不符合规范，请重新输入");
@@ -251,8 +259,8 @@
                 	else if(msg=-1){
                     	alert("用户名重复，请重新输入！");
                 	}
-                    $("#smallmodal").modal("hide");
-                    //$('.modal-backdrop').remove();//去除遮罩层
+                    $("#smallmodal2").modal("hide");
+                    $('.modal-backdrop').remove();//去除遮罩层
                     //在这里刷新页面或者局部刷新表格
                     loadTable();
                 }
