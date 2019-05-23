@@ -14,11 +14,10 @@ class ScheduleDefault extends Controller
     /**管理默认日程的界面*/
     public function index($uid, $wxcode)
     {
-        $defaultSchedules = ScheduleDefaultModel::getDefaultSchedules($uid);
         $this->assign("uid", $uid);
         $this->assign("userid", $uid);
         $this->assign("wxcode", $wxcode);
-        $this->assign("defaultSchedules", $defaultSchedules);
+        $this->assign("defaultSchedules", ScheduleDefaultModel::getDefaultSchedules($uid));
         return $this->fetch();
     }
 

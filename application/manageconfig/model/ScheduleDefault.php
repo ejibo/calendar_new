@@ -18,7 +18,7 @@ class ScheduleDefault extends Model
             return $defaultSchedule->where('is_delete',0)->limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-        }else if(is_int($user)){
+        }else if(is_int($user)||is_long($user)){
             $user_id=$user;
         }else{
             return array();
