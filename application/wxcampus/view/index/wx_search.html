@@ -109,9 +109,10 @@
 <script>
 
 $(document).ready(function(){
+  console.log("{:url('Wxquery/index')}");
   $('#query').click(function (){
     $.ajax({
-      url: 'wxquery',
+      url: "{:url('Wxquery/index')}",
       type: "post",
       url: $('#query').attr('href'),
       data: {
