@@ -14,12 +14,12 @@ class ScheduleDefault extends Model
      */
     public static function getDefaultSchedules($user=NULL){
         $defaultSchedule=new ScheduleDefault();
-        if($user==NULL){
+        if(is_numeric($user)){
+            $user_id=$user;
+        }else if($user==NULL){
             return $defaultSchedule->where('is_delete',0)->limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-        }else if(is_int($user)||is_long($user)){
-            $user_id=$user;
         }else{
             return array();
         }
@@ -68,11 +68,15 @@ class ScheduleDefault extends Model
     }
 
 
-    /**@param $user 可以是字符串，代表用户名，也可以是整数，代表user_id*/
+    /**@param $user 可以是字符串，代表用户名，也可以是整数或字符串整数，代表user_id*/
     public function setUserId($user){
-        if(is_string($user)){
+        if(is_numeric($user)){//因为uid也是字符串，所以把这层判断放前面
+        }else if(is_string($user)){
             $user=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-        }else if(!is_int($user)&&!is_long($user)){
+            if(!$user){
+                throw new \InvalidArgumentException('用户不存在');
+            }
+        }else{
             throw new \InvalidArgumentException('user只能是字符串或者整数');
         }
         $this->data('user_id',$user);
