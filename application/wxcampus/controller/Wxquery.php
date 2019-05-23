@@ -15,7 +15,7 @@ use app\wxcampus\model\Query as query;
 
 class Wxquery extends controller
 {
-    public function Index()
+    public function wxquery()
     {
         //$query_name = input('post.query_name');
         //$work_id = input('post.work_id');
