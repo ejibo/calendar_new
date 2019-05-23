@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="box-title">部门&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加部门</button>
+                            <button class="btn btn-success btn-sm" onclick="showAddModal()">添加部门</button>
                         </h4>
                     </div>
                     <div class="card-body--">
@@ -182,6 +182,7 @@
                             '<td class="product">'+data[i].name+'</td>' +
                             '<td class="product">'+strs[data[i].is_delete]+'</td>' +
                             '<td><button type="button" class="btn btn-primary btn-sm mb-1"' +
+                            ' data-toggle="modal" data-target="#smallmodal2" ' +
                             'onclick="editModalShow2('+data[i].id+','+'\''+data[i].name+'\')">' +
                             '<i class="fa fa-magic"></i>&nbsp;编辑</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                             '<button type="button" class="btn btn-danger btn-sm mb-1" ' +
