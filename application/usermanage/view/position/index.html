@@ -183,6 +183,7 @@
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
+        //先做trim处理
         var name_add= $.trim(name);
         console.log(name_add);
       //判断字符串长度
@@ -219,6 +220,7 @@
                 alert("输入非法，请重新输入");
             }
         }
+        //清除原有数据
         n.val("");
     }
 
