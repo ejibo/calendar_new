@@ -21,9 +21,9 @@ class ScheduleDefault extends Model
         }else if($user==NULL){
             return $defaultSchedule->
             alias( "sd")->
-            where('user.is_delete', 0)->
             where('sd.is_delete', 0)->
             join("user_info ui", "sd.user_id=ui.id")->
+            where('ui.is_delete', 0)->
             join("user_position up", "ui.position_id=up.id")->
             join("schedule_place sp", "sd.position_id=sp.id")->
             join("schedule_time st", "sd.time_id=st.id")->
@@ -64,7 +64,8 @@ class ScheduleDefault extends Model
      * @param day 一周的第几天，从1开始，周一为1，周日为7
      * @return Array ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
      * id,place_id,time_id,item_id,day,note,<br>
-     * item,place,time
+     * item,place,time。<br>
+     * 不包含position，如需使用，调用getPosition()方法
      */
     public static function getDefaultScheduleInDay($user_id,$day){
         $defaultSchedule=new ScheduleDefault();
