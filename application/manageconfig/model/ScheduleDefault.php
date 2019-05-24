@@ -2,6 +2,7 @@
 
 
 namespace app\manageconfig\model;
+use think\Collection;
 use think\Db;
 use think\Model;
 
@@ -10,7 +11,7 @@ class ScheduleDefault extends Model
     /**
      * 获取某用户的默认日程
      *@param user  可以是uname，也可以是uid,如果是NULL或者不填则是选择所有用户的。
-     *@return Array ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     *@return Collection|false|\PDOStatement|string ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
      * id,user_id,place_id,time_id,item_id,day,note,<br>
      * user_name,positon,item,place,time
      */
@@ -62,7 +63,7 @@ class ScheduleDefault extends Model
     /**
      * 获取某人的星期几的默认日程
      * @param day 一周的第几天，从1开始，周一为1，周日为7
-     * @return Array ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     * @return Collection|false|\PDOStatement|string ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
      * id,place_id,time_id,item_id,day,note,<br>
      * item,place,time。<br>
      * 不包含position，如需使用，调用getPosition()方法
