@@ -19,6 +19,9 @@ use think\Session;
 
 class Calendar extends Common
 {
+    /**
+     *user为可选参数，有则只选出该用户的，没有则是选出所有用户的
+     */
     public function index(){
         $user=Request::instance()->get('user');
         if($user){//填了user参数的情况
@@ -41,6 +44,7 @@ class Calendar extends Common
         }
         return $this->fetch();
     }
+    /**@deprecated */
     public function search(){
         $user=Request::instance()->get('user');
         $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');

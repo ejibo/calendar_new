@@ -10,7 +10,9 @@ class ScheduleDefault extends Model
     /**
      * 获取某用户的默认日程
      *@param user  可以是uname，也可以是uid,如果是NULL或者不填则是选择所有用户的。
-     *@return Array
+     *@return Array ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     * id,user_id,place_id,time_id,item_id,day,note,<br>
+     * user_name,positon,item,place,time
      */
     public static function getDefaultSchedules($user=NULL){
         $defaultSchedule=new ScheduleDefault();
@@ -18,26 +20,63 @@ class ScheduleDefault extends Model
             $user_id=$user;
         }else if($user==NULL){
             return $defaultSchedule->
-            alias(["schedule_default" => "sd", "user_info" => "user"])->
+            alias( "sd")->
             where('user.is_delete', 0)->
             where('sd.is_delete', 0)->
-            join("user_info", "sd.user_id=user.id")->
+            join("user_info ui", "sd.user_id=ui.id")->
+            join("user_position up", "ui.position_id=up.id")->
+            join("schedule_place sp", "sd.position_id=sp.id")->
+            join("schedule_time st", "sd.time_id=st.id")->
+            join("schedule_item si", "sd.item_id=si.id")->
+            field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            ui.name as user_name,
+            up.name as position,
+            si.name as item,
+            sp.name as placem,
+            st.name as time')->
             limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         }else{
             return array();
         }
-        return $defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
+//        return $defaultSchedule->alias("sd")->
+//            where(['user_id'=>$user_id, "sd.is_delete" => 0])->
+//            join("user_info ui", "sd.user_id=user.id")
+//            -> select();
+        return $defaultSchedule->
+        alias( "sd")->
+        where(['user_id'=>$user_id, "sd.is_delete" => 0])->
+        join("user_info ui", "sd.user_id=ui.id")->
+        join("user_position up", "ui.position_id=up.id")->
+        join("schedule_place sp", "sd.position_id=sp.id")->
+        join("schedule_time st", "sd.time_id=st.id")->
+        join("schedule_item si", "sd.item_id=si.id")->
+        field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            ui.name as user_name,
+            up.name as position,
+            si.name as item,
+            sp.name as place,
+            st.name as time')->select();
     }
-    /*
+    /**
      * 获取某人的星期几的默认日程
-     *@param day 一周的第几天，从1开始，周一为1，周日为7
-     *@return Array ScheduleDefault的数组
+     * @param day 一周的第几天，从1开始，周一为1，周日为7
+     * @return Array ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     * id,place_id,time_id,item_id,day,note,<br>
+     * item,place,time
      */
     public static function getDefaultScheduleInDay($user_id,$day){
         $defaultSchedule=new ScheduleDefault();
-        $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])-> select();
+        $defaultSchedules=$defaultSchedule->
+        where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])->
+        join("schedule_place sp", "sd.position_id=sp.id")->
+        join("schedule_time st", "sd.time_id=st.id")->
+        join("schedule_item si", "sd.item_id=si.id")->
+        field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            si.name as item,
+            sp.name as place,
+            st.name as time')->select();
         return $defaultSchedules;
     }
     /**return 周一 => 周日，需要的是数字的话直接调用day属性就行了*/
@@ -56,18 +95,34 @@ class ScheduleDefault extends Model
 
     /**@param user_id 为NULL则从对象的data里取uid，不为NULL则是获取该user_id对应的uname*/
     public function getUserName($user_id=NULL){
+        if($this->getData("user_name")){
+            return $this->getData("user_name");//兼容以前的方法
+        }
         return Db::table('user_info')->
             where('id',$user_id==NULL?$this->getData('user_id'):$user_id)->value('name');
     }
     public function getPosition(){
-        return Db::table("user_position")->where("id",$this->getData("position_id"))->value("name");
+        if($this->getData("position")){
+            return $this->getData("position");//兼容以前的方法
+        }
+        $position_id=$this->getData('position_id');
+        if(!$position_id){
+            $position_id=Db::table('user_info')->where('id',$this->getData('user_id'))->value('position_id');
+        }
+        return Db::table("user_position")->where("id",$position_id)->value("name");
     }
 
     public function getTime(){
+        if($this->getData("time")){
+            return $this->getData("time");//兼容以前的方法
+        }
         return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name');
     }
 
     public function getPlace(){
+        if($this->getData("place")){
+            return $this->getData("place");//兼容以前的方法
+        }
         return Db::table('schedule_place')->where('id', $this->getData('place_id'))->value('name');
     }
 
