@@ -17,11 +17,12 @@ class ScheduleDefault extends Model
         if(is_numeric($user)){
             $user_id=$user;
         }else if($user==NULL){
-            return $defaultSchedule->//query("select * from schedule_default where is_delete=0 and user_id in (select id as user_id where is_delete=0)");
-           alias(["schedule_default"=>"sd","user_info"=>"user"])->
-            where('user.is_delete',0)->
-            where('sd.is_delete',0)->
-           join("user_info","sd.user_id=user.id")->limit(30)->select();
+            return $defaultSchedule->
+            alias(["schedule_default" => "sd", "user_info" => "user"])->
+            where('user.is_delete', 0)->
+            where('sd.is_delete', 0)->
+            join("user", "sd.user_id=user.id")->
+            limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         }else{
@@ -57,6 +58,9 @@ class ScheduleDefault extends Model
     public function getUserName($user_id=NULL){
         return Db::table('user_info')->
             where('id',$user_id==NULL?$this->getData('user_id'):$user_id)->value('name');
+    }
+    public function getPosition(){
+        return Db::table("user_position")->where("id",$this->getData("position_id"))->value("name");
     }
 
     public function getTime(){

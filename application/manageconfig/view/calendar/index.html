@@ -26,6 +26,7 @@
                                 <tr>
                                     <th class="serial">序号</th>
                                     <th>用户</th>
+                                    <th>身份</th>
                                     <th>时间</th>
                                     <th>地点</th>
                                     <th>事项</th>
@@ -37,6 +38,7 @@
                                 <tr class="data-row">
                                     <td class="serial">{$key}</td>
                                     <td>  <span class="product">{$defaultSchedule->getUserName()}</span> </td>
+                                    <td>  <span class="product">{$defaultSchedule->getPositon()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getDay().$defaultSchedule->getTime()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getPlace()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getItem()}</span> </td>
@@ -167,7 +169,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="addNewUser" name="uname" class="form-control" value={$uname}>
+                                    <input type="text" id="addNewUser" name="uname" class="form-control" placeholder="用户名" value={$uname}>
                                 </div>
                             </div>
                             <div class="form-group">
