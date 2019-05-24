@@ -21,7 +21,7 @@ class ScheduleDefault extends Model
             alias(["schedule_default" => "sd", "user_info" => "user"])->
             where('user.is_delete', 0)->
             where('sd.is_delete', 0)->
-            join("user", "sd.user_id=user.id")->
+            join("user_info", "sd.user_id=user.id")->
             limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
