@@ -17,9 +17,7 @@ class ScheduleDefault extends Model
      */
     public static function getDefaultSchedules($user=NULL){
         $defaultSchedule=new ScheduleDefault();
-        if(is_numeric($user)){
-            $user_id=$user;
-        }else if($user==NULL){
+        if($user==NULL){
             return $defaultSchedule->alias( "sd")->
             where('sd.is_delete', 0)->
             join("user_info ui", "sd.user_id=ui.id")->
@@ -36,10 +34,12 @@ class ScheduleDefault extends Model
             sp.name as place,
             st.name as time')->
             limit(30)->select();
+        }else if(is_numeric($user)){
+            $user_id=$user;
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
         }
-        if(!defined($user_id)||!$user_id){
+        if(!$user_id){
             return array();
         }
         return $defaultSchedule->alias( "sd")->
