@@ -95,40 +95,47 @@ class ScheduleDefault extends Model
         }
     }
 
-    /**@param user_id 为NULL则从对象的data里取uid，不为NULL则是获取该user_id对应的uname*/
-    public function getUserName($user_id=NULL){
-        if($this->getData("user_name")){
+    /**@param user_id 为NULL则从对象的data里取uid，不为NULL则是获取该user_id对应的uname */
+    public function getUserName($user_id = NULL)
+    {
+        if (array_key_exists("user_name", $this->getData())) {
             return $this->getData("user_name");//兼容以前的方法
         }
         return Db::table('user_info')->
-            where('id',$user_id==NULL?$this->getData('user_id'):$user_id)->value('name');
+        where('id', $user_id == NULL ? $this->getData('user_id') : $user_id)->value('name');
     }
-    public function getPosition(){
-        if($this->getData("position")){
+
+    public function getPosition($position_id = NULL)
+    {
+        if (array_key_exists("position", $this->getData())) {
             return $this->getData("position");//兼容以前的方法
         }
-        $position_id=$this->getData('position_id');
-        if(!$position_id){
-            $position_id=Db::table('user_info')->where('id',$this->getData('user_id'))->value('position_id');
+        if (array_key_exists("place", $this->getData())) {
+            $position_id = $this->getData('position_id');
+        } else {
+            $position_id = Db::table('user_info')->where('id', $this->getData('user_id'))->value('position_id');
         }
-        return Db::table("user_position")->where("id",$position_id)->value("name");
+        return Db::table("user_position")->where("id", $position_id)->value("name");
     }
 
     public function getTime(){
-        if($this->getData("time")){
+        if(array_key_exists("time",$this->getData())){
             return $this->getData("time");//兼容以前的方法
         }
         return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name');
     }
 
     public function getPlace(){
-        if($this->getData("place")){
+        if(array_key_exists("place",$this->getData())){
             return $this->getData("place");//兼容以前的方法
         }
         return Db::table('schedule_place')->where('id', $this->getData('place_id'))->value('name');
     }
 
     public function getItem(){
+        if(array_key_exists("item",$this->getData())){
+            return $this->getData("item");//兼容以前的方法
+        }
         return Db::table('schedule_item')->where('id', $this->getData('item_id'))->value('name');
     }
 
