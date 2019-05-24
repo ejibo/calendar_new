@@ -20,12 +20,12 @@ class ScheduleDefault extends Model
         if(is_numeric($user)){
             $user_id=$user;
         }else if($user==NULL){
-            return $defaultSchedule->
-            alias( "sd")->
+            return $defaultSchedule->alias( "sd")->
             where('sd.is_delete', 0)->
             join("user_info ui", "sd.user_id=ui.id")->
             where('ui.is_delete', 0)->
             join("user_position up", "ui.position_id=up.id")->
+            where('up.is_delete', 0)->
             join("schedule_place sp", "sd.place_id=sp.id")->
             join("schedule_time st", "sd.time_id=st.id")->
             join("schedule_item si", "sd.item_id=si.id")->
@@ -38,18 +38,15 @@ class ScheduleDefault extends Model
             limit(30)->select();
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-        }else{
+        }
+        if(!defined($user_id)||!$user_id){
             return array();
         }
-//        return $defaultSchedule->alias("sd")->
-//            where(['user_id'=>$user_id, "sd.is_delete" => 0])->
-//            join("user_info ui", "sd.user_id=user.id")
-//            -> select();
-        return $defaultSchedule->
-        alias( "sd")->
+        return $defaultSchedule->alias( "sd")->
         where(['user_id'=>$user_id, "sd.is_delete" => 0])->
         join("user_info ui", "sd.user_id=ui.id")->
         join("user_position up", "ui.position_id=up.id")->
+        where('up.is_delete', 0)->
         join("schedule_place sp", "sd.place_id=sp.id")->
         join("schedule_time st", "sd.time_id=st.id")->
         join("schedule_item si", "sd.item_id=si.id")->
@@ -70,7 +67,7 @@ class ScheduleDefault extends Model
      */
     public static function getDefaultScheduleInDay($user_id,$day){
         $defaultSchedule=new ScheduleDefault();
-        $defaultSchedules=$defaultSchedule->
+        $defaultSchedules=$defaultSchedule->alias( "sd")->
         where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])->
         join("schedule_place sp", "sd.place_id=sp.id")->
         join("schedule_time st", "sd.time_id=st.id")->
