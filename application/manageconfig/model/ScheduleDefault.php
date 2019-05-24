@@ -26,7 +26,7 @@ class ScheduleDefault extends Model
             join("user_info ui", "sd.user_id=ui.id")->
             where('ui.is_delete', 0)->
             join("user_position up", "ui.position_id=up.id")->
-            join("schedule_place sp", "sd.position_id=sp.id")->
+            join("schedule_place sp", "sd.place_id=sp.id")->
             join("schedule_time st", "sd.time_id=st.id")->
             join("schedule_item si", "sd.item_id=si.id")->
             field('sd.id,user_id,place_id,time_id,item_id,day,note,
@@ -50,7 +50,7 @@ class ScheduleDefault extends Model
         where(['user_id'=>$user_id, "sd.is_delete" => 0])->
         join("user_info ui", "sd.user_id=ui.id")->
         join("user_position up", "ui.position_id=up.id")->
-        join("schedule_place sp", "sd.position_id=sp.id")->
+        join("schedule_place sp", "sd.place_id=sp.id")->
         join("schedule_time st", "sd.time_id=st.id")->
         join("schedule_item si", "sd.item_id=si.id")->
         field('sd.id,user_id,place_id,time_id,item_id,day,note,
@@ -72,7 +72,7 @@ class ScheduleDefault extends Model
         $defaultSchedule=new ScheduleDefault();
         $defaultSchedules=$defaultSchedule->
         where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])->
-        join("schedule_place sp", "sd.position_id=sp.id")->
+        join("schedule_place sp", "sd.place_id=sp.id")->
         join("schedule_time st", "sd.time_id=st.id")->
         join("schedule_item si", "sd.item_id=si.id")->
         field('sd.id,user_id,place_id,time_id,item_id,day,note,
