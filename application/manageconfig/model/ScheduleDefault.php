@@ -33,7 +33,7 @@ class ScheduleDefault extends Model
             ui.name as user_name,
             up.name as position,
             si.name as item,
-            sp.name as placem,
+            sp.name as place,
             st.name as time')->
             limit(30)->select();
         }else if(is_string($user)){
