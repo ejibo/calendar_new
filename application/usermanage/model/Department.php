@@ -82,7 +82,7 @@ class Department extends Model
 		}
       if(strlen($name) > 30){
       //如果部门名称大于25个字符
-        $message = '部门名称太长;
+        $message = '部门名称太长';
         return ['message' => $message];
       }
       if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9_]+$/u',$name)){
