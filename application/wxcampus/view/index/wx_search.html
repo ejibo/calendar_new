@@ -111,7 +111,7 @@
 $(document).ready(function(){
   $('#query').click(function (){
     $.ajax({
-      url: 'wxquery/index',
+      url: 'index',
       type: "post",
       url: $('#query').attr('href'),
       data: {
@@ -121,7 +121,7 @@ $(document).ready(function(){
 	  "work_id": $("#work_id").val() 
       }
     })
-  });
+  })
 }
 
 </script>
