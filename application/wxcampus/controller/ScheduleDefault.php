@@ -52,7 +52,7 @@ class ScheduleDefault extends Controller
             $schedule->checkSameTimeDefaultSchedule();
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
-            $schedule->setNote("备注："+$param['note']);
+            $schedule->setNote("备注：".$param['note']);
         } catch (\InvalidArgumentException $e) {
             return json(['code' => $e->getCode(), 'msg' => $e->getMessage()]);
         }
