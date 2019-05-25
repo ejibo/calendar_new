@@ -7,6 +7,7 @@ use think\Controller;
 use app\manageconfig\model\ScheduleDefault as ScheduleDefaultModel;
 use think\Exception;
 use think\Request;
+use think\Db;
 
 class ScheduleDefault extends Controller
 {
