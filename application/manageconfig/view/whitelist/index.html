@@ -374,7 +374,7 @@
         var modal = $(this);  //当前模态框
         var modalId = btnThis.data('id');   //解析出data-id的内容
         var id = btnThis.closest('tr').data('id');
-        console.log(id);
+        
         var work_id = btnThis.closest('tr').find('td').eq(2).text();
         var name = btnThis.closest('tr').find('td').eq(1).text();
         var type_id = btnThis.closest('tr').find('td').eq(3).data('id');
@@ -386,6 +386,7 @@
         modal.find('#edit_depart_id').val(depart);
         modal.find('#edit_position_id').val(position);
         modal.find('#edit_id').val(id);
+        console.log('work_id'+work_id);
     });
 </script>
 
