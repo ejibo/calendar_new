@@ -241,11 +241,9 @@
        	var pattern="[^\u4e00-\u9fa5a-zA-Z0-9]";
         if(name.length == 0){
           alert("输入名称不能为空，请重新输入");
-        }
-        if(name.search(pattern)==true){
+        }else if(name.search(pattern)==true){
             alert("输入名称不符合规范，请重新输入");
-        }
-        else{
+        }else{
             //用AJAX方式访问后台写的方法
             $.ajax({
                 type: "POST",
