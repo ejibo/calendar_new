@@ -347,6 +347,7 @@
             alert('学/工号必须为整数');
             return 0;
         }
+        console.log(name);
         $.ajax({
             url:"{:url('manageconfig/whitelist/addwhitelist')}",
             type:"POST",

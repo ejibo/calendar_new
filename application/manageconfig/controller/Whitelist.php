@@ -57,18 +57,18 @@ class Whitelist extends Common
         if ($exist_work_id){
             $this->error('该工号已存在');
         }
-        if ($data['type']!=0 && $data['type']!=1 && $data['type']!=2 && $data['type']!=3){
-            $this->error('请输入正确的用户类型');
-        }
-
-        $exist_depart = $whitelist->exist_depart($data['depart_id']);
-        if (!$exist_depart){
-            $this->error('该部门不存在');
-        }
-        $exist_position = $whitelist->exist_position($data['position_id']);
-        if(!$exist_position){
-            $this->error('该职位不存在');
-        }
+//        if ($data['type']!=0 && $data['type']!=1 && $data['type']!=2 && $data['type']!=3){
+//            $this->error('请输入正确的用户类型');
+//        }
+//
+//        $exist_depart = $whitelist->exist_depart($data['depart_id']);
+//        if (!$exist_depart){
+//            $this->error('该部门不存在');
+//        }
+//        $exist_position = $whitelist->exist_position($data['position_id']);
+//        if(!$exist_position){
+//            $this->error('该职位不存在');
+//        }
         $is_add = Db::table('white_list')->insert($data);
 
         if ($is_add){
