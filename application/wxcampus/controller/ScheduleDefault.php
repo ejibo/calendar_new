@@ -117,12 +117,20 @@ class ScheduleDefault extends Controller
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
     }
+
     /**
      *删除默认日程界面
      */
-    public function wx_delete_schedule_default($uid, $item_id)
+    public function wx_delete_schedule_default($uid, $item_id, $id)
     {
         //执行删除的操作
+        $result = DB::table('schedual_default')->where('id', '=', $id)->delete();
+        if ($result){
+            return true;
+        }else{
+            return false;
+        }
+
     }
     /**
      * 修改默认日程界面
