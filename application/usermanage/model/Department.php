@@ -115,6 +115,11 @@ class Department extends Model
         if (empty($pre)==false){
             return -1;
         }
+        if(strlen($myname) > 30){
+      //如果部门名称大于25个字符
+        $message = '部门名称太长';
+        return -2;
+      }
         $department->save([
             'name' => $myname
         ], ['id' => $id]);
