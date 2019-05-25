@@ -65,6 +65,7 @@ class ScheduleDefault extends Controller
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
     }
+
     /**
      *修改默认日程界面
      */
@@ -123,6 +124,18 @@ class ScheduleDefault extends Controller
     {
         //执行删除的操作
     }
+    /**
+     * 修改默认日程界面
+     */
+    public function wx_edit_schedule_default($uid, $wxcode, $schedule){
+        $this->assign("uid", $uid);
+        $this->assign("userid", $uid);
+        $this->assign("wxcode", $wxcode);
+        $this->assign("note", $schedule['note']);
+        $this->assign("title", "修改默认日程");
+        return $this->fetch();
+    }
+
 
 }
 

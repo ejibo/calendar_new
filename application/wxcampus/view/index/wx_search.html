@@ -12,12 +12,13 @@
     <div class="weui-tab__panel">
         <div class="weui-cells__title">领导日程查询</div>
         <div class="weui-cells">
-            <div class="weui-cell weui-cell_select weui-cell_select-after">
+          <form action="{:url('search')}" method="GET">  
+          <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd">
                     <label class="weui-label">部门</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" id="select1">
+                    <select class="weui-select" name="depart">
                       {foreach $depart as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
                       {/foreach}
@@ -29,7 +30,7 @@
                     <label class="weui-label">职务</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" id="select2">
+                    <select class="weui-select" name="pos">
                       {foreach $pos as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
                       {/foreach}
@@ -38,13 +39,13 @@
             </div>
         
           
-          <form action="Wxquery/index" method="POST">
+          
             <div class="weui-cell ">
                 <div class="weui-cell__hd">
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入姓名" id="query_name">
+                    <input class="weui-input" type="text" placeholder="请输入姓名" name="name">
                 </div>
             </div>
 
@@ -53,11 +54,11 @@
                     <label class="weui-label">工号</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" type="number" placeholder="请输入工号" id="work_id">
+                    <input class="weui-input" type="number" placeholder="请输入工号" name="work_id">
                 </div>
             </div>
             <div class="weui-btn-area">
-            <button class="weui-btn weui-btn_block weui-btn_primary" id="query">搜索</button>
+            <button class="weui-btn weui-btn_block weui-btn_primary" type="submit" id="query">搜索</button>
         </div>
           </form>
           
@@ -70,13 +71,6 @@
         </div>
     </div>
   
-  here <br>
-  {if condition="$result neq NULL"}
-  {foreach $result as $schedule}
-  	{$schedule.date} - {$schedule.time} - {$schedule.item} <br>
-  {/foreach}
-  {else /}<span>无数据！</span>
-  {/if}
 	<br>
   
     <div class="weui-tabbar">
@@ -104,28 +98,7 @@
 </div>
 </body>  
   
-{literal}
-<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script>
 
-$(document).ready(function(){
-  $('#query').click(function (){
-    $.ajax({
-      url: 'index',
-      type: "post",
-      url: $('#query').attr('href'),
-      data: {
-      "depart": $('#select1 option:selected').val(),
-      "pos": $("#select2 option:selected").val(),
-      "query_name": $('#query_name').val(),
-	  "work_id": $("#work_id").val() 
-      }
-    })
-  })
-}
-
-</script>
-{/literal}
   
   
 </html>

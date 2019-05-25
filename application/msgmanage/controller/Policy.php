@@ -8,7 +8,6 @@
 
 namespace app\msgmanage\controller;
 
-
 use app\common\controller\Common;
 
 /**
@@ -33,7 +32,12 @@ class Policy extends Common
     public function index()
     {
         $provisionFile = fopen("provisions.txt", "r") or die("Unable to open file!");
-        $last = fread($provisionFile, filesize("provisions.txt"));
+        $size = filesize("provisions.txt");
+        $last = "";
+        // 防止最近一次写入失败时 $size 为 0，fread 报错
+        if($size){
+            $last = fread($provisionFile, $size);
+        }
         fclose($provisionFile);
         $this->assign('last', $last);
         return $this->fetch();
@@ -54,8 +58,15 @@ class Policy extends Common
     public function postProvisionDetail()
     {
         $data = input('textarea-input');
+        if (!$data) {
+            return json(['msg' => '输入内容不能为空', 'code' => -1]);
+        }
         $provisionFile = fopen("provisions.txt", "w") or die("Unable to open file!");
         $tag = fwrite($provisionFile, $data);
+        // 若未成功写入，尝试再次写入，最多尝试三次
+        for ($times = 3;(!$tag)&&$times;$times--) {
+            $tag = fwrite($provisionFile, $data);
+        }
         fclose($provisionFile);
         if ($tag) {
             return json(['msg' => '成功！', 'code' => 1]);
