@@ -56,7 +56,7 @@ class Userbasic extends Model{
             'type_id' => $data['type_id'],
             'depart_id' => $data['depart_id'],
             'position_id' => $data['position_id']];
-        return Db::table('user_info')->insert($sqlData);
+        return Db::table('user_info')->insertGetId($sqlData);
     }
 
     public function insertAllUser($data) {

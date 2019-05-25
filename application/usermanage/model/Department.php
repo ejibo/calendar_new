@@ -25,9 +25,16 @@ class Department extends Model
     public function recover($id)
     {
         $department = Department::get($id);
+        //$department = Department::where("id",$id)->find();
+        $myname = $department->getAttr("name");
+        $dep = Department::all(['name'=>$myname]);
+        if(count($dep)>1){
+            return ['status' => -1, 'message' => '该部门已存在'];
+        }
         //更新该记录的is_delete字段
-        $department->is_delete = '0';
+        $department->data(['is_delete' => 0]);
         $department->save();//保存，也就是把更新提交到数据库表*/
+        return ['status' => 1, 'message' => 'success'];
     }
 
     /*
@@ -59,14 +66,30 @@ class Department extends Model
     public function addDepartment($name)
     {
         // 接收用户的数据,部门描述
-
+		#protected $_validate = array(
+        #array('name','require','部门名称不能为空'，0,'regex',3),
+        #);
         if (Department::get(['name' => $name])) {
             //如果在表中查询到该用户名
             $status = 0;
             $message = '部门已存在,请重新输入';
             return ['status' => $status, 'message' => $message];
         }
-
+		if(empty($name)){
+          //如果输入的部门名称为空值
+          $message = '部门名称不能为空';
+    	return ['message' => $message];
+		}
+      if(strlen($name) > 30){
+      //如果部门名称大于25个字符
+        $message = '部门名称太长';
+        return ['message' => $message];
+      }
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9 _]+$/u',$name)){
+      #如果输入的部门包含标点
+         $message = '部门名称中不能包含标点符号';
+    	return ['message' => $message];
+      }
         $user = model('Department');
         // 模型对象赋值
         $user->data([
@@ -83,17 +106,29 @@ class Department extends Model
    *story:修改部门名称
    *负责人：张艺璇
    */
-    public function change($id, $name)
+    public function change($id, $myname)
+      
     {
+      //判断部门名是否含有标点和空格
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9]+$/u',$myname)){
+         $message = '部门名称中不能包含标点符号';
+    	return -3;
+      }
         $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
-        //更新数据库中的部门名称
-        /*$department->name= $name;
-        $department->save();//保存，也就是把更新提交到数据库表
-        return $department->name;*/
+      //判断用户名是否重复
+        $pre = Department::where('name', $myname)->find();
+        if (empty($pre)==false){
+            return -1;
+        }
+        if(strlen($myname) > 30){
+      //如果部门名称大于25个字符
+        $message = '部门名称太长';
+        return -2;
+      }
         $department->save([
-            'name' => $name
+            'name' => $myname
         ], ['id' => $id]);
-        return $department->name;
+        return 1;
     }
 
 }

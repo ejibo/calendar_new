@@ -27,7 +27,7 @@ class Modifyschedule extends Common
         ->join('user_position up','ui.position_id = up.id')
         ->field('si.id as id,
         si.user_id as user_id,
-        date, time_id, place_id, item_id, position_id,
+        date,time_id, place_id, item_id, position_id,
         ui.name as user_info_name, 
         st.name as schedule_time_name, 
         sp.name as schedule_place_name, 
@@ -37,7 +37,17 @@ class Modifyschedule extends Common
         $this->assign('user_schedule',$list);
         //dump($list); //打印看输出的列数
         //dump($list);
+        $new_time = Db::table('schedule_time')
+        ->select();
+        $this->assign('user_time',$new_time);
+        $new_place = Db::table('schedule_place')
+        ->select();
+        $this->assign('user_place',$new_place);
+        $new_item = Db::table('schedule_item')
+        ->select();
+        $this->assign('user_item',$new_item);
         return $this->fetch();
+
     }
     function modifySchedule()
     {   
