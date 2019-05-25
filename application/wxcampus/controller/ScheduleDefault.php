@@ -70,7 +70,7 @@ class ScheduleDefault extends Controller
     /**
      *修改默认日程界面
      */
-    public function wx_update_schedule_default($uid, $item_id, $day, $time, $place, $item, $note, $wxcode, $id, $place_id)
+    public function wx_update_schedule_default($uid, $item_id, $day, $time, $place, $item, $note, $wxcode, $id)
     {
         $this->assign("uid", $uid);
         $this->assign("userid", $uid);
@@ -108,11 +108,13 @@ class ScheduleDefault extends Controller
     {
         //执行删除的操作
         $result = Db::name("schedule_default")->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
-        if ($result){
-            return $this->fetch('index', ['uid'=>$uid, 'wxcode'=>$wxcode]);
-        }else{
-            return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
-        }
+       // if ($result){
+       //     return $this->fetch('index', ['uid'=>$uid, 'wxcode'=>$wxcode]);
+       // }else{
+        //    return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
+      //  }
+      //return $this->fetch();
+      return $this->fetch('schedule_default/index');
 
     }
     /**
