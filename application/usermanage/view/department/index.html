@@ -258,8 +258,14 @@
                 	if(msg==1){
                     	alert("修改成功！");
                	 	}
-                	else if(msg=-1){
+                	else if(msg==-1){
                     	alert("用户名重复，请重新输入！");
+                	}
+                    else if(msg==-2){
+                    	alert("用户名过长，请重新输入！");
+                	}
+                    else if(msg==-3){
+                    	alert("用户不符合规范，请重新输入！");
                 	}
                     $("#smallmodal2").modal("hide");
                     $('.modal-backdrop').remove();//去除遮罩层
