@@ -157,7 +157,7 @@
 
 
             <!--编辑人员信息-->
-            <form action="editwhitelist" method="post">
+
                 <div class="modal fade" id="editwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
@@ -233,10 +233,10 @@
                         </div>
                     </div>
                 </div>
-            </form>
+
 
             <!--删除人员信息-->
-            <form action="delwhitelist" method="post">
+
                 <div class="modal fade" id="delwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
@@ -309,12 +309,12 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirmdel">确认</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+
 
 
         </div>
@@ -394,6 +394,7 @@
         var type_id = $.trim($('#type_id').val());
         var depart_id = $('#depart_id').val();
         var position_id = $('#position_id').val();
+        var edit_id = $('#edit_id').val();
         if (name.length==0 || work_id.length==0){
             alert('输入不能为空！');
             return 0;
@@ -416,7 +417,8 @@
                 "work_id":work_id,
                 "type_id":type_id,
                 "depart_id":depart_id,
-                "position_id":position_id
+                "position_id":position_id,
+                "edit_id":edit_id
             },
             dataType: "json",
             success: function (data) {
@@ -450,6 +452,22 @@
         modal.find('#del_id').val(id);
 
     });
+    $('#confirmdel').onclick(function () {
+        var del_id = $('#del_id').val();
+        $.ajax({
+            url:"{:url('manageconfig/whitelist/delwhitelist')}",
+            type:"POST",
+            data:{
+                "del_id":del_id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    })
 </script>
 
 <!--Excel添加-->
