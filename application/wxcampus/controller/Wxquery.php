@@ -10,27 +10,52 @@ use app\common\controller\Common;
 use think\Controller;
 use think\Db;
 use think\Request;
-use app\wxcampus\model\Query as query;
 
 
 class Wxquery extends controller
 {
      public function Index()
     {
-    	//按照部门、职务、姓名 查询用户日程
-        $depart = 0;
-        $pos = 0;
-        $name = '';
-        $work_id = 0;
+		// 在下拉框中实时获取全部的部门和职位
+        $depart_list = array();
+        $depart_list = Db::table('user_depart')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $position_list = array();
+        $position_list = Db::table('user_position')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $this->assign('depart', $depart_list);
+      	$this->assign('pos', $position_list);
+        
+
+        return $this->fetch('index/wx_search');
+    }
+  
+  public function search()
+  {
+  		//按照部门、职务、姓名、工号 查询用户日程
+        $query_depart = 0;
+        $query_pos = 0;
+        $query_name = '';
+        $query_work_id = 0;
         if(input('?get.depart') && input('?get.pos') && input('?get.name') && input('?get.work_id')){
-            $depart = Request::instance()->param('depart');
-            $pos = Request::instance()->param('pos');
-            $name = Request::instance()->param('name','','strip_tags,htmlspecialchars');
-            $work_id = Request::instance()->param('work_id','','strip_tags,htmlspecialchars');
+            $query_depart = Request::instance()->param('depart');
+            $query_pos = Request::instance()->param('pos');
+            $query_name = Request::instance()->param('name','','strip_tags,htmlspecialchars');
+            $query_work_id = Request::instance()->param('work_id','','strip_tags,htmlspecialchars');
         }
-    	
-        $allInfo = array();
-        $allInfo = Db::table('schedule_info')
+    	$query_info = {
+            name: $query_name,
+            work_id: $query_work_id,
+            depart: $query_depart,
+            position: $query_pos
+        }
+    
+        $sche_info = array();
+        $sche_info = Db::table('schedule_info')
             // ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
             ->join('user_info', 'schedule_info.user_id = user_info.id')
             ->join('user_depart', 'user_info.depart_id = user_depart.id')
@@ -48,33 +73,15 @@ class Wxquery extends controller
             ->field('schedule_time.name as time, schedule_place.name as place, schedule_item.name as item')
             ->select();
 
-            dump($allInfo);
+            // dump($allInfo);
 
-      	if (!is_array($allInfo)){
+      	if (!is_array($sche_info)){
             echo '检索结果无';
         }else{
-            $this->assign('result', $allInfo);
-        }
-      
-
-
-
-        $depart_list = array();
-        $depart_list = Db::table('user_depart')
-          ->where('is_delete', 0)
-          ->select();
-      
-        $position_list = array();
-        $position_list = Db::table('user_position')
-          ->where('is_delete', 0)
-          ->select();
-      
-        $this->assign('depart', $depart_list);
-      	$this->assign('pos', $position_list);
-        
-
-
-        return $this->fetch('index/wx_search');
-    }
+            $this->assign('query', $query_info);
+            $this->assign('result', $sche_info);
+            return $this->fetch('index/wx_searchlist');
+}
+  }
   
 }
