@@ -54,6 +54,9 @@ class Policy extends Common
     public function postProvisionDetail()
     {
         $data = input('textarea-input');
+        if(!$data){
+            return json(['msg' => '输入内容不能为空', 'code' => -1]);            
+        } 
         $provisionFile = fopen("provisions.txt", "w") or die("Unable to open file!");
         $tag = fwrite($provisionFile, $data);
         fclose($provisionFile);
