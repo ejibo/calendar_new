@@ -17,7 +17,7 @@ class ScheduleDefault extends Model
      */
     public static function getDefaultSchedules($user=NULL){
         $defaultSchedule=new ScheduleDefault();
-        if($user==NULL){
+        if($user==NULL){//所有用户的
             return $defaultSchedule->alias( "sd")->
             where('sd.is_delete', 0)->
             join("user_info ui", "sd.user_id=ui.id")->
@@ -34,7 +34,7 @@ class ScheduleDefault extends Model
             sp.name as place,
             sd.id as id,
             st.name as time')->
-            limit(30)->select();
+            limit(50)->order(['position_id'=>'asc','user_id'=>'asc','day'=>'asc','time_id'=>'asc'])->select();
         }else if(is_numeric($user)){
             $user_id=$user;
         }else if(is_string($user)){
@@ -56,7 +56,8 @@ class ScheduleDefault extends Model
             up.name as position,
             si.name as item,
             sp.name as place,
-            st.name as time')->select();
+            st.name as time')->
+        order(['day'=>'asc','time_id'=>'asc'])->select();//指定用户的
     }
     /**
      * 获取某人的星期几的默认日程
