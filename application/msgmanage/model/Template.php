@@ -145,9 +145,10 @@ class Template extends Model
     function remind($user_id)
     {
         $data = ['is_remind' => 1,'update_time'=> date('Y-m-d H:i:s',time()),'remind_time'=> date('Y-m-d H:i:s',time())];
-         $res = Db::name('message_template')
+        $res = Db::name('message_template')
             ->where('id',$user_id)
             ->update($data);
+        return $res;
     }
     /*
     *story:根据消息模板向用户发送提醒消息（刘玄）
@@ -161,6 +162,7 @@ class Template extends Model
          $res = Db::name('message_template')
             ->where('id',$user_id)
             ->update($data);
+         return $res;
     }
     /*
     *story:根据消息模板向用户发送提醒消息（刘玄）
