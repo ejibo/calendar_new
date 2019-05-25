@@ -21,7 +21,6 @@ class Whitelist extends Model{
             ->join('user_depart','ui.depart_id = ud.id')
             ->join('user_position','ui.position_id = up.id')
             ->field('ui.id,ui.name as ui_name,ui.work_id,ui.type_id,ui.depart_id,ui.position_id,ud.name as ud_name,up.name as up_name')
-            ->order('create_time desc')
             ->select();
         return $info;
     }
