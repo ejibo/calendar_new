@@ -69,11 +69,12 @@ class ScheduleDefault extends Controller
     /**
      * 修改默认日程界面
      */
-    public function wx_edit_schedule_default($uid, $wxcode){
+    public function wx_edit_schedule_default($uid, $wxcode, $schedule){
         $this->assign("uid", $uid);
         $this->assign("userid", $uid);
         $this->assign("wxcode", $wxcode);
+        $this->assign("note", $schedule['note']);
         $this->assign("title", "修改默认日程");
-        return $this->fetch("wx_add_schedule_dufault");
+        return $this->fetch();
     }
 }
