@@ -12,7 +12,7 @@
     <div class="weui-tab__panel">
         <div class="weui-cells__title">领导日程查询</div>
         <div class="weui-cells">
-          <form action="" method="GET">  
+          <form action="{:url('index')}" method="GET">  
           <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd">
                     <label class="weui-label">部门</label>
@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div class="weui-btn-area">
-            <button class="weui-btn weui-btn_block weui-btn_primary" id="query">搜索</button>
+            <button class="weui-btn weui-btn_block weui-btn_primary" type="submit" id="query">搜索</button>
         </div>
           </form>
           
@@ -98,22 +98,7 @@
 </div>
 </body>  
   
-{literal}
-<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
-  
-<script >
-	$(document).ready(function(){
-        query_depart = $('#select1').val();
-        query_pos = $('#select2').val();
-        query_name = $('#name').val();
-        work_id = $("#work_id").val();
 
-        $('#query').click(function(){
-            $('#query').attr('href') = "{:url('index')}";
-        })
-    })
-</script>
-{/literal}
   
   
 </html>
