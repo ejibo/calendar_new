@@ -47,12 +47,12 @@ class Wxquery extends controller
             $query_name = Request::instance()->param('name','','strip_tags,htmlspecialchars');
             $query_work_id = Request::instance()->param('work_id','','strip_tags,htmlspecialchars');
         }
-    	$query_info = {
-            name: $query_name,
-            work_id: $query_work_id,
-            depart: $query_depart,
-            position: $query_pos
-        }
+    	$query_info = array(
+            'name' => $query_name,
+            'work_id' => $query_work_id,
+            'depart' => $query_depart,
+            'position' => $query_pos
+        );
     
         $sche_info = array();
         $sche_info = Db::table('schedule_info')
