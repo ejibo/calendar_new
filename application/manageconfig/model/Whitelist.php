@@ -46,7 +46,7 @@ class Whitelist extends Model{
     }
     //删除人员
     public function delwhitelist($data){
-        $is_delete = Db::table('white_list')->where('id',$data)
+        $is_delete = Db::table('white_list')->where('id',$data['del_id'])
             ->update(['is_delete' => 1]);
         return $is_delete;
     }
