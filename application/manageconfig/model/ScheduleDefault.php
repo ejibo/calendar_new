@@ -32,6 +32,7 @@ class ScheduleDefault extends Model
             up.name as position,
             si.name as item,
             sp.name as place,
+            sd.id as id,
             st.name as time')->
             limit(30)->select();
         }else if(is_numeric($user)){
