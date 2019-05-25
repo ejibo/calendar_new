@@ -45,13 +45,12 @@
                                         </button>
                                         {/eq}
                                         {eq name="templateItem.is_delete" value="0"}
-                                        {eq name="templateItem.is_remind" value="0"}<a
-                                                href="{:url('/msgmanage/msgmodel/remind','user_id='.$templateItem.id);}">
-                                            <button type="button" class="btn btn-success btn-sm mb-1">
+                                        {eq name="templateItem.is_remind" value="0"}
+                                            <button type="button" class="btn btn-success btn-sm mb-1" data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal7">
                                                 <i class="fa fa-star"></i>&nbsp;发送提醒
                                             </button>
-                                        </a>{else/}<a href="{:url('/msgmanage/msgmodel/cancelremind','user_id='.$templateItem.id);}">
-                                            <button type="button" class="btn  btn-sm mb-1">
+                                        </a>{else/}
+                                            <button type="button" class="btn  btn-sm mb-1" data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal8">
                                                 <i class="fa fa-star"></i>&nbsp;取消发送
                                             </button>
                                         </a>{/eq}
@@ -160,6 +159,9 @@
                 </div>
             </div>
 
+
+
+
             <!-- 模态框（Modal） -->
             <div class="modal fade" id="smallModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -245,6 +247,91 @@
                     </div>
                 </div>
             </div>
+
+
+    
+
+            <!-- 发送模板提示 -->
+            <div class="modal fade" id="smallModal7" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">发送消息提醒</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                    <div class="form-group">
+                                            消息提醒标题为：
+                                    </div>
+                                    
+                                    <div  class="form-group">
+                                         
+                                        <input type="text" id="Dese" name="Dese" value="01" class="form-control" disabled="disabled">
+                                       
+                                    </div>
+                            
+                            <div class="form-group">
+                                确定发送该消息提醒吗?
+                            </div>
+                            </p>
+                            <div class="form-group">
+                                <div id="msg7"></div>
+                            </div>
+                            <div>
+                                <input id="id" type="hidden"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="remind_cancel" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_remind" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 取消发送消息提醒 -->
+
+            <div class="modal fade" id="smallModal8" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">取消消息提醒</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                        <div class="form-group">
+                                                已发送的消息标题为：
+                                        </div>
+                                        
+                                        <div  class="form-group">
+                                             
+                                            <input type="text" id="Hese" name="Hese" value="01" class="form-control" disabled="disabled">
+                                           
+                                        </div>
+                                
+                                <div class="form-group">
+                                    确定取消该消息提醒吗?
+                                </div>
+                                </p>
+                                <div class="form-group">
+                                    <div id="msg8"></div>
+                                </div>
+                                <div>
+                                    <input id="id" type="hidden"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="remind_cancel" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-success" id="submit_cancel" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
     <!-- .animated -->
 </div>
@@ -374,7 +461,69 @@
             });
         });
     }
+// 消息提醒
+    $('#smallModal7').on('show.bs.modal', function (e) {
+        
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        var des = ele.cells[1].innerText;
+        $("#id").val(id);
+         $("#Dese").val(des);
+        $("#msg7").html("");
+    });
+    $("#remind_cancel").on("click", function(){
+        $("#id").val("");
+        $("#DesE").val("");
 
+    });
+    $("#submit_remind").on("click", function(){
+       
+        var id = $("#id").val();
+        console.log(id);
+        $.ajax({
+            url:"{:url('msgmanage/msgmodel/remind')}",
+            type:"POST",
+            data:{"user_id":id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    });
+// 取消发送消息提醒
+$('#smallModal8').on('show.bs.modal', function (e) {
+        
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        var des = ele.cells[1].innerText;
+        $("#id").val(id);
+         $("#Hese").val(des);
+        $("#msg8").html("");
+    });
+    $("#remind_cancel").on("click", function(){
+        $("#id").val("");
+        $("#HesE").val("");
+
+    });
+    $("#submit_cancel").on("click", function(){
+   
+        
+        var id = $("#id").val();
+        console.log(id);
+        $.ajax({
+            url:"{:url('msgmanage/msgmodel/cancelremind')}",
+            type:"POST",
+            data:{"user_id":id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    });
     /*story:查询消息模板
     负责人：吴珏
     */
