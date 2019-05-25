@@ -15,13 +15,13 @@
                                                 style="width:50px;margin-right:16px;display:block;border-radius: 5px">
                 </div>
                 <div class="weui-cell__bd">
-                    <h4 class="weui-media-box__title">{$query.name} _ {$query.work_id}</h4>
-                    <p class="weui-media-box__desc">{$query.depart}</p> 
-                  <p class="weui-media-box__desc">{$query.position}</p>
-                </div>
-            {if condition="$result neq NULL"}
+                    <h4 class="weui-media-box__title">用户：{$query.name} | {$query.work_id}</h4>
+                  {if condition="$result neq NULL"}
                 {foreach $result as $schedule}
-                  <p class="weui-media-box__desc">{$schedule.place} - {$schedule.time} - {$schedule.item} </p>
+                    <p class="weui-media-box__desc">{$schedule.depart} | {$schedule.position}</p>
+                </div>
+            
+                  <p class="weui-media-box__title">日程：{$schedule.place} - {$schedule.time} - {$schedule.item} </p>
                 {/foreach}
             {else /}<p class="weui-media-box__desc">无数据！</p>
             {/if}
