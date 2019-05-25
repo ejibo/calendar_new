@@ -126,7 +126,7 @@ class ScheduleDefault extends Controller
     public function wx_delete_schedule_default($uid, $item_id, $id)
     {
         //执行删除的操作
-        $result = DB::table('schedual_default')->where('id', '=', $id)->delete();
+        $result = DB::table('schedule_default')->where('id', '=', $id)->delete();
         if ($result){
             return true;
         }else{
