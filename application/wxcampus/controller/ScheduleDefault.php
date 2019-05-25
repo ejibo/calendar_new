@@ -79,7 +79,12 @@ class ScheduleDefault extends Controller
         $this->assign("place", $place);//待更改默认事项地点
         $this->assign("item", $item);//待更改默认事项内容
         $this->assign("day", $day);
-        $this->assign("note", $note);//待更改默认事项备注
+      	if($note){
+            $this->assign("note", $note);//待更改默认事项备注
+        }else{
+            $this->assign("note", "");
+        }
+        //$this->assign("note", $note);//待更改默认事项备注
         $this->assign("wxcode", $wxcode);
         $this->assign("title", "更新默认日程");
         return $this->fetch();
