@@ -109,6 +109,11 @@ class Department extends Model
     public function change($id, $myname)
       
     {
+      //判断部门名是否含有标点和空格
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9]+$/u',$myname)){
+         $message = '部门名称中不能包含标点符号';
+    	return -3;
+      }
         $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
       //判断用户名是否重复
         $pre = Department::where('name', $myname)->find();
