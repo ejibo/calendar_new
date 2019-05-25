@@ -41,17 +41,39 @@
             closeOnConfirm: false
         }, function () {
             console.log($('#modify').serializeArray());
-            $.post("{:url('policy/postProvisionDetail', '', '')}", $('#modify').serializeArray(),
-                function (datas) {
-                    var types = 'error'
-                    if (datas.code) {
-                        types = 'success'
+            $text = $('#modify').serializeArray();
+            if ($text[0]['textarea-input'] == '') {
+                swal({
+                    title: "提示",
+                    text: "输入内容不能为空",
+                    type: "error"
+                }, function () {
+                    document.location.reload();
+                });
+            }
+            $.post("{:url('policy/postProvisionDetail', '', '')}", $text,
+                function (data) {
+                    if (data.code == 1) {
+                        swal({
+                            title: "提示",
+                            text: data.msg,
+                            type: "success"
+                        });
+                    } else if (data.code == 0) {
+                        swal({
+                            title: "提示",
+                            text: data.msg,
+                            type: "error"
+                        });
+                    } else {
+                        swal({
+                            title: "提示",
+                            text: data.msg,
+                            type: "error"
+                        }, function () {
+                            document.location.reload();
+                        });
                     }
-                    swal({
-                        title: "提示",
-                        text: datas.msg,
-                        type: types
-                    });
                 });
         });
     });
