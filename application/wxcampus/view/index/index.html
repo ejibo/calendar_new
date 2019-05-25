@@ -4,218 +4,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
-    <title>我的日程</title>
+    <title>我的</title>
     <style>
-        .weui-flex {
-            background-color: #FFFFFF;
-            text-align: center;
-            padding-bottom: 10px;
-
-        }
-
-        .selected-day {
-            margin-left: auto;
-            margin-right: auto;
-            padding-top: auto;
-            margin-bottom: auto;
-            background-color: #07C160;
-            color: #FFFFFF;
-            width: 32px;
-            height: 32px;
-            border-radius: 3px;
-
-        }
-
-        a {
-            color: black;
-            font-size: 17px;
-        }
-
-        .week {
-            color: #9b9b9b;
-            font-size: 15px;
-            font-weight: bolder;
-        }
-
-        .margintop30 {
-            margin-top: 30px;
-        }
-
-        .today-subscript {
-            height: 5px;
-            width: 5px;
-            text-align:center;
-            border-radius: 50%;
-            background-color:  #07C160;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        .weui-cell__ft{
+            padding-right: 16px;
+            position: relative;
         }
     </style>
-
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
-    <div style="top: 0px;z-index:9999;width: 100%">
-        <div class="weui-flex" style="padding-top: 10px">
-            <div class="weui-flex__item">
-                <div class="placeholder" style="text-align: left;margin-left: 21px; color: #07C160">
-                    <a href="{$left}">
-                        <img src="__STATIC__/wx/img/before.png" style="height: 17px" id="left">
-                    </a>
-                </div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder" style="font-size: 17px" id="date">{$date}</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder" style="text-align: right;margin-right: 21px; color: #07C160">
-                    <a href="{$right}">
-                        <img src="__STATIC__/wx/img/after.png" style="height: 17px" id="right">
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="weui-flex week">
-            <div class="weui-flex__item">
-                <div class="placeholder">日</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">一</div>
-            </div>
-            <<<<<<< HEAD
-            <div class="weui-cell__ft">大兴</div>
-            =======
-            <div class="weui-flex__item">
-                <div class="placeholder">二</div>
-                >>>>>>> dev
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">三</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">四</div>
-            </div>
-            <<<<<<< HEAD
-            <div class="weui-cell__ft">大兴</div>
-            =======
-            <div class="weui-flex__item">
-                <div class="placeholder">五</div>
-                >>>>>>> dev
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">六</div>
-            </div>
-        </div>
-        <div class="weui-flex days">
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">5</a></div>
-            </div>
-            <<<<<<< HEAD
-            <div class="weui-cell__ft">大兴</div>
-            =======
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">6</a>
-                    <div style="height: 5px;width: 5px;text-align:center;border-radius: 50%; background-color:  #07C160;display: block;margin-left: auto;margin-right: auto"></div>
-                </div>
-                >>>>>>> dev
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">7</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">8</a></div>
-            </div>
-            <<<<<<< HEAD
-            <div class="weui-cell__ft">大兴</div>
-            =======
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">9</a></div>
-                >>>>>>> dev
-            </div>
-            <div class="weui-flex__item">
-                <a href="#" class="placeholder">
-                    <div class="today">10</div>
-                </a>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">11</a></div>
-            </div>
-        </div>
-    </div>
-
-    {volist name="cells" id="cell"}
-    <div class="weui-cells">
-        <div class="weui-panel__hd" style="padding: 10px 16px 10px;color:#9b9b9b;">
-            <div style="width: 4px;height: 15px;background-color:#FA5151;display:inline-block;vertical-align:middle;margin: 0 10px 3px 10px"></div>
-            {$cell.time}
-        </div>
-        {volist name="cell['data']" id="vo"}
-        <div class="weui-panel__bd">
-            <a href="{:url('updatePage', ['wxcode' => $wxcode, 'userid' => $userid,'id'=> $vo.id])}" class="weui-media-box weui-media-box_appmsg"
-               style="padding: 10px;margin-left: 15px">
-                <div>
-                    <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
-                </div>
-                <div class="weui-media-box__bd">
-                    <h4 class="weui-media-box__title">{$vo.item}</h4>
-                    <p class="weui-media-box__desc">{$vo.note}</p>
-                </div>
-                <<<<<<< HEAD
-                <div class="weui-cell__ft">大兴</div>
-        </div>
-        </a>
-        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
-           style="padding: 10px;margin-left: 15px">
-            <div>
-                <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
+    <div class="weui-tab__panel">
+        <a href="#" class="weui-media-box weui-media-box_appmsg"
+           style="background-color: #FFFFFF;height: 100px;padding-left: 20px">
+            <div class="weui-media-box__hd">
+                <img class="weui-media-box__thumb" style="border-radius: 5px" src="__STATIC__/wx/img/s.jpg">
             </div>
             <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title">上课</h4>
-                <p class="weui-media-box__desc">今天上午在3303上课。</p>
-            </div>
-            <div class="weui-cell__ft">大兴</div>
-            =======
-            <div class="weui-cell__ft">
-                <div style="margin-top: 0">{$vo.place}</div>
-                >>>>>>> dev
+                <h4 class="weui-media-box__title" style="font-size: 22px;font-weight: 700;margin-bottom: .1em">{$name}</h4>
+                <p class="weui-media-box__desc" style="font-size: 17px">学工办 主任</p>
             </div>
         </a>
+        <div class="weui-cells">
+             <a class="weui-cell weui-cell_access weui-cell_example" href="{:url('QueryMySchedule/index', ['number'=> $number])}">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/chaxun_on.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>查询我的日程</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <a class="weui-cell weui-cell_access weui-cell_example" href="{:url('Multiquery/index')}">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/chaxun_on.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>查询多人日程</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <a class="weui-cell weui-cell_access weui-cell_example" href="{:url('schedule_default',['number'=> $number,'wxcode'=> $wxcode])}">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/guanzhu.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>管理默认日程</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <a class="weui-cell weui-cell_access weui-cell_example" href="{:url('leaderList',['number'=> $number])}">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/guanzhu.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>添加关注人</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <a class="weui-cell weui-cell_access weui-cell_example" href="javascript:;">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/tongji.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>统计</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+        </div>
+        <div class="weui-cells">
+            <a class="weui-cell weui-cell_access weui-cell_example" href="javascript:;">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/shezhi.png" alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>设置</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+            <a class="weui-cell weui-cell_access weui-cell_example" href="javascript:;">
+                <div class="weui-cell__hd"><img
+                        src="__STATIC__/wx/img/bangzhu.png"
+                        alt="" style="width:20px;margin-right:16px;display:block"></div>
+                <div class="weui-cell__bd">
+                    <p>帮助</p>
+                </div>
+                <div class="weui-cell__ft"></div>
+            </a>
+        </div>
     </div>
-    {/volist}
-</div>
-{/volist}
-<div class="weui-btn-area" style="position: fixed;bottom:70px ;right:5px;z-index:9999;">
-    <<<<<<< HEAD
-    <a class="weui-btn weui-btn_block weui-btn_primary" href="wx-add.html" id="showTooltips" style="padding: 0px;font-size: 30px;font-weight:normal;width: 47px;height: 47px;border-radius: 50%">+</a>
-    =======
-    <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('createPage', ['wxcode' => $wxcode, 'userid' => $userid])}" id="showTooltips" style="padding: 0px;font-size: 30px;width: 47px;height: 47px;border-radius: 50%">+</a>
-    >>>>>>> dev
-</div>
-</div>
-{include file="../application/wxcampus/view/index/nav.html"}
+    <div class="weui-tabbar">
+        <a href="{:url('Wxquery/index',['wxcode' => $wxcode])}" class="weui-tabbar__item ">
+                    <span style="display: inline-block;position: relative;">
+                        <img src="__STATIC__/wx/img/chaxun.png" alt="" class="weui-tabbar__icon">
+                    </span>
+            <p class="weui-tabbar__label">查询</p>
+        </a>
+        <a href="{:url('wx_calendar/index',['wxcode' => $wxcode, 'userid'=> $userid])}" class="weui-tabbar__item ">
+            <img src="__STATIC__/wx/img/richeng.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">日程</p>
+        </a>
+        <a href="{:url('wx_attention',['number'=> $number])}" class="weui-tabbar__item">
+                    <span style="display: inline-block;position: relative;">
+                        <img src="__STATIC__/wx/img/guanzhu-black.png" alt="" class="weui-tabbar__icon">
+                    </span>
+            <p class="weui-tabbar__label">关注</p>
+        </a>
+        <a href="{:url('Index/index', ['wxcode' => $wxcode])}" class="weui-tabbar__item weui-bar__item_on">
+            <img src="__STATIC__/wx/img/wode_on.png" alt="" class="weui-tabbar__icon">
+            <p class="weui-tabbar__label">我的</p>
+        </a>
+    </div>
 </div>
 </body>
-{literal}
-<script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
-<script>
-
-    // $(document).ready(function(){
-    //    $('#left').click(function(){
-    //         var datestr = $('#date').text();
-    //         var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
-    //         timestamp -= 1000 * 60 * 60 * 24;
-    //         var yesterday =new Date(timestamp);
-    //         location.href = 'Index?date=' + yesterday.getFullYear() + '-' + (yesterday.getMonth()+1) + '-' + yesterday.getDate();
-    //    });
-    //    $('#right').click(function(){
-    //         var datestr = $('#date').text();
-    //         var timestamp = new Date(datestr.replace(/-/g, '/')).getTime();
-    //         timestamp += 1000 * 60 * 60 * 24;;
-    //         var tomorrow =new Date(timestamp);
-    //         location.href = 'Index?date=' + tomorrow.getFullYear() + '-' + (tomorrow.getMonth()+1) + '-' + tomorrow.getDate();
-    //    });
-    // });
-</script>
-{/literal}
 </html>
