@@ -480,39 +480,35 @@
         var id = $("#tmp_id").val();
         var name = $('#depart_name').val().trim();
        	var pattern=new RegExp("/[^\u4e00-\u9fa5a-zA-Z0-9]/");
-        if(pattern.test(name)){
-            alert("输入名称不符合规范，请重新输入");
-        }
-        else{
-            //用AJAX方式访问后台写的方法
-            $.ajax({
-                type: "POST",
-                url: 'change',//你的请求程序页面随便
-                async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
-                data: {
+        //用AJAX方式访问后台写的方法
+        $.ajax({
+            type: "POST",
+            url: 'change',//你的请求程序页面随便
+            async: false,//同步：意思是当有返回值以后才会进行后面的js程序。
+            data: {
                     "id":id,
                     "name":name
-                },//请求需要发送的处理数据
-                success: function (msg) {
-                    console.log("success!"+msg);
-                	if(msg==1){
-                    	alert("修改成功！");
-               	 	}
-                	else if(msg==-1){
-                    	alert("部门名称重复，请重新输入！");
-                	}
-                	else if(msg==-2){
-                    	alert("部门名称过长，请重新输入！");
-                	}
-                  	else if(msg==-3){
-                    	alert("部门名称含有非法字符，请重新输入！");
-                	}
-                    $("#smallmodal2").modal("hide");
-                    $('.modal-backdrop').remove();//去除遮罩层
-                    //在这里刷新页面或者局部刷新表格
-                    //loadTable();
-                    window.location.reload();
+            },//请求需要发送的处理数据
+            success: function (msg) {
+                console.log("success!"+msg);
+                if(msg==1){
+                    alert("修改成功！");
+               	 }
+                else if(msg==-1){
+                    alert("部门名称重复，请重新输入！");
                 }
+                else if(msg==-2){
+                    alert("部门名称过长，请重新输入！");
+                }
+                else if(msg==-3){
+                    alert("部门名称含有非法字符，请重新输入！");
+                }
+                $("#smallmodal2").modal("hide");
+                $('.modal-backdrop').remove();//去除遮罩层
+                //在这里刷新页面或者局部刷新表格
+                //loadTable();
+                window.location.reload();
+            }
             });
         }
 
