@@ -63,7 +63,7 @@
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell">
                 <div class="weui-cell__bd">
-                    <textarea class="weui-textarea" id="note" placeholder="请输入文本" rows="2" ><?php if($note){echo $note;}?></textarea>
+                    <textarea class="weui-textarea" id="note" placeholder="请输入文本" rows="2" ><?php echo str_replace('备注：', '', $note)?></textarea>
                     <div class="weui-textarea-counter"><span id="current-word-counter">0</span>/2000</div>
                 </div>
             </div>
