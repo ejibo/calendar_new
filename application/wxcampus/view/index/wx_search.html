@@ -110,10 +110,10 @@
   
 <script>
 	$(document).ready(function(){
-        query_depart = $('#select1').val();
-        query_pos = $('#select2').val();
-        query_name = $('#name').val();
-        work_id = $("#work_id").val();
+        depart = $('#select1').val();
+        pos = $('#select2').val();
+        name = $('#name').val();
+        id = $("#work_id").val();
 
         $('#query').click(function(){
             $('#query').attr('href') = "{:url('index', array('depart' => 'query_depart', 'pos'=> 'query_pos','name'=> 'query_name','work_id'=> 'work_id'))}";
