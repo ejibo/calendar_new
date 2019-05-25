@@ -238,6 +238,7 @@
     function changeDepartmentName(){
         var id = $("#tmp_id").val();
         var name = $('#depart_name').val().trim();
+        alert(name);
        	var pattern="/[^\u4e00-\u9fa5a-zA-Z0-9]/";
         if(pattern.test(name)){
             alert("输入名称不符合规范，请重新输入");
