@@ -36,7 +36,7 @@ class Whitelist extends Model{
     }
     //编辑人员信息
     public function editwhitelist($data){
-        $is_add = Db::table('user_info')->where('id',$data['edit_id'])
+        $is_add = Db::table('white_list')->where('id',$data['edit_id'])
             ->update(['name' => $data['name'],
                 'work_id' => $data['work_id'],
                 'type_id' => $data['type_id'],
@@ -46,7 +46,7 @@ class Whitelist extends Model{
     }
     //删除人员
     public function delwhitelist($data){
-        $is_delete = Db::table('user_info')->where('id',$data['del_id'])
+        $is_delete = Db::table('white_list')->where('id',$data['del_id'])
             ->update(['is_delete' => 1]);
         return $is_delete;
     }
