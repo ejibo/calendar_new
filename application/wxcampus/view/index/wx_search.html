@@ -18,7 +18,7 @@
                     <label class="weui-label">部门</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select1">
+                    <select class="weui-select" name="depart">
                       {foreach $depart as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
                       {/foreach}
@@ -30,7 +30,7 @@
                     <label class="weui-label">职务</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <select class="weui-select" name="select2">
+                    <select class="weui-select" name="pos">
                       {foreach $pos as $vo}
                       	<option value="{$vo.id}">{$vo.name}</option>
                       {/foreach}
@@ -116,7 +116,7 @@
         work_id = $("#work_id").val();
 
         $('#query').click(function(){
-            $('#query').attr('href') = "{:url('index', array('depart' => 'query_depart', 'pos'=> 'query_pos','name'=> 'query_name','work_id'=> 'work_id'))}";
+            $('#query').attr('href') = "{:url('index')}";
         })
     })
 </script>
