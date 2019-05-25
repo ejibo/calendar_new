@@ -27,7 +27,7 @@ class ScheduleDefault extends Model
             join("schedule_place sp", "sd.place_id=sp.id")->
             join("schedule_time st", "sd.time_id=st.id")->
             join("schedule_item si", "sd.item_id=si.id")->
-            field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            field('user_id,place_id,time_id,item_id,day,note,
             ui.name as user_name,
             up.name as position,
             si.name as item,
