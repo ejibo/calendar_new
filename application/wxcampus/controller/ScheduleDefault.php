@@ -79,12 +79,7 @@ class ScheduleDefault extends Controller
         $this->assign("place", $place);//待更改默认事项地点
         $this->assign("item", $item);//待更改默认事项内容
         $this->assign("day", $day);
-      	if($note){
-            $this->assign("note", $note);//待更改默认事项备注
-        }else{
-            $this->assign("note", "");
-        }
-        //$this->assign("note", $note);//待更改默认事项备注
+        $this->assign("note", $note);//待更改默认事项备注
         $this->assign("wxcode", $wxcode);
         $this->assign("title", "更新默认日程");
         return $this->fetch();
@@ -133,9 +128,9 @@ class ScheduleDefault extends Controller
         //执行删除的操作
         $result = Db::name("schedule_default")->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
         if ($result){
-            return true;
+            return json(['code' => 1, 'msg' => 'success']);
         }else{
-            return false;
+            return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
         }
 
     }
