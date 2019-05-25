@@ -175,7 +175,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                                        <input type="text" id="edit_name" name="edit_name" placeholder="姓名" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -183,7 +183,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-credit-card"></i>
                                         </div>
-                                        <input type="number" id="edit_work_id" name="work_id"  class="form-control">
+                                        <input type="number" id="edit_work_id" name="edit_work_id"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -192,7 +192,7 @@
                                             <i class="fa fa-group"></i>
                                         </div>
 
-                                        <select name="type_id" id="edit_type_id" class="form-control">
+                                        <select name="edit_type_id" id="edit_type_id" class="form-control">
                                             <option value="0">普通用户</option>
                                             <option value="1">院领导</option>
                                             <option value="2">部门领导</option>
@@ -205,7 +205,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select name="depart_id" id="edit_depart_id" class="form-control">
+                                        <select name="edit_depart_id" id="edit_depart_id" class="form-control">
                                             {volist name='depart' id='list'}
                                             <option value={$list.id}>{$list.name}</option>
                                             {/volist}
@@ -217,7 +217,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select name="position_id" id="edit_position_id" class="form-control">
+                                        <select name="edit_position_id" id="edit_position_id" class="form-control">
                                             {volist name='position' id='list'}
                                             <option value={$list.id}>{$list.name}</option>
                                             {/volist}
@@ -389,11 +389,11 @@
         console.log('work_id'+work_id);
     });
     $('#confirmedit').click(function () {
-        var name = $.trim($('#name').val());
-        var work_id = $.trim($('#work_id').val());
-        var type_id = $.trim($('#type_id').val());
-        var depart_id = $('#depart_id').val();
-        var position_id = $('#position_id').val();
+        var name = $.trim($('#edit_name').val());
+        var work_id = $.trim($('#edit_work_id').val());
+        var type_id = $.trim($('#edit_type_id').val());
+        var depart_id = $('#edit_depart_id').val();
+        var position_id = $('#edit_position_id').val();
         var edit_id = $('#edit_id').val();
         if (name.length==0 || work_id.length==0){
             alert('输入不能为空！');
@@ -452,7 +452,7 @@
         modal.find('#del_id').val(id);
 
     });
-    $('#confirmdel').onclick(function () {
+    $('#confirmdel').click(function () {
         var del_id = $('#del_id').val();
         $.ajax({
             url:"{:url('manageconfig/whitelist/delwhitelist')}",
