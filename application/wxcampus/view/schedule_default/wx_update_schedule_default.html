@@ -16,21 +16,21 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="select2" id="day">
-                        <option value="1">周一</option>
-                        <option value="2">周二</option>
-                        <option value="3">周三</option>
-                        <option value="4">周四</option>
-                        <option value="5">周五</option>
-                        <option value="6">周六</option>
-                        <option value="7">周日</option>
+                        <option value="1" selected="<?php if($day == '周一'){echo 'selected';} ?>">周一</option>
+                        <option value="2" selected="<?php if($day == '周二'){echo 'selected';} ?>">周二</option>
+                        <option value="3" selected="<?php if($day == '周三'){echo 'selected';} ?>">周三</option>
+                        <option value="4" selected="<?php if($day == '周四'){echo 'selected';} ?>">周四</option>
+                        <option value="5" selected="<?php if($day == '周五'){echo 'selected';} ?>">周五</option>
+                        <option value="6" selected="<?php if($day == '周六'){echo 'selected';} ?>">周六</option>
+                        <option value="7" selected="<?php if($day == '周日'){echo 'selected';} ?>">周日</option>
                     </select>
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="select2" id="time">
-                        <option value="上午">上午</option>
-                        <option value="下午">下午</option>
-                        <option value="晚上">晚上</option>
-                        <option value="其他">其他</option>
+                        <option value="上午" selected="<?php if($time == '上午'){echo 'selected';}?>">上午</option>
+                        <option value="下午" selected="<?php if($time == '下午'){echo 'selected';}?>">下午</option>
+                        <option value="晚上" selected="<?php if($time == '晚上'){echo 'selected';}?>">晚上</option>
+                        <option value="其他" selected="<?php if($time == '其他'){echo 'selected';}?>">其他</option>
                     </select>
                 </div>
             </div>
@@ -40,9 +40,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="select2" id="place">
-                        <option value="校本部">校本部</option>
-                        <option value="大兴">大兴</option>
-                        <option value="其他">其他</option>
+                        <option value="校本部" selected="<?php if($place == '校本部'){echo 'selected';}?>">校本部</option>
+                        <option value="大兴" selected="<?php if($place == '大兴'){echo 'selected';}?>">大兴</option>
+                        <option value="其他" selected="<?php if($place == '其他'){echo 'selected';}?>">其他</option>
                     </select>
                 </div>
             </div>
@@ -52,9 +52,9 @@
                 </div>
                 <div class="weui-cell__bd">
                     <select class="weui-select" name="select2" id="item">
-                        <option value="上课">上课</option>
-                        <option value="开会">开会</option>
-                        <option value="其他">其他</option>
+                        <option value="上课" selected="<?php if($item == '上课'){echo 'selected';}?>">上课</option>
+                        <option value="开会" selected="<?php if($item == '开会'){echo 'selected';}?>">开会</option>
+                        <option value="其他" selected="<?php if($item == '其他'){echo 'selected';}?>">其他</option>
                     </select>
                 </div>
             </div>
