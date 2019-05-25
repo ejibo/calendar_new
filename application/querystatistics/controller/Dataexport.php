@@ -110,7 +110,7 @@ class Dataexport extends Common
             $objPHPExcel->getActiveSheet()->setCellValue('Q'.($i+2),$list[$i]['delete_time']);
         }
         //7.设置保存的Excel表格名称
-        $filename = '日程信息'.date('ymd',time()).'.xls';
+        $filename = '日程信息'.date('ymdhis',time()).'.xls';
         //8.设置当前激活的sheet表格名称；
         $objPHPExcel->getActiveSheet()->setTitle('日程信息');
         //9.设置浏览器窗口下载表格
@@ -242,7 +242,7 @@ class Dataexport extends Common
                     $objPHPExcel->getActiveSheet()->setCellValue('Q' . ($i + 2), $list[$i]['delete_time']);
                 }
                 //7.设置保存的Excel表格名称
-                $filename = '用户历史日程' . date('ymd', time()) . '.xls';
+                $filename = '用户历史日程' . date('ymdhis', time()) . '.xls';
                 //8.设置当前激活的sheet表格名称；
                 $objPHPExcel->getActiveSheet()->setTitle('日程信息');
                 //9.设置浏览器窗口下载表格

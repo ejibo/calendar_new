@@ -99,6 +99,9 @@
     }
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
+      	var place_id = $('place_id').val();
+      	var item_id = $('item_id').val();
+      	var id = $('id').val();
         var day=$('#day').val();
         var time =  $('#time').val();
         var place = $('#place').val();
@@ -108,7 +111,7 @@
             type: "POST",
             async: false,
             url: "{:url('addDefaultSchedule',['uid'=>$uid])}",
-            data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
+            data: {"day":day,"time":time,"place": place,"item":item ,"note":note, "id":id, "place_id":place_id, "item_id":item_id},
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
