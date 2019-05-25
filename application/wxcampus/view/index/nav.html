@@ -1,8 +1,8 @@
 <div class="weui-tabbar">
-    <a href="wx_search.html" class="weui-tabbar__item ">
-                <span style="display: inline-block;position: relative;">
-                    <img src="__STATIC__/wx/img/chaxun.png" alt="" class="weui-tabbar__icon">
-                </span>
+    <a href="{:url('Wxquery/index',['wxcode' => $wxcode])}" class="weui-tabbar__item ">
+                    <span style="display: inline-block;position: relative;">
+                        <img src="__STATIC__/wx/img/chaxun.png" alt="" class="weui-tabbar__icon">
+                    </span>
         <p class="weui-tabbar__label">查询</p>
     </a>
     <a href="{:url('wx_calendar/index',['wxcode' => $wxcode, 'userid'=> $userid])}" class="weui-tabbar__item weui-bar__item_on">
