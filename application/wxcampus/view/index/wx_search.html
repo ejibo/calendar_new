@@ -45,7 +45,7 @@
                     <label class="weui-label">姓名</label>
                 </div>
                 <div class="weui-cell__bd">
-                    <input class="weui-input" placeholder="请输入姓名" name="name">
+                    <input class="weui-input" type="text" placeholder="请输入姓名" name="name">
                 </div>
             </div>
 
@@ -108,12 +108,12 @@
 {literal}
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
   
-<script>
+<script >
 	$(document).ready(function(){
-        depart = $('#select1').val();
-        pos = $('#select2').val();
-        name = $('#name').val();
-        id = $("#work_id").val();
+        query_depart = $('#select1').val();
+        query_pos = $('#select2').val();
+        query_name = $('#name').val();
+        work_id = $("#work_id").val();
 
         $('#query').click(function(){
             $('#query').attr('href') = "{:url('index', array('depart' => 'query_depart', 'pos'=> 'query_pos','name'=> 'query_name','work_id'=> 'work_id'))}";
