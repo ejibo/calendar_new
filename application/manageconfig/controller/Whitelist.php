@@ -96,10 +96,7 @@ class Whitelist extends Common
         if (empty($data['name']) || empty($data['work_id'])){
             $this->error('输入不可为空');
         }
-        $exist_work_id = $whitelist->exist_work_id($data['work_id']);
-        if ($exist_work_id){
-            $this->error('该工号已存在');
-        }
+        
         $is_add = $whitelist->editwhitelist($data);
         if ($is_add){
             $this->success('修改成功！');
