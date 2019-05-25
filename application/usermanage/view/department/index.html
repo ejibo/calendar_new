@@ -239,7 +239,7 @@
         var id = $("#tmp_id").val();
         var name = $('#depart_name').val().trim();
        	var pattern="^[\u4e00-\u9fa5a-zA-Z0-9]";
-        if(name.search(pattern)){
+        if(name.search(pattern)==-1){
             alert("输入名称不符合规范，请重新输入");
         }
         else{
