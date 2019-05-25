@@ -39,7 +39,7 @@
                     <p class="weui-media-box__desc">{$schedule->note}</p>
                 </div>
                 <div class=" weui-cell__ft">
-                    <img src="__STATIC__/wx/img/guanzhu_on.png" style="width: 30px" onclick="">
+                    <a href="{:url('wx_add_schedule_default',['uid'=>$uid,'wxcode'=>$wxcode])}">编辑</a>
                 </div>
             </a>
             {/volist}
