@@ -16,7 +16,8 @@
                 </div>
                 <div class="weui-cell__bd">
                     <h4 class="weui-media-box__title">{$query.name} _ {$query.work_id}</h4>
-                    <p class="weui-media-box__desc">{$query.depart) - {$query.position}</p>
+                    <p class="weui-media-box__desc">{$query.depart)</p> 
+                  <p class="weui-media-box__desc">{$query.position}</p>
                 </div>
             {if condition="$result neq NULL"}
                 {foreach $result as $schedule}
