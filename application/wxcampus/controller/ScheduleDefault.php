@@ -88,7 +88,7 @@ class ScheduleDefault extends Controller
         return $this->fetch();
     }
 
-    public function updateDefaultSchedule($id)
+    public function updateDefaultSchedule($id, $uid)
     {
         $param = Request::instance()->post();
 
@@ -97,11 +97,15 @@ class ScheduleDefault extends Controller
         $item = $param['item'];
 
         $place_id = Db::table('schedule_place')->where('name', $place)->find()['id'];
-        if ($place_id){
+        $item_id = Db::table('schedule_item')->where('name', $item)->find()['id'];
+
+        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
+        if($info){
             return json(['code' => 1, 'msg' => 'success']);
         } else {
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
+
 
 
 
