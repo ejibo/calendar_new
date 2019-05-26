@@ -92,8 +92,9 @@ class ScheduleDefault extends Controller
 
         $param = Request::instance()->post();
 
-        $day = $param['day'];
-        $time = $param['time'];
+        $day = $param['cday'];
+        //$param['day']
+        $time = $param['ctime'];
         $place = $param['place'];
         $item = $param['item'];
         $note = $param['note'];
