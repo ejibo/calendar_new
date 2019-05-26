@@ -91,10 +91,7 @@ class ScheduleDefault extends Controller
     {
 
         $param = Request::instance()->post();
-        $res = $this->validate($param, 'app\manageconfig\validate\ScheduleDefault');//验证是否符合规范
-        if (true !== $res) {
-            return json(['code' => 403, 'msg' => '参数不符合规则：' . $res]);
-        }
+        
         //$day = $param['day'];
         $time = $param['time'];
         $place = $param['place'];
