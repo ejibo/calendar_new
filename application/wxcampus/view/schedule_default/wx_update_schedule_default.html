@@ -73,8 +73,7 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary"
-               href="{:url('updateDefaultSchedule',
-               ['id'=>$schedule->id,'uid'=>$uid, 'wxcode'=>$wxcode, 'item'=>$item, 'place'=>$place])}"
+               href="{:url('updateDefaultSchedule',['id'=>{$id},'uid'=>{$uid}, 'wxcode'=>{$wxcode}, 'item'=>{$item}, 'place'=>{$place}])}"
                id="yes-btn">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
