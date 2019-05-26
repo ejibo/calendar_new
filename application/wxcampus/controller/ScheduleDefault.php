@@ -89,15 +89,18 @@ class ScheduleDefault extends Controller
     public function updateDefaultSchedule($uid)
     {
         $param = Request::instance()->post();
-		$id = $param['id'];
-      	$item = $param['item'];
-      	$place = $param['place'];
+      
+      	try{
+            $id = $param['id'];
+            $item = $param['item'];
+            $place = $param['place'];
+            $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
+            $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
 
-
-        $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
-        $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
-
-        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
+            $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
+        }catch (\InvalidArgumentException $e) {
+            return json(['code' => $e->getCode(), 'msg' => $e->getMessage()]);
+        }
 		if ($info) {
             return json(['code' => 1, 'msg' => 'success']);
         } else {
