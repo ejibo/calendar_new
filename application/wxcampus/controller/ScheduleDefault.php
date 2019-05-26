@@ -98,12 +98,12 @@ class ScheduleDefault extends Controller
         $item_id=Db::table('schedule_item')->where('name','=',$item)->find()['id'];
 
         $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
-
-		if ($info) {
+        echo $place_id.':'.$item_id;
+		/*if ($info) {
             $this->redirect('ScheduleDefault/index',['uid'=>$uid, 'wxcode'=>$wxcode]);
         } else {
             return json(['code' => -1, 'msg' => '修改失败，发生未知错误']);
-        }
+        }*/
     }
 
     /**
