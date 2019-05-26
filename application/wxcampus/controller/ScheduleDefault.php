@@ -92,7 +92,7 @@ class ScheduleDefault extends Controller
         $place = $place;
         $item = $item;
         $id = $id;
-        $this->data('note', "备注".$note);
+      //  $this->data('note', "备注".$note);
 
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
         $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
