@@ -92,8 +92,8 @@ class ScheduleDefault extends Controller
     {
         $param = Request::instance()->post();
 
-        $place = $param['place'];
-        if($place){
+        $day = $param['day'];
+        if($day){
             return json(['code' => 1, 'msg' => 'success']);
         } else {
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
