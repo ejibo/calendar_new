@@ -86,13 +86,9 @@ class ScheduleDefault extends Controller
       	$this->assign("place_id", $place_id);
         return $this->fetch();
     }
-    public function updateDefaultSchedule($uid, $wxcode)
+    public function updateDefaultSchedule($uid, $wxcode, $id, $place, $item)
     {
-        $param = Request::instance()->post();
 
-        $id = $param['id'];
-        $item = $param['item'];
-        $place = $param['place'];
 
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
         $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
