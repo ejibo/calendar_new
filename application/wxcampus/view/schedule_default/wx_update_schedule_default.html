@@ -105,7 +105,7 @@
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('updateDefaultSchedule',['uid'=>$uid])}",
+            url: "{:url('updateDefaultSchedule',['uid'=>$uid], 'wxcode'=>$wxcode)}",
             data: {"day":day,"time":time,"place": place,"item":item ,"note":note, "id":id},
             dataType: "json",
         });
