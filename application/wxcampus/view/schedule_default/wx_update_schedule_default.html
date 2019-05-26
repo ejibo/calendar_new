@@ -71,12 +71,11 @@
         </div>
         <script>
             function update() {
-                let place = document.getElementById("place").value;
-                //document.writeln(content);
-                let item = document.getElementById("item").value;
-                let day = document.getElementById("day").value;
-                let time = document.getElementById("time").value;
-                let note = document.getElementById("note").value;
+                var day=$('#day').val();
+                var time =  $('#time').val();
+                var place = $('#place').val();
+                var item = $('#item').val();
+                var note = $('#note').val();
                 $.ajax({
                     type: "POST",
                     async: false,
