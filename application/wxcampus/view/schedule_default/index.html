@@ -45,7 +45,7 @@
                     'day'=>$schedule->getDay(), 'time'=>$schedule->getTime(),'place'=>$schedule->getPlace(),
                     'item'=>$schedule->getItem(), 'id'=>$schedule->id , 'place_id'=>$schedule->place_id,
                               'note'=>$schedule->note,'wxcode'=>$wxcode])}">修改</a>
-                    <a href="#" id="{$item_id}"href="{:url('wx_delete_schedule_default',['uid'=>$uid,'item_id'=> $schedule->item_id,
+                    <a href="#" id="{$schedule->id}"href="{:url('wx_delete_schedule_default',['uid'=>$uid,'item_id'=> $schedule->item_id,
                       'id'=>$schedule->id ])}" onclick="return sure(this)">删除</a>
                 </div>
             </a>
