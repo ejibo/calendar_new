@@ -90,10 +90,14 @@ class ScheduleDefault extends Controller
     {
         $param = Request::instance()->post();
 		$id = $param['id'];
-      	$place_id = $param['place_id'];
-      	$item_id = $param['item_id'];
-      
-        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id]);
+      	$item = $param['item'];
+      	$place = $param['place'];
+
+
+        $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
+        $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
+
+        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
 		if ($info) {
             return json(['code' => 1, 'msg' => 'success']);
         } else {
