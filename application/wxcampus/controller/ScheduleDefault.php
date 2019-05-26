@@ -112,7 +112,7 @@ class ScheduleDefault extends Controller
     {
         //执行删除的操作
         $result = Db::name("schedule_default")->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
-        header("Location: index");
+        header("Location: schedule_default/index");
         /*if ($result) {
             return json(['code' => 1, 'msg' => 'success']);
         } else {
