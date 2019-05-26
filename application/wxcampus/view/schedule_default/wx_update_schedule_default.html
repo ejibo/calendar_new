@@ -81,7 +81,7 @@
                     async: false,
                     url: "{:url('updateDefaultSchedule',['id'=>$id, 'uid'=>$uid,'wxcode'=>$wxcode])}",
                     data: {"cday":day,"ctime":time,"place": place,"item":item ,"note":note},
-                    dataType: "json",
+                    dataType: "application/json; charset=utf-8",
                     success: function (data) {
                         if (data.code == 1) {
                             $("#callbackstatus").text("更新成功");
