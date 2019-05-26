@@ -94,8 +94,8 @@ class ScheduleDefault extends Controller
         $id = $id;
       //  $this->data('note', "备注".$note);
 
-        $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
-        $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
+        $place_id=Db::table('schedule_place')->where('name','=',$place)->find()['id'];
+        $item_id=Db::table('schedule_item')->where('name','=',$item)->find()['id'];
 
         $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
 
