@@ -55,17 +55,17 @@
                         $.ajax({
                             type: "POST",
                             async: false,
-                            url: "{:url('addDefaultSchedule',['uid'=>"+that.id+"])}",
+                            url: "{:url('wx_delete_schedule_default',['uid'=>"+that.id+"])}",
                             dataType: "json",
                             success: function (data) {
                                 if (data.code == 1) {
-                                    $("#callbackstatus").text("添加成功");
+                                    //$("#callbackstatus").text("添加成功");
                                     setTimeout(function () {
                                         window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
                                     },1000)
                                 }
                                 else{
-                                    alert('添加失败：' + data.msg);
+                                    alert('删除失败：' + data.msg);
                                 }
                             }
                         });
