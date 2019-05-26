@@ -99,6 +99,9 @@ class ScheduleDefault extends Controller
         $place_id = Db::table('schedule_place')->where('name', $place)->find()['id'];
         $item_id = Db::table('schedule_item')->where('name', $item)->find()['id'];
         $time_id = Db::table('schedule_time')->where('name', $time)->find()['id'];
+        $schedule = new ScheduleDefaultModel();
+        $schedule->setNote("备注：".$param['note']);
+        $schedule->setDay($param['day']);
 
         $info = Db::name('schedule_default')->where('id', $id)
             ->update(['time_id'=>$time_id ,'user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
@@ -108,26 +111,6 @@ class ScheduleDefault extends Controller
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
 
-
-
-
-//        $param = Request::instance()->post();
-
-//        $place = $param['place'];
-
-
-      //  $this->data('note', "备注".$note);
-
-//        $place_id=Db::table('schedule_place')->where('name','=',$place)->find()['id'];
-//        $item_id=Db::table('schedule_item')->where('name','=',$item)->find()['id'];
-
-//        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
-//        echo $place_id.':'.$item_id;
-		/*if ($info) {
-            $this->redirect('ScheduleDefault/index',['uid'=>$uid, 'wxcode'=>$wxcode]);
-        } else {
-            return json(['code' => -1, 'msg' => '修改失败，发生未知错误']);
-        }*/
     }
 
     /**
