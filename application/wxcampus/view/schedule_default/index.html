@@ -45,30 +45,15 @@
                     'day'=>$schedule->getDay(), 'time'=>$schedule->getTime(),'place'=>$schedule->getPlace(),
                     'item'=>$schedule->getItem(), 'id'=>$schedule->id , 'place_id'=>$schedule->place_id,
                               'note'=>$schedule->note,'wxcode'=>$wxcode])}">修改</a>
-                    <a  href="#" id="{$schedule->id}" onclick="return sure(this)">删除</a>
+                    <a  href="{:url('wx_delete_schedule_default',['id'=>$schedule->id]" id="{$schedule->id}"
+                        onclick="return sure(this)">删除</a>
                 </div>
             </a>
             <script type="text/javascript">
                 function sure(that) {
                     let res = confirm("你确定要删除吗？");
                     if(res){
-                        $.ajax({
-                            type: "POST",
-                            async: false,
-                            url: "{:url('wx_delete_schedule_default',['uid'=>"+that.id+"])}",
-                            dataType: "json",
-                            success: function (data) {
-                                if (data.code == 1) {
-                                    //$("#callbackstatus").text("添加成功");
-                                    setTimeout(function () {
-                                        window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
-                                    },1000)
-                                }
-                                else{
-                                    alert('删除失败：' + data.msg);
-                                }
-                            }
-                        });
+                       return true;
                     }else {
                         return res;
                     }
