@@ -90,6 +90,7 @@ class ScheduleDefault extends Controller
 
     public function updateDefaultSchedule()
     {
+        return json(['code' => 1, 'msg' => 'success']);
 
 //        $param = Request::instance()->post();
 
