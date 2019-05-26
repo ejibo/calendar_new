@@ -87,11 +87,17 @@ class ScheduleDefault extends Controller
       	$this->assign("place_id", $place_id);
         return $this->fetch();
     }
-    public function updateDefaultSchedule($id, $uid, $wxcode, $item, $place, $note)
+    public function updateDefaultSchedule($id, $uid, $wxcode)
     {
+
+        $param = Request::instance()->post();
+        $day = $param['day'];
+        $time = $param['time'];
+        $place = $param['place'];
+        $item = $param['item'];
+        $note = $param['note'];
         echo $place;
         echo $item;
-
       //  $this->data('note', "备注".$note);
 
         $place_id=Db::table('schedule_place')->where('name','=',$place)->find()['id'];
