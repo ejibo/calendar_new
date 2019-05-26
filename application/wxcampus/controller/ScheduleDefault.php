@@ -88,9 +88,11 @@ class ScheduleDefault extends Controller
         return $this->fetch();
     }
 
-    public function updateDefaultSchedule()
+    public function updateDefaultSchedule($id)
     {
-        return json(['code' => 1, 'msg' => 'success']);
+        if($id){
+            return json(['code' => 1, 'msg' => 'success']);
+        }
 
 //        $param = Request::instance()->post();
 

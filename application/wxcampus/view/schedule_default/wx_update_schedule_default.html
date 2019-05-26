@@ -102,11 +102,11 @@
             type: "POST",
             async: false,
             data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
-            url: "{:url('updateDefaultSchedule',['uid'=>$uid])}",
+            url: "{:url('updateDefaultSchedule',['uid'=>$uid, 'id'=>$id])}",
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    $("#callbackstatus").text("添加成功");
+                    $("#callbackstatus").text("修改成功");
                     setTimeout(function () {
                         window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
                     },1000)
