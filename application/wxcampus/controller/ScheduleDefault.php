@@ -100,6 +100,7 @@ class ScheduleDefault extends Controller
         $note = $param['note'];
         echo $place;
         echo $item;
+        echo $day;
       //  $this->data('note', "备注".$note);
 
         $place_id=Db::table('schedule_place')->where('name','=',$place)->find()['id'];
