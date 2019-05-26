@@ -87,7 +87,7 @@ class ScheduleDefault extends Controller
       	$this->assign("place_id", $place_id);
         return $this->fetch();
     }
-    public function updateDefaultSchedule($uid, $wxcode, $place, $item, $id, $note)
+    public function updateDefaultSchedule($id, $uid, $wxcode, $item, $place, $note)
     {
         $place = $place;
         $item = $item;
@@ -100,7 +100,7 @@ class ScheduleDefault extends Controller
         $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
 
 		if ($info) {
-            $this->redirect('ScheduleDefault/index',['uid'=>$uid, '$wxcode'=>$wxcode]);
+            $this->redirect('ScheduleDefault/index',['uid'=>$uid, 'wxcode'=>$wxcode]);
         } else {
             return json(['code' => -1, 'msg' => '修改失败，发生未知错误']);
         }
@@ -119,7 +119,7 @@ class ScheduleDefault extends Controller
         } else {
             return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
         }*/
-        $this->redirect('ScheduleDefault/index',['uid'=>$uid, '$wxcode'=>$wxcode]);
+        $this->redirect('ScheduleDefault/index',['uid'=>$uid, 'wxcode'=>$wxcode]);
         //return $this->index($uid, $wxcode);
         //$this->index()
 
