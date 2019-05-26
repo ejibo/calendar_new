@@ -118,7 +118,7 @@ class ScheduleDefault extends Controller
         } else {
             return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
         }*/
-        return $this->fetch("schedule_default/index");
+        $this->index($uid, $wxcode);
 
     }
     /**
