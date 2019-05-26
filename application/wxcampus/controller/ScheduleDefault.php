@@ -90,11 +90,15 @@ class ScheduleDefault extends Controller
 
     public function updateDefaultSchedule($id)
     {
-        if($id){
-            return json(['code' => -1, 'msg' => '修改失败']);
-        }else{
-            return json(['code' => 1, 'msg' => '修改成功']);
+        $param = Request::instance()->post();
+
+        $place = $param['place'];
+        if($place){
+            return json(['code' => 1, 'msg' => 'success']);
+        } else {
+            return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
+
 
 //        $param = Request::instance()->post();
 
