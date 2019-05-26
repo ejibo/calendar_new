@@ -9,7 +9,7 @@
 <body style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
     <div class="weui-tab__panel">
-        <form action="{:U('updateDefaultSchedule')}" method="post">
+        <form action="{:url('updateDefaultSchedule', ['uid'=>$uid, 'wxcode'=>$wxcode])}" method="post">
         <div class="weui-cells">
             <div class="weui-cell weui-cell_select weui-cell_select-after">
                 <div class="weui-cell__hd">
@@ -71,38 +71,38 @@
             </div>
         </div>
         </form>
-        <script>
-            function update() {
-                var day=$('#day').val();
-                var time =  $('#time').val();
-                var place = $('#place').val();
-                var item = $('#item').val();
-                var note = $('#note').val();
-                $.ajax({
-                    type: "POST",
-                    async: false,
-                    url: "{:url('updateDefaultSchedule',['id'=>$id, 'uid'=>$uid,'wxcode'=>$wxcode])}",
-                    data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
-                    dataType: "application/x-www-form-urlencoded",
-                    success: function (data) {
-                        if (data.code == 1) {
-                            $("#callbackstatus").text("更新成功");
-                            setTimeout(function () {
-                                window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
-                            },1000)
-                        }
-                        else{
-                            alert('更新失败：' + data.msg);
-                        }
-                    }
-                });
-            }
-        </script>
+<!--        <script>-->
+<!--            function update() {-->
+<!--                var day=$('#day').val();-->
+<!--                var time =  $('#time').val();-->
+<!--                var place = $('#place').val();-->
+<!--                var item = $('#item').val();-->
+<!--                var note = $('#note').val();-->
+<!--                $.ajax({-->
+<!--                    type: "POST",-->
+<!--                    async: false,-->
+<!--                    url: "{:url('updateDefaultSchedule',['id'=>$id, 'uid'=>$uid,'wxcode'=>$wxcode])}",-->
+<!--                    data: {"day":day,"time":time,"place": place,"item":item ,"note":note},-->
+<!--                    dataType: "application/x-www-form-urlencoded",-->
+<!--                    success: function (data) {-->
+<!--                        if (data.code == 1) {-->
+<!--                            $("#callbackstatus").text("更新成功");-->
+<!--                            setTimeout(function () {-->
+<!--                                window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";-->
+<!--                            },1000)-->
+<!--                        }-->
+<!--                        else{-->
+<!--                            alert('更新失败：' + data.msg);-->
+<!--                        }-->
+<!--                    }-->
+<!--                });-->
+<!--            }-->
+<!--        </script>-->
         <p hidden="hidden" id="item_id">{$item_id}</p>
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
-            <a class="weui-btn weui-btn_block weui-btn_primary"
-               id="yes-btn" onclick="update()">确定</a>
+            <button type="submit" class="weui-btn weui-btn_block weui-btn_primary"
+               id="yes-btn">确定</button>
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
     </div>
