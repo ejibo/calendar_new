@@ -93,11 +93,16 @@ class ScheduleDefault extends Controller
         $param = Request::instance()->post();
 
         $day = $param['day'];
-        if($day){
+        $place = $param['place'];
+        $item = $param['item'];
+
+        $place_id = Db::table('schedule_place')->where('name', $place)->find()['id'];
+        if ($place_id){
             return json(['code' => 1, 'msg' => 'success']);
         } else {
             return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
         }
+
 
 
 //        $param = Request::instance()->post();
