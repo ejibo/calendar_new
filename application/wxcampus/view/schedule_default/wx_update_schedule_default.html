@@ -80,8 +80,8 @@
                     type: "POST",
                     async: false,
                     url: "{:url('updateDefaultSchedule',['id'=>$id, 'uid'=>$uid,'wxcode'=>$wxcode])}",
-                    data: {"cday":day,"ctime":time,"place": place,"item":item ,"note":note},
-                    dataType: "application/json; charset=utf-8",
+                    data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
+                    dataType: "application/x-www-form-urlencoded",
                     success: function (data) {
                         if (data.code == 1) {
                             $("#callbackstatus").text("更新成功");
