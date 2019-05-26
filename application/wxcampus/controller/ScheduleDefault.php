@@ -121,7 +121,7 @@ class ScheduleDefault extends Controller
         } else {
             return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
         }*/
-        $this->redirect('ScheduleDefault/index');
+        $this->redirect('ScheduleDefault/index',['uid'=>$uid, '$wxcode'=>$wxcode]);
         //return $this->index($uid, $wxcode);
         //$this->index()
 
