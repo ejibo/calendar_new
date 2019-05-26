@@ -72,7 +72,10 @@
         <p hidden="hidden" id="item_id">{$item_id}</p>
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
-            <a class="weui-btn weui-btn_block weui-btn_primary" onclick="updateDefaultSchedule()" id="yes-btn">确定</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary"
+               href="{:url('updateDefaultSchedule',
+               ['id'=>$schedule->id,'uid'=>$uid, 'wxcode'=>$wxcode, 'item'=>$item, 'place'=>$place])}"
+               id="yes-btn">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
     </div>
@@ -89,34 +92,7 @@
         //     $("#current-word-counter").innerHTML=$("#note").val().length;
         // })
     }
-    /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
-    function updateDefaultSchedule(){
-        var id = $('#id').val();
-        var day=$('#day').val();
-        var time =  $('#time').val();
-        var place = $('#place').val();
-        var item = $('#item').val();
-        var note = $('#note').val();
-        let item_id = $('#item_id').val();
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "{:url('updateDefaultSchedule',['uid'=>$uid])}",
-            data: {"item_id":item_id ,"day":day,"time":time,"place": place,"item":item ,"note":note, "id":id},
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 1) {
-                    $("#callbackstatus").text("添加成功");
-                    setTimeout(function () {
-                        window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
-                    },1000)
-                }
-                else{
-                    alert('添加失败：' + data.msg);
-                }
-            }
-        });
-    }
+
 </script>
 </body>
 </html>

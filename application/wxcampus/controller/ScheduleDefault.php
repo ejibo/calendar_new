@@ -86,11 +86,10 @@ class ScheduleDefault extends Controller
       	$this->assign("place_id", $place_id);
         return $this->fetch();
     }
-    public function updateDefaultSchedule($uid)
+    public function updateDefaultSchedule($uid, $wxcode)
     {
         $param = Request::instance()->post();
-      
-      	try{
+
             $id = $param['id'];
             $item = $param['item'];
             $place = $param['place'];
@@ -98,11 +97,9 @@ class ScheduleDefault extends Controller
             $item_id=Db::table('schedule_item')->where('name',$item)->find()['id'];
 
             $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id, "update_time"=>date("Y-m-d H:i:s")]);
-        }catch (\InvalidArgumentException $e) {
-            return json(['code' => $e->getCode(), 'msg' => $e->getMessage()]);
-        }
+
 		if ($info) {
-            return json(['code' => 1, 'msg' => 'success']);
+            return $this->index($uid, $wxcode);
         } else {
             return json(['code' => -1, 'msg' => '修改失败，发生未知错误']);
         }
