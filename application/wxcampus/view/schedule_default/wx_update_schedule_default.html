@@ -59,8 +59,6 @@
                     </select>
                 </div>
             </div>
-            <div hidden="hidden" id="id">${id}</div>
-
         </div>
         <div class="weui-cells__title">事项描述</div>
         <div class="weui-cells weui-cells_form">
@@ -75,7 +73,7 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary"
-               onclick="updateDefaultSchedule()"
+               href="{:url('updateDefaultSchedule',['id'=>$id,'uid'=>$uid, 'wxcode'=>$wxcode, 'item'=>$item, 'place'=>$place])}"
                id="yes-btn">确定</a>
             <a class="weui-btn weui-btn_block weui-btn_primary" onclick="window.history.back()" id="cancel-btn">返回</a>
         </div>
@@ -94,22 +92,7 @@
         // })
     }
 
-    /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
-    function updateDefaultSchedule(){
-        var day=$('#day').val();
-        var time =  $('#time').val();
-        var place = $('#place').val();
-        var item = $('#item').val();
-        var note = $('#note').val();
-        var id = $('#id').val();
-        $.ajax({
-            type: "POST",
-            async: false,
-            url: "{:url('updateDefaultSchedule',['uid'=>$uid, 'wxcode'=>$wxcode])}",
-            data: {"day":day,"time":time,"place": place,"item":item ,"note":note, "id":id},
-            dataType: "json",
-        });
-    }
+
 
 </script>
 </body>
