@@ -108,17 +108,17 @@ class ScheduleDefault extends Controller
     /**
      *删除默认日程界面
      */
-    public function wx_delete_schedule_default( $id)
+    public function wx_delete_schedule_default($id)
     {
         //执行删除的操作
         $result = Db::name("schedule_default")->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
 
-        /*if ($result) {
+        if ($result) {
             return json(['code' => 1, 'msg' => 'success']);
         } else {
             return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
-        }*/
-      return $this->fetch('schedule_default/index');
+        }
+      //return $this->fetch('schedule_default/index');
 
     }
     /**
