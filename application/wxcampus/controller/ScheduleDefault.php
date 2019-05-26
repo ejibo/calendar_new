@@ -70,7 +70,7 @@ class ScheduleDefault extends Controller
     /**
      *修改默认日程界面
      */
-    public function wx_update_schedule_default($uid, $item_id, $day, $time, $place, $item, $note, $wxcode)
+    public function wx_update_schedule_default($uid, $item_id, $day, $time, $place, $item, $note, $wxcode, $id, $place_id)
     {
         $this->assign("uid", $uid);
         $this->assign("userid", $uid);
@@ -82,54 +82,41 @@ class ScheduleDefault extends Controller
         $this->assign("note", $note);//待更改默认事项备注
         $this->assign("wxcode", $wxcode);
         $this->assign("title", "更新默认日程");
+        $this->assign("id", $id);
+      	$this->assign("place_id", $place_id);
         return $this->fetch();
     }
     public function updateDefaultSchedule($uid)
     {
         $param = Request::instance()->post();
-
-        $res = $this->validate($param, 'app\manageconfig\validate\ScheduleDefault');//验证是否符合规范
-        if (true !== $res) {
-            return json(['code' => 403, 'msg' => '参数不符合规则：' . $res]);
-        }
-        $item_id = $param['item_id'];//需删除的id
-        $res = $this->wx_delete_schedule_default($uid, $item_id);//将其删除
-        if (true !== $res) {
-            return json(['code' => 403, 'msg' => '更新出错：' . $res]);
-        }
-        $schedule = new ScheduleDefaultModel();
-        try {
-            $schedule->setUserId($uid);
-            $schedule->setDay($param['day']);
-            $schedule->setTime($param['time']);
-            $schedule->checkSameTimeDefaultSchedule();
-            $schedule->setPlace($param['place']);
-            $schedule->setItem($param['item']);
-            $schedule->setNote($param['note']);
-        } catch (\InvalidArgumentException $e) {
-            return json(['code' => $e->getCode(), 'msg' => $e->getMessage()]);
-        }
-        $schedule->is_delete = 0;
-        $schedule->update_time = date("Y-m-d H:i:s");
-        if ($schedule->save()) {
-            $log = new Log();
-            $log->recordLogApi($uid, 2, 0, "schedule_default", [$schedule->id]);
+		$id = $param['id'];
+      	$place_id = $param['place_id'];
+      	$item_id = $param['item_id'];
+      
+        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$uid, 'place_id'=>$place_id, 'item_id'=>$item_id]);
+		if ($info) {
             return json(['code' => 1, 'msg' => 'success']);
         } else {
-            return json(['code' => -1, 'msg' => '添加失败，发生未知错误']);
+            return json(['code' => -1, 'msg' => '修改失败，发生未知错误']);
         }
     }
 
     /**
      *删除默认日程界面
      */
-    public function wx_delete_schedule_default($uid, $item_id, $id, $wxcode)
+    public function wx_delete_schedule_default($uid, $item_id, $id)
     {
         //执行删除的操作
         $result = Db::name("schedule_default")->where('id', $id)->update(['is_delete' => 1, "delete_time" => date("Y-m-d H:i:s")]);
 
-        return $this->fetch('ScheduleDefault/index');
-
+       // if ($result){
+       //     return $this->fetch('index', ['uid'=>$uid, 'wxcode'=>$wxcode]);
+       // }else{
+        //    return json(['code' => -1, 'msg' => '删除失败，发生未知错误']);
+      //  }
+      //return $this->fetch();
+      return $this->fetch('schedule_default/index');
+      
     }
     /**
      * 修改默认日程界面
