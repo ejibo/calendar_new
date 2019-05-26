@@ -98,12 +98,12 @@
         $.ajax({
             type: "POST",
             async: false,
-            url: "{:url('addDefaultSchedule',['uid'=>$uid])}",
+            url: "{:url('wx_delete_schedule_default',['uid'=>$uid])}",
             data: {"day":day,"time":time,"place": place,"item":item ,"note":note},
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    $("#callbackstatus").text("添加成功");
+                    //$("#callbackstatus").text("添加成功");
                     setTimeout(function () {
                         window.location.href="{:url('index',['uid'=>$uid,'wxcode'=>$wxcode])}";
                     },1000)
