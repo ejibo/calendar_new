@@ -85,11 +85,11 @@
         //window.alert("点击获取验证码");
         var obj = $("input[name='tel']");
         phoneNum = obj.val(); //获取输入的电话号码
-        window.alert("输入的手机号为" + phoneNum);
+        //window.alert("输入的手机号为" + phoneNum);
 
         //判断手机号是否为空
-        if(phoneNum == null){
-            window.alert("输入的手机号为空" + phoneNum);
+        if(phoneNum == null|| phoneNum==''){
+            window.alert("请输入手机号" + phoneNum);
         }
         else{
             //发送短信
@@ -113,22 +113,21 @@
 
     }
     function login(){
-        window.alert("点击登录");
         var obj = $("input[name='tel']");
         tel = obj.val();
         var obj = $("input[name='code']");
         code = obj.val();
 
-        //判断手机号是否为空
-        if(phoneNum == null){
-            window.alert("输入的手机号为空" + phoneNum);
+        //判断 手机号 / 验证码 是否为空
+        if(tel == null|| tel==''){
+            //为空的代码
+            window.alert("请输入手机号" + tel);
+        }else if(code == null || code == ''){
+            window.alert("请输入验证码" + code);
         }
-        //判断验证码是否为空
-        else if(code == null){
-            window.alert("输入的验证码为空" + code);
-        }
+
         //判断验证码是否正确
-        else {
+       else {
             $.ajax({
                 type: 'POST',
                 dataType:'json',
@@ -136,16 +135,16 @@
                 data: {tel:tel,code:code},
                 success: function(data){
                     if(data.status == 0){
-                        $("#go").val(data.msg);
+                        window.location.href = "../../querystatistics/query/index";//界面跳转
+                        //$("#go").val(data.msg);
                         //window.alert("登录成功" + phoneNum);
+                        //window.open("http://114.116.99.20/calendar_new/public/index.php/querystatistics/query/index.html");//跳转界面
                     }else {
                         $("#go").val(data.msg);
                     }
                 }
             });
-        }
-
-
+       }
     }
 </script>
 
