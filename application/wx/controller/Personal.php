@@ -5,7 +5,7 @@
  * Date: 2019/4/14
  * Time: 9:43
  */
-
+//备注： 该功能已写到wxcampus/WxCalendar.php下面
 namespace app\wx\controller;
 
 

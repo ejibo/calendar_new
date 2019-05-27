@@ -5,42 +5,83 @@
  * 2019-5-15
  */
 
-namespace app\wx\controller;
+namespace app\wxcampus\controller;
 use app\common\controller\Common;
 use think\Controller;
 use think\Db;
 use think\Request;
 
+
 class Wxquery extends controller
 {
-    //按照部门、职务、姓名 查询用户日程
-    public function index(, $work_id)
+     public function Index()
     {
-        // qname 前端传输回来的查询词--用户名
-      $param = input('post.');
-      if(empty($spram['query_name'])){
-      	$this->error('请输入姓名');
-      }
-      if(empty($spram['work_id'])){
-      	$this->error('请输入工号');
-      }
-       // $name = Request::instance()->param('query_name');
-       // $work_id = Request::instance()->param('query_name');
+		// 在下拉框中实时获取全部的部门和职位
+        $depart_list = array();
+        $depart_list = Db::table('user_depart')
+          ->where('is_delete', 0)
+          ->select();
       
-        // $res = Db::table('schedule_info')
-        //     ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
-        //     ->where('a.is_delete', 0)
-        //     ->where('b.name', $query_name)
-        //     ->where('b.work_id', $work_id)
-        //     ->join('b', 'a.user_id = b.id')
-        //     ->join('c', 'b.position_id = c.id')
-        //     ->join('d', 'a.time_id = d.id')
-        //     ->join('e', 'a.place_id = e.id')
-        //     ->join('f', 'a.item_id = f.id')
-        //     ->field('b.name as name, d.name as time, e.name as place, f.name as item, b.id as id')
-        //     ->select();
+        $position_list = array();
+        $position_list = Db::table('user_position')
+          ->where('is_delete', 0)
+          ->select();
+      
+        $this->assign('depart', $depart_list);
+      	$this->assign('pos', $position_list);
+        
 
-        // $this->assign('res',$res);
-        return $this->fetch(index/wx_search);
+        return $this->fetch('index/wx_search');
     }
+  
+  public function search()
+  {
+  		//按照部门、职务、姓名、工号 查询用户日程
+        $query_depart = 0;
+        $query_pos = 0;
+        $query_name = '';
+        $query_work_id = 0;
+        if(input('?get.depart') && input('?get.pos') && input('?get.name') && input('?get.work_id')){
+            $query_depart = Request::instance()->param('depart');
+            $query_pos = Request::instance()->param('pos');
+            $query_name = Request::instance()->param('name','','strip_tags,htmlspecialchars');
+            $query_work_id = Request::instance()->param('work_id','','strip_tags,htmlspecialchars');
+        }
+    	$query_info = array(
+            'name' => $query_name,
+            'work_id' => $query_work_id,
+            'depart' => $query_depart,
+            'position' => $query_pos
+        );
+    
+        $sche_info = array();
+        $sche_info = Db::table('schedule_info')
+            // ->alias(['schedule_info' => 'a', 'user_info' => 'b', 'user_position' => 'c', 'schedule_time' => 'd', 'schedule_place' => 'e', 'schedule_item' => 'f'])
+            ->join('user_info', 'schedule_info.user_id = user_info.id')
+            ->join('user_depart', 'user_info.depart_id = user_depart.id')
+            ->join('user_position', 'user_info.position_id = user_position.id')
+            ->join('schedule_time', 'schedule_info.time_id = schedule_time.id')
+            ->join('schedule_place', 'schedule_info.place_id = schedule_place.id')
+            ->join('schedule_item', 'schedule_info.item_id = schedule_item.id')
+            ->where('schedule_info.is_delete', 0)
+            ->where('user_info.is_delete', 0)
+            ->where('user_info.depart_id', $query_depart)
+            ->where('user_info.position_id', $query_pos)
+            ->where('user_info.name', $query_name)
+            ->where('user_info.work_id', $query_work_id)
+            ->where('schedule_info.date', '>= time', date('Y-m-d', time()))
+            ->field('user_depart.name as depart, user_position.name as position, schedule_time.name as time, schedule_place.name as place, schedule_item.name as item')
+            ->select();
+
+            // dump($allInfo);
+
+      	if (!is_array($sche_info)){
+            echo '检索结果无';
+        }else{
+            $this->assign('query', $query_info);
+            $this->assign('result', $sche_info);
+            return $this->fetch('index/wx_searchlist');
+}
+  }
+  
 }

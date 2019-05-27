@@ -51,12 +51,25 @@ class Whitelist extends Common
         if (empty($data['name']) || empty($data['work_id'])){
             $this->error('输入不可为空');
         }
+        $whitelist = model('Whitelist');
 
-        $exist_work_id = Db::table('user_info')->where('work_id',$data['work_id'])->find();
+        $exist_work_id = $whitelist->exist_work_id($data['work_id']);
         if ($exist_work_id){
             $this->error('该工号已存在');
         }
-        $is_add = Db::table('user_info')->insert($data);
+//        if ($data['type']!=0 && $data['type']!=1 && $data['type']!=2 && $data['type']!=3){
+//            $this->error('请输入正确的用户类型');
+//        }
+//
+//        $exist_depart = $whitelist->exist_depart($data['depart_id']);
+//        if (!$exist_depart){
+//            $this->error('该部门不存在');
+//        }
+//        $exist_position = $whitelist->exist_position($data['position_id']);
+//        if(!$exist_position){
+//            $this->error('该职位不存在');
+//        }
+        $is_add = Db::table('white_list')->insert($data);
 
         if ($is_add){
             $this->success('添加成功');
@@ -78,7 +91,12 @@ class Whitelist extends Common
 
     public function editwhitelist(){
         $whitelist = model('Whitelist');
+
         $data = input('post.');
+        if (empty($data['name']) || empty($data['work_id'])){
+            $this->error('输入不可为空');
+        }
+        
         $is_add = $whitelist->editwhitelist($data);
         if ($is_add){
             $this->success('修改成功！');
@@ -107,7 +125,7 @@ class Whitelist extends Common
         $type = 4;                                                        // 操作类型：删除（清空）
         $table = 'white_list';                                             // 操作数据表
         $field = '[All whitelist items, total:'.$is_clear.$clear_ids.']';      // 删除的主键列表, 不是学号
-        $logmodel->recordLogApi ($uid, $type, $table, $field);            // 需要判断调用是否成功
+        $logmodel->recordLogApi ($uid, $type, 1, $table, $field);            // 需要判断调用是否成功
 
         if ($is_clear >= 0){
             $this->success('修改成功！');
@@ -176,6 +194,74 @@ class Whitelist extends Common
             $this->error('添加失败');
         }
     }
+
+    //---------------------------------------------------------------
+
+
+    //---------------------------------------------------------------
+    /*
+    responser: 陈国强
+    Created：2019/05/16
+    some implemented function：
+    getinfo()：获取白名单信息
+    excelInput() ： 向 user_info 数据表插入信息
+    */
+    public function excelOutput()
+    {
+        $info = model("Whitelist")->getinfo();
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'ID')
+            ->setCellValue('B1', '用户姓名')
+            ->setCellValue('C1', '工号/学号')
+            ->setCellValue('D1', '用户类型：')
+            ->setCellValue('E1', '所属部门')
+            ->setCellValue('F1', '职位');
+        $departdict = array(0 => "普通用户", 1 => "院领导", 2 => "部门领导", 3 => "系领导");
+        $spreadsheet->getActiveSheet()->setTitle('用户信息');
+        //dump($info);
+        $i = 2; //从第二行开始
+        foreach ($info as $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue('A' . $i, $data['id'])
+                ->setCellValue('B' . $i, $data['ui_name'])
+                ->setCellValue('C' . $i, $data['work_id'])
+                ->setCellValue('D' . $i, $departdict[$data['type_id']])
+                ->setCellValue('E' . $i, $data['ud_name'])
+                ->setCellValue('F' . $i, $data['up_name']);
+
+            $i++;
+        }
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(10);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(15);
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:F' . $i)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+
+
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="白名单信息.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
+    }
+
 
     //---------------------------------------------------------------
 

@@ -7,10 +7,17 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="box-title">
-                            默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <button type="submit" class="btn btn-success btn-sm" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
-                        </h4>
+                        <div class="input-group">
+                            <h4 class="box-title">
+                                默认日程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            </h4>
+                            <div class="input-group-addon">
+                                用户:
+                            </div>
+                            <input type="text" id="uname-search" placeholder="用户名" class="form-control" style="max-width:180px" value="{$uname}">
+                            <button type="button" id="search" class="btn btn-success" style="margin:0 10px 0 10px;" onclick="getUserDefaultSchedules()">搜索</button>
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#smallmodal1">添加默认日程</button>
+                        </div>&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                     <div class="card-body--">
                         <div class="table-stats">
@@ -18,19 +25,25 @@
                                 <thead>
                                 <tr>
                                     <th class="serial">序号</th>
+                                    <th>用户</th>
+                                    <th>身份</th>
                                     <th>时间</th>
                                     <th>地点</th>
                                     <th>事项</th>
+                                    <th>备注</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {volist name="defaultSchedules" id="defaultSchedule" key="key"}
-                                <tr>
+                                <tr class="data-row">
                                     <td class="serial">{$key}</td>
-                                    <td>  <span class="product">{$defaultSchedule->getTime()}</span> </td>
+                                    <td>  <span class="product">{$defaultSchedule->getUserName()}</span> </td>
+                                    <td>  <span class="product">{$defaultSchedule->getPosition()}</span> </td>
+                                    <td>  <span class="product">{$defaultSchedule->getDay().$defaultSchedule->getTime()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getPlace()}</span> </td>
                                     <td>  <span class="product">{$defaultSchedule->getItem()}</span> </td>
+                                    <td>  <span class="product">{$defaultSchedule->note}</span> </td>
                                     <td>
                                         <button type="button" class="btn btn-primary btn-sm mb-1" data-id="{$defaultSchedule.id}" onclick='editId(this)' data-toggle="modal" data-target="#smallmodal">
                                             <i class="fa fa-magic"></i>&nbsp;编辑
@@ -158,7 +171,7 @@
                                     <div class="input-group-addon">
                                         <i class="fa fa-check-square-o"></i>
                                     </div>
-                                    <input type="text" id="username" name="username" value="new" class="form-control" disabled="disabled">
+                                    <input type="text" id="addNewUser" name="uname" class="form-control" placeholder="用户名" value={$uname}>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -167,13 +180,13 @@
                                         <i class="fa fa-pencil-square-o"></i>
                                     </div>
                                     <select id="addNewDay" name="addNewDay" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
-                                        <option value="周一">周一</option>
-                                        <option value="周二">周二</option>
-                                        <option value="周三">周三</option>
-                                        <option value="周四">周四</option>
-                                        <option value="周五">周五</option>
-                                        <option value="周六">周六</option>
-                                        <option value="周日">周日</option>
+                                        <option value="1">周一</option>
+                                        <option value="2">周二</option>
+                                        <option value="3">周三</option>
+                                        <option value="4">周四</option>
+                                        <option value="5">周五</option>
+                                        <option value="6">周六</option>
+                                        <option value="7">周日</option>
                                     </select>
                                     <select id="addNewTime" name="addNewTime" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
                                         <option value="上午">上午</option>
@@ -198,6 +211,14 @@
                                     <input type="text" id="addNewItem" name="addNewItem" placeholder="事项" class="form-control">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <textarea type="text" id="addNewNote" name="addNewNote" placeholder="备注" class="form-control"></textarea>
+                                </div>
+                            </div>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -215,10 +236,27 @@
 {/block}
 {block name="scripts"}
 <script>
+    $("#uname-search").bind('keyup',function (event) {
+        if(event.keyCode=='13'){
+            getUserDefaultSchedules();
+        }
+    })
+    function getUserDefaultSchedules() {
+        var user=$("#uname-search").val();
+        window.location.href="{:url('index')}?user="+user;
+    }
+
     /**添加默认事项，使用ajax向addDefaultSchedule方法发送请求*/
     function addDefaultSchedule(){
-        var time = $('#addNewDay').val() + $('#addNewTime').val();
+        var user = $('#addNewUser').val();
+        var day = $('#addNewDay').val();
+        var time =  $('#addNewTime').val();
         var place = $('#addNewPlace').val();
+        var note = $('#addNewNote').val();
+        if (user.trim().length == 0) {
+            alert('请输入用户名');
+            return 1;
+        }
         if (place.trim().length == 0) {
             alert('请输入地点');
             return 1;
@@ -232,7 +270,7 @@
             type: "POST",
             async: false,
             url: "{:url('Calendar/addDefaultSchedule')}",
-            data: {"time":time,"place": place,"item":item },
+            data: {"user":user,"day":day,"time":time,"place": place,"item":item,"note":note },
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {

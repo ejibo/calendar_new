@@ -181,7 +181,7 @@
         </form>
 
         <!--编辑人员信息-->
-        <form action="edituserinfo" method="post">
+        <form action="edituserinfo" method="post" onsubmit="return md_submit()">
             <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -305,7 +305,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-group"></i>
                                 </div>
-                                <select name="type_id" id="del_type_id" class="form-control" readonly="true">
+                                <select name="type_id" id="del_type_id" class="form-control" disabled="disabled">
                                     <option value="0">普通用户</option>
                                     <option value="1">院领导</option>
                                     <option value="2">部门领导</option>
@@ -319,7 +319,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-group"></i>
                                 </div>
-                                <select name="depart_id" id="del_depart_id" class="form-control" readonly="true">
+                                <select name="depart_id" id="del_depart_id" class="form-control" disabled="disabled">
                                     {volist name='depart' id='list'}
                                     <option value={$list.id}>{$list.name}</option>
                                     {/volist}
@@ -333,7 +333,7 @@
                                     <i class="fa fa-group"></i>
                                 </div>
                                 <select name="position_id" id="del_position_id" class="form-control"
-                                        readonly="true">
+                                        disabled="disabled">
                                     {volist name='position' id='list'}
                                     <option value={$list.id}>{$list.name}</option>
                                     {/volist}
@@ -386,8 +386,8 @@
 
 <!--编辑人员信息特殊字符校验-->
 <script>
-    let flagName = false;
-    let flagId = false;
+     let mdName = false;
+     let mdId = false;
 
     function valid_name() {
         let resultName = document.getElementById("achieve_name");
@@ -396,7 +396,7 @@
     }
 
     function review_name() {
-        flagName = false;
+        mdName = false;
         let resultName = document.getElementById("achieve_name");
         resultName.style.color = '#ff6666';
         let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
@@ -406,7 +406,7 @@
         } else if (name.length < 2 || name.length > 20) {
             resultName.innerHTML = "用户名必须为2~20位";
         } else if (cnPattern.test(name)) {
-            flagName = true;
+            mdName = true;
             resultName.innerHTML = "用户名合法";
             resultName.style.color = '#2ecc71';
         } else {
@@ -421,7 +421,7 @@
     }
 
     function review_id() {
-        flagId = false;
+        mdId = false;
         let resultId = document.getElementById("achieve_work_id");
         resultId.style.color = "#ff6666";
         let cnPattern = /^\d{10}$/;
@@ -429,7 +429,7 @@
         if (workId === null) {
             resultId.innerHTML = "学工号为空";
         } else if (cnPattern.test(workId)) {
-            flagId = true;
+            mdId = true;
             resultId.innerHTML = "学工号合法";
             resultId.style.color = "#2ecc71";
         } else {
@@ -437,6 +437,16 @@
         }
     }
 
+     function md_submit() {
+         if (mdId && mdName) {
+             mdId = true;
+             mdName = true;
+             return true;
+         } else {
+             alert("所填信息不符合要求，请修改！");
+             return false;
+         }
+     }
 </script>
 
 <!--删除人员-->
@@ -495,6 +505,7 @@
             function (data) {
                 if (data.msg == "删除成功")
                     location.reload();
+                    alert("删除成功！");
                 else
                     alert("删除失败，重新操作");
             });

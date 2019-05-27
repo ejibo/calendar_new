@@ -1,57 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>查询我的日程信息</title>
-</head>
-<style type="text/css">
-table.gridtable {
-    font-family: verdana,arial,sans-serif;
-    font-size:40px;
-    color:#333333;
-    border-width: 1px;
-    border-color: #666666;
-    border-collapse: collapse;
-}
-table.gridtable th {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #dedede;
-}
-table.gridtable td {
-    border-width: 1px;
-    padding: 1px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #ffffff;
-}
-</style>
+<!doctype html>
+<html class="no-js" lang="">
 
+{include file='common@public:header' /}
+<!--其他样式-->
+
+<!--其他样式-->
 
 <body>
-    <table class="gridtable" width="100%">
-        <thead>
-            <tr>
-                <th>日期</th>
-                <th>时间</th>
-                <th>地点</th>
-                <th>事项</th>
-                <th>备注</th>
-            </tr>
-        </thead>
-        <tbody>
-            {foreach name="schedule_info" item="vo"}
-            <tr>
-                <td>{$vo['date']}</span></td>
-                <td>{$vo['time']}</span></td>
-                <td>{$vo['place']}</span></td>
-                <td>{$vo['item']}</span></td>
-                <td>{$vo['note']}</span></td>
-            </tr>
-            {/foreach}
-        </tbody>
-    </table>
+
+<!-- Content -->
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card-body--">
+                    <div class="table-stats">
+                        <table id="bootstrap-data-table" class="table">
+                            <thead>
+                            <tr>
+                                <th class="serial">序号</th>
+
+                                <th>时间</th>
+                                <th>地点</th>
+                                <th>事项</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {volist name= 'schedule_info' id='list'}
+                            <tr>
+                                <td class="serial">{$i}</td>
+                                <td>  <span class="product">{$list.date}</span> </td>
+                                <td>  <span class="product">{$list.place}</span> </td>
+                                <td> <span class="product">{$list.item}</span> </td>
+                            </tr>
+                            {/volist}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- .animated -->
+</div>
+
+<!-- /.content -->
 </body>
 </html>

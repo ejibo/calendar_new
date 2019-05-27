@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <title>{$title}</title>
 </head>
 <body style="height: 100%; background-color: #ededed">
@@ -68,11 +68,13 @@
         <div class="weui-btn-area">
             <span id='callbackstatus'></span>
             <a class="weui-btn weui-btn_block weui-btn_primary" id="{$confirmid}">确定</a>
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="index?date={$date}" id="cancel-btn">返回</a>
+            <a class="weui-btn weui-btn_block weui-btn_primary" href="{:url('WxCalendar/Index', ['wxcode' => $wxcode, 'userid' => $userid, 'date' => $date])}" id="cancel-btn">返回</a>
         </div>
         <input style="display:none" id="scheduleid" value="{$scheduleid}"></input>
     </div>
 </div>
+<a style="display: none" href="{:url('WxCalendar/Create', ['userid' => $userid])}" id="create-url"></a>
+<a style="display: none" href="{:url('WxCalendar/Update', ['userid' => $userid])}" id="update-url"></a>
 </body>
 {literal}
 <script src="__STATIC__/assets/js/vendor/jquery-2.1.4.min.js"></script>
@@ -97,7 +99,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    'create',
+                    $('#create-url').attr('href'),
                     {
                         "method": "create",
                         "date": $('#date').val(),
@@ -110,7 +112,7 @@ $(document).ready(function(){
                         if(data.success == true){
                             $('#callbackstatus').text("新增成功!");
                             setTimeout(function(){
-                                location.href = '/wxcampus/WxCalendar';
+                                location.href = $('#cancel-btn').attr('href');
                             }, 1000);
                         }else{
                             $('#callbackstatus').text("新增失败!" + data.message);
@@ -124,7 +126,7 @@ $(document).ready(function(){
         function (){
             if(checkInput()){
                 $.post(
-                    'update',
+                    $('#update-url').attr('href'),
                     {
                         "method": "update",
                         "date": $('#date').val(),
@@ -138,7 +140,7 @@ $(document).ready(function(){
                         if(data.success == true){
                             $('#callbackstatus').text("修改成功!");
                             setTimeout(function(){
-                                location.href = '/wxcampus/WxCalendar';
+                                location.href = $('#cancel-btn').attr('href');
                             }, 1000);
                         }else{
                             $('#callbackstatus').text("修改失败!" + data.message);

@@ -3,161 +3,220 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="__STATIC__/wx/css/weui.css">
+    <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/2.0.0/weui.css">
     <title>日程查看</title>
     <style>
         .weui-flex {
             background-color: #FFFFFF;
             text-align: center;
-            padding-top: 0px;
             padding-bottom: 10px;
+
         }
 
         .today {
             margin-left: auto;
             margin-right: auto;
             padding-top: auto;
-            padding-bottom: auto;
-            background-color: #0bb20c;
+            margin-bottom: auto;
+            background-color: #07C160;
             color: #FFFFFF;
-            width: 35px;
-            height: 35px;
-            border-radius: 5px;
-            text-align: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+
         }
 
         a {
-            color: black;
-            font-size: 17px;
+            color: #353535;
+            font-size: 15px;
+
         }
 
         .week {
             color: #9b9b9b;
-            margin-top: -30px;
+            font-size: 15px;
+            font-weight: bolder;
         }
+
 
         .margintop30 {
             margin-top: 30px;
         }
-
     </style>
 
 
 </head>
 <body ontouchstart style="height: 100%; background-color: #ededed">
 <div class="weui-tab">
+
     <div class="weui-tab__panel">
-        <div class="page__bd" style="background-color: #FFFFFF">
-            <article class="weui-article">
-                <div class="weui-cell">
-                    <div class="weui-cell__bd weui-cell_primary">
-                        <h1>李老师</h1>
-                        <div class="weui-flex">
-                            <h2 class="title">学工办</h2>
-                            <h2 style="margin-left: 10px">主任</h2>
-                        </div>
-                    </div>
-                    <div class="weui-cell__ft"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII=" alt="" style="width:20px;margin-right:16px;display:block;"></div>
+
+        <div style="position: fixed;top: 0px;z-index:9999;width: 100%">
+            <a href="#" class="weui-media-box weui-media-box_appmsg"
+               style="background-color: #FFFFFF;height: 75px;padding-left: 20px">
+                <div class="weui-media-box__hd">
+                    <img class="weui-media-box__thumb" style="border-radius: 5px" src="__STATIC__/wx/img/s.jpg">
                 </div>
-            </article>
+                <div class="weui-media-box__bd">
+                    <h4 class="weui-media-box__title" style="font-size: 22px;font-weight: 700;margin-bottom: .1em">张老师</h4>
+                    <p class="weui-media-box__desc" style="font-size: 17px">学工办 主任</p>
+                </div>
+            </a>
+            <div class="weui-flex week">
+                <div class="weui-flex__item">
+                    <div class="placeholder">日</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">一</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">二</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">三</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">四</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">五</div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder">六</div>
+                </div>
+            </div>
+            <div class="weui-flex days">
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">5</a></div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">6</a>
+                        <div style="height: 5px;width: 5px;text-align:center;border-radius: 50%; background-color:  #07C160;display: block;margin-left: auto;margin-right: auto"></div>
+                    </div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">7</a></div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">8</a></div>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">9</a></div>
+                </div>
+                <div class="weui-flex__item">
+                    <a href="#" class="placeholder">
+                        <div class="today">10</div>
+                    </a>
+                </div>
+                <div class="weui-flex__item">
+                    <div class="placeholder"><a href="#">11</a></div>
+                </div>
+            </div>
         </div>
-        <div class="weui-flex week">
-            <div class="weui-flex__item">
-                <div class="placeholder" style="color:#9C2E23">日</div>
+        <div class="weui-cells__title"style="margin-top: 190px">2019年5月10日</div>
+        <div class="weui-cells">
+
+            <div class="weui-panel__hd" style="padding: 10px 16px 10px;color:#9b9b9b;">
+                <div style="width: 4px;height: 15px;background-color:#FFBE00;display:inline-block;vertical-align:middle;margin: 0 10px 3px 10px"></div>
+                上午 8:30-11:30
             </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">一</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">二</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">三</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">四</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder">五</div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder" style="color:#9C2E23">六</div>
-            </div>
-        </div>
-        <div class="weui-flex">
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">5</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">6</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">7</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">8</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">9</a></div>
-            </div>
-            <div class="weui-flex__item">
-                <a href="#" class="placeholder">
-                    <div class="today">10</div>
+            <div class="weui-panel__bd">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
                 </a>
             </div>
-            <div class="weui-flex__item">
-                <div class="placeholder"><a href="#">11</a></div>
-            </div>
         </div>
-        <div class="weui-cells__title">日程信息</div>
         <div class="weui-cells">
+            <div class="weui-panel__hd" style="padding: 10px 16px 10px;color:#9b9b9b;">
+                <div style="width: 4px;height: 15px;background-color:#FA5151;display:inline-block;vertical-align:middle;margin: 0 10px 3px 10px"></div>
+                下午 14:00-17:00
+            </div>
             <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd">
-                        <h4 class="weui-media-box__title">上午</h4>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">大兴开会</h4>
-                        <p class="weui-media-box__desc">今天上午在大兴校区开会。</p>
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
                     </div>
-                </div>
-                <div class="weui-media-box weui-media-box_appmsg">
-                    <div class="weui-media-box__hd">
-                        <h4 class="weui-media-box__title">下午</h4>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
                     </div>
                     <div class="weui-media-box__bd">
-                        <h4 class="weui-media-box__title">大兴上课</h4>
-                        <p class="weui-media-box__desc">今天下午在大兴授课</p>
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
                     </div>
-                </div>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
+                </a>
             </div>
         </div>
-        <div class="weui-btn-area">
-            <a class="weui-btn weui-btn_block weui-btn_primary" href="javascript:" id="showTooltips">关注</a>
+        <div class="weui-cells">
+            <div class="weui-panel__hd" style="padding: 10px 16px 10px;color:#9b9b9b;">
+                <div style="width: 4px;height: 15px;background-color:#FA5151;display:inline-block;vertical-align:middle;margin: 0 10px 3px 10px"></div>
+                晚上 18:00-21:00
+            </div>
+            <div class="weui-panel__bd">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
+                </a>
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg"
+                   style="padding: 10px;margin-left: 15px">
+                    <div>
+                        <img style="width: 14px;height: 14px;padding:2px 10px 18px 0px" src="__STATIC__/wx/img/dian.png">
+                    </div>
+                    <div class="weui-media-box__bd">
+                        <h4 class="weui-media-box__title">上课</h4>
+                        <p class="weui-media-box__desc">今天上午在3303上课。</p>
+                    </div>
+                    <div class="weui-cell__ft">
+                        <div style="margin-top: 0">大兴</div>
+                    </div>
+                </a>
+            </div>
         </div>
-
-    </div>
-    <div class="weui-tabbar">
-        <a href="wx_search.html" class="weui-tabbar__item ">
-                    <span style="display: inline-block;position: relative;">
-                        <img src="__STATIC__/wx/img/chaxun.png" alt="" class="weui-tabbar__icon">
-                    </span>
-            <p class="weui-tabbar__label">查询</p>
-        </a>
-        <a href="wx_calendar.html" class="weui-tabbar__item weui-bar__item_on">
-            <img src="__STATIC__/wx/img/richeng_on.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">日程</p>
-        </a>
-        <a href="wx_attention.html" class="weui-tabbar__item">
-                    <span style="display: inline-block;position: relative;">
-                        <img src="__STATIC__/wx/img/guanzhu-black.png" alt="" class="weui-tabbar__icon">
-                    </span>
-            <p class="weui-tabbar__label">关注</p>
-        </a>
-        <a href="wx_me.html" class="weui-tabbar__item">
-            <img src="__STATIC__/wx/img/wode.png" alt="" class="weui-tabbar__icon">
-            <p class="weui-tabbar__label">我的</p>
-        </a>
     </div>
 </div>
 </body>
