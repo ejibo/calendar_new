@@ -60,7 +60,7 @@
                                                     <a href=" 'index/modifySchedule')}?id={$change_info.id} & user_info_name={$change_info.user_info_name} & schedule_place_name={$change_info.schedule_place_name}
                                                         & schedule_item_name={$change_info.schedule_item_name} & user_position_name={$change_info.user_position_name} & date={$change_info.date} & schedule_time_name={$change_info.schedule_time_name}">
                                                     </a>-->
-                                                        <button type="button" class="btn btn-primary btn-sm mb-1"  data-id="{$change_info.id}" data-target="#smallmodal" data-toggle="modal" >
+                                                        <button type="button" class="btn btn-primary btn-sm mb-1" data-time="{$change_info.time_id}" data-place="{$change_info.place_id}" data-item="{$change_info.item_id}"data-id="{$change_info.id}" data-target="#smallmodal" data-toggle="modal" >
                                                     <i class="fa fa-magic"></i>&nbsp;修改
                                                 </button>                                                                                  
                                                 </td>                                             
@@ -116,8 +116,8 @@
                                         <input type="date" id="date" name="date" value="" class="form-control" > 
 
                                         <select id="schedule_time_name" name="schedule_time_name" class="form-control">
-                                            {foreach name="user_schedule" item="change_info"}   
-                                            <option selected value="{$change_info.time_id}">{$change_info.schedule_time_name}</option>
+                                            {foreach name="user_time" item="time_info"}   
+                                            <option value="{$time_info.id}">{$time_info.name}</option>
                                             {/foreach}    
                                         </select>
                                         </div>
@@ -130,8 +130,8 @@
                                         </div>
                                         
                                         <select name="schedule_place_name" id="schedule_place_name" class="form-control">
-                                            {foreach name="user_schedule" item="change_info"}   
-                                            <option value="{$change_info.place_id}">{$change_info.schedule_place_name}</option>
+                                            {foreach name="user_place" item="place_info"}   
+                                            <option value="{$place_info.id}">{$place_info.name}</option>
                                             {/foreach}
                                             
                                             
@@ -145,8 +145,8 @@
                                             <i class="fa fa-group"></i>
                                         </div>
                                         <select name="schedule_item_name" id="schedule_item_name" class="form-control">
-                                        {foreach name="user_schedule" item="change_info"}   
-                                            <option value="{$change_info.item_id}">{$change_info.schedule_item_name}</option>
+                                        {foreach name="user_item" item="item_info"}   
+                                            <option value="{$item_info.id}">{$item_info.name}</option>
                                         {/foreach}
                                         </select>
 
@@ -156,7 +156,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success" id="confirm_change">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirm_change" onclick="javascript:return mod();">确认</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -170,12 +171,24 @@
 
 {block name="scripts"}
 <script type="text/javascript">
+    //确认修改前，弹出提示框
+    function mod() {
+    var msg = "您真的确定要修改吗？\n\n请确认！";
+    if (confirm(msg)==true){
+    return true;
+    }else{
+    return false;
+    }
+    }
     // 修改时间段描述 模态框
     $('#smallmodal').on('show.bs.modal', function (event) {
         
 var btnThis = $(event.relatedTarget); //触发事件的按钮
 var modal = $(this);  //当前模态框
 var modalId = btnThis.data('id');   //解析出data-id的内容
+var modal_time_id = btnThis.data('time'); 
+var modal_place_id = btnThis.data('place'); 
+var modal_item_id = btnThis.data('item'); 
 var id = btnThis.closest('tr').find('td').eq(0).text();
 var user_info_name = btnThis.closest('tr').find('td').eq(1).text();
 var user_position_name = btnThis.closest('tr').find('td').eq(2).text();
@@ -191,18 +204,40 @@ console.log(date);
 console.log(schedule_time_name);
 console.log(schedule_place_name);
 console.log(schedule_item_name);
-
+console.log(modalId);
+console.log(modal_time_id);
+console.log(modal_place_id);
+console.log(modal_item_id);
   //alert(schedule_place);
   //console.log(order);
 modal.find('#id').val(id);      
 modal.find('#user_info_name').val(user_info_name);      
 modal.find('#user_position_name').val(user_position_name); 
 modal.find('#date').val(date);   
-modal.find('#schedule_time_name').val(schedule_time_name);
-modal.find('#schedule_place_name').val(schedule_place_name);
-modal.find('#schedule_item_name').val(schedule_item_name);
+modal.find('#schedule_time_name').val(modal_time_id);
+modal.find('#schedule_place_name').val(modal_place_id);
+modal.find('#schedule_item_name').val(modal_item_id);
+if (schedule_place_name ) {
+    //console.log($("#schedule_place_name").val("2"));
+    //console.log($("#schedule_place_name").find("option:contains('"+modal_place_id+"')").val());
+    //$("#schedule_place_name").find("option:contains('"+modal_place_id+"')").attr("selected","selected");
+    $("#schedule_place_name").val(modal_place_id);
+    //$("#schedule_place_name").find("option[value='"+modal_place_id+"']").attr("selected",true);
+
+    //$("#schedule_place_name").change();
+   //$("#schedule_place_name").val('"+modal_place_id+"');
+}
+if (schedule_time_name ) {
+    $("#schedule_time_name").val(modal_time_id);
+}
+
+
+if (schedule_item_name ) {
+    $("#schedule_item_name").val(modal_item_id);
+}
 
 });
+
 
     // 确认修改ajax
     $("#confirm_change").click(function(){
@@ -229,12 +264,17 @@ modal.find('#schedule_item_name').val(schedule_item_name);
     console.log("8"+schedule_place_text);
     console.log("9"+schedule_item_name);
     console.log("10"+schedule_item_text);
-    if(date.length === 0 || schedule_place_name.length === 0 ||schedule_item_name.length === 0 ||schedule_time_name.length === 0)
-    {
-        alert('输入不能为空');
-        return;
-    }
-            
+
+    // if(date.length === 0 || schedule_place_name.length === 0 ||schedule_item_name.length === 0 ||schedule_time_name.length === 0)
+    // {
+    //     alert('输入不能为空');
+    //     return;
+    // }
+    // if(schedule_place_text == schedule_place_name & schedule_item_text == schedule_item_name & schedule_time_text  == schedule_time_name)
+    // {
+    //     alert('并未修改信息');
+    //     return;
+    // }       
 
       //post方法修改
     $.post("{:url('Modifyschedule/modifySchedule')}",
@@ -258,5 +298,6 @@ modal.find('#schedule_item_name').val(schedule_item_name);
             alert(data);
     });
 });
+
 </script>
 {/block}

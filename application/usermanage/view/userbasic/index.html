@@ -7,14 +7,13 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="box-title">日程时间</h4>
-                    <button type="submit" class="btn btn-success btn-sm" data-toggle="modal"
+                    <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal"
                             data-target="#addwhitelist">添加人员
                     </button>
-                    <button id="batchShow" type="submit" class="btn btn-success btn-sm">
+                    <button id="batchShow" type="submit" class="btn btn-primary btn-sm">
                         批量添加
                     </button>
-                  	<button type="submit" class="btn btn-success btn-sm" onclick="method5('bootstrap-data-table')" >批量导出
-                    </button>
+                    <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
                     <button id="deletebutton" type="submit" class="btn btn-success btn-sm"
                             onclick=' displayAllCheckbox(),
                                                document.getElementById("button2").style.display="inline" ,
@@ -33,14 +32,18 @@
                                                   document.getElementById("button1").style.display="none"'>取消
                     </button>
                     <br>
+                    <br>
                     <form id="batchAdd" action="batchAddByExcel" enctype="multipart/form-data" method="post"
                           style="display: none">
-                        <label>Excel文件:</label>
-                        <input type="file" name="file"/> <br>
-                        <label>批量添加:</label>
-                        <input class="btn btn-success btn-sm" type="submit" value="上传"/>
+                        <label>Excel文件: </label>
+                        <input type="file" name="file" id="file_excel"/>
+                        <br>
+                        <label>格式: |姓名|学(工)号|用户类型|所属部门|职位|</label> <br>
+                        <label>批量添加: </label>
+                        <input class="btn btn-primary btn-sm" type="button" value="上传" onclick="submitExcel()"/>
+                        <a href="exampleExcel">下载模板</a>
                     </form>
-                    
+
 
                 </div>
                 <div class="card-body--">
@@ -91,7 +94,7 @@
         </div>
 
         <!--添加白名单人员-->
-        <form action="addUser" method="post">
+        <form action="addUser" method="post" onsubmit="return check_submit()">
             <div class="modal fade" id="addwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -105,12 +108,19 @@
                         <div class="modal-body">
                             <p>
                             <div class="form-group">
+                                <div id="result_name"></div>
+                            </div>
+                            <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" id="name" name="name" placeholder="姓名" class="form-control">
+                                    <input type="text" id="name" name="name" placeholder="姓名"
+                                           class="form-control" onfocus="focus_name()" onblur="blur_name()">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="result_work_id"></div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
@@ -118,7 +128,7 @@
                                         <i class="fa fa-credit-card"></i>
                                     </div>
                                     <input type="text" id="work_id" name="work_id" placeholder="工号/学号"
-                                           class="form-control">
+                                           class="form-control" onfocus="focus_id()" onblur="blur_id()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -171,7 +181,7 @@
         </form>
 
         <!--编辑人员信息-->
-        <form action="edituserinfo" method="post">
+        <form action="edituserinfo" method="post" onsubmit="return md_submit()">
             <div class="modal fade" id="edituserinfo" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-sm" role="document">
@@ -186,19 +196,25 @@
                             <input type="hidden" id="edit_id" name="edit_id">
                             <p>
                             <div class="form-group">
+                                <div id="achieve_name"></div>
+                            </div>
+                            <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                                    <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control" onfocus="valid_name()" onblur="review_name()">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="achieve_work_id"></div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-credit-card"></i>
                                     </div>
-                                    <input type="text" id="edit_work_id" name="work_id" class="form-control">
+                                    <input type="text" id="edit_work_id" name="work_id" placeholder="工号/学号" class="form-control" onfocus="valid_id()" onblur="review_id()">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -289,7 +305,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-group"></i>
                                 </div>
-                                <select name="type_id" id="del_type_id" class="form-control" readonly="true">
+                                <select name="type_id" id="del_type_id" class="form-control" disabled="disabled">
                                     <option value="0">普通用户</option>
                                     <option value="1">院领导</option>
                                     <option value="2">部门领导</option>
@@ -303,7 +319,7 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-group"></i>
                                 </div>
-                                <select name="depart_id" id="del_depart_id" class="form-control" readonly="true">
+                                <select name="depart_id" id="del_depart_id" class="form-control" disabled="disabled">
                                     {volist name='depart' id='list'}
                                     <option value={$list.id}>{$list.name}</option>
                                     {/volist}
@@ -317,7 +333,7 @@
                                     <i class="fa fa-group"></i>
                                 </div>
                                 <select name="position_id" id="del_position_id" class="form-control"
-                                        readonly="true">
+                                        disabled="disabled">
                                     {volist name='position' id='list'}
                                     <option value={$list.id}>{$list.name}</option>
                                     {/volist}
@@ -328,7 +344,7 @@
                         </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-secondary"  data-dismiss="modal">取消</button>
                         <button type="submit" class="btn btn-success" id="confirmdelete">确认</button>
                         </a>
                     </div>
@@ -368,9 +384,74 @@
     });
 </script>
 
+<!--编辑人员信息特殊字符校验-->
+<script>
+     let mdName = false;
+     let mdId = false;
+
+    function valid_name() {
+        let resultName = document.getElementById("achieve_name");
+        resultName.innerHTML = "姓名不可包含特殊字符且为2~20位的中英文";
+        resultName.style.color = '#aaaaaa';
+    }
+
+    function review_name() {
+        mdName = false;
+        let resultName = document.getElementById("achieve_name");
+        resultName.style.color = '#ff6666';
+        let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
+        let name = $('#edit_name').val();
+        if (name === null) {
+            resultName.innerHTML = "用户名为空";
+        } else if (name.length < 2 || name.length > 20) {
+            resultName.innerHTML = "用户名必须为2~20位";
+        } else if (cnPattern.test(name)) {
+            mdName = true;
+            resultName.innerHTML = "用户名合法";
+            resultName.style.color = '#2ecc71';
+        } else {
+            resultName.innerHTML = "用户名非法，请修改";
+        }
+    }
+
+    function valid_id() {
+        let resultId = document.getElementById("achieve_work_id");
+        resultId.innerHTML = "学工号仅为数字";
+        resultId.style.color = "#aaaaaa";
+    }
+
+    function review_id() {
+        mdId = false;
+        let resultId = document.getElementById("achieve_work_id");
+        resultId.style.color = "#ff6666";
+        let cnPattern = /^\d{10}$/;
+        let workId = $('#edit_work_id').val();
+        if (workId === null) {
+            resultId.innerHTML = "学工号为空";
+        } else if (cnPattern.test(workId)) {
+            mdId = true;
+            resultId.innerHTML = "学工号合法";
+            resultId.style.color = "#2ecc71";
+        } else {
+            resultId.innerHTML = "学工号非法，请修改";
+        }
+    }
+
+     function md_submit() {
+         if (mdId && mdName) {
+             mdId = true;
+             mdName = true;
+             return true;
+         } else {
+             alert("所填信息不符合要求，请修改！");
+             return false;
+         }
+     }
+</script>
+
 <!--删除人员-->
 <script type="text/javascript">
-    let id;
+    // let id;
     $('#delwhitelist').on('show.bs.modal', function (event) {
         var btnThis = $(event.relatedTarget); //触发事件的按钮
         var modal = $(this);  //当前模态框
@@ -422,8 +503,10 @@
                 id: id
             },
             function (data) {
-                if (data.msg == "删除成功")
+                if (data.msg == "删除成功"){
                     location.reload();
+                    alert("删除成功！");
+                }
                 else
                     alert("删除失败，重新操作");
             });
@@ -500,13 +583,85 @@
             form.style.display = 'none';
         }
     });
+
+    let flagName = false;
+    let flagId = false;
+
+    function focus_name() {
+        let resultName = document.getElementById("result_name");
+        resultName.innerHTML = "姓名不可包含特殊字符且为2~20位的中英文";
+        resultName.style.color = '#aaaaaa';
+    }
+
+    function blur_name() {
+        flagName = false;
+        let resultName = document.getElementById("result_name");
+        resultName.style.color = '#ff6666';
+        let cnPattern = /[\u4E00-\u9FA5A-Za-z]/;
+        let name = $('#name').val();
+        if (name === null) {
+            resultName.innerHTML = "用户名为空";
+        } else if (name.length < 2 || name.length > 20) {
+            resultName.innerHTML = "用户名必须为2~20位";
+        } else if (cnPattern.test(name)) {
+            flagName = true;
+            resultName.innerHTML = "用户名合法";
+            resultName.style.color = '#2ecc71';
+        } else {
+            resultName.innerHTML = "用户名非法，请修改";
+        }
+    }
+
+    function focus_id() {
+        let resultId = document.getElementById("result_work_id");
+        resultId.innerHTML = "学工号仅为数字";
+        resultId.style.color = "#aaaaaa";
+    }
+
+    function blur_id() {
+        flagId = false;
+        let resultId = document.getElementById("result_work_id");
+        resultId.style.color = "#ff6666";
+        let cnPattern = /^\d+$/;
+        let workId = $('#work_id').val();
+        if (workId === null) {
+            resultId.innerHTML = "学工号为空";
+        } else if (cnPattern.test(workId)) {
+            flagId = true;
+            resultId.innerHTML = "学工号合法";
+            resultId.style.color = "#2ecc71";
+        } else {
+            resultId.innerHTML = "学工号非法，请修改";
+        }
+    }
+    
+    function check_submit() {
+        if (flagId && flagName) {
+            flagId = false;
+            flagName = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function submitExcel() {
+        let file = $('#file_excel').get(0).files[0];
+        if (file) {
+            $('#batchAdd').submit();
+        } else {
+            alert("请选择好文件再进行上传操作！")
+        }
+    }
+
+
 </script>
 
 <script>
-    var idTmr;  
-    function  getExplorer() {  
-    var explorer = window.navigator.userAgent ;  
-    //ie  
+    var idTmr;
+    function  getExplorer() {
+    var explorer = window.navigator.userAgent ;
+    //ie
     if (explorer.indexOf("MSIE") >= 0) {
             return 'ie';
         }
@@ -525,36 +680,6 @@
         //Safari  
         else if (explorer.indexOf("Safari") >= 0) {
             return 'Safari';
-        }
-    }
-    function method5(tableid) {
-        if (getExplorer() == 'ie') {
-            var curTbl = document.getElementById(tableid);
-            var oXL = new ActiveXObject("Excel.Application");
-            var oWB = oXL.Workbooks.Add();
-            var xlsheet = oWB.Worksheets(1);
-            var sel = document.body.createTextRange();
-            sel.moveToElementText(curTbl);
-            sel.select();
-            sel.execCommand("Copy");
-            xlsheet.Paste();
-            oXL.Visible = true;
-    
-            try {
-                var fname = oXL.Application.GetSaveAsFilename("Excel.xls",
-                        "Excel Spreadsheets (*.xls), *.xls");
-            } catch (e) {
-                print("Nested catch caught " + e);
-            } finally {
-                oWB.SaveAs(fname);
-                oWB.Close(savechanges = false);
-                oXL.Quit();
-                oXL = null;
-                idTmr = window.setInterval("Cleanup();", 1);
-            }
-    
-        } else {
-            tableToExcel(tableid)
         }
     }
     function Cleanup() {
@@ -580,7 +705,7 @@
             window.location.href = uri + base64(format(template, ctx))
         }
     })()
-    
-    
+
+
     </script>
 {/block}

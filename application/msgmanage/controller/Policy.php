@@ -11,17 +11,25 @@ namespace app\msgmanage\controller;
 
 use app\common\controller\Common;
 
-function utf8_fopen_read($fileName)
-{
-    $fc = iconv('windows-1250', 'utf-8', file_get_contents($fileName));
-    $handle=fopen("php://memory", "rw");
-    fwrite($handle, $fc);
-    fseek($handle, 0);
-    return $handle;
-}
-
+/**
+* @ Purpose:
+* 查看并修改用户隐私条款和使用条款
+* @Author: Qu Qian
+* @Date:2019/4/4
+* @Time: 20:27
+*/
 class Policy extends Common
 {
+    /**
+    * @Purpose:
+    * 获取查看并修改用户隐私条款和使用条款的页面
+    *
+    * @Method Name: index()
+    *
+    * @Author: Qu Qian
+    *
+    * @Return: html页面
+    */
     public function index()
     {
         $provisionFile = fopen("provisions.txt", "r") or die("Unable to open file!");
@@ -31,9 +39,24 @@ class Policy extends Common
         return $this->fetch();
     }
 
+    /**
+    * @Purpose:
+    * 修改用户隐私条款和使用条款
+    *
+    * @Method Name:  postProvisionDetail()
+    *
+    * @Param: text $textarea-input 用户隐私条款和使用条款内容
+    *
+    * @Author: Qu Qian
+    *
+    * @Return: json 修改结果信息
+    */
     public function postProvisionDetail()
     {
         $data = input('textarea-input');
+        if(!$data){
+            return json(['msg' => '输入内容不能为空', 'code' => -1]);            
+        } 
         $provisionFile = fopen("provisions.txt", "w") or die("Unable to open file!");
         $tag = fwrite($provisionFile, $data);
         fclose($provisionFile);
