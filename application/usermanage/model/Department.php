@@ -10,6 +10,7 @@ namespace app\usermanage\model;
 
 use think\Model;
 use think\Db;
+use app\logmanage\model\Log as LogModel;
 
 class Department extends Model
 {
@@ -65,6 +66,7 @@ class Department extends Model
        */
     public function addDepartment($name)
     {
+      $model = new LogModel();
         // 接收用户的数据,部门描述
 		#protected $_validate = array(
         #array('name','require','部门名称不能为空'，0,'regex',3),
