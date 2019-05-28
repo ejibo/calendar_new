@@ -27,6 +27,7 @@ class Item extends Common
         $modelLog = new LogModel();
         $uid = ADMIN_ID;
         $type =2;
+        $is_manage = 1;
         $table ='schedule_item';
         $des = $_POST['des'];
         $model = model('ScheduleItem');
@@ -35,7 +36,7 @@ class Item extends Common
             $res = $model->insertScheduleItem($des);
             if($res){
                 $field =[$res];
-                $modelLog->recordLogApi($uid,$type,$table,$field);
+                $modelLog->recordLogApi($uid,$type,$is_manage,$table,$field);
                 $this->success("新增成功");
             }
             else{
@@ -51,13 +52,14 @@ class Item extends Common
         $modelLog = new LogModel();
         $uid = ADMIN_ID;
         $type =4;
+        $is_manage = 1;
         $table ='schedule_item';
         $id = $_POST['id'];
         $field=[$id];
         $model = model('ScheduleItem');
         $res = $model->deleteScheduleItem($id);
         if($res == 1){
-            $modelLog->recordLogApi($uid,$type,$table,$field);
+            $modelLog->recordLogApi($uid,$type,$is_manage,$table,$field);
             $this->success("删除成功");
         }
         else{
@@ -69,6 +71,7 @@ class Item extends Common
         $modelLog = new LogModel();
         $uid = ADMIN_ID;
         $type =3;
+        $is_manage = 1;
         $table ='schedule_item';
         $id = $_POST['id'];
         $des = $_POST['des'];
@@ -79,7 +82,7 @@ class Item extends Common
         if($isSame ==null){
             $res = $model->updateScheduleItem($id,$des);
             if($res ==1){
-                $modelLog->recordLogApi($uid,$type,$table,$field);
+                $modelLog->recordLogApi($uid,$type,$is_manage,$table,$field);
                 $this->success("编辑成功!");
             }
             else{

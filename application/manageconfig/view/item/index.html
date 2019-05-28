@@ -167,6 +167,11 @@
             alert('输入不能为空');
             return;
         }
+        if(des.length >30)
+        {
+            alert('输入是事项过长');
+            return;
+        }
         //$("#smallmodal1").modal(true,true,true,false);
         $.ajax({
             url:"{:url('manageconfig/item/addScheduleItem')}",
@@ -201,6 +206,11 @@
         if(des.length === 0)
         {
             alert('输入不能为空');
+            return;
+        }
+        if(des.length >30)
+        {
+            alert('输入是事项过长');
             return;
         }
         $.ajax({
@@ -251,7 +261,7 @@
                 show: true
             });
         });
-    }
+    }   
 </script>
 <!-- /.content -->
 {/block}
