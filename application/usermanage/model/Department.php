@@ -66,7 +66,6 @@ class Department extends Model
        */
     public function addDepartment($name)
     {
-      $model = new LogModel();
         // 接收用户的数据,部门描述
 		#protected $_validate = array(
         #array('name','require','部门名称不能为空'，0,'regex',3),
@@ -102,6 +101,14 @@ class Department extends Model
         $status = 1;
         $message = '添加成功';
         return ['status' => $status, 'message' => $message];
+      	$model = new LogModel();
+	  	$uid = 3334; // 操作人主键 id，非学号
+	  	$type = 2;
+	  	$is_manage = 1; // 管理员填 1,非管理员填 0
+	  	$table = 'user_depart';
+      	echo $user ->id;
+      	$field = 'id'; // 增加的主键列表，不是学号
+	  	$model->recordLogApi ($uid, $type, $is_manage ,$table, $field); //需要判断调用是否成功
     }
 
     /*
