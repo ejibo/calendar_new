@@ -100,16 +100,10 @@ class Department extends Model
         $user->save();
         $status = 1;
         $message = '添加成功';
-        return ['status' => $status, 'message' => $message];
-      	$model = new LogModel();
-	  	$uid = 3334; // 操作人主键 id，非学号
-	  	$type = 2;
-	  	$is_manage = 1; // 管理员填 1,非管理员填 0
-	  	$table = 'user_depart';
-      	echo $user ->id;
-      	$field = 'id'; // 增加的主键列表，不是学号
-	  	$model->recordLogApi ($uid, $type, $is_manage ,$table, $field); //需要判断调用是否成功
+      	return ['status' => $status, 'message' => $message];
+        
     }
+ 
 
     /*
    *story:修改部门名称
