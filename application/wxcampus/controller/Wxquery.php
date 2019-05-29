@@ -16,7 +16,8 @@ class Wxquery extends controller
 {
   	 private $uid;
      private $wxcode;
-  
+     private $number;
+
      public function Index($userid, $wxcode, $number)
     {
        	$this->uid = $userid;
