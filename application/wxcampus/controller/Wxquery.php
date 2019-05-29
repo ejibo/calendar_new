@@ -14,10 +14,7 @@ use think\Request;
 
 class Wxquery extends controller
 {
-  	 private $uid;
-     private $wxcode;
-     private $number;
-
+  	 
      public function Index($userid, $wxcode, $number)
     {
        	$this->userid = $userid;
@@ -79,7 +76,7 @@ class Wxquery extends controller
             ->where('user_info.name', $query_name)
             ->where('user_info.work_id', $query_work_id)
             ->where('schedule_info.date', '>= time', date('Y-m-d', time()))
-            ->field('user_depart.name as depart, user_position.name as position, schedule_time.name as time, schedule_place.name as place, schedule_item.name as item')
+            ->field('schedule_info.date as date, user_depart.name as depart, user_position.name as position, schedule_time.name as time, schedule_place.name as place, schedule_item.name as item')
             ->select();
 
             // dump($allInfo);
