@@ -74,7 +74,7 @@ class Multiquery extends Controller
         foreach ($nameids as $nameid) {
             foreach ($info as $singlearr) {
                 if ($singlearr['userid'] == $nameid){
-                    if(strtotime($zero1) < strtotime($singlearr['date'])){
+                    if(strtotime($zero1) <= strtotime($singlearr['date'])){
                         array_push($finalres,$singlearr); 
                     }
                 }
