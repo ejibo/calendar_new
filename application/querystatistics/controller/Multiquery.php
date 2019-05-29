@@ -28,8 +28,11 @@ class Multiquery extends Common
                 array_push($finalres,$singlearr); 
             }
         }
-        $this->assign('info',$info);
-
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $this->assign('info',$finalres);
         return $this->fetch('search');
     }
 
@@ -71,13 +74,11 @@ class Multiquery extends Common
                 }
             }
         }
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
         $this->assign('info',$finalres);
-        #echo "<pre>";print_r($mydata);echo "<pre>";
-        #echo "<pre>";print_r($names);echo "<pre>";
-        #echo "<pre>";print_r($nameids);echo "<pre>";
-        #echo "<pre>";print_r($info);echo "<pre>";
-        #echo "<pre>";print_r($finalres);echo "<pre>";
         return $this->fetch('search');
-        #return view('search');
     }
 }

@@ -27,12 +27,11 @@ class Multiquery extends Controller
                 array_push($finalres,$singlearr); 
             }
         }
-        $all_dates = array_column($info,'place');
-        array_multisort($all_dates,SORT_ASC,$info);
-        $all_dates = array_column($info,'date');
-        array_multisort($all_dates,SORT_ASC,$info);
-        $this->assign('info',$info);
-
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $this->assign('info',$finalres);
         return $this->fetch('wx_multiquery');
     }
 
@@ -79,13 +78,7 @@ class Multiquery extends Controller
         $all_dates = array_column($finalres,'date');
         array_multisort($all_dates,SORT_ASC,$finalres);
         $this->assign('info',$finalres);
-        #echo "<pre>";print_r($mydata);echo "<pre>";
-        #echo "<pre>";print_r($names);echo "<pre>";
-        #echo "<pre>";print_r($nameids);echo "<pre>";
-        #echo "<pre>";print_r($info);echo "<pre>";
-        #echo "<pre>";print_r($finalres);echo "<pre>";
         return $this->fetch('wx_multiquery');
-        #return view('search');
     }
 }
 ?>
