@@ -20,7 +20,7 @@ class Wxquery extends controller
 
      public function Index($userid, $wxcode, $number)
     {
-       	$this->uid = $userid;
+       	$this->userid = $userid;
         $this->wxcode = $wxcode;
        	$this->number = $number;
 		// 在下拉框中实时获取全部的部门和职位
