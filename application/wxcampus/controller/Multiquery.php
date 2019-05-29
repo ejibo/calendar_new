@@ -69,7 +69,7 @@ class Multiquery extends Controller
             ->join('schedule_item','a.item_id = f.id')
             ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
-        $zero1=date("y-m-d h:i:s");
+        $zero1=date("y-m-d");
         $finalres = array();
         foreach ($nameids as $nameid) {
             foreach ($info as $singlearr) {
