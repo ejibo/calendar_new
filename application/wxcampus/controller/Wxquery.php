@@ -14,6 +14,9 @@ use think\Request;
 
 class Wxquery extends controller
 {
+  	 private $uid;
+     private $wxcode;
+  
      public function Index($userid, $wxcode, $number)
     {
        	$this->uid = $userid;
