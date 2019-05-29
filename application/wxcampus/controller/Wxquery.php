@@ -14,8 +14,11 @@ use think\Request;
 
 class Wxquery extends controller
 {
-     public function Index()
+     public function Index($userid, $wxcode, $number)
     {
+       	$this->uid = $userid;
+        $this->wxcode = $wxcode;
+       	$this->number = $number;
 		// 在下拉框中实时获取全部的部门和职位
         $depart_list = array();
         $depart_list = Db::table('user_depart')
@@ -29,7 +32,9 @@ class Wxquery extends controller
       
         $this->assign('depart', $depart_list);
       	$this->assign('pos', $position_list);
-        
+        $this->assign('userid', $userid);
+        $this->assign('wxcode' ,$wxcode);
+        $this->assign('number' ,$number);
 
         return $this->fetch('index/wx_search');
     }
