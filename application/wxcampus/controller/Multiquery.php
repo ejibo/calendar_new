@@ -20,19 +20,13 @@ class Multiquery extends Controller
             ->join('schedule_item','a.item_id = f.id')
             ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
-
-        #foreach($info as $key=>$value){
-        #    if ($info[$key]['type_id'] == 0){
-        #        $info[$key]['type'] = '普通用户';
-        #    }
-        #    elseif ($info[$key]['type_id'] == 1){
-        #        $info[$key]['type'] = '院领导';
-        #    }elseif ($info[$key]['type_id'] == 2){
-        #        $info[$key]['type'] = '部门领导';
-        #    }elseif ($info[$key]['type_id'] == 3){
-        #        $info[$key]['type'] = '系领导';
-        #    }
-        #}
+        $zero1=date("y-m-d");
+        $finalres = array();
+        foreach ($info as $singlearr) {
+            if(strtotime($zero1) <= strtotime($singlearr['date'])){
+                array_push($finalres,$singlearr); 
+            }
+        }
         $all_dates = array_column($info,'place');
         array_multisort($all_dates,SORT_ASC,$info);
         $all_dates = array_column($info,'date');
