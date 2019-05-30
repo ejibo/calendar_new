@@ -64,12 +64,12 @@ class Index extends Controller
             $userid = $this->getUserId($userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
             $this->assign("number",$userInfo['card_number']);
-<<<<<<< HEAD
+
             $this->assign("userid",$userid);
-=======
+
             $this->assign("wxcode", $code);
             $this->assign("userid", $this->getUserId($userInfo['card_number']));
->>>>>>> 9c49f432738dbaeb8dab395ca0ba46eb984ee7ba
+
             return $this->fetch();
         }
         else{
