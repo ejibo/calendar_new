@@ -68,9 +68,22 @@ class Whitelist extends Model{
             return true;
         }
     }
-    //判断工号是否已存在且有效
+    //添加人员时判断工号是否已存在且有效
     public function exist_work_id($work_id){
         $isexist = Db::table('white_list')->where('work_id',$work_id)->where('is_delete',0)->find();
+        if ($isexist==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //编辑人员时判断修改的工号是否已存在且有效
+    public function edit_exist_work_id($id,$work_id){
+        $isexist = Db::table('white_list')
+            ->where('work_id',$work_id)
+            ->where('id','not exists',$id)
+            ->where('is_delete',0)
+            ->find();
         if ($isexist==null){
             return false;
         }else{
