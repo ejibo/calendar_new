@@ -7,6 +7,21 @@ use app\logmanage\model\Log as LogModel;
 use think\Validate;
 use think\Request;
 use think\Db;
+//描述：用户更新自己的日程
+//1.用户通过点击日程选项，会显示自己当天的日程；
+//2.用户通过点击加号按钮，跳转到新建日程页面；
+//3.用户点击当天的日程，跳转到修改日程页面；
+//4.用户点击上面的两个箭头，跳转到前天和明天的日程页面， 从而修改其他时间的日程
+
+//bug list:
+//1. 导航栏还没做好(Index默认要传wxcode, 很麻烦) 
+//更新： 传入wxcode也没用, 还是提示error
+//2. 新增日程默认的日程是当天， 即使页面是其他天
+//3. 更改页面的选项没有随着用户的选中的事项来改变
+//4. 新增时数据库里create_time未被修改,而是null
+//5. 修改日程时create_time被修改，但update_time未被修改，而是null
+//6. 可以修改过去的日程
+//7. 可以修改期限以外的日程
 
 class CalendarValidator extends Validate
 {
@@ -14,7 +29,7 @@ class CalendarValidator extends Validate
         'pagenum' => 'require|number|>=:0',
         'id' => 'require|number|checkTable:schedule_info,id',
         'user_id' => 'require|number',
-        'date' => 'require|date|checkDate',
+        'date' => 'require|date',
         'time_id' => 'require|number|checkTable:schedule_time,id',
         'place_id' => 'require|number|checkTable:schedule_place,id',
         'item_id' => 'require|number|checkTable:schedule_item,id',
@@ -59,9 +74,10 @@ class CalendarValidator extends Validate
 class WxCalendar extends Controller
 {
     //apis
+    private $uid;
+    private $wxcode;
     protected function getUserId(){
-        //TODO
-        return 1;
+        return $this->uid;
     }
     private function getDdl(){
         //TODO
@@ -75,9 +91,9 @@ class WxCalendar extends Controller
             ->select();
         return $page;
     }
-    protected function getSchedule($scheduleId){
+    protected function getSchedule($userid, $scheduleId){
         return Db::name('schedule_info')
-            ->where('user_id', $this->getUserId())
+            ->where('user_id', $userid)
             ->where('id', $scheduleId)
             ->find();
     }
@@ -117,15 +133,14 @@ class WxCalendar extends Controller
         ]);
     }
 
-    public function create(){
+    public function create($userid){
         $data = [
-            'user_id'       => $this->getUserId(),
+            'user_id'       => $userid,
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
             'place_id'      => input('post.place_id'),
             'item_id'       => input('post.item_id'),
             'note'          => input('post.note'),
-            'is_delete'     => false,
             'create_time'   => time()
         ];
         //检查输入是否有效
@@ -137,13 +152,13 @@ class WxCalendar extends Controller
         $id = Db::name('schedule_info')->insertGetId($data);
         //记录
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 2, 0,'schedule_info', $id);
+        $logRec->recordLogApi($userid, 2, 0,'schedule_info', $id);
         return $this->json('create', true, 'success');
     }
-    public function update(){
+    public function update($userid){
         $data = [
             'id'            => input('post.id'),
-            'user_id'       => $this->getUserId(),
+            'user_id'       => $userid,
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),
             'place_id'      => input('post.place_id'),
@@ -180,12 +195,11 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($this->getUserId(), 3, 0,'schedule_info', [$data['id'] => $diff]);
+        $logRec->recordLogApi($userid, 3, 0,'schedule_info', [$data['id'] => $diff]);
         return $this->json('update', true, 'success');
     }
 
-    public function delete($id){
-        $uid = getUserId();
+    public function delete($userid, $id){
         //检查是否有效
         $valid = $this->validate($data, 'app\wxcampus\controller\CalendarValidator.delete');
         if($valid !== true){
@@ -194,7 +208,7 @@ class WxCalendar extends Controller
         //删除
         $success = Db::name('schedule_info')
             ->where('id', $id)
-            ->where('user_id', $uid)
+            ->where('user_id', $userid)
             ->update([
                 'is_delete'     => true,
                 'delete_time'   => time()
@@ -204,20 +218,26 @@ class WxCalendar extends Controller
         }
         //记录日志
         $logRec = new LogModel;
-        $logRec->recordLogApi($uid, 4, 0,'schedule_info', [$id]);
-        return $this->json('delete', true, 'success');;
+        $logRec->recordLogApi($userid, 4, 0,'schedule_info', [$id]);
+        return $this->json('delete', true, 'success');
     }
     //Views
     protected $items;
     protected $places;
     protected $times;
-    public function Index($date = NULL){
+    public function Index($wxcode, $userid, $date = NULL){
+        $this->uid = $userid;
+        $this->wxcode = $wxcode;
         if($date == NULL)$date = date('Y-m-d');
-        if($this->items == NULL)$this->items = $this->getAllScheduleItems();
-        if($this->places== NULL)$this->places = $this->getAllSchedulePlaces();
-        if($this->times == NULL)$this->times = $this->getAllScheduleTimes();
+        $this->items = $this->getAllScheduleItems();
+        $this->places = $this->getAllSchedulePlaces();
+        $this->times = $this->getAllScheduleTimes();
         $this->assign('date', date('Y-m-d',strtotime($date)));
         $this->assign('cells', $this->getScheduleDisplayArray(strtotime($date)));
+        $this->assign('left', url('index', ['wxcode' => $wxcode, 'userid'=>$userid, 'date'=> date('Y-m-d',strtotime($date)-24*60*60)]));
+        $this->assign('right', url('index', ['wxcode' => $wxcode, 'userid'=>$userid, 'date'=> date('Y-m-d',strtotime($date)+24*60*60)]));
+        $this->assign('userid', $userid);
+        $this->assign('wxcode' ,$wxcode);
         return $this->fetch("index/wx_calendar");
     }
     public function getScheduleDisplayArray($timestamp){
@@ -227,51 +247,74 @@ class WxCalendar extends Controller
         $cells = [];
         $schedules = $this->getOneDaySchedule($timestamp);
         foreach ($schedules as $sched){
-            $time = $this->times[$sched['time_id']]['name'];
-            if(!array_key_exists($time, $cells)){
+            $timeid = $sched['time_id'];
+            $itemid = $sched['item_id'];
+            $placeid = $sched['place_id'];
+            $timename = '';
+            $itemname = '';
+            $placename = '';
+            foreach($this->times as $timeunit) {
+                if($timeunit['id'] == $timeid){
+                    $timename = $timeunit['name'];
+                }
+            }
+            foreach($this->items as $itemunit) {
+                if($itemunit['id'] == $itemid){
+                    $itemname = $itemunit['name'];
+                }
+            }
+            foreach($this->places as $placeunit) {
+                if($placeunit['id'] == $placeid){
+                    $placename = $placeunit['name'];
+                }
+            }
+            if(!array_key_exists($timename, $cells)){
                 $cell = [
-                    'time' => $time,
+                    'time' => $timename,
                     'data' => []
                 ];
-                $cells[$time] = $cell;
+                $cells[$timename] = $cell;
             }
             $dataItem = [
-                'item' => $this->items[$sched['item_id']]['name'],
+                'item' => $itemname,
                 'note' => $sched['note'],
-                'place'=> $this->places[$sched['place_id']]['name'],
+                'place'=> $placename,
                 'id'   => $sched['id']
             ];
-            array_push($cells[$time]['data'], $dataItem);
+            array_push($cells[$timename]['data'], $dataItem);
         }
         return $cells;
     }
-    protected function detail(){
+    protected function detail($wxcode){
+        $this->assign('wxcode' , $wxcode);
         $this->assign('items', $this->getScheduleItems());
         $this->assign('times', $this->getScheduleTimes());
         $this->assign('places', $this->getSchedulePlaces());
         $this->assign('maxlength', 200);
         return $this->fetch("index/wx_detail");
     }
-    public function updatePage($id){
-        $sched = $this->getSchedule($id);
+    public function updatePage($wxcode, $userid, $id){
+        $sched = $this->getSchedule($userid, $id);
+        $this->assign('userid', $userid);
         $this->assign('scheduleid', $id);
         $this->assign('date', $sched['date']);
         $this->assign('note', $sched['note']);
         $this->assign('title', '修改日程');
         $this->assign('confirmid', 'update-btn');
-        return $this->detail();
+        return $this->detail($wxcode);
     }
-    public function createPage(){
+    public function createPage($wxcode, $userid){
+        $this->assign('userid', $userid);
         $this->assign('scheduleid', -1);
         $this->assign('date', date('Y-m-d'));
         $this->assign('note', '');
         $this->assign('title', '添加日程');
         $this->assign('confirmid', 'create-btn');
-        return $this->detail();
+        return $this->detail($wxcode);
     }
-    public function postTest(){
+    public function postTest($userid){
         $data = [
-            'user_id'       => $this->getUserId(),
+            'user_id'       => $userid,
             'method'        => input('post.method'),
             'date'          => input('post.date'),
             'time_id'       => input('post.time_id'),

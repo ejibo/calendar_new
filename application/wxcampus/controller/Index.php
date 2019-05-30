@@ -9,15 +9,17 @@
 namespace app\wxcampus\controller;
 
 
+use app\logmanage\model\Log;
 use app\wxcampus\model\CheckUser as CheckUser;
 use think\Controller;
 use think\Db;
 use think\Request;
+use think\Session;
 
 class Index extends Controller
 {
     public  $stu_number;
-//微校相关信息
+    //微校相关信息
     private $APP_KEY = "F8D23F9B6A4AA3F2";
     private $SCHOOL_CODE = "1016145360";
     private $APP_SECRET = "8307ED503A6D58E4733D01FC459E340B";
@@ -56,12 +58,18 @@ class Index extends Controller
             //如果不存在该用户，则新增该用户
             if(!$res){
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
+                return $this->redirect('Index/wx_policy',['wxcode'=>$code]);
             }
            // $this->assign("number",$userInfo['card_number']);
             $userid = $this->getUserId($userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
             $this->assign("number",$userInfo['card_number']);
+<<<<<<< HEAD
             $this->assign("userid",$userid);
+=======
+            $this->assign("wxcode", $code);
+            $this->assign("userid", $this->getUserId($userInfo['card_number']));
+>>>>>>> 9c49f432738dbaeb8dab395ca0ba46eb984ee7ba
             return $this->fetch();
         }
         else{
@@ -72,6 +80,18 @@ class Index extends Controller
         return $this->fetch();
     }
 
+    public function wx_policy($wxcode){
+        $this->assign('wxcode', $wxcode);
+        return $this->fetch(); 
+    }
+
+    public function wx_loginProtocol(){
+        return $this->fetch(); 
+    }
+
+    public function wx_privateh5(){
+        return $this->fetch(); 
+    }
 
     public function wx_search(){
         return $this->fetch();
@@ -99,10 +119,19 @@ class Index extends Controller
     public function wx_me(){
         return $this->fetch();
     }
-    public function wx_calendar(){
-        return $this->redirect('WxCalendar/Index');
+    public function wx_calendar($userid, $wxcode){
+        return $this->redirect('WxCalendar/Index', ['userid'=> $userid, 'wxcode'=>$wxcode]);
     }
-
+    public function wxquery($userid, $wxcode, $number){
+        return $this->redirect('Wxquery/Index', ['userid'=> $userid, 'wxcode'=>$wxcode, 'number'=>$number]);
+    }
+    public function schedule_default(){
+        $params=Request::instance()->param();
+        $wxcode=$params['wxcode'];
+        $number = $params['number'];
+        $user_id = $this->getUserId($number);
+        $this->redirect('ScheduleDefault/index', ['uid'=> $user_id,'wxcode'=>$wxcode]);
+    }
     //返回未关注的领导可以用来新添关注人
     public function leaderList(){
         $number = Request::instance()->param('number');

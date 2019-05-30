@@ -10,7 +10,7 @@ use think\Db;
 use think\Request;
 
 class ClientInfo extends Model{
-    public function GetLang() {
+    public function getLang() {
         $Lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 4);
         //使用substr()截取字符串，从 0 位开始，截取4个字符
         if (preg_match('/zh-c/i',$Lang)) {
@@ -70,7 +70,7 @@ class ClientInfo extends Model{
         return $visitor_browser;
     }
 
-    public function GetOS() {
+    public function getOS() {
         $OS = $_SERVER['HTTP_USER_AGENT'];
         if (preg_match('/win/i',$OS)) {
             $OS = 'Windows';
@@ -92,7 +92,7 @@ class ClientInfo extends Model{
         }
         return $OS;
     }
-    public function GetIP() {
+    public function getIP() {
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
             //如果变量是非空或非零的值，则 empty()返回 FALSE。
             $IP = explode(',',$_SERVER['HTTP_CLIENT_IP']);
@@ -109,8 +109,8 @@ class ClientInfo extends Model{
         return $IP[0];
     }
 
-    private function GetAddIsp() {
-        $IP = $this->GetIP();
+    private function getAddIsp() {
+        $IP = $this->getIP();
         $AddIsp = mb_convert_encoding(file_get_contents('http://open.baidu.com/ipsearch/s?tn=ipjson&wd='.$IP),'UTF-8','GBK');
         //mb_convert_encoding() 转换字符编码。
         if (preg_match('/noresult/i',$AddIsp)) {
@@ -130,13 +130,13 @@ class ClientInfo extends Model{
         return json_decode($data,$assoc=true);
     }
 
-    public function GetAdd() {
-        $Add = $this->GetAddIsp();
+    public function getAdd() {
+        $Add = $this->getAddIsp();
         return $Add[0];
     }
 
-    public function GetIsp() {
-        $Isp = $this->GetAddIsp();
+    public function getIsp() {
+        $Isp = $this->getAddIsp();
         if ($Isp[0] != 'None' && isset($Isp[1])) {
             $Isp = $Isp[1];
         }
@@ -165,16 +165,27 @@ class Log extends Model
      * 4删除：需要传入$uid, $type, $table, $field(该字段传入你删除的所有数据的主键，如 $field = ['11'，'12'])
      */
     public function recordLogApi($uid, $type, $is_manage = 1, $table = '', $field = ''){
-        if($type != 1 && $type != 2 && $type != 3 && $type != 4)
+        if(!is_numeric($uid)) {
+            echo "recordLogApi fail, invalid uid!";
             return 0;
-
-        if($is_manage != 0 && $is_manage != 1)
+        }elseif(!is_numeric($type) || ($type != 1 && $type != 2 && $type != 3 && $type != 4)) {
+            echo "recordLogApi fail, invalid type!";
             return 0;
+        }elseif(!is_numeric($is_manage) || ($is_manage != 0 && $is_manage != 1)) {
+            echo "recordLogApi fail, invalid is_manage!";
+            return 0;
+        }elseif(!empty($table) && !is_string($table)) {
+            echo "recordLogApi fail, invalid table, table must be string!";
+            return 0;
+        }elseif($field && !is_array($field)) {
+            echo "recordLogApi fail, invalid field, field must be array!";
+            return 0;
+        }
 
         $client = new ClientInfo();
-        $ip = $client->getIp();
+        $ip = $client->getIP();
         $agent = [
-            'os' => $client->GetOS(),
+            'os' => $client->getOS(),
             'brower' => $client->getBrowser(),
         ];
 
@@ -213,7 +224,7 @@ class Log extends Model
      * @return array
      */
     public function getAllUserLog(){
-        $list = Db::query('SELECT user_info.id,log_user.user_id,log_user.operate_time,log_user.operate_type,log_user.operate_action,log_user.user_agent,log_user.ip FROM log_user,user_info WHERE log_user.user_id = user_info.id AND log_user.is_manage = 0');
+        $list = Db::query('SELECT user_info.id,log_user.user_id,log_user.operate_time,log_user.operate_type,log_user.operate_action,log_user.user_agent,log_user.ip FROM log_user,user_info WHERE log_user.user_id = user_info.id AND log_user.is_manage = 0 order by log_user.operate_time desc ');
         /*$list = Db::table('log_user')
             ->alias('l')
             ->join('user_info u', 'l.user_id = u.id')
@@ -229,7 +240,7 @@ class Log extends Model
      * @return array
      */
     public function getAllManagerLog(){
-        $list = Db::query('SELECT manage_info.id,log_user.user_id,log_user.operate_time,log_user.operate_type,log_user.operate_action,log_user.user_agent,log_user.ip FROM log_user,manage_info WHERE log_user.user_id = manage_info.id AND log_user.is_manage = 1');
+        $list = Db::query('SELECT manage_info.id,log_user.user_id,log_user.operate_time,log_user.operate_type,log_user.operate_action,log_user.user_agent,log_user.ip FROM log_user,manage_info WHERE log_user.user_id = manage_info.id AND log_user.is_manage = 1 order by log_user.operate_time desc ');
         /*$list = Db::table('log_user')
             ->alias('l')
             ->join('manage_info m', 'l.user_id = m.id')

@@ -12,6 +12,9 @@ use app\common\controller\Common;
 class Department extends Common
 {
     public function index(){
+      	$department = model('Department');
+        $departments = $department->getAllDepartments();
+        $this->assign('departlist',$departments);
         return $this->fetch();
     }
     /*

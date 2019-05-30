@@ -10,6 +10,7 @@ namespace app\usermanage\model;
 
 use think\Model;
 use think\Db;
+use app\logmanage\model\Log as LogModel;
 
 class Department extends Model
 {
@@ -80,9 +81,14 @@ class Department extends Model
           $message = '部门名称不能为空';
     	return ['message' => $message];
 		}
-      if(preg_match('[\s\p{P}\n\r=+$￥<>^`~|]',$name)){
-      //如果输入的部门名称中包含标点符号
-         $message = '部门名称不能包含标点符号';
+      if(strlen($name) > 30){
+      //如果部门名称大于25个字符
+        $message = '部门名称太长';
+        return ['message' => $message];
+      }
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9 _]+$/u',$name)){
+      #如果输入的部门包含标点
+         $message = '部门名称中不能包含标点符号';
     	return ['message' => $message];
       }
         $user = model('Department');
@@ -94,8 +100,10 @@ class Department extends Model
         $user->save();
         $status = 1;
         $message = '添加成功';
-        return ['status' => $status, 'message' => $message];
+      	return ['status' => $status, 'message' => $message];
+        
     }
+ 
 
     /*
    *story:修改部门名称
@@ -104,12 +112,22 @@ class Department extends Model
     public function change($id, $myname)
       
     {
+      //判断部门名是否含有标点和空格
+      if(!preg_match('/^[\x{4e00}-\x{9fa5}A-Za-z0-9]+$/u',$myname)){
+         $message = '部门名称中不能包含标点符号';
+    	return -3;
+      }
         $department = Department::get($id);//可以通过此种方式根据别的字段获取记录
       //判断用户名是否重复
         $pre = Department::where('name', $myname)->find();
         if (empty($pre)==false){
             return -1;
         }
+        if(strlen($myname) > 30){
+      //如果部门名称大于25个字符
+        $message = '部门名称太长';
+        return -2;
+      }
         $department->save([
             'name' => $myname
         ], ['id' => $id]);
