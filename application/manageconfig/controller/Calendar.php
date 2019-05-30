@@ -106,6 +106,7 @@ class Calendar extends Common
         $place = trim($param['place']);
         $item = trim($param['item']);
         $id = trim($param['id']);
+        $note = trim($param['note']);
 
         //修改默认地点。如果是之前不存在的地点，则新建
         $place_id=Db::table('schedule_place')->where('name',$place)->find()['id'];
@@ -119,7 +120,8 @@ class Calendar extends Common
             $item_id=Db::table('schedule_item')->insertGetId(['name'=>$item,'is_delete'=>1]);//如果是之前不存在的事项，则新建一个
         }
 
-        $info = Db::name('schedule_default')->where('id', $id)->update(['user_id'=>$user_id, 'place_id'=>$place_id, 'item_id'=>$item_id]);
+        $info = Db::name('schedule_default')->
+        where('id', $id)->update(['user_id'=>$user_id, 'place_id'=>$place_id, 'item_id'=>$item_id, 'note'=>$note]);
         if($info){
             return $this->success('操作成功', url('index'));
         }else{

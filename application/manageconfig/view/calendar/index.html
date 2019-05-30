@@ -146,6 +146,14 @@
                                     <input type="text" id="editNewItem" name="editNewItem" placeholder="修改事项" class="form-control">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </div>
+                                    <input type="text" id="editNewNote" name="editNewNote" placeholder="修改备注" class="form-control">
+                                </div>
+                            </div>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -329,6 +337,7 @@ function deleteId(id,place,item) {
 
         var id = $(data).attr('data-id');
         var place = $('#editNewPlace').val();
+        var note = $('#editNewNote').val();
         if (place.trim().length == 0) {
             alert('请输入地点');
             return 1;
@@ -338,11 +347,15 @@ function deleteId(id,place,item) {
             alert('请输入事项');
             return 1;
         }
+        if (note.trim().length == 0){
+            alert('请输入备注');
+            return 1;
+        }
         $.ajax({
             type: "POST",
             async: false,
             url: "{:url('Calendar/editDefaultSchedule')}",
-            data: {"id": id,"place": place,"item":item },
+            data: {"id": id,"place": place,"item":item, "note":note },
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
