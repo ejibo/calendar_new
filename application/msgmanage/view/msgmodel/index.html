@@ -40,18 +40,17 @@
                                             <i class="fa fa-exclamation"></i>&nbsp;删除
                                         </button>
                                         {else/}
-                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal6">
+                                        <button type="button" class="btn btn-danger btn-sm mb-1"  data-id="{$templateItem.id}" date-title="{$templateItem.title}" data-toggle="modal" data-target="#smallModal6">
                                             <i class="fa fa-exclamation"></i>&nbsp;恢复
                                         </button>
                                         {/eq}
                                         {eq name="templateItem.is_delete" value="0"}
-                                        {eq name="templateItem.is_remind" value="0"}<a
-                                                href="{:url('/msgmanage/msgmodel/remind','user_id='.$templateItem.id);}">
-                                            <button type="button" class="btn btn-success btn-sm mb-1">
+                                        {eq name="templateItem.is_remind" value="0"}
+                                            <button type="button" class="btn btn-success btn-sm mb-1" data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal7">
                                                 <i class="fa fa-star"></i>&nbsp;发送提醒
                                             </button>
-                                        </a>{else/}<a href="{:url('/msgmanage/msgmodel/cancelremind','user_id='.$templateItem.id);}">
-                                            <button type="button" class="btn  btn-sm mb-1">
+                                        </a>{else/}
+                                            <button type="button" class="btn  btn-sm mb-1" data-id="{$templateItem.id}" data-toggle="modal" data-target="#smallModal8">
                                                 <i class="fa fa-star"></i>&nbsp;取消发送
                                             </button>
                                         </a>{/eq}
@@ -160,6 +159,9 @@
                 </div>
             </div>
 
+
+
+
             <!-- 模态框（Modal） -->
             <div class="modal fade" id="smallModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -235,6 +237,7 @@
                             </div>
                             <div>
                                 <input id="id" type="hidden"/>
+                                <input id="title" type="hidden"/>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -244,6 +247,91 @@
                     </div>
                 </div>
             </div>
+
+
+    
+
+            <!-- 发送模板提示 -->
+            <div class="modal fade" id="smallModal7" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">发送消息提醒</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>
+                                    <div class="form-group">
+                                            消息提醒标题为：
+                                    </div>
+                                    
+                                    <div  class="form-group">
+                                         
+                                        <input type="text" id="Dese" name="Dese" value="01" class="form-control" disabled="disabled">
+                                       
+                                    </div>
+                            
+                            <div class="form-group">
+                                确定发送该消息提醒吗?
+                            </div>
+                            </p>
+                            <div class="form-group">
+                                <div id="msg7"></div>
+                            </div>
+                            <div>
+                                <input id="id" type="hidden"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="remind_cancel" data-dismiss="modal">取消</button>
+                            <button type="button" class="btn btn-success" id="submit_remind" data-dismiss="modal">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 取消发送消息提醒 -->
+
+            <div class="modal fade" id="smallModal8" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">取消消息提醒</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>
+                                        <div class="form-group">
+                                                已发送的消息标题为：
+                                        </div>
+                                        
+                                        <div  class="form-group">
+                                             
+                                            <input type="text" id="Hese" name="Hese" value="01" class="form-control" disabled="disabled">
+                                           
+                                        </div>
+                                
+                                <div class="form-group">
+                                    确定取消该消息提醒吗?
+                                </div>
+                                </p>
+                                <div class="form-group">
+                                    <div id="msg8"></div>
+                                </div>
+                                <div>
+                                    <input id="id" type="hidden"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" id="remind_cancel" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-success" id="submit_cancel" data-dismiss="modal">确认</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     </div>
     <!-- .animated -->
 </div>
@@ -263,7 +351,7 @@
 
     //添加消息模板
     $("#submit_add").on("click", function(){
-        var titS = $("#itemTit").val();
+        var titS = $("#itemTit").val().toLowerCase();
         var conS = $("#itemCont").val();
         var tit = titS.replace(/(^\s*)|(\s*$)/g, "");
         var con = conS.replace(/(^\s*)|(\s*$)/g, "");
@@ -274,7 +362,7 @@
             alert('请输入模板标题！');
             return false;
         }
-        var regTit=/^[\u4e00-\u9fa5A-Za-z][\u4e00-\u9fa5A-Za-z0-9\s]{0,28}[\u4e00-\u9fa5A-Za-z0-9]?$/; 
+        var regTit=/^[\u4e00-\u9fa5a-z][\u4e00-\u9fa5a-z0-9\s]{0,28}[\u4e00-\u9fa5a-z0-9]?$/; 
         if(!regTit.test(tit)){  //验证标题格式 
             alert('标题格式错误！');
             return false; 
@@ -373,7 +461,69 @@
             });
         });
     }
+// 消息提醒
+    $('#smallModal7').on('show.bs.modal', function (e) {
+        
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        var des = ele.cells[1].innerText;
+        $("#id").val(id);
+         $("#Dese").val(des);
+        $("#msg7").html("");
+    });
+    $("#remind_cancel").on("click", function(){
+        $("#id").val("");
+        $("#DesE").val("");
 
+    });
+    $("#submit_remind").on("click", function(){
+       
+        var id = $("#id").val();
+        console.log(id);
+        $.ajax({
+            url:"{:url('msgmanage/msgmodel/remind')}",
+            type:"POST",
+            data:{"user_id":id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    });
+// 取消发送消息提醒
+$('#smallModal8').on('show.bs.modal', function (e) {
+        
+        var ele = e.relatedTarget.parentNode.parentNode;
+        var id = ele.cells[0].innerText;
+        var des = ele.cells[1].innerText;
+        $("#id").val(id);
+         $("#Hese").val(des);
+        $("#msg8").html("");
+    });
+    $("#remind_cancel").on("click", function(){
+        $("#id").val("");
+        $("#HesE").val("");
+
+    });
+    $("#submit_cancel").on("click", function(){
+   
+        
+        var id = $("#id").val();
+        console.log(id);
+        $.ajax({
+            url:"{:url('msgmanage/msgmodel/cancelremind')}",
+            type:"POST",
+            data:{"user_id":id},
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    });
     /*story:查询消息模板
     负责人：吴珏
     */
@@ -384,8 +534,10 @@
     $('#smallModal6').on('show.bs.modal', function (e) {
         var ele = e.relatedTarget.parentNode.parentNode;
         var id = ele.cells[0].innerText;
+        var title = ele.cells[1].innerText;
         /* var id = $(e.relatedTarget).data("id"); */
         $("#id").val(id);
+        $("#title").val(title);
         $("#msg6").html("");
     });
     $("#renew_cancel").on("click", function(){
@@ -394,11 +546,12 @@
     });
     $("#submit_renew").on("click", function(){
         var id = $("#id").val();
-        console.log(id);
+        var tit = $("#title").val();
+        console.log(id+"   "+tit);
         $.ajax({
             url:"{:url('msgmanage/Msgmodel/enableTemplate')}",
             type:"POST",
-            data:{"id":id},
+            data:{"id":id,"tit":tit},
             dataType: "json",
             success: function (data) {
                 console.log(data);

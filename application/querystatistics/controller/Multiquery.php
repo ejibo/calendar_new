@@ -21,21 +21,18 @@ class Multiquery extends Common
             ->join('schedule_item','a.item_id = f.id')
             ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
-
-        #foreach($info as $key=>$value){
-        #    if ($info[$key]['type_id'] == 0){
-        #        $info[$key]['type'] = '普通用户';
-        #    }
-        #    elseif ($info[$key]['type_id'] == 1){
-        #        $info[$key]['type'] = '院领导';
-        #    }elseif ($info[$key]['type_id'] == 2){
-        #        $info[$key]['type'] = '部门领导';
-        #    }elseif ($info[$key]['type_id'] == 3){
-        #        $info[$key]['type'] = '系领导';
-        #    }
-        #}
-        $this->assign('info',$info);
-
+        $zero1=date("y-m-d");
+        $finalres = array();
+        foreach ($info as $singlearr) {
+            if(strtotime($zero1) <= strtotime($singlearr['date'])){
+                array_push($finalres,$singlearr); 
+            }
+        }
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $this->assign('info',$finalres);
         return $this->fetch('search');
     }
 
@@ -66,24 +63,22 @@ class Multiquery extends Common
             ->join('schedule_item','a.item_id = f.id')
             ->field('a.id, b.name as name, c.name as position, a.date as date, d.name as time, e.name as place, f.name as item, b.id as userid')
             ->select();
-        $zero1=date("y-m-d h:i:s");
+        $zero1=date("y-m-d");
         $finalres = array();
         foreach ($nameids as $nameid) {
             foreach ($info as $singlearr) {
                 if ($singlearr['userid'] == $nameid){
-                    if(strtotime($zero1) < strtotime($singlearr['date'])){
+                    if(strtotime($zero1) <= strtotime($singlearr['date'])){
                         array_push($finalres,$singlearr); 
                     }
                 }
             }
         }
+        $all_dates = array_column($finalres,'place');
+        array_multisort($all_dates,SORT_ASC,$finalres);
+        $all_dates = array_column($finalres,'date');
+        array_multisort($all_dates,SORT_ASC,$finalres);
         $this->assign('info',$finalres);
-        #echo "<pre>";print_r($mydata);echo "<pre>";
-        #echo "<pre>";print_r($names);echo "<pre>";
-        #echo "<pre>";print_r($nameids);echo "<pre>";
-        #echo "<pre>";print_r($info);echo "<pre>";
-        #echo "<pre>";print_r($finalres);echo "<pre>";
         return $this->fetch('search');
-        #return view('search');
     }
 }

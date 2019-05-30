@@ -76,7 +76,9 @@ class Userbasic extends Common
         }
         $addFlag = $userbasic->insertUser($data);
         if ($addFlag) {
-            $model->recordLogApi(ADMIN_ID, 2, 1,'user_info', $addFlag);
+            $ret = [];
+            $ret[0] = strval($addFlag);
+            $logFlag = $model->recordLogApi(ADMIN_ID, 2, 1, 'user_info', $ret);
             $this->success('添加成功');
         } else {
             $this->error('添加失败');
@@ -104,6 +106,8 @@ class Userbasic extends Common
 
         $sqlData = array();
 
+        $ret = array();
+
         $i = 0;
 
         $userbasic = model("Userbasic");
@@ -115,18 +119,33 @@ class Userbasic extends Common
             }
             // 未被添加的用户信息才会被记录到数组里，最后批量添加
             if ($userbasic->findUserByWorkId($tmp[1]) == null) {
-                $tmp = ['name' => $tmp[0],
-                    'work_id' => $tmp[1],
-                    'type_id' => $tmp[2],
-                    'depart_id' => $tmp[3],
-                    'position_id' => $tmp[4]];
-                $sqlData[$i++] = $tmp;
+                if ($i == 0) {
+                    $first['name'] = $tmp[0];
+                    $first['work_id'] = $tmp[1];
+                    $first['type_id'] = $tmp[2];
+                    $first['depart_id'] = $tmp[3];
+                    $first['position_id'] = $tmp[4];
+                } else {
+                    $tmp = ['name' => $tmp[0],
+                        'work_id' => $tmp[1],
+                        'type_id' => $tmp[2],
+                        'depart_id' => $tmp[3],
+                        'position_id' => $tmp[4]];
+                    $sqlData[$i - 1] = $tmp;
+                }
+                $i++;
             }
         }
-
-        $addFlag = $userbasic->insertAllUser($sqlData);
-        if ($addFlag) {
-            $model->recordLogApi(ADMIN_ID, 2, 1,'user_info', $addFlag);
+        $firstFlag = $userbasic->insertUser($first);
+        $ret[0] = strval($firstFlag);
+        if ($i > 1) {
+            $addFlag = $userbasic->insertAllUser($sqlData);
+            for ($j = 0; $j < $addFlag; $j++) {
+                $ret[$j + 1] = strval($firstFlag + $j + 1);
+            }
+        }
+        if (!empty($ret)) {
+            $model->recordLogApi(ADMIN_ID, 2, 1, 'user_info', $ret);
             $this->success('批量添加成功，重复用户信息已自动过滤未添加');
         } else {
             $this->error('添加失败');

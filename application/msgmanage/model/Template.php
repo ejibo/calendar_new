@@ -15,6 +15,7 @@ class Template extends Model
     //绑定表名
     /* protected $table = 'message_template';
     protected $pk = 'id'; */
+
     /*story:查询消息模板
     负责人：吴珏
     */
@@ -86,9 +87,18 @@ class Template extends Model
         $res = Db::name("message_template")->where('id',$id)->update(['is_delete'=>0,'update_time'=> date('Y-m-d H:i:s',time())]);
         return $res;
     }
+
     /*story:增加消息模板
     负责人：佟起
     */
+    //根据模板名称获取模板，非模糊查询
+    public function strictGetItemByTitle($tit){
+        $titleTemp = Db::name('message_template')
+            ->where('title',$tit)
+            ->where('is_delete',0)
+            ->select();
+        return $titleTemp;
+    }
     public function insertTemplate($tit, $cont){
         
         $uid = ADMIN_ID; // 获取当前管理员ID
@@ -110,6 +120,7 @@ class Template extends Model
         
         return $isRcd;
     }
+
     /**
      * Created by 张骁雄.
      * User:
@@ -134,9 +145,10 @@ class Template extends Model
     function remind($user_id)
     {
         $data = ['is_remind' => 1,'update_time'=> date('Y-m-d H:i:s',time()),'remind_time'=> date('Y-m-d H:i:s',time())];
-         $res = Db::name('message_template')
+        $res = Db::name('message_template')
             ->where('id',$user_id)
             ->update($data);
+        return $res;
     }
     /*
     *story:根据消息模板向用户发送提醒消息（刘玄）
@@ -150,6 +162,7 @@ class Template extends Model
          $res = Db::name('message_template')
             ->where('id',$user_id)
             ->update($data);
+         return $res;
     }
     /*
     *story:根据消息模板向用户发送提醒消息（刘玄）

@@ -13,8 +13,8 @@ use think\Db;
 class Whitelist extends Model{
     public function getinfo(){
         //页面table初始化，得到所有白名单人员的信息
-        $info = Db::table('user_info')
-            ->alias(['user_info' => 'ui', 'user_depart' => 'ud', 'user_position' => 'up'])
+        $info = Db::table('white_list')
+            ->alias(['white_list' => 'ui', 'user_depart' => 'ud', 'user_position' => 'up'])
             ->where('ui.is_delete',0)
             ->where('ud.is_delete',0)
             ->where('up.is_delete',0)
@@ -36,7 +36,7 @@ class Whitelist extends Model{
     }
     //编辑人员信息
     public function editwhitelist($data){
-        $is_add = Db::table('user_info')->where('id',$data['edit_id'])
+        $is_add = Db::table('white_list')->where('id',$data['edit_id'])
             ->update(['name' => $data['name'],
                 'work_id' => $data['work_id'],
                 'type_id' => $data['type_id'],
@@ -46,9 +46,36 @@ class Whitelist extends Model{
     }
     //删除人员
     public function delwhitelist($data){
-        $is_delete = Db::table('user_info')->where('id',$data['del_id'])
+        $is_delete = Db::table('white_list')->where('id',$data['del_id'])
             ->update(['is_delete' => 1]);
         return $is_delete;
+    }
+    //根据depart_id判断部门是否存在
+    public function exist_depart($depart_id){
+        $isexist = Db::table('user_depart')->where('id',$depart_id)->where('is_delete',0)->find();
+        if ($isexist==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //根据position_id判断职位是否存在
+    public function exist_position($position_id){
+        $isexist = Db::table('user_position')->where('id',$position_id)->where('is_delete',0)->find();
+        if ($isexist==null){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    //判断工号是否已存在且有效
+    public function exist_work_id($work_id){
+        $isexist = Db::table('white_list')->where('work_id',$work_id)->where('is_delete',0)->find();
+        if ($isexist==null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     /*

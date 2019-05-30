@@ -183,15 +183,16 @@
        // console.log($('#name').val())
         let n=$("#name");
         var name=n.val();
-        //var name_add= $.trim(n).val();
-        //console.log(name_add);
+        //先做trim处理
+        var name_add= $.trim(name);
+        console.log(name_add);
       //判断字符串长度
-        if (name.length>30){
+        if (name_add.length>30){
             alert("长度过长，请重新输入");
         }else{
           //判断输入是否为汉字数字和字母
             var reg=  /^[\u4e00-\u9fa5\A-\Z\d\a-\z]+$/;
-            if(reg.test(name)){
+            if(reg.test(name_add)){
                 $.ajax({
                     type: "POST",
                     url: "addPosition",
@@ -219,6 +220,7 @@
                 alert("输入非法，请重新输入");
             }
         }
+        //清除原有数据
         n.val("");
     }
 

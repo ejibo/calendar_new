@@ -123,12 +123,20 @@ class Msgmodel extends Common
     }
     public function enableTemplate(){
         $id = $_POST['id'];
+        $tit = $_POST['tit'];
         $model = model('Template');
-        $res = $model->renewTemplate($id);
-        if($res == 1)
-            $this->success("恢复成功");
-        else
-            $this->success("恢复失败");
+        $isHasSame = $model->strictGetItemByTitle($tit);
+        if($isHasSame==null){
+            $res = $model->renewTemplate($id);
+            if($res == 1)
+                $this->success("恢复成功");
+            else
+                $this->success("恢复失败");
+        }
+        else{
+            $this->success("已存在相同标题，恢复失败");
+        }
+        
     }
     /*
      *story:添加消息模板
@@ -138,10 +146,11 @@ class Msgmodel extends Common
     {
         $tit = $_POST['tit'];
         $con = $_POST['con'];
-        $regTit = '/^[\x{4e00}-\x{9fa5}A-Za-z][\x{4e00}-\x{9fa5}A-Za-z\d\s]{0,29}[\x{4e00}-\x{9fa5}A-Za-z\d]$/u'; 
+        $regTit = '/^[\x{4e00}-\x{9fa5}a-z][\x{4e00}-\x{9fa5}a-z\d\s]{0,29}[\x{4e00}-\x{9fa5}a-z\d]$/u'; 
         if(preg_match($regTit,$tit) && strlen($tit)<=140){  //验证标题格式 
             $model = model('Template');
-            $isHasSame = $model->getItemByTitle('');
+            $isHasSame = $model->strictGetItemByTitle($tit);
+            //$isHasSame = null;
             if ($isHasSame == null) {
                 $res = $model->insertTemplate($tit, $con);
                 if($res){
@@ -192,23 +201,30 @@ class Msgmodel extends Common
     细分story：发送消息提醒
     *负责人：刘玄
     */
-    public function remind($user_id)
+    public function remind()
     {
+        $user_id = $_POST['user_id'];
         $position = model('Template');
-        $position->remind($user_id);
-        $this->redirect('msgmanage/msgmodel/index');
+        $res=$position->remind($user_id);
+        if($res == 1)
+            $this->success("发送消息提醒成功");
+        else
+            $this->success("发送消息提醒失败");
     }
      /*
     *story:根据消息模板向用户发送提醒消息（刘玄）
     细分story：取消发送消息提醒
     *负责人：刘玄
     */
-    public function cancelremind($user_id)
+    public function cancelremind()
     {
-        
+        $user_id = $_POST['user_id'];
         $position = model('Template');
-        $position->cancelremind($user_id);
-        $this->redirect('msgmanage/msgmodel/index');
+        $res=$position->cancelremind($user_id);
+        if($res == 1)
+            $this->success("取消消息提醒成功");
+        else
+            $this->success("取消消息提醒成功");
     }
     /*
     *story:根据消息模板向用户发送提醒消息（刘玄）

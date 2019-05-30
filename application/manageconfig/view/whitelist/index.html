@@ -80,7 +80,7 @@
             </div>
 
             <!--添加白名单人员-->
-            <form action="addwhitelist" method="post">
+
                 <div class="modal fade" id="addwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
@@ -105,7 +105,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-credit-card"></i>
                                         </div>
-                                        <input type="text" id="work_id" name="work_id" placeholder="工号/学号" class="form-control">
+                                        <input type="number" id="work_id" name="work_id" placeholder="工号/学号" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -149,15 +149,15 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirmadd">确认</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+
 
             <!--编辑人员信息-->
-            <form action="editwhitelist" method="post">
+
                 <div class="modal fade" id="editwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
@@ -175,7 +175,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-user"></i>
                                         </div>
-                                        <input type="text" id="edit_name" name="name" placeholder="姓名" class="form-control">
+                                        <input type="text" id="edit_name" name="edit_name" placeholder="姓名" class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -183,7 +183,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-credit-card"></i>
                                         </div>
-                                        <input type="text" id="edit_work_id" name="work_id"  class="form-control">
+                                        <input type="number" id="edit_work_id" name="edit_work_id"  class="form-control">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -192,7 +192,7 @@
                                             <i class="fa fa-group"></i>
                                         </div>
 
-                                        <select name="type_id" id="edit_type_id" class="form-control">
+                                        <select name="edit_type_id" id="edit_type_id" class="form-control">
                                             <option value="0">普通用户</option>
                                             <option value="1">院领导</option>
                                             <option value="2">部门领导</option>
@@ -205,7 +205,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select name="depart_id" id="edit_depart_id" class="form-control">
+                                        <select name="edit_depart_id" id="edit_depart_id" class="form-control">
                                             {volist name='depart' id='list'}
                                             <option value={$list.id}>{$list.name}</option>
                                             {/volist}
@@ -217,7 +217,7 @@
                                         <div class="input-group-addon">
                                             <i class="fa fa-group"></i>
                                         </div>
-                                        <select name="position_id" id="edit_position_id" class="form-control">
+                                        <select name="edit_position_id" id="edit_position_id" class="form-control">
                                             {volist name='position' id='list'}
                                             <option value={$list.id}>{$list.name}</option>
                                             {/volist}
@@ -228,15 +228,15 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirmedit">确认</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+
 
             <!--删除人员信息-->
-            <form action="delwhitelist" method="post">
+
                 <div class="modal fade" id="delwhitelist" tabindex="-1" role="dialog" aria-labelledby="smallmodalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <div class="modal-content">
@@ -309,12 +309,12 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
-                                <button type="submit" class="btn btn-success">确认</button></a>
+                                <button type="submit" class="btn btn-success" id="confirmdel">确认</button></a>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+
 
 
         </div>
@@ -325,6 +325,48 @@
 {/block}
 
 {block name="scripts"}
+<!--添加白名单人员-->
+<script type="text/javascript">
+    $('#confirmadd').click(function () {
+        var name = $.trim($('#name').val());
+        var work_id = $.trim($('#work_id').val());
+        var type_id = $.trim($('#type_id').val());
+        var depart_id = $('#depart_id').val();
+        var position_id = $('#position_id').val();
+        if (name.length==0 || work_id.length==0){
+            alert('输入不能为空！');
+            return 0;
+        } else if (name.length > 20){
+            alert('姓名长度不可超过20个字符');
+            return 0;
+        } else if (work_id.length != 10){
+            alert('学/工号长度为10');
+            return 0;
+        }
+        if (!(work_id+"").match(/^\d+$/)) {
+            alert('学/工号必须为整数');
+            return 0;
+        }
+        console.log(name);
+        $.ajax({
+            url:"{:url('manageconfig/whitelist/addwhitelist')}",
+            type:"POST",
+            data:{"name":name,
+                "work_id":work_id,
+                "type_id":type_id,
+                "depart_id":depart_id,
+                "position_id":position_id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+
+    })
+</script>
 <!--编辑人员信息-->
 <script type="text/javascript">
     $('#editwhitelist').on('show.bs.modal',function (event) {
@@ -332,20 +374,61 @@
         var modal = $(this);  //当前模态框
         var modalId = btnThis.data('id');   //解析出data-id的内容
         var id = btnThis.closest('tr').data('id');
-        console.log(id);
+
         var work_id = btnThis.closest('tr').find('td').eq(2).text();
         var name = btnThis.closest('tr').find('td').eq(1).text();
         var type_id = btnThis.closest('tr').find('td').eq(3).data('id');
         var depart = btnThis.closest('tr').find('td').eq(4).data('id');
         var position = btnThis.closest('tr').find('td').eq(5).data('id');
         modal.find('#edit_name').val(name);
-        modal.find('#edit_work_id').val(work_id);
+        modal.find('#edit_work_id').val(parseInt(work_id));
         modal.find('#edit_type_id').val(type_id);
         modal.find('#edit_depart_id').val(depart);
         modal.find('#edit_position_id').val(position);
         modal.find('#edit_id').val(id);
-
+        console.log('work_id'+work_id);
     });
+    $('#confirmedit').click(function () {
+        var name = $.trim($('#edit_name').val());
+        var work_id = $.trim($('#edit_work_id').val());
+        var type_id = $.trim($('#edit_type_id').val());
+        var depart_id = $('#edit_depart_id').val();
+        var position_id = $('#edit_position_id').val();
+        var edit_id = $('#edit_id').val();
+        if (name.length==0 || work_id.length==0){
+            alert('输入不能为空！');
+            return 0;
+        } else if (name.length > 20){
+            alert('姓名长度不可超过20个字符');
+            return 0;
+        } else if (work_id.length != 10){
+            alert('学/工号长度为10');
+            return 0;
+        }
+        if (!(work_id+"").match(/^\d+$/)) {
+            alert('学/工号必须为整数');
+            return 0;
+        }
+        console.log(name);
+        $.ajax({
+            url:"{:url('manageconfig/whitelist/editwhitelist')}",
+            type:"POST",
+            data:{"name":name,
+                "work_id":work_id,
+                "type_id":type_id,
+                "depart_id":depart_id,
+                "position_id":position_id,
+                "edit_id":edit_id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+
+    })
 </script>
 
 <!--删除人员-->
@@ -369,6 +452,22 @@
         modal.find('#del_id').val(id);
 
     });
+    $('#confirmdel').click(function () {
+        var del_id = $('#del_id').val();
+        $.ajax({
+            url:"{:url('manageconfig/whitelist/delwhitelist')}",
+            type:"POST",
+            data:{
+                "del_id":del_id
+            },
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                alert(data.msg);
+                window.location.reload();
+            }
+        })
+    })
 </script>
 
 <!--Excel添加-->

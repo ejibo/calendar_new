@@ -32,7 +32,7 @@ class ScheduleItem extends Model
      */
  public function insertScheduleItem($des){
      $data = ['name' => $des, 'is_delete' => 0,'update_time'=> date('Y-m-d H:i:s',time())];
-     $res = Db::name('schedule_item')->insert($data);
+     $res = Db::name('schedule_item')->insertGetId($data);
      return $res;
  }
 

@@ -19,10 +19,32 @@ use think\Session;
 
 class Calendar extends Common
 {
+    /**
+     *user为可选参数，有则只选出该用户的，没有则是选出所有用户的
+     */
     public function index(){
-        $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
+        $user=Request::instance()->get('user');
+        if($user){//填了user参数的情况
+            $this->assign('uname',$user);
+            if(is_numeric($user)){//填的是user_id，此处不能用is_long，因为user_id貌似是字符串类型
+                $user_id=$user;
+            }else if(is_string($user)){//用户名的形式，则需要转化成user_id
+                $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+            }
+            if(!empty($user_id)){//是已存在的用户才去默认日程表查看
+                $this->assign('uid',$user_id);
+                $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
+                $this->assign('defaultSchedules',$defaultSchedules);
+            }else{
+                $this->assign('defaultSchedules',array());
+            }
+        }else{//user缺省的情况，检索所有用户的，最多30条数据
+            $this->assign('uname',"");
+            $this->assign('defaultSchedules',ScheduleDefault::getDefaultSchedules());
+        }
         return $this->fetch();
     }
+    /**@deprecated */
     public function search(){
         $user=Request::instance()->get('user');
         $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
@@ -32,6 +54,7 @@ class Calendar extends Common
         $this->assign('uname',$user);
         $defaultSchedules=ScheduleDefault::getDefaultSchedules($user);
         $this->assign('defaultSchedules',$defaultSchedules);
+        return $this->fetch();
 //        return json([
 //            "code"=>1,
 //            "msg"=>"success",
@@ -40,23 +63,25 @@ class Calendar extends Common
 //                "uname"=>$user,
 //                "default_schedule_list"=>$defaultSchedules
 //            ]]);
-        return $this->fetch();
     }
     /**
      * 添加默认事项
      */
-    public function addDefaultSchedule()
-    {
+    public function addDefaultSchedule(){
         $param = Request::instance()->post();
-        $this->validate($param,'ScheduleDefault');
+        $res=$this->validate($param,'ScheduleDefault');
+        if (true!==$res) {
+            return json(['code' => 403, 'msg' => '参数不符合规则：'.$res]);
+        }
         $schedule=new ScheduleDefault();
         try{
-            $schedule->setUserId($param['uid']);
+            $schedule->setUserId($param['user']);
             $schedule->setDay($param['day']);
             $schedule->setTime($param['time']);
             $schedule->checkSameTimeDefaultSchedule();
             $schedule->setPlace($param['place']);
             $schedule->setItem($param['item']);
+            $schedule->setNote($param['note']);
         }catch(\InvalidArgumentException $e) {
             return json(['code'=>$e->getCode(),'msg'=>$e->getMessage(),'data'=>[]]);
         }

@@ -2,6 +2,7 @@
 
 
 namespace app\manageconfig\model;
+use think\Collection;
 use think\Db;
 use think\Model;
 
@@ -10,29 +11,73 @@ class ScheduleDefault extends Model
     /**
      * 获取某用户的默认日程
      *@param user  可以是uname，也可以是uid,如果是NULL或者不填则是选择所有用户的。
-     *@return Array
+     *@return Collection|false|\PDOStatement|string ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     * id,user_id,place_id,time_id,item_id,day,note,<br>
+     * user_name,positon,item,place,time
      */
     public static function getDefaultSchedules($user=NULL){
         $defaultSchedule=new ScheduleDefault();
-        if($user==NULL){
-            return $defaultSchedule->where('is_delete',0)->limit(30)->select();
+        if($user==NULL){//所有用户的
+            return $defaultSchedule->alias( "sd")->
+            where('sd.is_delete', 0)->
+            join("user_info ui", "sd.user_id=ui.id")->
+            where('ui.is_delete', 0)->
+            join("user_position up", "ui.position_id=up.id")->
+            where('up.is_delete', 0)->
+            join("schedule_place sp", "sd.place_id=sp.id")->
+            join("schedule_time st", "sd.time_id=st.id")->
+            join("schedule_item si", "sd.item_id=si.id")->
+            field('user_id,place_id,time_id,item_id,day,note,
+            ui.name as user_name,
+            up.name as position,
+            si.name as item,
+            sp.name as place,
+            sd.id as id,
+            st.name as time')->
+            limit(50)->order(['position_id'=>'asc','user_id'=>'asc','day'=>'asc','time_id'=>'asc'])->select();
+        }else if(is_numeric($user)){
+            $user_id=$user;
         }else if(is_string($user)){
             $user_id=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
-        }else if(is_int($user)){
-            $user_id=$user;
-        }else{
+        }
+        if(!$user_id){
             return array();
         }
-        return $defaultSchedule->where(['user_id'=>$user_id, "is_delete" => 0])-> select();
+        return $defaultSchedule->alias( "sd")->
+        where(['user_id'=>$user_id, "sd.is_delete" => 0])->
+        join("user_info ui", "sd.user_id=ui.id")->
+        join("user_position up", "ui.position_id=up.id")->
+        where('up.is_delete', 0)->
+        join("schedule_place sp", "sd.place_id=sp.id")->
+        join("schedule_time st", "sd.time_id=st.id")->
+        join("schedule_item si", "sd.item_id=si.id")->
+        field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            ui.name as user_name,
+            up.name as position,
+            si.name as item,
+            sp.name as place,
+            st.name as time')->
+        order(['day'=>'asc','time_id'=>'asc'])->select();//指定用户的
     }
-    /*
+    /**
      * 获取某人的星期几的默认日程
-     *@param day 一周的第几天，从1开始，周一为1，周日为7
-     *@return Array ScheduleDefault的数组
+     * @param day 一周的第几天，从1开始，周一为1，周日为7
+     * @return Collection|false|\PDOStatement|string ScheduleDefault的数组.ScheduleDefault包含的属性有<br>
+     * id,place_id,time_id,item_id,day,note,<br>
+     * item,place,time。<br>
+     * 不包含position，如需使用，调用getPosition()方法
      */
     public static function getDefaultScheduleInDay($user_id,$day){
         $defaultSchedule=new ScheduleDefault();
-        $defaultSchedules=$defaultSchedule->where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])-> select();
+        $defaultSchedules=$defaultSchedule->alias( "sd")->
+        where(['user_id'=>$user_id,"day"=>$day, "is_delete" => 0])->
+        join("schedule_place sp", "sd.place_id=sp.id")->
+        join("schedule_time st", "sd.time_id=st.id")->
+        join("schedule_item si", "sd.item_id=si.id")->
+        field('sd.id,user_id,place_id,time_id,item_id,day,note,
+            si.name as item,
+            sp.name as place,
+            st.name as time')->select();
         return $defaultSchedules;
     }
     /**return 周一 => 周日，需要的是数字的话直接调用day属性就行了*/
@@ -48,29 +93,66 @@ class ScheduleDefault extends Model
             default :return "";
         }
     }
-    public function getUname(){
-        return Db::table('user_info')->where('id',$this->getData('user_id'))->value('name');
+
+    /**@param user_id 为NULL则从对象的data里取uid，不为NULL则是获取该user_id对应的uname */
+    public function getUserName($user_id = NULL)
+    {
+        if (array_key_exists("user_name", $this->getData())) {
+            return $this->getData("user_name");//兼容以前的方法
+        }
+        return Db::table('user_info')->
+        where('id', $user_id == NULL ? $this->getData('user_id') : $user_id)->value('name');
+    }
+
+    public function getPosition($position_id = NULL)
+    {
+        if (array_key_exists("position", $this->getData())) {
+            return $this->getData("position");//兼容以前的方法
+        }
+        if (array_key_exists("place", $this->getData())) {
+            $position_id = $this->getData('position_id');
+        } else {
+            $position_id = Db::table('user_info')->where('id', $this->getData('user_id'))->value('position_id');
+        }
+        return Db::table("user_position")->where("id", $position_id)->value("name");
     }
 
     public function getTime(){
+        if(array_key_exists("time",$this->getData())){
+            return $this->getData("time");//兼容以前的方法
+        }
         return Db::table('schedule_time')->where('id', $this->getData('time_id'))->value('name');
     }
 
     public function getPlace(){
+        if(array_key_exists("place",$this->getData())){
+            return $this->getData("place");//兼容以前的方法
+        }
         return Db::table('schedule_place')->where('id', $this->getData('place_id'))->value('name');
     }
 
     public function getItem(){
+        if(array_key_exists("item",$this->getData())){
+            return $this->getData("item");//兼容以前的方法
+        }
         return Db::table('schedule_item')->where('id', $this->getData('item_id'))->value('name');
     }
 
-    public function setUserId($user_id){
-        $this->data('user_id',$user_id);
+
+    /**@param $user 可以是字符串，代表用户名，也可以是整数或字符串整数，代表user_id*/
+    public function setUserId($user){
+        if(is_numeric($user)){//因为uid也是字符串，所以把这层判断放前面
+        }else if(is_string($user)){
+            $user=Db::table("user_info")->where(['name'=>$user,'is_delete'=>0])->value('id');
+            if(!$user){
+                throw new \InvalidArgumentException('用户不存在');
+            }
+        }else{
+            throw new \InvalidArgumentException('user只能是字符串或者整数');
+        }
+        $this->data('user_id',$user);
     }
     public function setDay($day){
-//        if(!is_int($day)||$day<1||$day>7){
-//
-//        }
         $this->data('day',$day);
     }
 
