@@ -39,6 +39,9 @@
                                             </div>
                                         </p>
                                     </div>
+                                    <div>
+                                        <p style="margin-left:16px; margin-top:-6px">注意：最多可维护1000天的范围</p>
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
                                         <button type="button" class="btn btn-success" id="confirm_modify">确认</button>
@@ -106,6 +109,10 @@
         }
         if (!(scope_num + "").match(/^\d+$/)) {
             alert('日程范围必须为自然数');
+            return;
+        }
+        if(scope_num > 1000){
+            alert('最多可维护1000天的范围');
             return;
         }
         //post方法修改
