@@ -147,11 +147,12 @@ class Msgmodel extends Common
         $tit = $_POST['tit'];
         $con = $_POST['con'];
         $regTit = '/^[\x{4e00}-\x{9fa5}a-z][\x{4e00}-\x{9fa5}a-z\d\s]{0,29}[\x{4e00}-\x{9fa5}a-z\d]$/u'; 
-        if(preg_match($regTit,$tit) && strlen($tit)<=140){  //验证标题格式 
+        if(preg_match($regTit,$tit) && strlen($tit)<=140 && preg_match('/[\u4e00-\u9fa5A-Za-z]/u',$con)){  //验证标题格式 
             $model = model('Template');
             $isHasSame = $model->strictGetItemByTitle($tit);
+            $isHasSameContent = $model->strictGetItemByContent($con);
             //$isHasSame = null;
-            if ($isHasSame == null) {
+            if ($isHasSame == null && $isHasSameContent == null) {
                 $res = $model->insertTemplate($tit, $con);
                 if($res){
                     $this->success("新增成功");
@@ -161,7 +162,12 @@ class Msgmodel extends Common
                 }
             }
             else{
-                $this->error("名称重复");
+                if($isHasSame){
+                    $this->error("模板标题已存在");
+                }
+                if($isHasSameContent){
+                    $this->error("模板内容已存在");
+                }
             }
         }
         else{

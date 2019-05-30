@@ -93,12 +93,22 @@ class Template extends Model
     */
     //根据模板名称获取模板，非模糊查询
     public function strictGetItemByTitle($tit){
-        $titleTemp = Db::name('message_template')
+        $Temp = Db::name('message_template')
             ->where('title',$tit)
             ->where('is_delete',0)
             ->select();
-        return $titleTemp;
+        return $Temp;
     }
+
+    public function strictGetItemByContent($cont){
+        $Temp = Db::name('message_template')
+            ->where('content',$cont)
+            ->where('is_delete',0)
+            ->select();
+        return $Temp;
+    }
+
+
     public function insertTemplate($tit, $cont){
         
         $uid = ADMIN_ID; // 获取当前管理员ID

@@ -77,8 +77,8 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                            <input id="itemTit" name="itemTitle" placeholder="模板名称：以汉字或字母开始，以汉字、字母或数字结束，可以使用空格，长度不超过30个字符。" class="form-control" style="margin-bottom: 15px;" />
-                            <textarea id="itemCont" name="itemContent" placeholder="模板内容：长度不超过140个字符。" class="form-control" style='height:180px;' ></textarea>
+                            <input id="itemTit" name="itemTitle" placeholder="标题：仅使用汉字、字母以及空格；以汉字或字母开始，以汉字、字母或数字结束；不超过30字符。" class="form-control" style="margin-bottom: 15px;" />
+                            <textarea id="itemCont" name="itemContent" placeholder="内容：长度不超过140个字符。" class="form-control" style='height:180px;' ></textarea>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -362,11 +362,17 @@
             alert('请输入模板标题！');
             return false;
         }
+        if(titNum > 30){
+            alert('模板标题长度不超过30个字符！');
+            return false;
+        }
         var regTit=/^[\u4e00-\u9fa5a-z][\u4e00-\u9fa5a-z0-9\s]{0,28}[\u4e00-\u9fa5a-z0-9]?$/; 
+        var regCon=/[\u4e00-\u9fa5A-Za-z]/;
         if(!regTit.test(tit)){  //验证标题格式 
             alert('标题格式错误！');
             return false; 
         }
+        
         if(conNum == 0){
             alert('请输入模板内容！');
             return false;
@@ -374,6 +380,10 @@
         if(conNum > 140){
             alert('模板内容过长！')
             return false;
+        }
+        if(!regCon.test(con)){
+            alert('内容必须含有汉字或字母！');
+            return false; 
         }
         //$("#smallmodal1").modal(true,true,true,false);
         
