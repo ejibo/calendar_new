@@ -369,7 +369,7 @@
         var regTit=/^[\u4e00-\u9fa5a-z][\u4e00-\u9fa5a-z0-9\s]{0,28}[\u4e00-\u9fa5a-z0-9]?$/; 
         var regCon=/[\u4e00-\u9fa5A-Za-z]/;
         if(!regTit.test(tit)){  //验证标题格式 
-            alert('标题格式错误！');
+            alert('模板标题格式错误！');
             return false; 
         }
         
@@ -382,7 +382,7 @@
             return false;
         }
         if(!regCon.test(con)){
-            alert('内容必须含有汉字或字母！');
+            alert('模板内容必须含有汉字或字母！');
             return false; 
         }
         //$("#smallmodal1").modal(true,true,true,false);
