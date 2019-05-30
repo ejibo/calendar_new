@@ -400,8 +400,13 @@
         var depart_id = $('#edit_depart_id').val();
         var position_id = $('#edit_position_id').val();
         var edit_id = $('#edit_id').val();
+        var regEn = /[`!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
+        var regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
         if (name.length==0 || work_id.length==0){
             alert('输入不能为空！');
+            return 0;
+        }else if(regEn.test(name) || regCn.test(name)){
+            alert('您输入了非法字符，请重新输入！');
             return 0;
         } else if (name.length > 20){
             alert('姓名长度不可超过20个字符');
