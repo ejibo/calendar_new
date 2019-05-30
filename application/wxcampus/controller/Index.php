@@ -58,8 +58,10 @@ class Index extends Controller
                 $this->addUser($userInfo['name'],$userInfo['card_number']);
             }
            // $this->assign("number",$userInfo['card_number']);
+            $userid = $this->getUserId($userInfo['card_number']);
             $this->assign("name",$userInfo['name']);
             $this->assign("number",$userInfo['card_number']);
+            $this->assign("userid",$userid);
             return $this->fetch();
         }
         else{
