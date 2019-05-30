@@ -81,7 +81,7 @@ class Whitelist extends Model{
     public function edit_exist_work_id($id,$work_id){
         $isexist = Db::table('white_list')
             ->where('work_id',$work_id)
-            ->where('id','not exists',$id)
+            ->where('id','not in',$id)
             ->where('is_delete',0)
             ->find();
         if ($isexist==null){
