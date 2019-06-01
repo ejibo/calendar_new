@@ -45,7 +45,7 @@ class Multiquery extends Controller
         $nameids = array();
         foreach ($names as $name) {
             $buffer = Db::table('user_info')
-            ->where('user_info.name',$name)
+            ->where('user_info.name','like',$name)
             ->field('id')
             ->select();
             if (!empty($buffer)){
