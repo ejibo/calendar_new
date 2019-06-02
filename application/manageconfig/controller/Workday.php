@@ -70,16 +70,16 @@ class Workday extends Common
 
                 
                 //记录到日志里面
-                $model = new LogModel();
-                $uid = ADMIN_ID; // 操作人主键id，非学号
-                $type = 3;
-                $table = 'workday';
-                $field = [
-                $ymd=>[
-                'is_work_day'=> [$befor_is_work_day, $isWorkDay]
-                ]
-                ];
-                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+                //$model = new LogModel();
+                //$uid = ADMIN_ID; // 操作人主键id，非学号
+                //$type = 3;
+                //$table = 'workday';
+                //$field = [
+                //$ymd=>[
+                //'is_work_day'=> [$befor_is_work_day, $isWorkDay]
+                //]
+                //];
+                //$model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
 
 
 
@@ -88,12 +88,12 @@ class Workday extends Common
                 $res = Db::table('workday')->insert(['ymd'=>$ymd,'is_work_day'=>$isWorkDay]);
                 
                 //记录到日志里面
-                $model = new LogModel();
-                $uid = ADMIN_ID; // 操作人主键id，非学号
-                $type = 2;
-                $table = 'workday';
-                $field = [$ymd]; // 增加的主键列表，不是学号
-                $model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
+                //$model = new LogModel();
+                //$uid = ADMIN_ID; // 操作人主键id，非学号
+                //$type = 2;
+                //$table = 'workday';
+                //$field = [$ymd]; // 增加的主键列表，不是学号
+                //$model->recordLogApi ($uid, $type, $table, $field); //需要判断调用是否成功
 
             }
 
