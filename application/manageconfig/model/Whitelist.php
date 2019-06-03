@@ -109,7 +109,7 @@ class Whitelist extends Model{
 
         foreach($list as $data){
             $postdata = [
-                        "user_id" => "#" . $data["work_id"],
+                        "work_id" => "#" . $data["work_id"],
                         "is_delete" => 1,
                         ];
             $cul = db("white_list")->where("id",$data["id"])->update($postdata);
