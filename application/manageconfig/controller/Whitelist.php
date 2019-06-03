@@ -108,6 +108,7 @@ class Whitelist extends Common
         }
     }
 
+    //---------------------------------------------------------------
     /*
     创建： 翁嘉进
     功能： 实现清空白名单操作
@@ -119,16 +120,16 @@ class Whitelist extends Common
     */
 
     public function clearwhitelist(){
-        $whitelist = model('Whitelist');                                  // 调用白名单数据模型
-        $ret_date = $whitelist->clearwhitelist();                         // 通过模型进行清空操作
+        $whitelist = model('Whitelist');                                      // 调用白名单数据模型
+        $ret_date = $whitelist->clearwhitelist();                             // 通过模型进行清空操作
         $is_clear = $ret_date["is_clear"];
         $clear_ids = $ret_date["clear_ids"];
-        $logmodel = new LogModel();                                       // 调用操作日志数据模型
-        $uid = ADMIN_ID;                                                  // 管理员ID
-        $type = 4;                                                        // 操作类型：删除（清空）
-        $table = 'white_list';                                             // 操作数据表
-        $field = '[All whitelist items, total:'.$is_clear.$clear_ids.']';      // 删除的主键列表, 不是学号
-        $logmodel->recordLogApi ($uid, $type, 1, $table, $field);            // 需要判断调用是否成功
+        $logmodel = new LogModel();                                           // 调用操作日志数据模型
+        $uid = ADMIN_ID;                                                      // 管理员ID
+        $type = 4;                                                            // 操作类型：删除（清空）
+        $table = 'white_list';                                                // 操作数据表
+        $field = array('[清空对象共'.$is_clear.'个，其id分别为'.$clear_ids.']');// 删除的主键列表, 不是学号
+        $logmodel->recordLogApi ($uid, $type, 1, $table, $field);             // 需要判断调用是否成功
 
         if ($is_clear >= 0){
             $this->success('修改成功！');
