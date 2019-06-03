@@ -20,6 +20,7 @@ class Whitelist extends Model{
             ->join('user_depart','ui.depart_id = ud.id')
             ->field('ui.id')
             ->select();
+        dump($depart_del);
         Db::table('white_list')->where('id',$depart_del['ui.id'])
             ->update(['is_delete' => 1]);
 
