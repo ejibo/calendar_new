@@ -20,7 +20,6 @@ class Whitelist extends Model{
             ->join('user_depart','ui.depart_id = ud.id')
             ->field('ui.id')
             ->select();
-        dump($depart_del);
         foreach ($depart_del as $item){
             Db::table('white_list')->where('id',$item['id'])
                 ->update(['is_delete' => 1]);
@@ -35,7 +34,6 @@ class Whitelist extends Model{
             ->join('user_position','ui.position_id = up.id')
             ->field('ui.id')
             ->select();
-        dump($position_del);
         foreach ($position_del as $id) {
             Db::table('white_list')->where('id',$id['id'])
                 ->update(['is_delete' => 1]);
