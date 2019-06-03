@@ -12,6 +12,28 @@ use think\Db;
 
 class Whitelist extends Model{
     public function getinfo(){
+        //找到部门已删除但人员未删除的白名单人员，并将其删除
+        $depart_del = Db::table('white_list')
+            ->alias(['white_list' => 'ui', 'user_depart' => 'ud'])
+            ->where('ui.is_delete',0)
+            ->where('ud.is_delete',1)
+            ->join('user_depart','ui.depart_id = ud.id')
+            ->field('ui.id')
+            ->select();
+        Db::table('white_list')->where('id',$depart_del['ui.id'])
+            ->update(['is_delete' => 1]);
+
+        //找到职位已删除但人员未删除的白名单人员，并将其删除
+        $position_del = Db::table('white_list')
+            ->alias(['white_list' => 'ui', 'user_position' => 'up'])
+            ->where('ui.is_delete',0)
+            ->where('up.is_delete',1)
+            ->join('user_position','ui.position_id = up.id')
+            ->field('ui.id')
+            ->select();
+        Db::table('white_list')->where('id',$position_del['ui.id'])
+            ->update(['is_delete' => 1]);
+
         //页面table初始化，得到所有白名单人员的信息
         $info = Db::table('white_list')
             ->alias(['white_list' => 'ui', 'user_depart' => 'ud', 'user_position' => 'up'])
