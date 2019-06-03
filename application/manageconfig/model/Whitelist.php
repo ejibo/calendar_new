@@ -21,7 +21,7 @@ class Whitelist extends Model{
             ->field('ui.id')
             ->select();
         dump($depart_del);
-        Db::table('white_list')->where('id',$depart_del['ui.id'])
+        Db::table('white_list')->where('id',$depart_del)
             ->update(['is_delete' => 1]);
 
         //找到职位已删除但人员未删除的白名单人员，并将其删除
