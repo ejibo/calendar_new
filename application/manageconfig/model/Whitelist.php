@@ -21,8 +21,11 @@ class Whitelist extends Model{
             ->field('ui.id')
             ->select();
         dump($depart_del);
-        Db::table('white_list')->where('id',$depart_del)
-            ->update(['is_delete' => 1]);
+        foreach ($depart_del as $item){
+            Db::table('white_list')->where('id',$item)
+                ->update(['is_delete' => 1]);
+        }
+
 
         //找到职位已删除但人员未删除的白名单人员，并将其删除
         $position_del = Db::table('white_list')
@@ -32,8 +35,11 @@ class Whitelist extends Model{
             ->join('user_position','ui.position_id = up.id')
             ->field('ui.id')
             ->select();
-        Db::table('white_list')->where('id',$position_del)
-            ->update(['is_delete' => 1]);
+        foreach ($position_del as $id) {
+            Db::table('white_list')->where('id',$id)
+                ->update(['is_delete' => 1]);
+        }
+
 
         //页面table初始化，得到所有白名单人员的信息
         $info = Db::table('white_list')
