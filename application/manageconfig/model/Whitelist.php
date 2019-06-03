@@ -91,6 +91,8 @@ class Whitelist extends Model{
         }
     }
 
+
+    //---------------------------------------------------------------
     /*
     创建： 翁嘉进
     功能： 清空白名单操作
@@ -107,8 +109,8 @@ class Whitelist extends Model{
 
         foreach($list as $data){
             $postdata = [
-                    "user_id" => $data["user_id"] * (-1),
-                    "is_delete" => 1,
+                        "user_id" => "#" . $data["work_id"],
+                        "is_delete" => 1,
                         ];
             $cul = db("white_list")->where("id",$data["id"])->update($postdata);
             $is_clear += $cul;
