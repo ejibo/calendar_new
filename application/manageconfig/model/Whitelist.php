@@ -22,7 +22,7 @@ class Whitelist extends Model{
             ->select();
         dump($depart_del);
         foreach ($depart_del as $item){
-            Db::table('white_list')->where('id',$item)
+            Db::table('white_list')->where('id',$item['id'])
                 ->update(['is_delete' => 1]);
         }
 
@@ -37,7 +37,7 @@ class Whitelist extends Model{
             ->select();
         dump($position_del);
         foreach ($position_del as $id) {
-            Db::table('white_list')->where('id',$id)
+            Db::table('white_list')->where('id',$id['id'])
                 ->update(['is_delete' => 1]);
         }
 
