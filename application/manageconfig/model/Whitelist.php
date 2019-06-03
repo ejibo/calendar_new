@@ -32,7 +32,7 @@ class Whitelist extends Model{
             ->join('user_position','ui.position_id = up.id')
             ->field('ui.id')
             ->select();
-        Db::table('white_list')->where('id',$position_del['ui.id'])
+        Db::table('white_list')->where('id',$position_del)
             ->update(['is_delete' => 1]);
 
         //页面table初始化，得到所有白名单人员的信息
