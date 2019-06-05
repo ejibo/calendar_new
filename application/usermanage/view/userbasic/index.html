@@ -13,7 +13,33 @@
                     <button id="batchShow" type="submit" class="btn btn-primary btn-sm">
                         批量添加
                     </button>
-                    <a href="{:url('exportexcel')}" class="btn btn-success btn-sm" >批量导出</a>
+                    <button id="export" type="submit" class="btn btn-success btn-sm" onclick='displayAllCheckbox(),
+                    document.getElementById("exportAll").style.display="inline" ,
+                    document.getElementById("selectexport").style.display="inline" ,
+                    document.getElementById("dismiss").style.display="inline" ,
+
+                    document.getElementById("export").style.display="none" '>
+                        批量导出
+                    </button>
+                    <button style="display:none ;" id="exportAll" type="submit"
+                            class="btn btn-success btn-sm  " onclick="exportAll()">
+                        全部导出
+                    </button>
+                    <button style="display:none ;" id="selectexport" type="submit"
+                            class="btn btn-success btn-sm  " onclick="getexportid()">
+                        导出所选
+                    </button>
+                    <button style="display:none ;" id="dismiss" type="submit"
+                            class="btn btn-success btn-sm "
+                            onclick='hideAllCheckbox() ,
+                                        refreshcheckbox(),
+                                         document.getElementById("exportAll").style.display="none" ,
+                                         document.getElementById("export").style.display="inline" ,
+                                         document.getElementById("selectexport").style.display="none" ,
+                                         document.getElementById("dismiss").style.display="none"'>
+                        取消导出
+                    </button>
+
                     <button id="deletebutton" type="submit" class="btn btn-success btn-sm"
                             onclick=' displayAllCheckbox(),
                                                document.getElementById("button2").style.display="inline" ,
@@ -707,5 +733,47 @@
     })()
 
 
+    </script>
+    <script>
+        function getexportid(){
+            let idarray = new Array();
+            let arrcheckbox = document.getElementsByClassName("checkbox");
+            let cnt = 0
+            for (let k = 0; k < arrcheckbox.length; k++) {
+                if (arrcheckbox[k].checked) {
+                    //获取选中的复选框对应的id
+                    let id = $.trim(arrcheckbox[k].nextSibling.nodeValue);
+                    idarray.push(id);
+                    cnt ++
+                }
+            }
+            console.log(idarray);
+            if (cnt == 0){
+                alert("请选择！");
+                return;
+            }
+            else {
+                var input = document.createElement("input");
+                input.setAttribute("type", "hidden");
+                input.setAttribute("name", "idlist");
+                input.setAttribute("value", idarray);
+
+
+                var form = document.createElement('form');
+                form.setAttribute('method', 'post');
+                form.setAttribute('action', 'exportviaid');
+                form.setAttribute('id', 'export_excel')
+                form.style.display = 'hidden';
+                document.body.appendChild(form)
+                document.getElementById("export_excel").appendChild(input);
+                form.submit();
+                $("#export_excel").remove();
+
+            }
+
+        }
+        function exportAll(){
+            window.location.href="exportexcel";
+        }
     </script>
 {/block}
