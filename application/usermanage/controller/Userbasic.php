@@ -254,6 +254,71 @@ class Userbasic extends Common
         return 'ok';
     }
 
+
+    //导出指定id的用户信息excel
+    public function exportviaid(){
+        $idstrings = $_POST['idlist'];
+        $idArray = explode(",", $idstrings);
+        $info = array();
+        foreach ($idArray as $item){
+            $tmp_info = model("Userbasic")->getinfoviaid($item);
+            array_push($info, $tmp_info);
+
+        }
+
+        $spreadsheet = new Spreadsheet();
+        $spreadsheet->setActiveSheetIndex(0)
+            ->setCellValue('A1', 'ID')
+            ->setCellValue('B1', '用户姓名')
+            ->setCellValue('C1', '工号/学号')
+            ->setCellValue('D1', '用户类型：')
+            ->setCellValue('E1', '所属部门')
+            ->setCellValue('F1', '职位');
+        $departdict = array(0 => "普通用户", 1 => "院领导", 2 => "部门领导", 3 => "系领导");
+        $spreadsheet->getActiveSheet()->setTitle('用户信息');
+        //dump($info);
+        $i = 2; //从第二行开始
+        foreach ($info as $data) {
+            $spreadsheet->getActiveSheet()
+                ->setCellValue('A' . $i, $data[0]['id'])
+                ->setCellValue('B' . $i, $data[0]['ui_name'])
+                ->setCellValue('C' . $i, $data[0]['work_id'])
+                ->setCellValue('D' . $i, $departdict[$data[0]['type_id']])
+                ->setCellValue('E' . $i, $data[0]['ud_name'])
+                ->setCellValue('F' . $i, $data[0]['up_name']);
+
+            $i++;
+        }
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('A')
+            ->setWidth(10);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('B')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('C')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('D')
+            ->setWidth(15);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('E')
+            ->setWidth(20);
+        $spreadsheet->getActiveSheet()
+            ->getColumnDimension('F')
+            ->setWidth(15);
+
+        $spreadsheet->getActiveSheet()->getStyle('A1:F' . $i)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
+//        dump($spreadsheet);
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="用户信息.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
+    }
+
     //导出用户信息的excel
     public function exportexcel()
     {
@@ -301,8 +366,6 @@ class Userbasic extends Common
             ->setWidth(15);
 
         $spreadsheet->getActiveSheet()->getStyle('A1:F' . $i)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
-
-
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="用户信息.xlsx"');
         header('Cache-Control: max-age=0');

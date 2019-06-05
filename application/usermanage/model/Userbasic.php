@@ -23,6 +23,20 @@ class Userbasic extends Model{
             ->select();
         return $info;
     }
+    // 通过id得到信息
+    public function getinfoviaid($data){
+        $info = Db::table('user_info')
+            ->alias(['user_info' => 'ui', 'user_depart' => 'ud', 'user_position' => 'up'])
+            ->where('ui.id',$data)
+            ->where('ui.is_delete',0)
+            ->where('ud.is_delete',0)
+            ->where('up.is_delete',0)
+            ->join('user_depart','ui.depart_id = ud.id')
+            ->join('user_position','ui.position_id = up.id')
+            ->field('ui.id,ui.name as ui_name,ui.work_id,ui.type_id,ui.depart_id,ui.position_id,ud.name as ud_name,up.name as up_name')
+            ->select();
+        return $info;
+    }
     //得到所有部门信息
     public function getdepart(){
         $depart = Db::table('user_depart')->where('is_delete',0)->field('id,name')->select();
