@@ -24,12 +24,13 @@ class Adminbasic extends Common
     // show 10 admins per page
     //$admin_list = ManageInfoModel::paginate(100);
     $resp['current_status'] = -1;
-    $admin_list = ManageInfoModel::paginate(10);
+    $admin_list = ManageInfoModel::paginate(1000);
+    // $admin_list = db('manage_info') -> select();
     if(input('?get.status')){
       $status = Request::instance()->param('status');
       //dump($status); die;
       if ((int)$status >= 0){
-        $admin_list = ManageInfoModel::where('is_delete',$status) -> paginate(10);
+        $admin_list = ManageInfoModel::where('is_delete',$status) -> paginate(1000);
         $resp['current_status'] = (int)$status;
       }
     }
