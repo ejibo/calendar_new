@@ -124,7 +124,7 @@ class Power extends Common
             $this->success('删除权限成功');
         } elseif ($del_count !== 0) {
             $this->error('权限尚未全部删除成功');
-        } elseif ($del_count === 0) {
+        } elseif ($del_count == 0) {
             $this->error('删除权限失败');
         }
     }
