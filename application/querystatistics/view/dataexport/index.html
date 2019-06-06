@@ -34,11 +34,12 @@
                                     }
                                 </style>
                                 <form method="post" action="{:url('Dataexport/export')}" >
-                                    <label for="starttime">开始日期：</label><input id="starttime" name="start" type="date" value="2019-06-1"/>
-                                    <label for="endtime">开始日期：</label><input id="endtime" name="end" type="date" value="2019-06-1"/>
-                                <p><input type="button" class ="btn-ex"  value="导出全部用户历史日程"></p>
+                                    <p>
+                                        <label for="starttime">开始日期：</label><input id="starttime" name="start" type="date" value="2019-06-1"/>
+                                        <label for="endtime">开始日期：</label><input id="endtime" name="end" type="date" value="2019-06-1"/>
+                                    </p>
+                                    <p><button  class ="btn-ex"> 导出全部用户历史日程</button></p>
                                 </form>
-
                                 <form method="post" action="{:url('Dataexport/exportuser')}" >
                                     <p><label>姓名/工号</label>
                                         <input type="text" name="username" class ="" id = "inputname"  placeholder="请输入用户姓名或工号">
