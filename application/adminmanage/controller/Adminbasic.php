@@ -11,6 +11,7 @@ use app\common\controller\Common;
 use app\adminmanage\model\ManageInfo as ManageInfoModel;
 use think\Config;
 use \think\Request;
+use app\adminmanage\controller\Auth;
 
 class Adminbasic extends Common
 {
@@ -38,10 +39,13 @@ class Adminbasic extends Common
       if ($_group_title){
         $group_title = $_group_title[0]['title'];
         $v['group_title'] = $group_title;
+        $v['group_id'] = $_group_title[0]['group_id'];
       }else{
         $v['group_title'] = '未设置组权限';
+        $v['group_id'] = -1;
       }
     }
+
     $resp['admin_list'] = $admin_list;
     $resp['status_list'] = Config::get('STATUS');
     $this -> assign('resp', $resp);
@@ -155,6 +159,21 @@ class Adminbasic extends Common
   public function del(){
     $id = input('id');
     $admin = db('manage_info') -> find($id);
+    $auth = new Auth();
+    $admin_groupId = $auth -> getGroups($id);
+    // dump($admin_groupId); die;
+    // if (!array_key_exists(0, $admin_groupId)){
+    //   dump("NULL"); die;
+    // } else {
+    //   dump($admin_groupId[0]['group_id']); die;
+    // }
+
+    if (array_key_exists(0, $admin_groupId)){
+      if ($admin_groupId[0]['group_id'] == 1){
+        // dump($admin_groupId[0]['group_id']); die;
+        $this -> error('禁止删除超级管理员', 'index');
+      }
+    }
 
     if($admin['is_delete'] == 0){
       // 更新数据表中的数据
@@ -172,6 +191,7 @@ class Adminbasic extends Common
   public function recover(){
     $id = input('id');
     $admin = db('manage_info') -> find($id);
+    
     if($admin['is_delete'] == 1){
       // 更新数据表中的数据
       if (db('manage_info')->where('id',$id)->update(['is_delete' => 0])){
