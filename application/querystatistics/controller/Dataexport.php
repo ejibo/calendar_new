@@ -14,7 +14,9 @@ class Dataexport extends Common
     }
     public function export(){
 //1.从数据库中取出数据
-        $list = Db::name('schedule_info')->select();
+        $start = request()->post("start");
+        $end = request()->post("end");
+        $list = Db::name('schedule_info')->where('date','<= ',$end )->where('date','>= ',$start )-> where('isdelete',"=", 0)->select();
         //2.加载PHPExcle类库
         vendor('PHPExcel.PHPExcel');
         //3.实例化PHPExcel类
@@ -79,7 +81,6 @@ class Dataexport extends Common
             $user_time = Db::name("schedule_time")->where(["id" => $list[$i]['time_id']])->find()['name'];
             $user_place = Db::name("schedule_place")->where(["id" => $list[$i]['place_id']])->find()['name'];
             $user_item = Db::name("schedule_item")->where(["id" => $list[$i]['item_id']])->find()['name'];
-
             $objPHPExcel->getActiveSheet()->setCellValue('A'.($i+2),$list[$i]['id']);
             $objPHPExcel->getActiveSheet()->setCellValue('B'.($i+2),$user_name);
             $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+2),$user_workid);
@@ -117,6 +118,8 @@ class Dataexport extends Common
         //1.从数据库中取出数据
         header("Content-type:text/html;charset=utf-8");
         $input = request()->post("username");
+        $start = request()->post("start");
+        $end = request()->post("end");
         if ($input == '') {
             $this->error("请输入用户姓名或工号");
         } else {
@@ -196,7 +199,6 @@ class Dataexport extends Common
                     $user_time = Db::name("schedule_time")->where(["id" => $list[$i]['time_id']])->find()['name'];
                     $user_place = Db::name("schedule_place")->where(["id" => $list[$i]['place_id']])->find()['name'];
                     $user_item = Db::name("schedule_item")->where(["id" => $list[$i]['item_id']])->find()['name'];
-
                     $objPHPExcel->getActiveSheet()->setCellValue('A'.($i+2),$list[$i]['id']);
                     $objPHPExcel->getActiveSheet()->setCellValue('B'.($i+2),$user_name);
                     $objPHPExcel->getActiveSheet()->setCellValue('C'.($i+2),$user_workid);
