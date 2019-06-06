@@ -27,6 +27,7 @@
                   <tbody>
 
                     {volist name="auth_rule_list" id="auth_rule"}
+                    {if condition="auth_rule.status == 1"}
                     <tr>
                         <th scope="row">{$auth_rule.id}</th>
                         <td><input name="{$auth_rule.id}" type="text" style="width:50px; text-align:center;" value="{$auth_rule.sort}"></td>
@@ -38,6 +39,7 @@
                           <button class="btn btn-danger btn-sm" type="button"><a href="#" onclick="warning('确实要删除吗', '{:url('power/del', array('id' => $auth_rule['id']))}')" style="color:#fff;"><i class="fa fa-trash-o"></i>&nbsp; 删除</a></button>
                         </td>
                     </tr>
+                    {if /}
                     {/volist}
 
                 </tbody>
