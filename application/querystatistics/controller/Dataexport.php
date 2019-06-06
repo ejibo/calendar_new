@@ -72,7 +72,7 @@ class Dataexport extends Common
             $user_workid =$user_info['work_id'];
             $user_departid =$user_info['depart_id'];
             $user_positionid =$user_info['position_id'];
-            $user_date = $user_info['date'];
+            $user_date = $list[$i]['date'];
             $user_depart = Db::name("user_depart")->where(["id" => $user_departid])->find()['name'];
             $user_position = Db::name("user_position")->where(["id" => $user_positionid])->find()['name'];
 
@@ -190,7 +190,7 @@ class Dataexport extends Common
                     $user_workid = $user_info['work_id'];
                     $user_departid = $user_info['depart_id'];
                     $user_positionid = $user_info['position_id'];
-                    $user_date = $user_info['date'];
+                    $user_date = $list[$i]['date'];
                     $user_depart = Db::name("user_depart")->where(["id" => $user_departid])->find()['name'];
                     $user_position = Db::name("user_position")->where(["id" => $user_positionid])->find()['name'];
                     $user_time = Db::name("schedule_time")->where(["id" => $list[$i]['time_id']])->find()['name'];
