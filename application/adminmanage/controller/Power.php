@@ -120,7 +120,7 @@ class Power extends Common
         /*
          * TODO
          * */
-        if ($del_count === $authRuleIds.length) {
+        if ($del_count === count($authRuleIds)) {
             $this->success('删除权限成功');
         } elseif ($del_count !== 0) {
             $this->error('权限尚未全部删除成功');
