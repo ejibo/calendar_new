@@ -16,7 +16,6 @@ class Dataexport extends Common
 //1.从数据库中取出数据
         $start = request()->post("start");
         $end = request()->post("end");
-        print($start);
         $list = Db::name('schedule_info')->where('date',"<",$end)->where('date',">", $start )-> where('is_delete',"=", 0)->select();
         //2.加载PHPExcle类库
         vendor('PHPExcel.PHPExcel');
@@ -128,13 +127,12 @@ class Dataexport extends Common
                 $user_id = Db::name('user_info')->where(["work_id" => intval($input)])->find()['id'];
 
             } else {
-
                 $user_id = Db::name('user_info')->where(["name" => $input])->find()['id'];
             }
             if ($user_id == '') {
                 $this->error("该用户不存在或输入有误");}
             else {
-                $list = Db::name('schedule_info')->where(["user_id" => $user_id])->select();
+                $list = Db::name('schedule_info')->where(["user_id" => $user_id])->where('date',"<",$end)->where('date',">", $start )-> where('is_delete',"=", 0)->select();
                 echo('ssss');
                 //2.加载PHPExcle类库
                 vendor('PHPExcel.PHPExcel');
