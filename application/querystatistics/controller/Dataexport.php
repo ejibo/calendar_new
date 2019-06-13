@@ -16,7 +16,7 @@ class Dataexport extends Common
 //1.从数据库中取出数据
         $start = request()->post("start");
         $end = request()->post("end");
-        $list = Db::name('schedule_info')->where('date','<= time ',$end )->where('date','>= time ',$start )-> where('isdelete',"=", 0)->select();
+        $list = Db::name('schedule_info')->where('date','<= ',$end )->where('date','>= ',$start )-> where('isdelete',"=", 0)->select();
         //2.加载PHPExcle类库
         vendor('PHPExcel.PHPExcel');
         //3.实例化PHPExcel类
